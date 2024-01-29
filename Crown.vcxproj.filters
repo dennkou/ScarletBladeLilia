@@ -1,0 +1,689 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClCompile Include="Crown\System.cpp">
+      <Filter>Crown</Filter>
+    </ClCompile>
+    <ClCompile Include="Crown\Object\Window.cpp">
+      <Filter>Crown\Object</Filter>
+    </ClCompile>
+    <ClCompile Include="Crown\Object\RenderSystem\RenderSystem.cpp">
+      <Filter>Crown\Object\RenderSystem</Filter>
+    </ClCompile>
+    <ClCompile Include="Crown\Object\RenderSystem\DirectX12Wraps\CommandAllocator.cpp">
+      <Filter>Crown\Object\RenderSystem\DirectX12Wraps</Filter>
+    </ClCompile>
+    <ClCompile Include="Crown\Object\RenderSystem\DirectX12Wraps\GraphicPipeline.cpp">
+      <Filter>Crown\Object\RenderSystem\DirectX12Wraps</Filter>
+    </ClCompile>
+    <ClCompile Include="Crown\Object\RenderSystem\DirectX12Wraps\GraphicsCommandList.cpp">
+      <Filter>Crown\Object\RenderSystem\DirectX12Wraps</Filter>
+    </ClCompile>
+    <ClCompile Include="Crown\Object\RenderSystem\DirectX12Wraps\SwapChain.cpp">
+      <Filter>Crown\Object\RenderSystem\DirectX12Wraps</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\Game.cpp">
+      <Filter>Game</Filter>
+    </ClCompile>
+    <ClCompile Include="Crown\Object\RenderSystem\Model\ModelManager.cpp">
+      <Filter>Crown\Object\RenderSystem\Model</Filter>
+    </ClCompile>
+    <ClCompile Include="Crown\Object\RenderSystem\Model\Model.cpp">
+      <Filter>Crown\Object\RenderSystem\Model</Filter>
+    </ClCompile>
+    <ClCompile Include="Crown\Object\RenderSystem\Model\Vertices.cpp">
+      <Filter>Crown\Object\RenderSystem\Model</Filter>
+    </ClCompile>
+    <ClCompile Include="Crown\Object\RenderSystem\DirectX12Wraps\ResourceUploader.cpp">
+      <Filter>Crown\Object\RenderSystem\DirectX12Wraps</Filter>
+    </ClCompile>
+    <ClCompile Include="Crown\Object\RenderSystem\DirectX12Wraps\DescriptorHeaps.cpp">
+      <Filter>Crown\Object\RenderSystem\DirectX12Wraps</Filter>
+    </ClCompile>
+    <ClCompile Include="Crown\Object\RenderSystem\Model\MaterialMesh.cpp">
+      <Filter>Crown\Object\RenderSystem\Model</Filter>
+    </ClCompile>
+    <ClCompile Include="Crown\Object\RenderSystem\DirectX12Wraps\RootSignature.cpp">
+      <Filter>Crown\Object\RenderSystem\DirectX12Wraps</Filter>
+    </ClCompile>
+    <ClCompile Include="Crown\Object\RenderSystem\Model\Material.cpp">
+      <Filter>Crown\Object\RenderSystem\Model</Filter>
+    </ClCompile>
+    <ClCompile Include="Crown\Object\RenderSystem\Model\ModelLoader.cpp">
+      <Filter>Crown\Object\RenderSystem\Model</Filter>
+    </ClCompile>
+    <ClCompile Include="Crown\Object\RenderSystem\TextureBuffer.cpp">
+      <Filter>Crown\Object\RenderSystem</Filter>
+    </ClCompile>
+    <ClCompile Include="Crown\Object\RenderSystem\RenderCommands\RenderCommandFactory.cpp">
+      <Filter>Crown\Object\RenderSystem\RenderCommands</Filter>
+    </ClCompile>
+    <ClCompile Include="Crown\Object\RenderSystem\RenderCommands\RenderCommandQueue.cpp">
+      <Filter>Crown\Object\RenderSystem\RenderCommands</Filter>
+    </ClCompile>
+    <ClCompile Include="Crown\Object\RenderSystem\RenderCommands\SetDescriptor.cpp">
+      <Filter>Crown\Object\RenderSystem\RenderCommands\Command</Filter>
+    </ClCompile>
+    <ClCompile Include="main.cpp" />
+    <ClCompile Include="Crown\Object\RenderSystem\BlobConstBuffer\BlobConstBuffer.cpp">
+      <Filter>Crown\Object\RenderSystem\BlobConstBuffer</Filter>
+    </ClCompile>
+    <ClCompile Include="Crown\Object\RenderSystem\Camera.cpp">
+      <Filter>Crown\Object\RenderSystem\Model</Filter>
+    </ClCompile>
+    <ClCompile Include="Crown\Object\RenderSystem\RenderCommands\SetDescriptorHeap.cpp">
+      <Filter>Crown\Object\RenderSystem\RenderCommands\Command</Filter>
+    </ClCompile>
+    <ClCompile Include="Crown\Object\RenderSystem\RenderCommands\SetRootSignature.cpp">
+      <Filter>Crown\Object\RenderSystem\RenderCommands\Command</Filter>
+    </ClCompile>
+    <ClCompile Include="Crown\Object\RenderSystem\Shader.cpp">
+      <Filter>Crown\Object\RenderSystem</Filter>
+    </ClCompile>
+    <ClCompile Include="Crown\Object\RenderSystem\RenderCommands\SetPipelineState.cpp">
+      <Filter>Crown\Object\RenderSystem\RenderCommands\Command</Filter>
+    </ClCompile>
+    <ClCompile Include="Crown\Object\RenderSystem\RenderCommands\SetVertexBuffer.cpp">
+      <Filter>Crown\Object\RenderSystem\RenderCommands\Command</Filter>
+    </ClCompile>
+    <ClCompile Include="Crown\Object\RenderSystem\RenderCommands\SetIndexBuffer.cpp">
+      <Filter>Crown\Object\RenderSystem\RenderCommands\Command</Filter>
+    </ClCompile>
+    <ClCompile Include="Crown\Object\RenderSystem\RenderCommands\SetPrimitiveTopology.cpp">
+      <Filter>Crown\Object\RenderSystem\RenderCommands\Command</Filter>
+    </ClCompile>
+    <ClCompile Include="Crown\Object\RenderSystem\Model\FileType\Pmd.cpp">
+      <Filter>Crown\Object\RenderSystem\Model\FileType</Filter>
+    </ClCompile>
+    <ClCompile Include="Crown\Object\RenderSystem\Model\FileType\Pmx.cpp">
+      <Filter>Crown\Object\RenderSystem\Model\FileType</Filter>
+    </ClCompile>
+    <ClCompile Include="Crown\Object\RenderSystem\Model\Bone.cpp">
+      <Filter>Crown\Object\RenderSystem\Model</Filter>
+    </ClCompile>
+    <ClCompile Include="Crown\Object\RenderSystem\Animation\AnimationData.cpp">
+      <Filter>Crown\Object\RenderSystem\Animation</Filter>
+    </ClCompile>
+    <ClCompile Include="Crown\Object\RenderSystem\Animation\AnimationDataManager.cpp">
+      <Filter>Crown\Object\RenderSystem\Animation</Filter>
+    </ClCompile>
+    <ClCompile Include="Crown\Object\RenderSystem\UI\UiManager.cpp">
+      <Filter>Crown\Object\RenderSystem\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="Crown\Object\RenderSystem\UI\Ui.cpp">
+      <Filter>Crown\Object\RenderSystem\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="Crown\Object\RenderSystem\UI\UIType\UiGraphic.cpp">
+      <Filter>Crown\Object\RenderSystem\UI\UIType</Filter>
+    </ClCompile>
+    <ClCompile Include="Crown\Object\RenderSystem\TestSystem\TestSystem.cpp">
+      <Filter>Crown\Object\RenderSystem\TestSystem</Filter>
+    </ClCompile>
+    <ClCompile Include="Crown\Object\RenderSystem\TestSystem\PipelineStateManager.cpp">
+      <Filter>Crown\Object\RenderSystem\TestSystem</Filter>
+    </ClCompile>
+    <ClCompile Include="Crown\Object\RenderSystem\TestSystem\DrawCall.cpp">
+      <Filter>Crown\Object\RenderSystem\TestSystem</Filter>
+    </ClCompile>
+    <ClCompile Include="Crown\Object\RenderSystem\RenderTarget.cpp">
+      <Filter>Crown\Object\RenderSystem</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\GameObject\GameObject.cpp">
+      <Filter>Game\GameObject</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\Timer.cpp">
+      <Filter>Game</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\GameObject\UI\GameUI.cpp">
+      <Filter>Game\GameObject\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\GameObject\Stage\Object\Character\Character.cpp">
+      <Filter>Game\GameObject\Stage\Object\Character</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\Debug\DebugLog.cpp">
+      <Filter>Game\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\GameObject\Stage\Object\Character\Enemy\Enemy.cpp">
+      <Filter>Game\GameObject\Stage\Object\Character\Enemy</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\GameObject\Stage\Object\Character\Player\Player.cpp">
+      <Filter>Game\GameObject\Stage\Object\Character\Player</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\GameObject\Stage\Object\Character\Player\PlayerCamera.cpp">
+      <Filter>Game\GameObject\Stage\Object\Character\Player</Filter>
+    </ClCompile>
+    <ClCompile Include="Crown\Object\Input.cpp">
+      <Filter>Crown\Object</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\GameObject\Input\GameInput.cpp">
+      <Filter>Game\GameObject\Input</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\GameObject\Stage\Object\Object.cpp">
+      <Filter>Game\GameObject\Stage\Object</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\GameObject\UI\State\Play\UIPlay.cpp">
+      <Filter>Game\GameObject\UI\State</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\GameObject\UI\State\Title\UITitle.cpp">
+      <Filter>Game\GameObject\UI\State\Title</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\GameObject\UI\State\Title\State\UITitleFadeIn.cpp">
+      <Filter>Game\GameObject\UI\State\Title\State</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\GameObject\UI\State\Title\State\UITitleFadeOut.cpp">
+      <Filter>Game\GameObject\UI\State\Title\State</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\GameObject\UI\State\Title\State\UITitleMenu.cpp">
+      <Filter>Game\GameObject\UI\State\Title\State</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\GameObject\UI\State\Title\State\UITitlePleaseSpaceKey.cpp">
+      <Filter>Game\GameObject\UI\State\Title\State</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\GameObject\UI\State\Title\State\MenuState\TitleMenu.cpp">
+      <Filter>Game\GameObject\UI\State\Title\State\MenuState</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\GameObject\UI\State\Title\State\MenuState\TitleMenuMenuIn.cpp">
+      <Filter>Game\GameObject\UI\State\Title\State\MenuState</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\GameObject\UI\State\Title\State\MenuState\TitleMenuTitleMove.cpp">
+      <Filter>Game\GameObject\UI\State\Title\State\MenuState</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\GameObject\Render\MaterialFactory.cpp">
+      <Filter>Game\GameObject\Render</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\GameObject\Render\Render.cpp">
+      <Filter>Game\GameObject\Render</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\GameObject\Stage\Stage.cpp">
+      <Filter>Game\GameObject\Stage</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\GameObject\Stage\StageObject\StageObject.cpp">
+      <Filter>Game\GameObject\Stage\StageObjcet</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\GameObject\Stage\Object\Character\Player\PlayerState\PlayerTitle.cpp">
+      <Filter>Game\GameObject\Stage\Object\Character\Player\State</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\GameObject\Stage\Object\Character\Player\PlayerState\PlayerDefault\PlayerDefault.cpp">
+      <Filter>Game\GameObject\Stage\Object\Character\Player\State\PlayerStateDefault</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\GameObject\Stage\Object\Character\Player\PlayerState\PlayerDefault\PlayerRun.cpp">
+      <Filter>Game\GameObject\Stage\Object\Character\Player\State\PlayerStateDefault</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\GameObject\Stage\Object\Character\Player\PlayerState\PlayerDefault\PlayerStand.cpp">
+      <Filter>Game\GameObject\Stage\Object\Character\Player\State\PlayerStateDefault</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\GameObject\Stage\Object\Character\Player\PlayerState\PlayerAttack.cpp">
+      <Filter>Game\GameObject\Stage\Object\Character\Player\State</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\GameObject\Stage\Object\Character\Player\PlayerState\PlayerAvoidance.cpp">
+      <Filter>Game\GameObject\Stage\Object\Character\Player\State</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\GameObject\Stage\Collider\ColliderSystem.cpp">
+      <Filter>Game\GameObject\Stage\Collider</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\GameObject\Stage\Collider\PlayerCollider.cpp">
+      <Filter>Game\GameObject\Stage\Collider</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\GameObject\Stage\Collider\StageCollider.cpp">
+      <Filter>Game\GameObject\Stage\Collider</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\GameObject\Stage\Collider\EnemyCollider.cpp">
+      <Filter>Game\GameObject\Stage\Collider</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="Crown">
+      <UniqueIdentifier>{ed024ba7-10b6-46dc-af02-0baa02ea058d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Crown\Object">
+      <UniqueIdentifier>{86baee08-5e15-444a-af81-7a09bd6fd883}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game">
+      <UniqueIdentifier>{1c6eec3d-2d5c-424d-ae48-e80b2eedaba9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Crown\Object\RenderSystem">
+      <UniqueIdentifier>{4cb410dd-bef0-4ede-9bd1-b28dc4a8f26f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Crown\Object\RenderSystem\DirectX12Wraps">
+      <UniqueIdentifier>{858bc5d9-f677-4520-93f3-4328e835c54f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Crown\Object\RenderSystem\Model">
+      <UniqueIdentifier>{2fde15c9-74f7-4820-8427-b5b78c0bd3ce}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Crown\Debug">
+      <UniqueIdentifier>{cee9fb0d-50e7-402b-b0ee-5dffcb1b7333}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Crown\Object\RenderSystem\RenderCommands">
+      <UniqueIdentifier>{ffe809f0-19e8-420a-8ffc-e80e8c785708}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Crown\Object\RenderSystem\RenderCommands\Command">
+      <UniqueIdentifier>{f31e12dc-046d-492e-8145-520832fb7c02}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Crown\Object\RenderSystem\BlobConstBuffer">
+      <UniqueIdentifier>{eb35ba6a-2a07-4d15-83b3-4058e8372286}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Crown\Shader">
+      <UniqueIdentifier>{b308b916-f115-4ff9-b16a-4f5fd49f80f1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Crown\Object\RenderSystem\Model\FileType">
+      <UniqueIdentifier>{a50af839-4d7f-42ef-aae4-4a09f564a676}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\GameObject">
+      <UniqueIdentifier>{89d47cc4-c32a-49c8-8f5b-70788c385559}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Crown\Object\RenderSystem\Animation">
+      <UniqueIdentifier>{827a87d1-348e-4825-85b5-bccde79f3753}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Crown\Object\RenderSystem\UI">
+      <UniqueIdentifier>{48b39d6c-dda6-400f-ae04-e08cff540eee}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Crown\Object\RenderSystem\UI\UIType">
+      <UniqueIdentifier>{4f14921a-3b28-4f8d-b317-470c399bde01}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Crown\Shader\MMD">
+      <UniqueIdentifier>{1cb5e955-0e9d-4b72-a358-62d5b721d2a0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Crown\Shader\UI">
+      <UniqueIdentifier>{5156f6f8-39c1-45f0-b6c4-2485ae2328d6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Crown\Object\RenderSystem\TestSystem">
+      <UniqueIdentifier>{ccd819b8-7fea-42b9-b5a8-f7c98b616fff}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\DesignPatterns">
+      <UniqueIdentifier>{03dca546-201e-4494-8c3a-c9aa965165fc}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\GameObject\UI">
+      <UniqueIdentifier>{dbcce43f-c596-4024-8800-99a48e1cc166}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Shader">
+      <UniqueIdentifier>{2704c107-0998-4552-b8d7-2d39dd78f672}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\GameObject\UI\State">
+      <UniqueIdentifier>{17086f54-e621-40ab-8585-83faef615924}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\GameObject\UI\State\Title">
+      <UniqueIdentifier>{450e1de5-6951-4596-9a37-6339dc0c90c9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\GameObject\UI\State\Title\State">
+      <UniqueIdentifier>{224f0a98-51f2-4528-8f23-e0c5b6bfc6bc}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\GameObject\Input">
+      <UniqueIdentifier>{2946c7e8-b208-4220-926a-efa5eed5aa7b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\GameObject\UI\State\Title\State\MenuState">
+      <UniqueIdentifier>{4f09a291-7a5f-4c11-893e-675440a49828}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\Debug">
+      <UniqueIdentifier>{7671c609-6125-4b2e-828c-2ddfcb339a76}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\GameObject\Render">
+      <UniqueIdentifier>{f08fc60a-8d67-46d0-b408-df7955773fa7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\GameObject\Stage">
+      <UniqueIdentifier>{c678e3c1-74ce-415c-a952-cca8487cde8c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\GameObject\Stage\Object">
+      <UniqueIdentifier>{0195b8f0-8fe5-4b8b-a1f1-0a810c6f0735}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\GameObject\Stage\Object\Character">
+      <UniqueIdentifier>{09db1fe3-26ee-4f36-a4c8-d87567dc28e9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\GameObject\Stage\Object\Character\Player">
+      <UniqueIdentifier>{120cfe81-f0ff-466a-b008-d50b8215bc7d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\GameObject\Stage\Object\Character\Player\State">
+      <UniqueIdentifier>{e9c89725-acd7-40e7-bb19-2c89de464bc6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\GameObject\Stage\Object\Character\Enemy">
+      <UniqueIdentifier>{4137ed56-853c-4061-af7c-b7e07e5416cc}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\GameObject\Stage\StageObjcet">
+      <UniqueIdentifier>{50e10b08-55f1-4bb8-9053-6be958fa573b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\GameObject\Stage\Object\Character\Player\State\PlayerStateDefault">
+      <UniqueIdentifier>{c671373b-72b5-4061-8c49-47cdfe1db03f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Shader\Riria">
+      <UniqueIdentifier>{aa845d93-ee47-4f90-8dab-7a240cadaa0b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\GameObject\Stage\Collider">
+      <UniqueIdentifier>{36e0536c-c527-4066-9165-1a8745f56f45}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Crown\System.h">
+      <Filter>Crown</Filter>
+    </ClInclude>
+    <ClInclude Include="Crown\Object\Window.h">
+      <Filter>Crown\Object</Filter>
+    </ClInclude>
+    <ClInclude Include="Crown\Object\RenderSystem\RenderSystem.h">
+      <Filter>Crown\Object\RenderSystem</Filter>
+    </ClInclude>
+    <ClInclude Include="Crown\Object\RenderSystem\DirectX12Wraps\CommandAllocator.h">
+      <Filter>Crown\Object\RenderSystem\DirectX12Wraps</Filter>
+    </ClInclude>
+    <ClInclude Include="Crown\Object\RenderSystem\DirectX12Wraps\GraphicPipeline.h">
+      <Filter>Crown\Object\RenderSystem\DirectX12Wraps</Filter>
+    </ClInclude>
+    <ClInclude Include="Crown\Object\RenderSystem\DirectX12Wraps\GraphicsCommandList.h">
+      <Filter>Crown\Object\RenderSystem\DirectX12Wraps</Filter>
+    </ClInclude>
+    <ClInclude Include="Crown\Object\RenderSystem\DirectX12Wraps\SwapChain.h">
+      <Filter>Crown\Object\RenderSystem\DirectX12Wraps</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\Game.h">
+      <Filter>Game</Filter>
+    </ClInclude>
+    <ClInclude Include="Crown\Object\RenderSystem\Model\ModelManager.h">
+      <Filter>Crown\Object\RenderSystem\Model</Filter>
+    </ClInclude>
+    <ClInclude Include="Crown\Object\RenderSystem\Model\MaterialTag.h">
+      <Filter>Crown\Object\RenderSystem\Model</Filter>
+    </ClInclude>
+    <ClInclude Include="Crown\Object\RenderSystem\Model\Model.h">
+      <Filter>Crown\Object\RenderSystem\Model</Filter>
+    </ClInclude>
+    <ClInclude Include="Crown\Object\RenderSystem\Model\Vertices.h">
+      <Filter>Crown\Object\RenderSystem\Model</Filter>
+    </ClInclude>
+    <ClInclude Include="Crown\Object\RenderSystem\DirectX12Wraps\ResourceUploader.h">
+      <Filter>Crown\Object\RenderSystem\DirectX12Wraps</Filter>
+    </ClInclude>
+    <ClInclude Include="Crown\Object\RenderSystem\DirectX12Wraps\DescriptorHeaps.h">
+      <Filter>Crown\Object\RenderSystem\DirectX12Wraps</Filter>
+    </ClInclude>
+    <ClInclude Include="Crown\Object\RenderSystem\Model\MaterialMesh.h">
+      <Filter>Crown\Object\RenderSystem\Model</Filter>
+    </ClInclude>
+    <ClInclude Include="Crown\Object\RenderSystem\Model\Material.h">
+      <Filter>Crown\Object\RenderSystem\Model</Filter>
+    </ClInclude>
+    <ClInclude Include="Crown\Object\RenderSystem\DirectX12Wraps\RootSignature.h">
+      <Filter>Crown\Object\RenderSystem\DirectX12Wraps</Filter>
+    </ClInclude>
+    <ClInclude Include="Crown\Object\StringAlgorithm.h">
+      <Filter>Crown\Object</Filter>
+    </ClInclude>
+    <ClInclude Include="Crown\Object\RenderSystem\Model\ModelLoader.h">
+      <Filter>Crown\Object\RenderSystem\Model</Filter>
+    </ClInclude>
+    <ClInclude Include="Crown\Object\RenderSystem\TextureBuffer.h">
+      <Filter>Crown\Object\RenderSystem</Filter>
+    </ClInclude>
+    <ClInclude Include="Crown\Object\RenderSystem\RenderCommands\RenderCommandBase.h">
+      <Filter>Crown\Object\RenderSystem\RenderCommands</Filter>
+    </ClInclude>
+    <ClInclude Include="Crown\Object\RenderSystem\RenderCommands\RenderCommandFactory.h">
+      <Filter>Crown\Object\RenderSystem\RenderCommands</Filter>
+    </ClInclude>
+    <ClInclude Include="Crown\Object\RenderSystem\RenderCommands\RenderCommandQueue.h">
+      <Filter>Crown\Object\RenderSystem\RenderCommands</Filter>
+    </ClInclude>
+    <ClInclude Include="Crown\Object\RenderSystem\RenderCommands\SetDescriptor.h">
+      <Filter>Crown\Object\RenderSystem\RenderCommands\Command</Filter>
+    </ClInclude>
+    <ClInclude Include="Crown\Object\RenderSystem\BlobConstBuffer\BlobConstBuffer.h">
+      <Filter>Crown\Object\RenderSystem\BlobConstBuffer</Filter>
+    </ClInclude>
+    <ClInclude Include="Crown\Object\RenderSystem\Camera.h">
+      <Filter>Crown\Object\RenderSystem\Model</Filter>
+    </ClInclude>
+    <ClInclude Include="Crown\Object\RenderSystem\RenderCommands\SetDescriptorHeap.h">
+      <Filter>Crown\Object\RenderSystem\RenderCommands\Command</Filter>
+    </ClInclude>
+    <ClInclude Include="Crown\Object\RenderSystem\RenderCommands\SetRootSignature.h">
+      <Filter>Crown\Object\RenderSystem\RenderCommands\Command</Filter>
+    </ClInclude>
+    <ClInclude Include="Crown\Object\RenderSystem\Shader.h">
+      <Filter>Crown\Object\RenderSystem</Filter>
+    </ClInclude>
+    <ClInclude Include="Crown\Object\RenderSystem\RenderCommands\SetPipelineState.h">
+      <Filter>Crown\Object\RenderSystem\RenderCommands\Command</Filter>
+    </ClInclude>
+    <ClInclude Include="Crown\Object\RenderSystem\RenderCommands\SetVertexBuffer.h">
+      <Filter>Crown\Object\RenderSystem\RenderCommands\Command</Filter>
+    </ClInclude>
+    <ClInclude Include="Crown\Object\RenderSystem\RenderCommands\SetIndexBuffer.h">
+      <Filter>Crown\Object\RenderSystem\RenderCommands\Command</Filter>
+    </ClInclude>
+    <ClInclude Include="Crown\Object\RenderSystem\RenderCommands\SetPrimitiveTopology.h">
+      <Filter>Crown\Object\RenderSystem\RenderCommands\Command</Filter>
+    </ClInclude>
+    <ClInclude Include="Crown\Object\RenderSystem\Model\FileType\Pmd.h">
+      <Filter>Crown\Object\RenderSystem\Model\FileType</Filter>
+    </ClInclude>
+    <ClInclude Include="Crown\Object\RenderSystem\Model\FileType\Pmx.h">
+      <Filter>Crown\Object\RenderSystem\Model\FileType</Filter>
+    </ClInclude>
+    <ClInclude Include="Crown\Object\RenderSystem\Model\Bone.h">
+      <Filter>Crown\Object\RenderSystem\Model</Filter>
+    </ClInclude>
+    <ClInclude Include="Crown\Object\RenderSystem\Animation\AnimationData.h">
+      <Filter>Crown\Object\RenderSystem\Animation</Filter>
+    </ClInclude>
+    <ClInclude Include="Crown\Object\RenderSystem\Animation\AnimationDataManager.h">
+      <Filter>Crown\Object\RenderSystem\Animation</Filter>
+    </ClInclude>
+    <ClInclude Include="Crown\Object\RenderSystem\UI\UiManager.h">
+      <Filter>Crown\Object\RenderSystem\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="Crown\Object\RenderSystem\UI\Ui.h">
+      <Filter>Crown\Object\RenderSystem\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="Crown\Object\RenderSystem\UI\UIType\UiGraphic.h">
+      <Filter>Crown\Object\RenderSystem\UI\UIType</Filter>
+    </ClInclude>
+    <ClInclude Include="Crown\Object\RenderSystem\TestSystem\TestSystem.h">
+      <Filter>Crown\Object\RenderSystem\TestSystem</Filter>
+    </ClInclude>
+    <ClInclude Include="Crown\Object\RenderSystem\TestSystem\PipelineStateManager.h">
+      <Filter>Crown\Object\RenderSystem\TestSystem</Filter>
+    </ClInclude>
+    <ClInclude Include="Crown\Object\RenderSystem\TestSystem\DrawCall.h">
+      <Filter>Crown\Object\RenderSystem\TestSystem</Filter>
+    </ClInclude>
+    <ClInclude Include="Crown\Object\RenderSystem\RenderTarget.h">
+      <Filter>Crown\Object\RenderSystem</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\GameObject\GameObject.h">
+      <Filter>Game\GameObject</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\DesignPatterns\FiniteStateMachine.h">
+      <Filter>Game\DesignPatterns</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\DesignPatterns\Singleton.h">
+      <Filter>Game\DesignPatterns</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\Timer.h">
+      <Filter>Game</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\GameObject\UI\GameUI.h">
+      <Filter>Game\GameObject\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\GameObject\Stage\Object\Character\Character.h">
+      <Filter>Game\GameObject\Stage\Object\Character</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\Debug\DebugLog.h">
+      <Filter>Game\Debug</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\GameObject\Stage\Object\Character\Enemy\Enemy.h">
+      <Filter>Game\GameObject\Stage\Object\Character\Enemy</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\GameObject\Stage\Object\Character\Player\Player.h">
+      <Filter>Game\GameObject\Stage\Object\Character\Player</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\GameObject\Stage\Object\Character\Player\PlayerCamera.h">
+      <Filter>Game\GameObject\Stage\Object\Character\Player</Filter>
+    </ClInclude>
+    <ClInclude Include="Crown\Object\Input.h">
+      <Filter>Crown\Object</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\GameObject\Input\GameInput.h">
+      <Filter>Game\GameObject\Input</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\GameObject\Stage\Object\Object.h">
+      <Filter>Game\GameObject\Stage\Object</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\GameObject\UI\State\Play\UIPlay.h">
+      <Filter>Game\GameObject\UI\State</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\GameObject\UI\State\UIState.h">
+      <Filter>Game\GameObject\UI\State</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\GameObject\UI\State\Title\UITitle.h">
+      <Filter>Game\GameObject\UI\State\Title</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\GameObject\UI\State\Title\State\UITitleState.h">
+      <Filter>Game\GameObject\UI\State\Title\State</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\GameObject\UI\State\Title\State\UITitleFadeIn.h">
+      <Filter>Game\GameObject\UI\State\Title\State</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\GameObject\UI\State\Title\State\UITitleFadeOut.h">
+      <Filter>Game\GameObject\UI\State\Title\State</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\GameObject\UI\State\Title\State\UITitleMenu.h">
+      <Filter>Game\GameObject\UI\State\Title\State</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\GameObject\UI\State\Title\State\UITitlePleaseSpaceKey.h">
+      <Filter>Game\GameObject\UI\State\Title\State</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\GameObject\UI\State\Title\State\MenuState\TitleMenu.h">
+      <Filter>Game\GameObject\UI\State\Title\State\MenuState</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\GameObject\UI\State\Title\State\MenuState\TitleMenuMenuIn.h">
+      <Filter>Game\GameObject\UI\State\Title\State\MenuState</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\GameObject\UI\State\Title\State\MenuState\TitleMenuState.h">
+      <Filter>Game\GameObject\UI\State\Title\State\MenuState</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\GameObject\UI\State\Title\State\MenuState\TitleMenuTitleMove.h">
+      <Filter>Game\GameObject\UI\State\Title\State\MenuState</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\GameObject\Render\MaterialFactory.h">
+      <Filter>Game\GameObject\Render</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\GameObject\Render\Render.h">
+      <Filter>Game\GameObject\Render</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\GameObject\Stage\Stage.h">
+      <Filter>Game\GameObject\Stage</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\GameObject\Stage\StageObject\StageObject.h">
+      <Filter>Game\GameObject\Stage\StageObjcet</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\GameObject\Stage\Object\Character\Player\PlayerState\PlayerState.h">
+      <Filter>Game\GameObject\Stage\Object\Character\Player\State</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\GameObject\Stage\Object\Character\Player\PlayerState\PlayerTitle.h">
+      <Filter>Game\GameObject\Stage\Object\Character\Player\State</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\GameObject\Stage\Object\Character\Player\PlayerState\PlayerDefault\PlayerDefault.h">
+      <Filter>Game\GameObject\Stage\Object\Character\Player\State\PlayerStateDefault</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\GameObject\Stage\Object\Character\Player\PlayerState\PlayerDefault\PlayerDefaultStateBase.h">
+      <Filter>Game\GameObject\Stage\Object\Character\Player\State\PlayerStateDefault</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\GameObject\Stage\Object\Character\Player\PlayerState\PlayerDefault\PlayerRun.h">
+      <Filter>Game\GameObject\Stage\Object\Character\Player\State\PlayerStateDefault</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\GameObject\Stage\Object\Character\Player\PlayerState\PlayerDefault\PlayerStand.h">
+      <Filter>Game\GameObject\Stage\Object\Character\Player\State\PlayerStateDefault</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\GameObject\Stage\Object\Character\Player\PlayerState\PlayerAttack.h">
+      <Filter>Game\GameObject\Stage\Object\Character\Player\State</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\GameObject\Stage\Object\Character\Player\PlayerState\PlayerAvoidance.h">
+      <Filter>Game\GameObject\Stage\Object\Character\Player\State</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\GameObject\Stage\Collider\ColliderSystem.h">
+      <Filter>Game\GameObject\Stage\Collider</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\GameObject\Stage\Collider\PlayerCollider.h">
+      <Filter>Game\GameObject\Stage\Collider</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\GameObject\Stage\Collider\StageCollider.h">
+      <Filter>Game\GameObject\Stage\Collider</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\GameObject\Stage\Collider\EnemyCollider.h">
+      <Filter>Game\GameObject\Stage\Collider</Filter>
+    </ClInclude>
+    <ClInclude Include="Crown\Object\Algorithm.h">
+      <Filter>Crown\Object</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="ヘッダーテンプレート.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <FxCompile Include="Crown\Shader\MMDPs.hlsl">
+      <Filter>Crown\Shader\MMD</Filter>
+    </FxCompile>
+    <FxCompile Include="Crown\Shader\PmdVs.hlsl">
+      <Filter>Crown\Shader\MMD</Filter>
+    </FxCompile>
+    <FxCompile Include="Crown\Shader\PmxVs.hlsl">
+      <Filter>Crown\Shader\MMD</Filter>
+    </FxCompile>
+    <FxCompile Include="UIGs.hlsl">
+      <Filter>Crown\Shader\UI</Filter>
+    </FxCompile>
+    <FxCompile Include="UIPs.hlsl">
+      <Filter>Crown\Shader\UI</Filter>
+    </FxCompile>
+    <FxCompile Include="UIvs.hlsl">
+      <Filter>Crown\Shader\UI</Filter>
+    </FxCompile>
+    <FxCompile Include="Crown\Shader\hpPercentPs.hlsl">
+      <Filter>Crown\Shader\UI</Filter>
+    </FxCompile>
+    <FxCompile Include="Crown\Shader\hpPercentVs.hlsl">
+      <Filter>Crown\Shader\UI</Filter>
+    </FxCompile>
+    <FxCompile Include="Crown\Shader\hpPercentGs.hlsl">
+      <Filter>Crown\Shader\UI</Filter>
+    </FxCompile>
+    <FxCompile Include="Crown\Shader\PlayerHpUiVs.hlsl">
+      <Filter>Crown\Shader\UI</Filter>
+    </FxCompile>
+    <FxCompile Include="Crown\Shader\PlayerHpUiGs.hlsl">
+      <Filter>Crown\Shader\UI</Filter>
+    </FxCompile>
+    <FxCompile Include="Crown\Shader\PlayerHpUiPs.hlsl">
+      <Filter>Crown\Shader\UI</Filter>
+    </FxCompile>
+    <FxCompile Include="Shader\Riria\Riria_VS.hlsl">
+      <Filter>Shader\Riria</Filter>
+    </FxCompile>
+    <FxCompile Include="Shader\Riria\RiriaClothes_PS.hlsl">
+      <Filter>Shader\Riria</Filter>
+    </FxCompile>
+    <FxCompile Include="Shader\Riria\RiriaEye_PS.hlsl">
+      <Filter>Shader\Riria</Filter>
+    </FxCompile>
+    <FxCompile Include="Shader\Riria\RiriaHair_PS.hlsl">
+      <Filter>Shader\Riria</Filter>
+    </FxCompile>
+    <FxCompile Include="Shader\Riria\RiriaSkin_PS.hlsl">
+      <Filter>Shader\Riria</Filter>
+    </FxCompile>
+    <FxCompile Include="Shader\Riria\RiriaTights_PS.hlsl">
+      <Filter>Shader\Riria</Filter>
+    </FxCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Crown\Shader\Data.hlsli">
+      <Filter>Crown\Shader\MMD</Filter>
+    </None>
+    <None Include="UI.hlsli">
+      <Filter>Crown\Shader\UI</Filter>
+    </None>
+    <None Include="Crown\Shader\EnemyHpUi.hlsli">
+      <Filter>Crown\Shader\UI</Filter>
+    </None>
+    <None Include="Crown\Shader\PlayerHpUi.hlsli">
+      <Filter>Crown\Shader\UI</Filter>
+    </None>
+  </ItemGroup>
+</Project>
