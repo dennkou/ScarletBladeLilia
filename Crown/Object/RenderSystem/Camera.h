@@ -27,6 +27,7 @@ namespace Crown
 
 			inline DirectX::XMMATRIX GetView() const noexcept { return m_cpuSideCameraData.view; }
 			inline DirectX::XMMATRIX GetProjection() const noexcept { return m_cpuSideCameraData.projection; }
+			inline DirectX::XMMATRIX GetViewProjection() const noexcept { return m_cpuSideCameraData.viewProjection; }
 			void SetEye(const DirectX::XMFLOAT3& eye) noexcept;
 			inline DirectX::XMFLOAT3 GetEye() const noexcept { return m_cpuSideCameraData.eye; }
 			void SetRotate(const DirectX::XMFLOAT3& rotate) noexcept;

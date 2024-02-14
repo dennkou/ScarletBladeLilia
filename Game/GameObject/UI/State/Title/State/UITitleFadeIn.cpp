@@ -28,7 +28,7 @@ void GameUI::UITitle::UITitleFadeIn::Enter()
 
 void GameUI::UITitle::UITitleFadeIn::Update(Timer& timer)
 {
-	m_fadeAlpha -= timer.GetTime() * FADE_SPEED;
+	m_fadeAlpha -= timer.GetSystemTime() * FADE_SPEED;
 	m_fade->SetAlpha(m_fadeAlpha);
 	if (m_fadeAlpha <= 0.0f)
 	{

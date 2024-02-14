@@ -114,6 +114,9 @@ void Crown::Input::Mouse::SetPoint(int x, int y, HWND hwnd)
 
 void Crown::Input::Mouse::Update()
 {
+	m_oldL = m_l;
+	m_oldR = m_r;
+	m_oldCenter = m_center;
 }
 
 void Crown::Input::Mouse::LButtonUpMessage()

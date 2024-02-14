@@ -12,6 +12,7 @@
 #include "./../DirectX12Wraps/GraphicsCommandList.h"
 #include "./Bone.h"
 #include <d3d12.h>
+#include "./FileType/TriangleColliderDebug.h"
 
 namespace Crown
 {
@@ -28,6 +29,7 @@ namespace Crown
 		{
 		public:
 			class ModelLoader;
+			class CreateModel;
 
 			Model();
 			Model(const Model& model);
@@ -40,10 +42,11 @@ namespace Crown
 			inline const BoneData& GetBoneDate() const noexcept { return m_bone; }
 			void SetPause(const DirectX::XMMATRIX* pause) noexcept;
 			inline MaterialMesh& GetMaterialMesh(unsigned int index) { return m_materialMeshs[index]; }
-			inline void SetDrawFlag(bool flag);
+			void SetDrawFlag(bool flag);
 
 			void LoadPMD(const std::wstring& fileName);
 			void LoadPMX(const std::wstring& fileName);
+			void Create(const std::initializer_list<ColliderAlgorithm::Triangle>& collider, DirectX::XMFLOAT4 color);
 
 			inline unsigned int GetDescriptorOffest() { return m_descriptorOffset; }
 			inline const Microsoft::WRL::ComPtr<ID3D12Resource>& GetModelData() { return m_resource; }

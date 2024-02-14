@@ -145,11 +145,13 @@
       <LanguageStandard>stdcpp20</LanguageStandard>
       <InlineFunctionExpansion>AnySuitable</InlineFunctionExpansion>
       <FavorSizeOrSpeed>Speed</FavorSizeOrSpeed>
-      <EnableFiberSafeOptimizations>true</EnableFiberSafeOptimizations>
+      <EnableFiberSafeOptimizations>false</EnableFiberSafeOptimizations>
       <LanguageStandard_C>stdc17</LanguageStandard_C>
       <DebugInformationFormat>None</DebugInformationFormat>
-      <BufferSecurityCheck>false</BufferSecurityCheck>
+      <BufferSecurityCheck>true</BufferSecurityCheck>
       <EnableParallelCodeGeneration>true</EnableParallelCodeGeneration>
+      <WholeProgramOptimization>false</WholeProgramOptimization>
+      <BasicRuntimeChecks>Default</BasicRuntimeChecks>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -157,6 +159,7 @@
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>false</GenerateDebugInformation>
       <AdditionalLibraryDirectories>./DirectXTex-main\DirectXTex\Bin\Desktop_2022_Win10\x64\Release;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <LinkTimeCodeGeneration>Default</LinkTimeCodeGeneration>
     </Link>
     <FxCompile>
       <ShaderModel>5.1</ShaderModel>
@@ -178,6 +181,7 @@
     <ClCompile Include="Crown\Object\RenderSystem\Model\Bone.cpp" />
     <ClCompile Include="Crown\Object\RenderSystem\Model\FileType\Pmd.cpp" />
     <ClCompile Include="Crown\Object\RenderSystem\Model\FileType\Pmx.cpp" />
+    <ClCompile Include="Crown\Object\RenderSystem\Model\FileType\TriangleColliderDebug.cpp" />
     <ClCompile Include="Crown\Object\RenderSystem\Model\Material.cpp" />
     <ClCompile Include="Crown\Object\RenderSystem\Model\MaterialMesh.cpp" />
     <ClCompile Include="Crown\Object\RenderSystem\Model\Model.cpp" />
@@ -211,8 +215,11 @@
     <ClCompile Include="Game\GameObject\Input\GameInput.cpp" />
     <ClCompile Include="Game\GameObject\Render\MaterialFactory.cpp" />
     <ClCompile Include="Game\GameObject\Render\Render.cpp" />
+    <ClCompile Include="Game\GameObject\Stage\Collider\ColliderAlgorithm.cpp" />
     <ClCompile Include="Game\GameObject\Stage\Collider\ColliderSystem.cpp" />
     <ClCompile Include="Game\GameObject\Stage\Collider\EnemyCollider.cpp" />
+    <ClCompile Include="Game\GameObject\Stage\Collider\InstanceCollection.cpp" />
+    <ClCompile Include="Game\GameObject\Stage\Collider\PlayerAttackCollider.cpp" />
     <ClCompile Include="Game\GameObject\Stage\Collider\PlayerCollider.cpp" />
     <ClCompile Include="Game\GameObject\Stage\Collider\StageCollider.cpp" />
     <ClCompile Include="Game\GameObject\Stage\Object\Character\Character.cpp" />
@@ -229,6 +236,8 @@
     <ClCompile Include="Game\GameObject\Stage\Stage.cpp" />
     <ClCompile Include="Game\GameObject\Stage\StageObject\StageObject.cpp" />
     <ClCompile Include="Game\GameObject\UI\GameUI.cpp" />
+    <ClCompile Include="Game\GameObject\UI\State\Play\Object\EnemyUi.cpp" />
+    <ClCompile Include="Game\GameObject\UI\State\Play\Object\PlayerUi.cpp" />
     <ClCompile Include="Game\GameObject\UI\State\Play\UIPlay.cpp" />
     <ClCompile Include="Game\GameObject\UI\State\Title\State\MenuState\TitleMenu.cpp" />
     <ClCompile Include="Game\GameObject\UI\State\Title\State\MenuState\TitleMenuMenuIn.cpp" />
@@ -258,6 +267,7 @@
     <ClInclude Include="Crown\Object\RenderSystem\Model\Bone.h" />
     <ClInclude Include="Crown\Object\RenderSystem\Model\FileType\Pmd.h" />
     <ClInclude Include="Crown\Object\RenderSystem\Model\FileType\Pmx.h" />
+    <ClInclude Include="Crown\Object\RenderSystem\Model\FileType\TriangleColliderDebug.h" />
     <ClInclude Include="Crown\Object\RenderSystem\Model\Material.h" />
     <ClInclude Include="Crown\Object\RenderSystem\Model\MaterialMesh.h" />
     <ClInclude Include="Crown\Object\RenderSystem\Model\Model.h" />
@@ -299,12 +309,16 @@
     <ClInclude Include="Game\GameObject\Input\GameInput.h" />
     <ClInclude Include="Game\GameObject\Render\MaterialFactory.h" />
     <ClInclude Include="Game\GameObject\Render\Render.h" />
+    <ClInclude Include="Game\GameObject\Stage\Collider\ColliderAlgorithm.h" />
     <ClInclude Include="Game\GameObject\Stage\Collider\ColliderSystem.h" />
     <ClInclude Include="Game\GameObject\Stage\Collider\EnemyCollider.h" />
+    <ClInclude Include="Game\GameObject\Stage\Collider\InstanceCollection.h" />
+    <ClInclude Include="Game\GameObject\Stage\Collider\PlayerAttackCollider.h" />
     <ClInclude Include="Game\GameObject\Stage\Collider\PlayerCollider.h" />
     <ClInclude Include="Game\GameObject\Stage\Collider\StageCollider.h" />
     <ClInclude Include="Game\GameObject\Stage\Object\Character\Character.h" />
     <ClInclude Include="Game\GameObject\Stage\Object\Character\Enemy\Enemy.h" />
+    <ClInclude Include="Game\GameObject\Stage\Object\Character\Enemy\State\EnemyState.h" />
     <ClInclude Include="Game\GameObject\Stage\Object\Character\Player\Player.h" />
     <ClInclude Include="Game\GameObject\Stage\Object\Character\Player\PlayerCamera.h" />
     <ClInclude Include="Game\GameObject\Stage\Object\Character\Player\PlayerState\PlayerAttack.h" />
@@ -319,6 +333,8 @@
     <ClInclude Include="Game\GameObject\Stage\Stage.h" />
     <ClInclude Include="Game\GameObject\Stage\StageObject\StageObject.h" />
     <ClInclude Include="Game\GameObject\UI\GameUI.h" />
+    <ClInclude Include="Game\GameObject\UI\State\Play\Object\EnemyUi.h" />
+    <ClInclude Include="Game\GameObject\UI\State\Play\Object\PlayerUi.h" />
     <ClInclude Include="Game\GameObject\UI\State\Play\UIPlay.h" />
     <ClInclude Include="Game\GameObject\UI\State\Title\State\MenuState\TitleMenu.h" />
     <ClInclude Include="Game\GameObject\UI\State\Title\State\MenuState\TitleMenuMenuIn.h" />
@@ -337,6 +353,22 @@
     <Text Include="ヘッダーテンプレート.txt" />
   </ItemGroup>
   <ItemGroup>
+    <FxCompile Include="Crown\Shader\DebugPS.hlsl">
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Pixel</ShaderType>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Pixel</ShaderType>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Pixel</ShaderType>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Pixel</ShaderType>
+      <ObjectFileOutput Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Resource\Shader\Debug\%(Filename).cso</ObjectFileOutput>
+      <ObjectFileOutput Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Resource\Shader\Debug\%(Filename).cso</ObjectFileOutput>
+    </FxCompile>
+    <FxCompile Include="Crown\Shader\DebugVS.hlsl">
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Vertex</ShaderType>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Vertex</ShaderType>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Vertex</ShaderType>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Vertex</ShaderType>
+      <ObjectFileOutput Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Resource\Shader\Debug\%(Filename).cso</ObjectFileOutput>
+      <ObjectFileOutput Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Resource\Shader\Debug\%(Filename).cso</ObjectFileOutput>
+    </FxCompile>
     <FxCompile Include="Crown\Shader\hpPercentGs.hlsl">
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Geometry</ShaderType>
       <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">5.1</ShaderModel>

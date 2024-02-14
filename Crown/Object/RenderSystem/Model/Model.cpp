@@ -32,7 +32,8 @@ Crown::RenderObject::Model::Model(const Model& model)
 	m_bundleCommandLists(static_cast<int>(MaterialTag::Num)),
 	m_bundleCommandAllocators(static_cast<int>(MaterialTag::Num)),
 	m_bundleFlag(static_cast<int>(MaterialTag::Num),false),
-	m_bundleResource(static_cast<int>(MaterialTag::Num))
+	m_bundleResource(static_cast<int>(MaterialTag::Num)),
+	m_pause()
 {
 	System::GetInstance().GetRenderSystem().GetModelManager().AddModel(this);
 }
@@ -53,7 +54,7 @@ void Crown::RenderObject::Model::SetPause(const DirectX::XMMATRIX* pause) noexce
 	m_updateFlag = true;
 }
 
-inline void Crown::RenderObject::Model::SetDrawFlag(bool flag)
+void Crown::RenderObject::Model::SetDrawFlag(bool flag)
 {
 	if (flag)
 	{
@@ -75,6 +76,12 @@ void Crown::RenderObject::Model::LoadPMX(const std::wstring& fileName)
 {
 	ModelLoader loader(fileName, ModelLoader::LoadFile::PMX, *this);
 	System::GetInstance().GetRenderSystem().GetModelManager().LoadModel(&loader);
+}
+
+void Crown::RenderObject::Model::Create(const std::initializer_list<ColliderAlgorithm::Triangle>& collider, DirectX::XMFLOAT4 color)
+{
+	CreateModel create(collider, color, *this);
+	System::GetInstance().GetRenderSystem().GetModelManager().LoadModel(&create);
 }
 
 void Crown::RenderObject::Model::Draw(MaterialTag drawTag, GraphicsCommandList& commandList)
@@ -127,16 +134,19 @@ void Crown::RenderObject::Model::DataUpload()
 	auto upload = [&](ModelData* map)
 	{
 		map->world = DirectX::XMMatrixRotationRollPitchYaw(m_rotate.x, m_rotate.y, m_rotate.z) * DirectX::XMMatrixTranslation(m_position.x, m_position.y, m_position.z);
-		DirectX::XMMATRIX bone[255] = {};
-		for (int i = 0; i < 255; ++i)
+
+		const int boneNum = m_bone.GetData().size();
+
+		std::vector<DirectX::XMMATRIX> bone(boneNum);
+		for (int i = 0; i < boneNum; ++i)
 		{
 			bone[i] = m_pause[i];
 		}
 		if (m_bone.IsActive())
 		{
-			m_bone.Find(L"全ての親").RecursiveMatrixMultiply(bone);
+			m_bone.Find(L"全ての親").RecursiveMatrixMultiply(bone.data());
 		}
-		for (int i = 0; i < 255; ++i)
+		for (int i = 0; i < boneNum; ++i)
 		{
 			map->bone[i] = bone[i];
 		}

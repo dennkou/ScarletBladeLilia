@@ -39,6 +39,10 @@ void Player::OnGameUpdate(Timer& timer)
 	m_playerState.CallFunction(&PlayerState::Update, timer.GetWorldTime());
 	m_camera.UpdateCameraTransform();
 	SetPause(m_bone);
+
+	ColliderUpdate();
+
+	SetPosition(m_collider.GetPosition());
 }
 
 void Player::OnPlayStartAnimation()
@@ -487,6 +491,18 @@ void Player::AnimLoad()
 	m_runStartAnim.LaodVMD(L"Resource/Motion/スタートダッシュ.vmd");
 	m_runAnim.LaodVMD(L"Resource/Motion/歩き.vmd");
 	m_drawingSwordAttackAnim.LaodVMD(L"Resource/Motion/抜刀攻撃.vmd");
+}
+
+void Player::ColliderUpdate()
+{
+	m_collider.SetPosition(GetModel().GetPosition());
+
+	DirectX::XMMATRIX head = m_bone[GetModel().GetBoneDate().Find(L"head").GetIndex()];
+	DirectX::XMVECTOR scale, rotate, transform;
+	DirectX::XMMatrixDecompose(&scale, &rotate, &transform, head);
+	DirectX::XMFLOAT3 position;
+	DirectX::XMStoreFloat3(&position, transform);
+	m_collider.SetCapsuleVector(position);
 }
 
 void Player::CameraRoll(DirectX::XMFLOAT2 input)

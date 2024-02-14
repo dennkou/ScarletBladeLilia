@@ -3,6 +3,7 @@
 #include "./Object/Character/Player/Player.h"
 #include "./Object/Character/Enemy/Enemy.h"
 #include "./StageObject/StageObject.h"
+#include "./Collider/ColliderSystem.h"
 
 Stage::Stage(Game* game)
 	:
@@ -21,4 +22,10 @@ Stage::Stage(Game* game)
 Stage::~Stage()
 {
 
+}
+
+void Stage::OnGameUpdate(Timer& timer)
+{
+	timer;
+	ColliderSystem::Update();
 }

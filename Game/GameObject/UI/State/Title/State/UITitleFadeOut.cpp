@@ -20,7 +20,7 @@ void GameUI::UITitle::UITitleFadeOut::Enter()
 
 void GameUI::UITitle::UITitleFadeOut::Update(Timer& timer)
 {
-	m_timer += timer.GetTime();
+	m_timer += timer.GetSystemTime();
 
 	m_owner->m_titleLogo.SetAlpha(1 - (m_timer / CHANGE_TIME));
 	m_owner->m_start.SetAlpha(1 - (m_timer / CHANGE_TIME));
@@ -39,11 +39,11 @@ void GameUI::UITitle::UITitleFadeOut::Update(Timer& timer)
 
 	//	カーソルの動きが不自然にならないようにメニューの動きを再現するよ☆
 	float posY = m_owner->m_cursor.GetPosition().y;
-	posY = std::lerp(posY, SELECT_ITEM_POSITION_Y, timer.GetTime() * CURSOR_SPEED);
+	posY = std::lerp(posY, SELECT_ITEM_POSITION_Y, timer.GetSystemTime() * CURSOR_SPEED);
 	m_owner->m_cursor.SetPosition(DirectX::XMFLOAT2(CURSOR_POSITION_X, posY));
-	SizeUpdate(&m_owner->m_start, true, timer.GetTime());
-	SizeUpdate(&m_owner->m_end, false, timer.GetTime());
-	SizeUpdate(&m_owner->m_option, false, timer.GetTime());
+	SizeUpdate(&m_owner->m_start, true, timer.GetSystemTime());
+	SizeUpdate(&m_owner->m_end, false, timer.GetSystemTime());
+	SizeUpdate(&m_owner->m_option, false, timer.GetSystemTime());
 }
 
 void GameUI::UITitle::UITitleFadeOut::Exit()

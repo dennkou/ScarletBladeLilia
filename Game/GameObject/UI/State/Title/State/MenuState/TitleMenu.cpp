@@ -25,17 +25,17 @@ void GameUI::UITitle::UITitleMenu::TitleMenu::TitleMenu::Enter()
 
 void GameUI::UITitle::UITitleMenu::TitleMenu::Update(Timer& timer)
 {
-	m_timer += timer.GetTime();
+	m_timer += timer.GetSystemTime();
 
 	float posY = m_owner->m_owner->m_cursor.GetPosition().y;
 
-	posY = std::lerp(posY, m_targetPositionY, timer.GetTime() * CURSOR_SPEED);
+	posY = std::lerp(posY, m_targetPositionY, timer.GetSystemTime() * CURSOR_SPEED);
 
 	m_owner->m_owner->m_cursor.SetPosition(DirectX::XMFLOAT2(CURSOR_POSITION_X, posY));
 
-	SizeUpdate(&m_owner->m_owner->m_start, m_owner->m_selectItem == SelectItem::Start, timer.GetTime());
-	SizeUpdate(&m_owner->m_owner->m_end, m_owner->m_selectItem == SelectItem::End, timer.GetTime());
-	SizeUpdate(&m_owner->m_owner->m_option, m_owner->m_selectItem == SelectItem::Option, timer.GetTime());
+	SizeUpdate(&m_owner->m_owner->m_start, m_owner->m_selectItem == SelectItem::Start, timer.GetSystemTime());
+	SizeUpdate(&m_owner->m_owner->m_end, m_owner->m_selectItem == SelectItem::End, timer.GetSystemTime());
+	SizeUpdate(&m_owner->m_owner->m_option, m_owner->m_selectItem == SelectItem::Option, timer.GetSystemTime());
 }
 
 void GameUI::UITitle::UITitleMenu::TitleMenu::Exit()

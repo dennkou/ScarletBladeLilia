@@ -8,6 +8,8 @@ class Stage : public Game::GameObject
 public:
 	Stage(Game* game);
 	virtual ~Stage() override;
+
+	virtual void OnGameUpdate(Timer& timer) override;
 private:
 
 };

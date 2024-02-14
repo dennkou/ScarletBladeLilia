@@ -23,18 +23,31 @@ namespace Crown
 			enum class LoadFile
 			{
 				PMD,
-				PMX,
+				PMX
 			};
 
 			ModelLoader(const std::wstring& fileName, LoadFile loadMode, Model& model);
 			~ModelLoader();
 
-			void Load(ID3D12Device* device, TextureBuffer* textureBuffer);
+			virtual void Load(ID3D12Device* device, TextureBuffer* textureBuffer);
 		private:
-
-			Model& m_model;
 			std::wstring m_filePath;
 			LoadFile m_loadMode;
+		protected:
+			ModelLoader(Model& model) :m_model(model){};
+			Model& m_model;
+		};
+
+		class Model::CreateModel : public Model::ModelLoader
+		{
+		public:
+			CreateModel(const std::initializer_list<ColliderAlgorithm::Triangle>& collider, DirectX::XMFLOAT4 color, Model& model);
+			~CreateModel();
+
+			virtual void Load(ID3D12Device* device, TextureBuffer* textureBuffer) override;
+		private:
+			const std::initializer_list<ColliderAlgorithm::Triangle>& m_collider;
+			DirectX::XMFLOAT4 m_color;
 		};
 	}
 }

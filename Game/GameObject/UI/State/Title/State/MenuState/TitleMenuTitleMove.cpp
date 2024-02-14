@@ -19,7 +19,7 @@ void GameUI::UITitle::UITitleMenu::TitleMenuTitleMove::Enter()
 
 void GameUI::UITitle::UITitleMenu::TitleMenuTitleMove::Update(Timer& timer)
 {
-	m_timer += timer.GetTime() / MOVE_TIME;
+	m_timer += timer.GetSystemTime() / MOVE_TIME;
 	float t = sin(m_timer * DirectX::XM_PI / 2);
 
 	m_owner->m_owner->m_titleLogo.SetPosition(DirectX::XMFLOAT2(END_POSITION_X * t, END_POSITION_Y * t));

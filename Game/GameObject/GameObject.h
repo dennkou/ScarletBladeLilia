@@ -5,7 +5,7 @@
 #include "./../Game.h"
 #include <DirectXMath.h>
 
-
+class Enemy;
 
 //	イベント引数用の前方宣言だよ☆
 class Timer;
@@ -53,7 +53,7 @@ public:
 
 
 	virtual void OnPlayerDied()	{}
-	virtual void OnEnemyDied() {}
+	virtual void OnEnemyDied(Enemy* diedEnemy) { diedEnemy; }		//	
 	virtual void OnPlayerLockon() {}
 	virtual void OnEnemyLockon() {}
 	virtual void OnEnemyCreate() {}

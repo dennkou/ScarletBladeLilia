@@ -161,9 +161,6 @@
     <ClCompile Include="Game\GameObject\Stage\Object\Object.cpp">
       <Filter>Game\GameObject\Stage\Object</Filter>
     </ClCompile>
-    <ClCompile Include="Game\GameObject\UI\State\Play\UIPlay.cpp">
-      <Filter>Game\GameObject\UI\State</Filter>
-    </ClCompile>
     <ClCompile Include="Game\GameObject\UI\State\Title\UITitle.cpp">
       <Filter>Game\GameObject\UI\State\Title</Filter>
     </ClCompile>
@@ -229,6 +226,27 @@
     </ClCompile>
     <ClCompile Include="Game\GameObject\Stage\Collider\EnemyCollider.cpp">
       <Filter>Game\GameObject\Stage\Collider</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\GameObject\Stage\Collider\ColliderAlgorithm.cpp">
+      <Filter>Game\GameObject\Stage\Collider</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\GameObject\Stage\Collider\InstanceCollection.cpp">
+      <Filter>Game\GameObject\Stage\Collider</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\GameObject\UI\State\Play\UIPlay.cpp">
+      <Filter>Game\GameObject\UI\State\Play</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\GameObject\UI\State\Play\Object\EnemyUi.cpp">
+      <Filter>Game\GameObject\UI\State\Play\Object</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\GameObject\UI\State\Play\Object\PlayerUi.cpp">
+      <Filter>Game\GameObject\UI\State\Play\Object</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\GameObject\Stage\Collider\PlayerAttackCollider.cpp">
+      <Filter>Game\GameObject\Stage\Collider</Filter>
+    </ClCompile>
+    <ClCompile Include="Crown\Object\RenderSystem\Model\FileType\TriangleColliderDebug.cpp">
+      <Filter>Crown\Object\RenderSystem\Model\FileType</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -348,6 +366,18 @@
     </Filter>
     <Filter Include="Game\GameObject\Stage\Collider">
       <UniqueIdentifier>{36e0536c-c527-4066-9165-1a8745f56f45}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\GameObject\UI\State\Play">
+      <UniqueIdentifier>{82c7cbcd-99a2-47fe-ad70-135bbe79c500}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\GameObject\UI\State\Play\Object">
+      <UniqueIdentifier>{68bb4864-abe5-4c74-8010-ac3cce8000fe}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\GameObject\Stage\Object\Character\Enemy\State">
+      <UniqueIdentifier>{636c843e-f2db-4603-8c6b-a3307c7777ad}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Crown\Shader\Debug">
+      <UniqueIdentifier>{4a0be055-1168-49ff-a055-449ba04af4b9}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -525,9 +555,6 @@
     <ClInclude Include="Game\GameObject\Stage\Object\Object.h">
       <Filter>Game\GameObject\Stage\Object</Filter>
     </ClInclude>
-    <ClInclude Include="Game\GameObject\UI\State\Play\UIPlay.h">
-      <Filter>Game\GameObject\UI\State</Filter>
-    </ClInclude>
     <ClInclude Include="Game\GameObject\UI\State\UIState.h">
       <Filter>Game\GameObject\UI\State</Filter>
     </ClInclude>
@@ -612,6 +639,30 @@
     <ClInclude Include="Crown\Object\Algorithm.h">
       <Filter>Crown\Object</Filter>
     </ClInclude>
+    <ClInclude Include="Game\GameObject\Stage\Collider\ColliderAlgorithm.h">
+      <Filter>Game\GameObject\Stage\Collider</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\GameObject\Stage\Collider\InstanceCollection.h">
+      <Filter>Game\GameObject\Stage\Collider</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\GameObject\UI\State\Play\UIPlay.h">
+      <Filter>Game\GameObject\UI\State\Play</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\GameObject\UI\State\Play\Object\EnemyUi.h">
+      <Filter>Game\GameObject\UI\State\Play\Object</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\GameObject\Stage\Object\Character\Enemy\State\EnemyState.h">
+      <Filter>Game\GameObject\Stage\Object\Character\Enemy\State</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\GameObject\UI\State\Play\Object\PlayerUi.h">
+      <Filter>Game\GameObject\UI\State\Play\Object</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\GameObject\Stage\Collider\PlayerAttackCollider.h">
+      <Filter>Game\GameObject\Stage\Collider</Filter>
+    </ClInclude>
+    <ClInclude Include="Crown\Object\RenderSystem\Model\FileType\TriangleColliderDebug.h">
+      <Filter>Crown\Object\RenderSystem\Model\FileType</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Text Include="ヘッダーテンプレート.txt" />
@@ -670,6 +721,12 @@
     </FxCompile>
     <FxCompile Include="Shader\Riria\RiriaTights_PS.hlsl">
       <Filter>Shader\Riria</Filter>
+    </FxCompile>
+    <FxCompile Include="Crown\Shader\DebugVS.hlsl">
+      <Filter>Crown\Shader\Debug</Filter>
+    </FxCompile>
+    <FxCompile Include="Crown\Shader\DebugPS.hlsl">
+      <Filter>Crown\Shader\Debug</Filter>
     </FxCompile>
   </ItemGroup>
   <ItemGroup>

@@ -122,7 +122,7 @@ void Crown::RenderObject::TextureBuffer::CreateData(std::wstring& dataName, UINT
 	size_t pitch = dataPitchAlignment;
 	for (unsigned int i = 0; i < height; ++i)
 	{
-		std::copy_n(srcAddress, pitch, mapImage);
+		std::copy_n(srcAddress, rowPitch, mapImage);
 		srcAddress += rowPitch;
 		mapImage += pitch;
 	}

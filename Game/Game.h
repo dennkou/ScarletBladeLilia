@@ -3,7 +3,7 @@
 #ifdef _DEBUG
 
 //	ログ表示系☆
-#define DISPLAY_LOG		//	ログを表示するよ☆
+//#define DISPLAY_LOG		//	ログを表示するよ☆
 #ifdef DISPLAY_LOG
 #include <unordered_map>
 #define IGNORE_UPDATE_EVENT	//	アップデートイベントのログを表示しないよ☆
@@ -59,7 +59,7 @@ private:
 	{
 		//	存在しないオブジェクトを削除しながら全てのオブジェクトのイベントを呼ぶよ☆
 
-		int moveNum = 0;	//	存在してなかったオブジェクトの数だよ☆
+		unsigned int moveNum = 0;	//	存在してなかったオブジェクトの数だよ☆
 
 		ObjectIndex i = 0;
 		ObjectIndex size = static_cast<ObjectIndex>(m_gameObjects.size());

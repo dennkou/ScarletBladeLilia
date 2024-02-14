@@ -52,7 +52,7 @@ void Game::Update()
 	m_timer.Update();
 	EventTrigger<Timer&>(&GameObject::OnGameUpdate, m_timer);
 #ifdef DISPLAY_LOG
-	m_updateTime += m_timer.GetTime();
+	m_updateTime += m_timer.GetSystemTime();
 	++m_updateNum;
 #endif // DISPLAY_LOG
 }

@@ -29,7 +29,7 @@ void GameUI::UITitle::UITitleMenu::TitleMenuMenuIn::Update(Timer& timer)
 		return std::lerp(startPos, endPos, t);
 	};
 
-	m_timer += timer.GetTime() * SELECT_ITEM_SPEED;
+	m_timer += timer.GetSystemTime() * SELECT_ITEM_SPEED;
 
 	m_owner->m_owner->m_start.SetPosition(DirectX::XMFLOAT2(0, PosUpdate(SELECT_ITEM_START_POS_Y, SELECT_ITEM_POSITION_Y, m_timer)));
 	if (m_timer >= SELECT_ITEM_INTERVAL)

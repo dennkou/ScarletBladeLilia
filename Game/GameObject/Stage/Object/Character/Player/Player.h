@@ -3,6 +3,7 @@
 #include "./PlayerCamera.h"
 #include "./../../../../../DesignPatterns/FiniteStateMachine.h"
 #include "./../../Crown/Object/RenderSystem/Animation/AnimationData.h"
+#include "./../../../Collider/PlayerCollider.h"
 
 class Player : public Character
 {
@@ -23,6 +24,7 @@ private:
 	void CreateMaterial();
 	void StateSetUp();
 	void AnimLoad();
+	void ColliderUpdate();
 
 	//	入力によりカメラを回転させるよ☆
 	void CameraRoll(DirectX::XMFLOAT2 input);
@@ -31,6 +33,7 @@ private:
 	static constexpr int MAX_HP = 1000;								//	プレイヤーの最大HPだよ☆
 
 	PlayerCamera m_camera;
+	ColliderSystem::PlayerCollider m_collider;
 	DirectX::XMMATRIX m_bone[255];									//	現在プレイヤーが取るべきポーズだよ☆
 	float m_stateTimer;												//	ステートで利用する想定のタイマーだよ☆この値が何を示すかは現在のステートに依存するよ☆
 	DirectX::XMFLOAT2 m_inputMove;

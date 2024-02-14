@@ -30,7 +30,7 @@ void GameUI::UITitle::UITitlePleaseSpaceKey::Enter()
 
 void GameUI::UITitle::UITitlePleaseSpaceKey::Update(Timer& timer)
 {
-	m_timer += timer.GetTime();
+	m_timer += timer.GetSystemTime();
 	if (m_startFlag)
 	{
 		m_pleaseSpaceKey->SetAlpha((std::sin(m_timer * BLINK_SPEED) + 1.0f) / 2);
