@@ -65,7 +65,7 @@ namespace Crown
 					farZ(10000.0f),
 					view(DirectX::XMMatrixIdentity()),
 					projection(DirectX::XMMatrixIdentity()),
-					viewProjection(projection * view),
+					viewProjection(view * projection),
 					eye(DirectX::XMFLOAT3(0.0f, 0.0f, 0.0f)),
 					rotate(DirectX::XMFLOAT3(0.0f, 0.0f, 0.0f))
 				{

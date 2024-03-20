@@ -16,8 +16,11 @@ public:
 	DirectX::XMFLOAT3 GetPosition() { return m_capsule.line.start.point; }
 	void SetRadius(float radius) noexcept { m_capsule.radius = radius; }
 	ColliderAlgorithm::Capsule GetCollision() const noexcept { return m_capsule; }
+	void SetPlayerPosition(DirectX::XMFLOAT3 pos) { m_playerPosition = pos; }
+	DirectX::XMFLOAT3 GetPlayerPosition() { return m_playerPosition; }
 private:
 	ColliderAlgorithm::Capsule m_capsule;
 	DirectX::XMFLOAT3 m_capsuleVector;
 	std::function<void(int)> m_hit;
+	DirectX::XMFLOAT3 m_playerPosition;
 };

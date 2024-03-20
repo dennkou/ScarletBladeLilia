@@ -4,6 +4,7 @@
 #include "./../../../../../DesignPatterns/FiniteStateMachine.h"
 #include "./../../Crown/Object/RenderSystem/Animation/AnimationData.h"
 #include "./../../../Collider/PlayerCollider.h"
+#include "./UI/PlayerHpUi.h"
 
 class Player : public Character
 {
@@ -34,6 +35,7 @@ private:
 
 	PlayerCamera m_camera;
 	ColliderSystem::PlayerCollider m_collider;
+	PlayerHpUi m_hpUi;
 	DirectX::XMMATRIX m_bone[255];									//	現在プレイヤーが取るべきポーズだよ☆
 	float m_stateTimer;												//	ステートで利用する想定のタイマーだよ☆この値が何を示すかは現在のステートに依存するよ☆
 	DirectX::XMFLOAT2 m_inputMove;

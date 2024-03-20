@@ -4,7 +4,9 @@
 #include <initializer_list>
 #include <vector>
 
+#ifdef _DEBUG
 #define DEBUG_MODEL
+#endif // _DEBUG
 
 #ifdef DEBUG_MODEL
 #include "./../../Crown/Object/RenderSystem/Model/Model.h"

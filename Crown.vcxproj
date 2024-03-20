@@ -224,6 +224,9 @@
     <ClCompile Include="Game\GameObject\Stage\Collider\StageCollider.cpp" />
     <ClCompile Include="Game\GameObject\Stage\Object\Character\Character.cpp" />
     <ClCompile Include="Game\GameObject\Stage\Object\Character\Enemy\Enemy.cpp" />
+    <ClCompile Include="Game\GameObject\Stage\Object\Character\Enemy\State\EnemyStateCombat.cpp" />
+    <ClCompile Include="Game\GameObject\Stage\Object\Character\Enemy\State\Patrol\EnemyStatePatrol.cpp" />
+    <ClCompile Include="Game\GameObject\Stage\Object\Character\Enemy\UI\EnemyUi.cpp" />
     <ClCompile Include="Game\GameObject\Stage\Object\Character\Player\Player.cpp" />
     <ClCompile Include="Game\GameObject\Stage\Object\Character\Player\PlayerCamera.cpp" />
     <ClCompile Include="Game\GameObject\Stage\Object\Character\Player\PlayerState\PlayerAttack.cpp" />
@@ -232,12 +235,11 @@
     <ClCompile Include="Game\GameObject\Stage\Object\Character\Player\PlayerState\PlayerDefault\PlayerRun.cpp" />
     <ClCompile Include="Game\GameObject\Stage\Object\Character\Player\PlayerState\PlayerDefault\PlayerStand.cpp" />
     <ClCompile Include="Game\GameObject\Stage\Object\Character\Player\PlayerState\PlayerTitle.cpp" />
+    <ClCompile Include="Game\GameObject\Stage\Object\Character\Player\UI\PlayerHpUi.cpp" />
     <ClCompile Include="Game\GameObject\Stage\Object\Object.cpp" />
     <ClCompile Include="Game\GameObject\Stage\Stage.cpp" />
     <ClCompile Include="Game\GameObject\Stage\StageObject\StageObject.cpp" />
     <ClCompile Include="Game\GameObject\UI\GameUI.cpp" />
-    <ClCompile Include="Game\GameObject\UI\State\Play\Object\EnemyUi.cpp" />
-    <ClCompile Include="Game\GameObject\UI\State\Play\Object\PlayerUi.cpp" />
     <ClCompile Include="Game\GameObject\UI\State\Play\UIPlay.cpp" />
     <ClCompile Include="Game\GameObject\UI\State\Title\State\MenuState\TitleMenu.cpp" />
     <ClCompile Include="Game\GameObject\UI\State\Title\State\MenuState\TitleMenuMenuIn.cpp" />
@@ -319,6 +321,9 @@
     <ClInclude Include="Game\GameObject\Stage\Object\Character\Character.h" />
     <ClInclude Include="Game\GameObject\Stage\Object\Character\Enemy\Enemy.h" />
     <ClInclude Include="Game\GameObject\Stage\Object\Character\Enemy\State\EnemyState.h" />
+    <ClInclude Include="Game\GameObject\Stage\Object\Character\Enemy\State\EnemyStateCombat.h" />
+    <ClInclude Include="Game\GameObject\Stage\Object\Character\Enemy\State\Patrol\EnemyStatePatrol.h" />
+    <ClInclude Include="Game\GameObject\Stage\Object\Character\Enemy\UI\EnemyUi.h" />
     <ClInclude Include="Game\GameObject\Stage\Object\Character\Player\Player.h" />
     <ClInclude Include="Game\GameObject\Stage\Object\Character\Player\PlayerCamera.h" />
     <ClInclude Include="Game\GameObject\Stage\Object\Character\Player\PlayerState\PlayerAttack.h" />
@@ -329,12 +334,11 @@
     <ClInclude Include="Game\GameObject\Stage\Object\Character\Player\PlayerState\PlayerDefault\PlayerStand.h" />
     <ClInclude Include="Game\GameObject\Stage\Object\Character\Player\PlayerState\PlayerState.h" />
     <ClInclude Include="Game\GameObject\Stage\Object\Character\Player\PlayerState\PlayerTitle.h" />
+    <ClInclude Include="Game\GameObject\Stage\Object\Character\Player\UI\PlayerHpUi.h" />
     <ClInclude Include="Game\GameObject\Stage\Object\Object.h" />
     <ClInclude Include="Game\GameObject\Stage\Stage.h" />
     <ClInclude Include="Game\GameObject\Stage\StageObject\StageObject.h" />
     <ClInclude Include="Game\GameObject\UI\GameUI.h" />
-    <ClInclude Include="Game\GameObject\UI\State\Play\Object\EnemyUi.h" />
-    <ClInclude Include="Game\GameObject\UI\State\Play\Object\PlayerUi.h" />
     <ClInclude Include="Game\GameObject\UI\State\Play\UIPlay.h" />
     <ClInclude Include="Game\GameObject\UI\State\Title\State\MenuState\TitleMenu.h" />
     <ClInclude Include="Game\GameObject\UI\State\Title\State\MenuState\TitleMenuMenuIn.h" />
@@ -369,34 +373,6 @@
       <ObjectFileOutput Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Resource\Shader\Debug\%(Filename).cso</ObjectFileOutput>
       <ObjectFileOutput Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Resource\Shader\Debug\%(Filename).cso</ObjectFileOutput>
     </FxCompile>
-    <FxCompile Include="Crown\Shader\hpPercentGs.hlsl">
-      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Geometry</ShaderType>
-      <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">5.1</ShaderModel>
-      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Geometry</ShaderType>
-      <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">4.0</ShaderModel>
-      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Geometry</ShaderType>
-      <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">4.0</ShaderModel>
-      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Geometry</ShaderType>
-      <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Release|x64'">4.0</ShaderModel>
-      <ObjectFileOutput Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Resource\Shader\UI\%(Filename).cso</ObjectFileOutput>
-      <ObjectFileOutput Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Resource\Shader\UI\%(Filename).cso</ObjectFileOutput>
-    </FxCompile>
-    <FxCompile Include="Crown\Shader\hpPercentPs.hlsl">
-      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Pixel</ShaderType>
-      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Pixel</ShaderType>
-      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Pixel</ShaderType>
-      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Pixel</ShaderType>
-      <ObjectFileOutput Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Resource\Shader\UI\%(Filename).cso</ObjectFileOutput>
-      <ObjectFileOutput Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Resource\Shader\UI\%(Filename).cso</ObjectFileOutput>
-    </FxCompile>
-    <FxCompile Include="Crown\Shader\hpPercentVs.hlsl">
-      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Vertex</ShaderType>
-      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Vertex</ShaderType>
-      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Vertex</ShaderType>
-      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Vertex</ShaderType>
-      <ObjectFileOutput Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Resource\Shader\UI\%(Filename).cso</ObjectFileOutput>
-      <ObjectFileOutput Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Resource\Shader\UI\%(Filename).cso</ObjectFileOutput>
-    </FxCompile>
     <FxCompile Include="Crown\Shader\MMDPs.hlsl">
       <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">5.1</ShaderModel>
       <EntryPointName Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">main</EntryPointName>
@@ -409,34 +385,6 @@
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Pixel</ShaderType>
       <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Release|x64'">5.1</ShaderModel>
       <ObjectFileOutput Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Resource\Shader\PMD\%(Filename).cso</ObjectFileOutput>
-    </FxCompile>
-    <FxCompile Include="Crown\Shader\PlayerHpUiGs.hlsl">
-      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Geometry</ShaderType>
-      <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">4.0</ShaderModel>
-      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Geometry</ShaderType>
-      <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">4.0</ShaderModel>
-      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Geometry</ShaderType>
-      <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">4.0</ShaderModel>
-      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Geometry</ShaderType>
-      <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Release|x64'">5.1</ShaderModel>
-      <ObjectFileOutput Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Resource\Shader\UI\%(Filename).cso</ObjectFileOutput>
-      <ObjectFileOutput Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Resource\Shader\UI\%(Filename).cso</ObjectFileOutput>
-    </FxCompile>
-    <FxCompile Include="Crown\Shader\PlayerHpUiPs.hlsl">
-      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Pixel</ShaderType>
-      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Pixel</ShaderType>
-      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Pixel</ShaderType>
-      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Pixel</ShaderType>
-      <ObjectFileOutput Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Resource\Shader\UI\%(Filename).cso</ObjectFileOutput>
-      <ObjectFileOutput Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Resource\Shader\UI\%(Filename).cso</ObjectFileOutput>
-    </FxCompile>
-    <FxCompile Include="Crown\Shader\PlayerHpUiVs.hlsl">
-      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Vertex</ShaderType>
-      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Vertex</ShaderType>
-      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Vertex</ShaderType>
-      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Vertex</ShaderType>
-      <ObjectFileOutput Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Resource\Shader\UI\%(Filename).cso</ObjectFileOutput>
-      <ObjectFileOutput Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Resource\Shader\UI\%(Filename).cso</ObjectFileOutput>
     </FxCompile>
     <FxCompile Include="Crown\Shader\PmdVs.hlsl">
       <ObjectFileOutput Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Resource\Shader\PMD\%(Filename).cso</ObjectFileOutput>
@@ -458,6 +406,20 @@
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Vertex</ShaderType>
       <ObjectFileOutput Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Resource\Shader\PMD\%(Filename).cso</ObjectFileOutput>
       <ObjectFileOutput Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Resource\Shader\PMD\%(Filename).cso</ObjectFileOutput>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Vertex</ShaderType>
+    </FxCompile>
+    <FxCompile Include="Crown\Shader\UIGs.hlsl">
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Geometry</ShaderType>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Geometry</ShaderType>
+      <ObjectFileOutput Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Resource\Shader\UI\%(Filename).cso</ObjectFileOutput>
+      <ObjectFileOutput Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Resource\Shader\UI\%(Filename).cso</ObjectFileOutput>
+    </FxCompile>
+    <FxCompile Include="Crown\Shader\UIPs.hlsl">
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Pixel</ShaderType>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Pixel</ShaderType>
+    </FxCompile>
+    <FxCompile Include="Crown\Shader\UIvs.hlsl">
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Vertex</ShaderType>
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Vertex</ShaderType>
     </FxCompile>
     <FxCompile Include="Shader\Riria\RiriaClothes_PS.hlsl">
@@ -540,7 +502,7 @@
       <ObjectFileOutput Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Resource/Shader/Riria/%(Filename).cso</ObjectFileOutput>
       <ObjectFileOutput Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Resource/Shader/Riria/%(Filename).cso</ObjectFileOutput>
     </FxCompile>
-    <FxCompile Include="UIGs.hlsl">
+    <FxCompile Include="Shader\UI\EnemyHPUI\EnemyHPUI_GS.hlsl">
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Geometry</ShaderType>
       <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">5.1</ShaderModel>
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Geometry</ShaderType>
@@ -548,39 +510,48 @@
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Geometry</ShaderType>
       <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">4.0</ShaderModel>
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Geometry</ShaderType>
-      <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Release|x64'">4.0</ShaderModel>
+      <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Release|x64'">5.1</ShaderModel>
       <ObjectFileOutput Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Resource\Shader\UI\%(Filename).cso</ObjectFileOutput>
+      <ObjectFileOutput Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Resource\Shader\UI\%(Filename).cso</ObjectFileOutput>
     </FxCompile>
-    <FxCompile Include="UIPs.hlsl">
+    <FxCompile Include="Shader\UI\EnemyHPUI\EnemyHPUI_PS.hlsl">
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Pixel</ShaderType>
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Pixel</ShaderType>
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Pixel</ShaderType>
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Pixel</ShaderType>
-      <DisableOptimizations Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</DisableOptimizations>
-      <EnableDebuggingInformation Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</EnableDebuggingInformation>
-      <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">5.1</ShaderModel>
       <ObjectFileOutput Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Resource\Shader\UI\%(Filename).cso</ObjectFileOutput>
-      <EnableUnboundedDescriptorTables Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</EnableUnboundedDescriptorTables>
-      <EnableUnboundedDescriptorTables Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</EnableUnboundedDescriptorTables>
       <ObjectFileOutput Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Resource\Shader\UI\%(Filename).cso</ObjectFileOutput>
     </FxCompile>
-    <FxCompile Include="UIvs.hlsl">
+    <FxCompile Include="Shader\UI\EnemyHPUI\EnemyHPUI_VS.hlsl">
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Vertex</ShaderType>
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Vertex</ShaderType>
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Vertex</ShaderType>
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Vertex</ShaderType>
       <ObjectFileOutput Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Resource\Shader\UI\%(Filename).cso</ObjectFileOutput>
-      <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">5.1</ShaderModel>
       <ObjectFileOutput Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Resource\Shader\UI\%(Filename).cso</ObjectFileOutput>
-      <EnableUnboundedDescriptorTables Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</EnableUnboundedDescriptorTables>
-      <EnableUnboundedDescriptorTables Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</EnableUnboundedDescriptorTables>
+    </FxCompile>
+    <FxCompile Include="Shader\UI\PlayerHPUI\PlayerHPUI_GS.hlsl">
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Geometry</ShaderType>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Geometry</ShaderType>
+      <ObjectFileOutput Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Resource\Shader\UI\%(Filename).cso</ObjectFileOutput>
+      <ObjectFileOutput Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Resource\Shader\UI\%(Filename).cso</ObjectFileOutput>
+    </FxCompile>
+    <FxCompile Include="Shader\UI\PlayerHPUI\PlayerHPUI_PS.hlsl">
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Pixel</ShaderType>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Pixel</ShaderType>
+      <ObjectFileOutput Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Resource\Shader\UI\%(Filename).cso</ObjectFileOutput>
+      <ObjectFileOutput Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Resource\Shader\UI\%(Filename).cso</ObjectFileOutput>
+    </FxCompile>
+    <FxCompile Include="Shader\UI\PlayerHPUI\PlayerHPUI_VS.hlsl">
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Vertex</ShaderType>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Vertex</ShaderType>
+      <ObjectFileOutput Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Resource\Shader\UI\%(Filename).cso</ObjectFileOutput>
+      <ObjectFileOutput Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Resource\Shader\UI\%(Filename).cso</ObjectFileOutput>
     </FxCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="Crown\Shader\Data.hlsli" />
-    <None Include="Crown\Shader\EnemyHpUi.hlsli" />
-    <None Include="Crown\Shader\PlayerHpUi.hlsli" />
-    <None Include="UI.hlsli" />
+    <None Include="Crown\Shader\UI.hlsli" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

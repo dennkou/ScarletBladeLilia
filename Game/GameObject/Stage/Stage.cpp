@@ -15,7 +15,7 @@ Stage::Stage(Game* game)
 	int num = 100;
 	for (int i = 0; i < num; ++i)
 	{
-		this->CreateGameObject<StageObject>(DirectX::XMFLOAT3(0, 0, (i * 100) - ((num / 2) * 100.0f)));
+		this->CreateGameObject<StageObject>(DirectX::XMFLOAT3(0, 0, (i * 99.9999) - ((num / 2) * 99.9999)));
 	}
 }
 

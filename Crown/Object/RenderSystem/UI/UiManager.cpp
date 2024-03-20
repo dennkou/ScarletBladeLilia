@@ -29,7 +29,6 @@ void Crown::RenderObject::UiManager::AddUi(Ui* newUi)
 		}
 	}
 #endif // _DEBUG
-
 	m_ui.push_back(newUi);
 
 	std::sort(m_ui.begin(), m_ui.end(), [](const Ui* lhs, const Ui* rhs) { return lhs->GetPriority() < rhs->GetPriority(); });
@@ -59,11 +58,11 @@ void Crown::RenderObject::UiManager::Initialize(ID3D12Device* device, TextureBuf
 
 void Crown::RenderObject::UiManager::Render(GraphicsCommandList& commandList)
 {
-	commandList.GetGraphicsCommandList()->SetGraphicsRootSignature(m_rootSignature.Get());
 	commandList.GetGraphicsCommandList()->IASetPrimitiveTopology(D3D_PRIMITIVE_TOPOLOGY_POINTLIST);
 	commandList.GetGraphicsCommandList()->IASetVertexBuffers(0, 1, m_vertices.GetVertexBufferView());
 	for (Ui* ui : m_ui)
 	{
+		commandList.GetGraphicsCommandList()->SetGraphicsRootSignature(m_rootSignature.Get());
 		ui->Render(commandList.GetGraphicsCommandList());
 		commandList.GetGraphicsCommandList()->DrawIndexedInstanced(1, 1, 0, 0, 0);
 	}
@@ -97,10 +96,10 @@ void Crown::RenderObject::UiManager::CreatRootSignature(unsigned int texNum)
 	std::vector<D3D12_ROOT_PARAMETER> rootParameters;
 
 	D3D12_ROOT_PARAMETER rootParameter = {};
-
-	//	定数用だよ☆
 	rootParameter.ParameterType = D3D12_ROOT_PARAMETER_TYPE_DESCRIPTOR_TABLE;
 	rootParameter.ShaderVisibility = D3D12_SHADER_VISIBILITY_ALL;
+
+	//	定数用だよ☆
 	rootParameter.DescriptorTable.pDescriptorRanges = &descriptorRanges[0];
 	rootParameter.DescriptorTable.NumDescriptorRanges = 1;
 	rootParameters.push_back(rootParameter);
@@ -108,8 +107,6 @@ void Crown::RenderObject::UiManager::CreatRootSignature(unsigned int texNum)
 	//	マテリアル用だよ☆
 	for (unsigned int i = 1; i < texNum + 1; ++i)
 	{
-		rootParameter.ParameterType = D3D12_ROOT_PARAMETER_TYPE_DESCRIPTOR_TABLE;
-		rootParameter.ShaderVisibility = D3D12_SHADER_VISIBILITY_ALL;
 		rootParameter.DescriptorTable.pDescriptorRanges = &descriptorRanges[i];
 		rootParameter.DescriptorTable.NumDescriptorRanges = 1;
 		rootParameters.push_back(rootParameter);

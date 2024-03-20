@@ -89,9 +89,7 @@ void Crown::RenderObject::RenderSystem::Update()
 	ID3D12DescriptorHeap* descriptorHeap = DescriptorHeaps::GetInstance().GetDescriptorHeap();
 	m_commandList.GetGraphicsCommandList()->SetDescriptorHeaps(1, &descriptorHeap);
 
-
-
-	for (long long unsigned int i = 0, size = m_renderTargets.size(); i < size;)
+	for (unsigned int i = 0, size = m_renderTargets.size(); i < size;)
 	{	
 		std::shared_ptr<RenderTarget> renderTarget = m_renderTargets[i].second.lock();
 		if(renderTarget)

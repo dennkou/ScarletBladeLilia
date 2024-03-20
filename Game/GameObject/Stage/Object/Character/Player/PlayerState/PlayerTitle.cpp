@@ -4,6 +4,8 @@ Player::PlayerTitle::PlayerTitle(Player* owner)
 	:
 	m_owner(owner)
 {
+	m_owner->m_hpUi.SetAlpha(0);
+	m_owner->m_hpUi.SetPlayerHPPercent(0);
 }
 
 Player::PlayerTitle::~PlayerTitle()
@@ -22,6 +24,9 @@ void Player::PlayerTitle::Enter()
 
 void Player::PlayerTitle::Exit()
 {
+	m_owner->m_hpUi.SetAlpha(1);
+	m_owner->m_hpUi.SetPlayerHPPercent(m_owner->GetHp() / m_owner->GetMaxHp());
+
 	m_owner->m_camera.SetPosition(CAMERA_PLAY_POSITION);
 	m_owner->m_camera.SetRotate(CAMERA_PLAY_ROTATE);
 	m_owner->m_camera.SetDistance(CAMERA_PLAY_DISTANCE);
@@ -29,6 +34,9 @@ void Player::PlayerTitle::Exit()
 
 void Player::PlayerTitle::Update(float time)
 {
+	m_owner->m_hpUi.SetAlpha(m_owner->m_stateTimer / CHANGE_ANIMATION_TIME);
+	m_owner->m_hpUi.SetPlayerHPPercent(std::lerp(0, m_owner->GetHp() / m_owner->GetMaxHp(), m_owner->m_stateTimer / CHANGE_ANIMATION_TIME));
+
 	m_owner->m_standAnim.GetAnimation(0.0f, m_owner->m_bone, m_owner->GetModel().GetBoneDate());
 	if (m_startFlag)
 	{

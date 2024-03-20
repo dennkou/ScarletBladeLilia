@@ -1,6 +1,7 @@
 #include "PlayerAttackCollider.h"
 #include "EnemyCollider.h"
 #include "InstanceCollection.h"
+#include "./../../Crown/Object/RenderSystem/Camera.h"
 
 ColliderSystem::PlayerAttackCollider::PlayerAttackCollider(int damage, std::initializer_list<ColliderAlgorithm::Triangle> collider)
 	:
@@ -64,6 +65,7 @@ void ColliderSystem::PlayerAttackCollider::SetPlayerWorld(DirectX::XMMATRIX& pla
 	m_playerWorld = playerWorld;
 #ifdef DEBUG_MODEL
 	m_debugModel.GetMaterialMesh(0).GetMaterial(Crown::RenderObject::MaterialTag::Normal).GetConstBuffer(0).SetParameter(1,  playerWorld);
+	m_debugModel.GetMaterialMesh(0).GetMaterial(Crown::RenderObject::MaterialTag::Normal).GetConstBuffer(0).SetParameter(2,  Crown::RenderObject::Camera::GetInstance()->GetView() * Crown::RenderObject::Camera::GetInstance()->GetProjection());
 #endif // DEBUG_MODEL
 }
 

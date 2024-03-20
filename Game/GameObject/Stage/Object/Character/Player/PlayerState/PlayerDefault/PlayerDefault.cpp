@@ -11,12 +11,11 @@ Player::PlayerDefault::PlayerDefault(Player* owner)
 	m_nowState(State::Stand),
 	m_speed(0.0)
 {
+	//	ステートマシンの設定だよ☆
 	m_state.RegisterState<PlayerStand>(State::Stand, this);
 	m_state.RegisterState<PlayerRun>(State::Run, this);
-
 	m_state.SetEnterFunction(&PlayerDefaultStateBase::Enter);
 	m_state.SetExitFunction(&PlayerDefaultStateBase::Exit);
-
 	m_state.ChangeState(State::Stand);
 }
 

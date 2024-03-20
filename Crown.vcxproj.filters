@@ -11,16 +11,16 @@
       <Filter>Crown\Object\RenderSystem</Filter>
     </ClCompile>
     <ClCompile Include="Crown\Object\RenderSystem\DirectX12Wraps\CommandAllocator.cpp">
-      <Filter>Crown\Object\RenderSystem\DirectX12Wraps</Filter>
+      <Filter>Crown\Object\RenderSystem\Model\DirectX12Wraps</Filter>
     </ClCompile>
     <ClCompile Include="Crown\Object\RenderSystem\DirectX12Wraps\GraphicPipeline.cpp">
-      <Filter>Crown\Object\RenderSystem\DirectX12Wraps</Filter>
+      <Filter>Crown\Object\RenderSystem\Model\DirectX12Wraps</Filter>
     </ClCompile>
     <ClCompile Include="Crown\Object\RenderSystem\DirectX12Wraps\GraphicsCommandList.cpp">
-      <Filter>Crown\Object\RenderSystem\DirectX12Wraps</Filter>
+      <Filter>Crown\Object\RenderSystem\Model\DirectX12Wraps</Filter>
     </ClCompile>
     <ClCompile Include="Crown\Object\RenderSystem\DirectX12Wraps\SwapChain.cpp">
-      <Filter>Crown\Object\RenderSystem\DirectX12Wraps</Filter>
+      <Filter>Crown\Object\RenderSystem\Model\DirectX12Wraps</Filter>
     </ClCompile>
     <ClCompile Include="Game\Game.cpp">
       <Filter>Game</Filter>
@@ -35,16 +35,16 @@
       <Filter>Crown\Object\RenderSystem\Model</Filter>
     </ClCompile>
     <ClCompile Include="Crown\Object\RenderSystem\DirectX12Wraps\ResourceUploader.cpp">
-      <Filter>Crown\Object\RenderSystem\DirectX12Wraps</Filter>
+      <Filter>Crown\Object\RenderSystem\Model\DirectX12Wraps</Filter>
     </ClCompile>
     <ClCompile Include="Crown\Object\RenderSystem\DirectX12Wraps\DescriptorHeaps.cpp">
-      <Filter>Crown\Object\RenderSystem\DirectX12Wraps</Filter>
+      <Filter>Crown\Object\RenderSystem\Model\DirectX12Wraps</Filter>
     </ClCompile>
     <ClCompile Include="Crown\Object\RenderSystem\Model\MaterialMesh.cpp">
       <Filter>Crown\Object\RenderSystem\Model</Filter>
     </ClCompile>
     <ClCompile Include="Crown\Object\RenderSystem\DirectX12Wraps\RootSignature.cpp">
-      <Filter>Crown\Object\RenderSystem\DirectX12Wraps</Filter>
+      <Filter>Crown\Object\RenderSystem\Model\DirectX12Wraps</Filter>
     </ClCompile>
     <ClCompile Include="Crown\Object\RenderSystem\Model\Material.cpp">
       <Filter>Crown\Object\RenderSystem\Model</Filter>
@@ -236,17 +236,23 @@
     <ClCompile Include="Game\GameObject\UI\State\Play\UIPlay.cpp">
       <Filter>Game\GameObject\UI\State\Play</Filter>
     </ClCompile>
-    <ClCompile Include="Game\GameObject\UI\State\Play\Object\EnemyUi.cpp">
-      <Filter>Game\GameObject\UI\State\Play\Object</Filter>
-    </ClCompile>
-    <ClCompile Include="Game\GameObject\UI\State\Play\Object\PlayerUi.cpp">
-      <Filter>Game\GameObject\UI\State\Play\Object</Filter>
-    </ClCompile>
     <ClCompile Include="Game\GameObject\Stage\Collider\PlayerAttackCollider.cpp">
       <Filter>Game\GameObject\Stage\Collider</Filter>
     </ClCompile>
     <ClCompile Include="Crown\Object\RenderSystem\Model\FileType\TriangleColliderDebug.cpp">
       <Filter>Crown\Object\RenderSystem\Model\FileType</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\GameObject\Stage\Object\Character\Player\UI\PlayerHpUi.cpp">
+      <Filter>Game\GameObject\Stage\Object\Character\Player\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\GameObject\Stage\Object\Character\Enemy\UI\EnemyUi.cpp">
+      <Filter>Game\GameObject\Stage\Object\Character\Enemy\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\GameObject\Stage\Object\Character\Enemy\State\EnemyStateCombat.cpp">
+      <Filter>Game\GameObject\Stage\Object\Character\Enemy\State</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\GameObject\Stage\Object\Character\Enemy\State\Patrol\EnemyStatePatrol.cpp">
+      <Filter>Game\GameObject\Stage\Object\Character\Enemy\State\Patrol</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -261,9 +267,6 @@
     </Filter>
     <Filter Include="Crown\Object\RenderSystem">
       <UniqueIdentifier>{4cb410dd-bef0-4ede-9bd1-b28dc4a8f26f}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Crown\Object\RenderSystem\DirectX12Wraps">
-      <UniqueIdentifier>{858bc5d9-f677-4520-93f3-4328e835c54f}</UniqueIdentifier>
     </Filter>
     <Filter Include="Crown\Object\RenderSystem\Model">
       <UniqueIdentifier>{2fde15c9-74f7-4820-8427-b5b78c0bd3ce}</UniqueIdentifier>
@@ -379,6 +382,24 @@
     <Filter Include="Crown\Shader\Debug">
       <UniqueIdentifier>{4a0be055-1168-49ff-a055-449ba04af4b9}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Shader\UI">
+      <UniqueIdentifier>{4e44727b-d7ba-4269-9f88-7ce0c8174646}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Crown\Object\RenderSystem\Model\DirectX12Wraps">
+      <UniqueIdentifier>{858bc5d9-f677-4520-93f3-4328e835c54f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\GameObject\UI\State\Play\State">
+      <UniqueIdentifier>{2f55c565-a94b-4521-a0a3-c1913201d8a5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\GameObject\Stage\Object\Character\Player\UI">
+      <UniqueIdentifier>{5890b18f-8ec7-420f-9ebd-dc03bfbcfde7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\GameObject\Stage\Object\Character\Enemy\UI">
+      <UniqueIdentifier>{bbeb9955-056c-4180-8eb1-6a53784e108f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\GameObject\Stage\Object\Character\Enemy\State\Patrol">
+      <UniqueIdentifier>{4ff3e19c-e140-4dc8-bed7-e6448ebba76b}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Crown\System.h">
@@ -391,16 +412,16 @@
       <Filter>Crown\Object\RenderSystem</Filter>
     </ClInclude>
     <ClInclude Include="Crown\Object\RenderSystem\DirectX12Wraps\CommandAllocator.h">
-      <Filter>Crown\Object\RenderSystem\DirectX12Wraps</Filter>
+      <Filter>Crown\Object\RenderSystem\Model\DirectX12Wraps</Filter>
     </ClInclude>
     <ClInclude Include="Crown\Object\RenderSystem\DirectX12Wraps\GraphicPipeline.h">
-      <Filter>Crown\Object\RenderSystem\DirectX12Wraps</Filter>
+      <Filter>Crown\Object\RenderSystem\Model\DirectX12Wraps</Filter>
     </ClInclude>
     <ClInclude Include="Crown\Object\RenderSystem\DirectX12Wraps\GraphicsCommandList.h">
-      <Filter>Crown\Object\RenderSystem\DirectX12Wraps</Filter>
+      <Filter>Crown\Object\RenderSystem\Model\DirectX12Wraps</Filter>
     </ClInclude>
     <ClInclude Include="Crown\Object\RenderSystem\DirectX12Wraps\SwapChain.h">
-      <Filter>Crown\Object\RenderSystem\DirectX12Wraps</Filter>
+      <Filter>Crown\Object\RenderSystem\Model\DirectX12Wraps</Filter>
     </ClInclude>
     <ClInclude Include="Game\Game.h">
       <Filter>Game</Filter>
@@ -418,10 +439,10 @@
       <Filter>Crown\Object\RenderSystem\Model</Filter>
     </ClInclude>
     <ClInclude Include="Crown\Object\RenderSystem\DirectX12Wraps\ResourceUploader.h">
-      <Filter>Crown\Object\RenderSystem\DirectX12Wraps</Filter>
+      <Filter>Crown\Object\RenderSystem\Model\DirectX12Wraps</Filter>
     </ClInclude>
     <ClInclude Include="Crown\Object\RenderSystem\DirectX12Wraps\DescriptorHeaps.h">
-      <Filter>Crown\Object\RenderSystem\DirectX12Wraps</Filter>
+      <Filter>Crown\Object\RenderSystem\Model\DirectX12Wraps</Filter>
     </ClInclude>
     <ClInclude Include="Crown\Object\RenderSystem\Model\MaterialMesh.h">
       <Filter>Crown\Object\RenderSystem\Model</Filter>
@@ -430,7 +451,7 @@
       <Filter>Crown\Object\RenderSystem\Model</Filter>
     </ClInclude>
     <ClInclude Include="Crown\Object\RenderSystem\DirectX12Wraps\RootSignature.h">
-      <Filter>Crown\Object\RenderSystem\DirectX12Wraps</Filter>
+      <Filter>Crown\Object\RenderSystem\Model\DirectX12Wraps</Filter>
     </ClInclude>
     <ClInclude Include="Crown\Object\StringAlgorithm.h">
       <Filter>Crown\Object</Filter>
@@ -648,20 +669,26 @@
     <ClInclude Include="Game\GameObject\UI\State\Play\UIPlay.h">
       <Filter>Game\GameObject\UI\State\Play</Filter>
     </ClInclude>
-    <ClInclude Include="Game\GameObject\UI\State\Play\Object\EnemyUi.h">
-      <Filter>Game\GameObject\UI\State\Play\Object</Filter>
-    </ClInclude>
     <ClInclude Include="Game\GameObject\Stage\Object\Character\Enemy\State\EnemyState.h">
       <Filter>Game\GameObject\Stage\Object\Character\Enemy\State</Filter>
-    </ClInclude>
-    <ClInclude Include="Game\GameObject\UI\State\Play\Object\PlayerUi.h">
-      <Filter>Game\GameObject\UI\State\Play\Object</Filter>
     </ClInclude>
     <ClInclude Include="Game\GameObject\Stage\Collider\PlayerAttackCollider.h">
       <Filter>Game\GameObject\Stage\Collider</Filter>
     </ClInclude>
     <ClInclude Include="Crown\Object\RenderSystem\Model\FileType\TriangleColliderDebug.h">
       <Filter>Crown\Object\RenderSystem\Model\FileType</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\GameObject\Stage\Object\Character\Player\UI\PlayerHpUi.h">
+      <Filter>Game\GameObject\Stage\Object\Character\Player\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\GameObject\Stage\Object\Character\Enemy\UI\EnemyUi.h">
+      <Filter>Game\GameObject\Stage\Object\Character\Enemy\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\GameObject\Stage\Object\Character\Enemy\State\EnemyStateCombat.h">
+      <Filter>Game\GameObject\Stage\Object\Character\Enemy\State</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\GameObject\Stage\Object\Character\Enemy\State\Patrol\EnemyStatePatrol.h">
+      <Filter>Game\GameObject\Stage\Object\Character\Enemy\State\Patrol</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -676,33 +703,6 @@
     </FxCompile>
     <FxCompile Include="Crown\Shader\PmxVs.hlsl">
       <Filter>Crown\Shader\MMD</Filter>
-    </FxCompile>
-    <FxCompile Include="UIGs.hlsl">
-      <Filter>Crown\Shader\UI</Filter>
-    </FxCompile>
-    <FxCompile Include="UIPs.hlsl">
-      <Filter>Crown\Shader\UI</Filter>
-    </FxCompile>
-    <FxCompile Include="UIvs.hlsl">
-      <Filter>Crown\Shader\UI</Filter>
-    </FxCompile>
-    <FxCompile Include="Crown\Shader\hpPercentPs.hlsl">
-      <Filter>Crown\Shader\UI</Filter>
-    </FxCompile>
-    <FxCompile Include="Crown\Shader\hpPercentVs.hlsl">
-      <Filter>Crown\Shader\UI</Filter>
-    </FxCompile>
-    <FxCompile Include="Crown\Shader\hpPercentGs.hlsl">
-      <Filter>Crown\Shader\UI</Filter>
-    </FxCompile>
-    <FxCompile Include="Crown\Shader\PlayerHpUiVs.hlsl">
-      <Filter>Crown\Shader\UI</Filter>
-    </FxCompile>
-    <FxCompile Include="Crown\Shader\PlayerHpUiGs.hlsl">
-      <Filter>Crown\Shader\UI</Filter>
-    </FxCompile>
-    <FxCompile Include="Crown\Shader\PlayerHpUiPs.hlsl">
-      <Filter>Crown\Shader\UI</Filter>
     </FxCompile>
     <FxCompile Include="Shader\Riria\Riria_VS.hlsl">
       <Filter>Shader\Riria</Filter>
@@ -728,18 +728,39 @@
     <FxCompile Include="Crown\Shader\DebugPS.hlsl">
       <Filter>Crown\Shader\Debug</Filter>
     </FxCompile>
+    <FxCompile Include="Crown\Shader\UIvs.hlsl">
+      <Filter>Crown\Shader\UI</Filter>
+    </FxCompile>
+    <FxCompile Include="Crown\Shader\UIGs.hlsl">
+      <Filter>Crown\Shader\UI</Filter>
+    </FxCompile>
+    <FxCompile Include="Crown\Shader\UIPs.hlsl">
+      <Filter>Crown\Shader\UI</Filter>
+    </FxCompile>
+    <FxCompile Include="Shader\UI\PlayerHPUI\PlayerHPUI_VS.hlsl">
+      <Filter>Shader\UI</Filter>
+    </FxCompile>
+    <FxCompile Include="Shader\UI\PlayerHPUI\PlayerHPUI_GS.hlsl">
+      <Filter>Shader\UI</Filter>
+    </FxCompile>
+    <FxCompile Include="Shader\UI\PlayerHPUI\PlayerHPUI_PS.hlsl">
+      <Filter>Shader\UI</Filter>
+    </FxCompile>
+    <FxCompile Include="Shader\UI\EnemyHPUI\EnemyHPUI_VS.hlsl">
+      <Filter>Shader\UI</Filter>
+    </FxCompile>
+    <FxCompile Include="Shader\UI\EnemyHPUI\EnemyHPUI_GS.hlsl">
+      <Filter>Shader\UI</Filter>
+    </FxCompile>
+    <FxCompile Include="Shader\UI\EnemyHPUI\EnemyHPUI_PS.hlsl">
+      <Filter>Shader\UI</Filter>
+    </FxCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="Crown\Shader\Data.hlsli">
       <Filter>Crown\Shader\MMD</Filter>
     </None>
-    <None Include="UI.hlsli">
-      <Filter>Crown\Shader\UI</Filter>
-    </None>
-    <None Include="Crown\Shader\EnemyHpUi.hlsli">
-      <Filter>Crown\Shader\UI</Filter>
-    </None>
-    <None Include="Crown\Shader\PlayerHpUi.hlsli">
+    <None Include="Crown\Shader\UI.hlsli">
       <Filter>Crown\Shader\UI</Filter>
     </None>
   </ItemGroup>

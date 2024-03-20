@@ -16,29 +16,19 @@ void Crown::RenderObject::TriangleColliderDebug::Load(ID3D12Device* device, Vert
 	if (rootSignature.Get() == nullptr || !graphicsPipeline)
 	{
 		//	ディスクリプタレンジの設定だよ☆
-		D3D12_DESCRIPTOR_RANGE descriptorRange[2] = {};
+		D3D12_DESCRIPTOR_RANGE descriptorRange[1] = {};
 		descriptorRange[0].NumDescriptors = 1;
 		descriptorRange[0].RangeType = D3D12_DESCRIPTOR_RANGE_TYPE_CBV;
 		descriptorRange[0].BaseShaderRegister = 0;
 		descriptorRange[0].OffsetInDescriptorsFromTableStart = D3D12_DESCRIPTOR_RANGE_OFFSET_APPEND;
 
-		descriptorRange[1].NumDescriptors = 1;
-		descriptorRange[1].RangeType = D3D12_DESCRIPTOR_RANGE_TYPE_CBV;
-		descriptorRange[1].BaseShaderRegister = 1;
-		descriptorRange[1].OffsetInDescriptorsFromTableStart = D3D12_DESCRIPTOR_RANGE_OFFSET_APPEND;
-
 		//	ルートパラメータの作成を行うよ☆
-		static const unsigned int parameterNum = 2;
+		static const unsigned int parameterNum = 1;
 		D3D12_ROOT_PARAMETER rootParameter[parameterNum] = {};
 		rootParameter[0].ParameterType = D3D12_ROOT_PARAMETER_TYPE_DESCRIPTOR_TABLE;
 		rootParameter[0].ShaderVisibility = D3D12_SHADER_VISIBILITY_ALL;
 		rootParameter[0].DescriptorTable.pDescriptorRanges = &descriptorRange[0];
 		rootParameter[0].DescriptorTable.NumDescriptorRanges = 1;
-
-		rootParameter[1].ParameterType = D3D12_ROOT_PARAMETER_TYPE_DESCRIPTOR_TABLE;
-		rootParameter[1].ShaderVisibility = D3D12_SHADER_VISIBILITY_ALL;
-		rootParameter[1].DescriptorTable.pDescriptorRanges = &descriptorRange[1];
-		rootParameter[1].DescriptorTable.NumDescriptorRanges = 1;
 
 		//	ルートシグネチャーの設定だよ☆
 		D3D12_ROOT_SIGNATURE_DESC rootSignatureDesc = {};
@@ -89,9 +79,11 @@ void Crown::RenderObject::TriangleColliderDebug::Load(ID3D12Device* device, Vert
 	std::vector<BlobConstBuffer::DataType> bufferData;			//	データ構造を指定する配列だよ☆
 	bufferData.emplace_back(BlobConstBuffer::DataType::Float4);
 	bufferData.emplace_back(BlobConstBuffer::DataType::Matrix);
+	bufferData.emplace_back(BlobConstBuffer::DataType::Matrix);
 	BlobConstBuffer constBuffer(bufferData, device);
 	constBuffer.SetParameter(0, color);
 	constBuffer.SetParameter(1, DirectX::XMMatrixIdentity());
+	constBuffer.SetParameter(2, Crown::RenderObject::Camera::GetInstance()->GetView() * Crown::RenderObject::Camera::GetInstance()->GetProjection());
 
 	//	マテリアル描画の仕方を決定☆
 	std::vector<std::shared_ptr<RenderCommand::RenderCommandBase>> renderCommands;
@@ -102,7 +94,6 @@ void Crown::RenderObject::TriangleColliderDebug::Load(ID3D12Device* device, Vert
 	RenderCommand::RenderCommandFactory::CreateSetIndexBuffer(renderCommands, verticesBuffer.GetIndexBufferView());
 	RenderCommand::RenderCommandFactory::CreateSetDescriptorHeap(renderCommands);
 	RenderCommand::RenderCommandFactory::CreateSetDescriptor(renderCommands, 0, constBuffer.GetDescriptorOffset());
-	RenderCommand::RenderCommandFactory::CreateSetDescriptor(renderCommands, 1, Crown::RenderObject::Camera::GetInstance()->GetDescriptorOffset());
 	std::vector<Microsoft::WRL::ComPtr<ID3D12Resource>> resources;
 	resources.emplace_back(verticesBuffer.GetConstVertexBuffer());
 	resources.emplace_back(verticesBuffer.GetConstIndexBuffer());

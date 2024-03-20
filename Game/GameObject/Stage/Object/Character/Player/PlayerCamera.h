@@ -23,7 +23,7 @@ public:
 private:
 
 	static constexpr float DEFAULT_FOV_ANGLE = DirectX::XMConvertToRadians(60);
-	static constexpr DirectX::XMFLOAT3 POSITION_OFFSET = DirectX::XMFLOAT3(0, 15, 0);
+	static constexpr DirectX::XMFLOAT3 POSITION_OFFSET = DirectX::XMFLOAT3(0, 13, 0);
 
 	float m_distance;
 	DirectX::XMFLOAT3 m_rotate;
