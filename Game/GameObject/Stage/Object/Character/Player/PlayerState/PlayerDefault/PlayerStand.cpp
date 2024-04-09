@@ -33,5 +33,5 @@ void Player::PlayerDefault::PlayerStand::Exit()
 void Player::PlayerDefault::PlayerStand::OnInputMove(DirectX::XMFLOAT2 input)
 {
 	input;
-	m_owner->m_state.ChangeState(State::Run);
+	m_owner->m_state.ChangeState(State::Move);
 }

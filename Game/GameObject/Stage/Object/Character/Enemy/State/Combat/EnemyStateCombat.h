@@ -1,5 +1,7 @@
 #pragma once
-#include "EnemyState.h"
+#include "./../../../../../../../DesignPatterns/FiniteStateMachine.h"
+#include "./../EnemyState.h"
+
 
 class Enemy::EnemyStateCombat : public Enemy::EnemyState
 {
@@ -8,10 +10,19 @@ public:
 	virtual ~EnemyStateCombat();
 
 	virtual void Enter() override;
-	virtual void Update() override;
+	virtual void Update(float time) override;
 	virtual void Exit() override;
 	virtual void OnDamage(int damage) override;
 private:
 	Enemy* m_enemy;
-};
 
+	class State;
+	class StateVigilance;
+
+	enum class StateType
+	{
+		Vigilance,
+	};
+
+	Crown::FiniteStateMachine<StateType, State> m_state;
+};

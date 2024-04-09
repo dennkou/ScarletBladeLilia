@@ -76,6 +76,11 @@ void Player::OnInputCamera(DirectX::XMFLOAT2 input)
 	m_playerState.CallFunction(&PlayerState::OnInputCamera, input);
 }
 
+void Player::OnInputDash(bool input)
+{
+	m_playerState.CallFunction(&PlayerState::OnInputDash, input);
+}
+
 void Player::CreateMaterial()
 {
 	Crown::RenderObject::TextureBuffer& textureBuffer = Crown::System::GetInstance().GetRenderSystem().GetTextureBuffer();
@@ -488,8 +493,9 @@ void Player::AnimLoad()
 	}
 
 	m_standAnim.LaodVMD(L"Resource/Motion/待機.vmd");
+	m_walkAnim.LaodVMD(L"Resource/Motion/歩き.vmd");
 	m_runStartAnim.LaodVMD(L"Resource/Motion/スタートダッシュ.vmd");
-	m_runAnim.LaodVMD(L"Resource/Motion/歩き.vmd");
+	m_runAnim.LaodVMD(L"Resource/Motion/ダッシュ.vmd");
 	m_drawingSwordAttackAnim.LaodVMD(L"Resource/Motion/抜刀攻撃.vmd");
 }
 

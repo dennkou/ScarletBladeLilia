@@ -21,6 +21,7 @@ public:
 	virtual void OnInputAttackDown() override;						//	攻撃ボタンが押されたよ☆
 	virtual void OnInputAvoidanceDown() override;					//	回避ボタンが押されたよ☆
 	virtual void OnInputCamera(DirectX::XMFLOAT2 input) override;	//	
+	virtual void OnInputDash(bool input) override;
 private:
 	void CreateMaterial();
 	void StateSetUp();
@@ -29,6 +30,8 @@ private:
 
 	//	入力によりカメラを回転させるよ☆
 	void CameraRoll(DirectX::XMFLOAT2 input);
+
+	static constexpr float LONG_PRESS_TIME = 1.0;
 
 	//	プレイヤーのステータスだよ☆
 	static constexpr int MAX_HP = 1000;								//	プレイヤーの最大HPだよ☆
@@ -63,10 +66,14 @@ private:
 	static constexpr float ANIMATION_FPS = 30;						//	アニメーションのフレームレートだよ☆
 	Crown::RenderObject::AnimationData m_standAnim;					
 	static constexpr float STAND_ANIM_SPEED = 1.0f;					
+	Crown::RenderObject::AnimationData m_walkStartAnim;
+	static constexpr float WALK_START_ANIM_SPEED = 2.0f;
+	Crown::RenderObject::AnimationData m_walkAnim;
+	static constexpr float WALK_ANIM_SPEED = 2.0f;
 	Crown::RenderObject::AnimationData m_runStartAnim;				
 	static constexpr float RUN_START_ANIM_SPEED = 2.0f;				
 	Crown::RenderObject::AnimationData m_runAnim;					
-	static constexpr float RUN_ANIM_SPEED = 2.0f;					
+	static constexpr float RUN_ANIM_SPEED = 8.0f;					
 	Crown::RenderObject::AnimationData m_drawingSwordAttackAnim;	
 	static constexpr float DRAWING_SWORD_ATTACK_ANIM_SPEED = 2.0f;	
 

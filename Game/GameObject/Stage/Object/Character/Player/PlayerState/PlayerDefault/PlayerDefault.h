@@ -16,20 +16,18 @@ public:
 	virtual void OnInputAttackDown() override;						//	攻撃ボタンが押されたよ☆
 	virtual void OnInputAvoidanceDown() override;					//	回避ボタンが押されたよ☆
 	virtual void OnInputCamera(DirectX::XMFLOAT2 input) override;
+	virtual void OnInputDash(bool input) override;
 private:
-	void MoveAngleUpdate();
 	Player* m_owner;
-
-	float m_speed;
 
 	class PlayerDefaultStateBase;
 	class PlayerStand;
-	class PlayerRun;
+	class PlayerMove;
 
 	enum class State
 	{
 		Stand,
-		Run
+		Move
 	};
 
 	State m_nowState;

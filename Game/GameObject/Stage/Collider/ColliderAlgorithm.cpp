@@ -1,11 +1,12 @@
 #include "ColliderAlgorithm.h"
 #include <math.h>
+#include "./../../MathLibrary.h"
 
 bool ColliderAlgorithm::CheckHitCapsuleTriangle(const Capsule& capsule, const Triangle& triangle)
 {
 	float minLength;
 	minLength = SegmentTriangleMinLengthSquare(capsule.line, triangle);
-	return  minLength < capsule.radius * capsule.radius ;
+	return  minLength <= (capsule.radius * capsule.radius);
 }
 
 bool ColliderAlgorithm::HitCheckLineTriangle(const LineSegment& lineSegment, const Triangle& triangle)
@@ -74,7 +75,6 @@ bool ColliderAlgorithm::HitCheckLineTriangle(const LineSegment& lineSegment, con
 	float Seg2_TriProSeg2_Dist = 0.0f;
 	float Seg1_TriProSeg1_DistBase = 0.0f;
 	float Seg2_TriProSeg2_DistBase = 0.0f;
-	float MinLen;
 
 	Seg1_2 = VectorSub(lineSegment.end.point, lineSegment.start.point);
 	Tri1_2 = VectorSub(triangle.point[1].point, triangle.point[0].point);
@@ -376,7 +376,7 @@ float ColliderAlgorithm::SegmentSegmentMinLengthSquare(const LineSegment& lineSe
 	{
 		if (tmpB < 0.00000001f)
 		{
-			return VSquareSize(VectorSub(lineSegmentA.start.point, lineSegmentB.start.point));
+			return VectorSquareSize(VectorSub(lineSegmentA.start.point, lineSegmentB.start.point));
 		}
 		else
 		{
@@ -475,63 +475,6 @@ float ColliderAlgorithm::SegmentSegmentMinLengthSquare(const LineSegment& lineSe
 
 	tp = VectorSub(e1, e2);
 	return VectorInnerProduct(tp, tp);
-}
-
-DirectX::XMFLOAT3 ColliderAlgorithm::VectorAdd(const DirectX::XMFLOAT3& in1, const DirectX::XMFLOAT3& in2) noexcept
-{
-	DirectX::XMFLOAT3 ret;
-	ret.x = in1.x + in2.x;
-	ret.y = in1.y + in2.y;
-	ret.z = in1.z + in2.z;
-	return ret;
-}
-
-DirectX::XMFLOAT3 ColliderAlgorithm::VectorSub(const DirectX::XMFLOAT3& in1, const DirectX::XMFLOAT3& in2) noexcept
-{
-	DirectX::XMFLOAT3 ret;
-	ret.x = in1.x - in2.x;
-	ret.y = in1.y - in2.y;
-	ret.z = in1.z - in2.z;
-	return ret;
-}
-
-DirectX::XMFLOAT3 ColliderAlgorithm::VectorOuterProduct(const DirectX::XMFLOAT3& in1, const DirectX::XMFLOAT3& in2) noexcept
-{
-	DirectX::XMFLOAT3 ret;
-
-	ret.x = in1.y * in2.z - in1.z * in2.y;
-	ret.y = in1.z * in2.x - in1.x * in2.z;
-	ret.z = in1.x * in2.y - in1.y * in2.x;
-	return ret;
-}
-
-float ColliderAlgorithm::VectorInnerProduct(const DirectX::XMFLOAT3& in1, const DirectX::XMFLOAT3& in2) noexcept
-{
-	return in1.x * in2.x + in1.y * in2.y + in1.z * in2.z;
-}
-
-DirectX::XMFLOAT3 ColliderAlgorithm::VectorNormalize(const DirectX::XMFLOAT3& in) noexcept
-{
-	float tmp = sqrtf(in.x * in.x + in.y * in.y + in.z * in.z);
-	DirectX::XMFLOAT3 ret;
-	ret.x = in.x / tmp;
-	ret.y = in.y / tmp;
-	ret.z = in.z / tmp;
-	return ret;
-}
-
-float ColliderAlgorithm::VSquareSize(const DirectX::XMFLOAT3& in) noexcept
-{
-	return in.x * in.x + in.y * in.y + in.z * in.z;
-}
-
-DirectX::XMFLOAT3 ColliderAlgorithm::VectorScale(DirectX::XMFLOAT3 in, float scale) noexcept
-{
-	DirectX::XMFLOAT3 ret;
-	ret.x = in.x * scale;
-	ret.y = in.y * scale;
-	ret.z = in.z * scale;
-	return ret;
 }
 
 void ColliderAlgorithm::TriangleBarycenter_Base(const Triangle& triangle, const Point& position, float* TrianglePos1Weight, float* TrianglePos2Weight, float* TrianglePos3Weight) noexcept

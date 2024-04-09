@@ -28,5 +28,6 @@ private:
 	float m_distance;
 	DirectX::XMFLOAT3 m_rotate;
 	DirectX::XMFLOAT3 m_position;
+	DirectX::XMFLOAT3 m_center;
 	float m_fovAngle;
 };

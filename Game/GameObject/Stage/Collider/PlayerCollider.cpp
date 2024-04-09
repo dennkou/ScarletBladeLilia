@@ -2,6 +2,7 @@
 #include "PlayerCollider.h"
 #include "EnemyCollider.h"
 #include <math.h>
+#include "./../../MathLibrary.h"
 
 ColliderSystem::PlayerCollider::PlayerCollider()
 	:
@@ -19,13 +20,13 @@ ColliderSystem::PlayerCollider::~PlayerCollider()
 void ColliderSystem::PlayerCollider::SetPosition(DirectX::XMFLOAT3 position)
 {
 	m_collider.line.start.point = position;
-	m_collider.line.end.point = ColliderAlgorithm::VectorAdd(m_capsuleVector, m_collider.line.start.point);
+	m_collider.line.end.point = VectorAdd(m_capsuleVector, m_collider.line.start.point);
 }
 
 void ColliderSystem::PlayerCollider::SetCapsuleVector(DirectX::XMFLOAT3 capsuleVector)
 {
 	m_capsuleVector = capsuleVector;
-	m_collider.line.end.point = ColliderAlgorithm::VectorAdd(m_capsuleVector, m_collider.line.start.point);
+	m_collider.line.end.point = VectorAdd(m_capsuleVector, m_collider.line.start.point);
 }
 
 void ColliderSystem::PlayerCollider::CheckHitEnemy(EnemyCollider* enemyCollider)
@@ -41,9 +42,9 @@ void ColliderSystem::PlayerCollider::CheckHitEnemy(EnemyCollider* enemyCollider)
 
 	if (extrusionDistance > 0)
 	{
-		DirectX::XMFLOAT3 direction = ColliderAlgorithm::VectorNormalize(ColliderAlgorithm::VectorSub(enemyCollider->GetPosition(), GetPosition()));
+		DirectX::XMFLOAT3 direction = VectorNormalize(VectorSub(enemyCollider->GetPosition(), GetPosition()));
 
-		enemyCollider->SetPosition(ColliderAlgorithm::VectorAdd(enemyCollider->GetPosition(), ColliderAlgorithm::VectorScale(direction, extrusionDistance / 2)));
-		SetPosition(ColliderAlgorithm::VectorAdd(GetPosition(), ColliderAlgorithm::VectorScale(direction, extrusionDistance / -2)));
+		enemyCollider->SetPosition(VectorAdd(enemyCollider->GetPosition(), VectorScale(direction, extrusionDistance / 2)));
+		SetPosition(VectorAdd(GetPosition(), VectorScale(direction, extrusionDistance / -2)));
 	}
 }

@@ -1,10 +1,11 @@
 #pragma once
 #include "./PlayerDefaultStateBase.h"
-class Player::PlayerDefault::PlayerRun : public Player::PlayerDefault::PlayerDefaultStateBase
+
+class Player::PlayerDefault::PlayerMove : public Player::PlayerDefault::PlayerDefaultStateBase
 {
 public:
-	PlayerRun(PlayerDefault* owner);
-	virtual ~PlayerRun();
+	PlayerMove(PlayerDefault* owner);
+	virtual ~PlayerMove();
 
 	virtual void Enter() override;
 	virtual void Update(float time) override;
@@ -17,4 +18,5 @@ private:
 
 	Player* m_player;
 	PlayerDefault* m_owner;
+	DirectX::XMFLOAT3 m_velocity;
 };	

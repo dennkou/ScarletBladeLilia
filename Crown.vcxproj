@@ -224,15 +224,18 @@
     <ClCompile Include="Game\GameObject\Stage\Collider\StageCollider.cpp" />
     <ClCompile Include="Game\GameObject\Stage\Object\Character\Character.cpp" />
     <ClCompile Include="Game\GameObject\Stage\Object\Character\Enemy\Enemy.cpp" />
-    <ClCompile Include="Game\GameObject\Stage\Object\Character\Enemy\State\EnemyStateCombat.cpp" />
+    <ClCompile Include="Game\GameObject\Stage\Object\Character\Enemy\State\Combat\CombatState\CombatState.cpp" />
+    <ClCompile Include="Game\GameObject\Stage\Object\Character\Enemy\State\Combat\EnemyStateCombat.cpp" />
+    <ClCompile Include="Game\GameObject\Stage\Object\Character\Enemy\State\EnemyStateTitle.cpp" />
     <ClCompile Include="Game\GameObject\Stage\Object\Character\Enemy\State\Patrol\EnemyStatePatrol.cpp" />
+    <ClCompile Include="Game\GameObject\Stage\Object\Character\Enemy\State\Patrol\NavigationAI\PointPatrol.cpp" />
     <ClCompile Include="Game\GameObject\Stage\Object\Character\Enemy\UI\EnemyUi.cpp" />
     <ClCompile Include="Game\GameObject\Stage\Object\Character\Player\Player.cpp" />
     <ClCompile Include="Game\GameObject\Stage\Object\Character\Player\PlayerCamera.cpp" />
     <ClCompile Include="Game\GameObject\Stage\Object\Character\Player\PlayerState\PlayerAttack.cpp" />
     <ClCompile Include="Game\GameObject\Stage\Object\Character\Player\PlayerState\PlayerAvoidance.cpp" />
     <ClCompile Include="Game\GameObject\Stage\Object\Character\Player\PlayerState\PlayerDefault\PlayerDefault.cpp" />
-    <ClCompile Include="Game\GameObject\Stage\Object\Character\Player\PlayerState\PlayerDefault\PlayerRun.cpp" />
+    <ClCompile Include="Game\GameObject\Stage\Object\Character\Player\PlayerState\PlayerDefault\PlayerMove.cpp" />
     <ClCompile Include="Game\GameObject\Stage\Object\Character\Player\PlayerState\PlayerDefault\PlayerStand.cpp" />
     <ClCompile Include="Game\GameObject\Stage\Object\Character\Player\PlayerState\PlayerTitle.cpp" />
     <ClCompile Include="Game\GameObject\Stage\Object\Character\Player\UI\PlayerHpUi.cpp" />
@@ -320,9 +323,12 @@
     <ClInclude Include="Game\GameObject\Stage\Collider\StageCollider.h" />
     <ClInclude Include="Game\GameObject\Stage\Object\Character\Character.h" />
     <ClInclude Include="Game\GameObject\Stage\Object\Character\Enemy\Enemy.h" />
+    <ClInclude Include="Game\GameObject\Stage\Object\Character\Enemy\State\Combat\CombatState\CombatState.h" />
     <ClInclude Include="Game\GameObject\Stage\Object\Character\Enemy\State\EnemyState.h" />
-    <ClInclude Include="Game\GameObject\Stage\Object\Character\Enemy\State\EnemyStateCombat.h" />
+    <ClInclude Include="Game\GameObject\Stage\Object\Character\Enemy\State\Combat\EnemyStateCombat.h" />
+    <ClInclude Include="Game\GameObject\Stage\Object\Character\Enemy\State\EnemyStateTitle.h" />
     <ClInclude Include="Game\GameObject\Stage\Object\Character\Enemy\State\Patrol\EnemyStatePatrol.h" />
+    <ClInclude Include="Game\GameObject\Stage\Object\Character\Enemy\State\Patrol\NavigationAI\PointPatrol.h" />
     <ClInclude Include="Game\GameObject\Stage\Object\Character\Enemy\UI\EnemyUi.h" />
     <ClInclude Include="Game\GameObject\Stage\Object\Character\Player\Player.h" />
     <ClInclude Include="Game\GameObject\Stage\Object\Character\Player\PlayerCamera.h" />
@@ -330,7 +336,7 @@
     <ClInclude Include="Game\GameObject\Stage\Object\Character\Player\PlayerState\PlayerAvoidance.h" />
     <ClInclude Include="Game\GameObject\Stage\Object\Character\Player\PlayerState\PlayerDefault\PlayerDefault.h" />
     <ClInclude Include="Game\GameObject\Stage\Object\Character\Player\PlayerState\PlayerDefault\PlayerDefaultStateBase.h" />
-    <ClInclude Include="Game\GameObject\Stage\Object\Character\Player\PlayerState\PlayerDefault\PlayerRun.h" />
+    <ClInclude Include="Game\GameObject\Stage\Object\Character\Player\PlayerState\PlayerDefault\PlayerMove.h" />
     <ClInclude Include="Game\GameObject\Stage\Object\Character\Player\PlayerState\PlayerDefault\PlayerStand.h" />
     <ClInclude Include="Game\GameObject\Stage\Object\Character\Player\PlayerState\PlayerState.h" />
     <ClInclude Include="Game\GameObject\Stage\Object\Character\Player\PlayerState\PlayerTitle.h" />
@@ -352,6 +358,7 @@
     <ClInclude Include="Game\GameObject\UI\State\Title\UITitle.h" />
     <ClInclude Include="Game\GameObject\UI\State\UIState.h" />
     <ClInclude Include="Game\Timer.h" />
+    <ClInclude Include="MathLibrary.h" />
   </ItemGroup>
   <ItemGroup>
     <Text Include="ヘッダーテンプレート.txt" />

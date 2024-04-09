@@ -80,6 +80,7 @@ void ColliderSystem::PlayerAttackCollider::SetActive(bool active)
 		else
 		{
 			ColliderSystem::m_instanceCollection.DeletePlayerAttackCollider(this);
+			m_hitEnemyList.clear();
 		}
 #ifdef DEBUG_MODEL
 		m_debugModel.SetDrawFlag(active);

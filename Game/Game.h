@@ -6,7 +6,7 @@
 //#define DISPLAY_LOG		//	ログを表示するよ☆
 #ifdef DISPLAY_LOG
 #include <unordered_map>
-#define IGNORE_UPDATE_EVENT	//	アップデートイベントのログを表示しないよ☆
+//#define IGNORE_UPDATE_EVENT	//	アップデートイベントのログを表示しないよ☆
 #endif // DISPLAY_LOG
 
 
@@ -62,9 +62,9 @@ private:
 		unsigned int moveNum = 0;	//	存在してなかったオブジェクトの数だよ☆
 
 		ObjectIndex i = 0;
-		ObjectIndex size = static_cast<ObjectIndex>(m_gameObjects.size());
 
-		while (i + moveNum < size)
+		//	指定された関数の呼び出し☆　実行によりサイズが変更するかも知れないからsize関数を使用するよ☆
+		while (i + moveNum < static_cast<ObjectIndex>(m_gameObjects.size()))
 		{
 			m_gameObjects[i] = m_gameObjects[i + moveNum];
 

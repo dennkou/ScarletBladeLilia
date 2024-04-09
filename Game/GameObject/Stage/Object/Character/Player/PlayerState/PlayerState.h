@@ -16,6 +16,7 @@ public:
 	virtual void OnInputAttackDown() {}								//	攻撃ボタンが押されたよ☆
 	virtual void OnInputAvoidanceDown() {}							//	回避ボタンが押されたよ☆
 	virtual void OnInputCamera(DirectX::XMFLOAT2 input) { input; }	//	カメラの入力があったよ☆
+	virtual void OnInputDash(bool input) { input; }
 	virtual void OnPlayStartAnimation() {};							//	プレイ開始が選択されたよ☆
 	virtual void OnPlayStart() {};									//	ゲームプレイが開始されたよ☆
 

@@ -57,29 +57,6 @@ public:
 	// 二つの線分がもっとも近づく点の距離の二乗を得る
 	static float SegmentSegmentMinLengthSquare(const LineSegment& lineSegmentA, const LineSegment& lineSegmentB);
 
-	//	以下算術系☆
-
-	//	DirectX::XMFLOAT3の足し算だよ☆
-	static DirectX::XMFLOAT3 VectorAdd(const DirectX::XMFLOAT3& in1, const DirectX::XMFLOAT3& in2) noexcept;
-
-	//	DirectX::XMFLOAT3の引き算だよ☆
-	static DirectX::XMFLOAT3 VectorSub(const DirectX::XMFLOAT3& in1, const DirectX::XMFLOAT3& in2) noexcept;
-
-	//	DirextX::XMFLOAT3の外積を計算するよ☆
-	static DirectX::XMFLOAT3 VectorOuterProduct(const DirectX::XMFLOAT3& in1, const DirectX::XMFLOAT3& in2) noexcept;
-
-	//	DirextX::XMFLOAT3の内積を計算するよ☆
-	static float VectorInnerProduct(const DirectX::XMFLOAT3& in1, const DirectX::XMFLOAT3& in2) noexcept;
-
-	//	DirextX::XMFLOAT3の正規化をするよ☆
-	static DirectX::XMFLOAT3 VectorNormalize(const DirectX::XMFLOAT3& in) noexcept;
-
-	//	ベクトルのサイズの二乗を取得するよ☆
-	static float VSquareSize(const DirectX::XMFLOAT3& in)noexcept;
-
-	//	DirextX::XMFLOAT3のスケーリングを行うよ☆
-	static DirectX::XMFLOAT3 VectorScale(DirectX::XMFLOAT3 in, float scale) noexcept;
-
 	// 指定の座標から三角形の重心を求める
 	static void TriangleBarycenter_Base(const Triangle& triangle, const Point& position, float* TrianglePos1Weight, float* TrianglePos2Weight, float* TrianglePos3Weight) noexcept;
 private:

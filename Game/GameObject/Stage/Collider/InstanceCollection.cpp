@@ -19,6 +19,7 @@ void ColliderSystem::InstanceCollection::Update()
 	for (EnemyCollider* enemyCollider : m_enemyCollider)
 	{
 		m_playerCollider->CheckHitEnemy(enemyCollider);
+		enemyCollider->SetPlayerPosition(m_playerCollider->GetPosition());
 
 		for (PlayerAttackCollider* playerAttackCollider : m_playerAttackCollider)
 		{
@@ -26,8 +27,6 @@ void ColliderSystem::InstanceCollection::Update()
 
 		}
 	}
-
-
 }
 
 

@@ -1,5 +1,6 @@
 #include "EnemyCollider.h"
 #include "InstanceCollection.h"
+#include "./../../MathLibrary.h"
 
 
 ColliderSystem::EnemyCollider::EnemyCollider(std::function<void(int)> hit)
@@ -22,11 +23,11 @@ void ColliderSystem::EnemyCollider::Hit(int damage)
 void ColliderSystem::EnemyCollider::SetPosition(DirectX::XMFLOAT3 position) noexcept
 {
 	m_capsule.line.start.point = position;
-	m_capsule.line.end.point = ColliderAlgorithm::VectorAdd(m_capsuleVector, m_capsule.line.start.point);
+	m_capsule.line.end.point = VectorAdd(m_capsuleVector, m_capsule.line.start.point);
 }
 
 void ColliderSystem::EnemyCollider::SetCapsuleVector(DirectX::XMFLOAT3 capsuleVector) noexcept
 {
 	m_capsuleVector = capsuleVector;
-	m_capsule.line.end.point = ColliderAlgorithm::VectorAdd(m_capsuleVector, m_capsule.line.start.point);
+	m_capsule.line.end.point = VectorAdd(m_capsuleVector, m_capsule.line.start.point);
 }

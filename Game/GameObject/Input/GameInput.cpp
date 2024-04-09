@@ -69,6 +69,14 @@ void GameInput::OnGameUpdate(Timer& timer)
 		m_input = input;
 		EventTrigger(&GameObject::OnInputMove, input);
 	}
+	if (Crown::Input::GetKeyboard()->keyDown(Crown::KeyCode::Space))
+	{
+		EventTrigger(&GameObject::OnInputDash, true);
+	}
+	else if(Crown::Input::GetKeyboard()->keyUp(Crown::KeyCode::Space))
+	{
+		EventTrigger(&GameObject::OnInputDash, false);
+	}
 
 	//	マウス入力受け取りだよ☆(プレイ中)
 	if (!m_mouseMove)

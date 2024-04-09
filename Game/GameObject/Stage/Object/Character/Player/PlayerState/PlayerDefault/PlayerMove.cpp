@@ -1,9 +1,9 @@
-#include "PlayerRun.h"
+#include "PlayerMove.h"
 #include <algorithm>
 #include <numbers>
 #include "./../../Crown/Object/Algorithm.h"
 
-Player::PlayerDefault::PlayerRun::PlayerRun(PlayerDefault* owner)
+Player::PlayerDefault::PlayerMove::PlayerMove(PlayerDefault* owner)
 	:
 	m_owner(owner),
 	m_player(owner->m_owner)
@@ -11,17 +11,17 @@ Player::PlayerDefault::PlayerRun::PlayerRun(PlayerDefault* owner)
 
 }
 
-Player::PlayerDefault::PlayerRun::~PlayerRun()
+Player::PlayerDefault::PlayerMove::~PlayerMove()
 {
 
 }
 
-void Player::PlayerDefault::PlayerRun::Enter()
+void Player::PlayerDefault::PlayerMove::Enter()
 {
 	m_player->m_stateTimer = 0.0f;
 }
 
-void Player::PlayerDefault::PlayerRun::Update(float time)
+void Player::PlayerDefault::PlayerMove::Update(float time)
 {
 	//	プレイヤーのアニメーションだよ☆
 	{
@@ -55,7 +55,7 @@ void Player::PlayerDefault::PlayerRun::Update(float time)
 	}
 }
 
-void Player::PlayerDefault::PlayerRun::Exit()
+void Player::PlayerDefault::PlayerMove::Exit()
 {
 
 }
