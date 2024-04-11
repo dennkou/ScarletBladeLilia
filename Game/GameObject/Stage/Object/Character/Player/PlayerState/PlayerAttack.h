@@ -31,4 +31,5 @@ private:
 
 	Player* m_player;
 	DirectX::XMFLOAT3 m_startPosition;
+	float m_timer;
 };

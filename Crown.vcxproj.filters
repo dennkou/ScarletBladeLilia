@@ -200,13 +200,7 @@
     <ClCompile Include="Game\GameObject\Stage\Object\Character\Player\PlayerState\PlayerTitle.cpp">
       <Filter>Game\GameObject\Stage\Object\Character\Player\State</Filter>
     </ClCompile>
-    <ClCompile Include="Game\GameObject\Stage\Object\Character\Player\PlayerState\PlayerDefault\PlayerDefault.cpp">
-      <Filter>Game\GameObject\Stage\Object\Character\Player\State\PlayerStateDefault</Filter>
-    </ClCompile>
-    <ClCompile Include="Game\GameObject\Stage\Object\Character\Player\PlayerState\PlayerDefault\PlayerMove.cpp">
-      <Filter>Game\GameObject\Stage\Object\Character\Player\State\PlayerStateDefault</Filter>
-    </ClCompile>
-    <ClCompile Include="Game\GameObject\Stage\Object\Character\Player\PlayerState\PlayerDefault\PlayerStand.cpp">
+    <ClCompile Include="Game\GameObject\Stage\Object\Character\Player\PlayerState\PlayerDefault.cpp">
       <Filter>Game\GameObject\Stage\Object\Character\Player\State\PlayerStateDefault</Filter>
     </ClCompile>
     <ClCompile Include="Game\GameObject\Stage\Object\Character\Player\PlayerState\PlayerAttack.cpp">
@@ -257,6 +251,11 @@
     <ClCompile Include="Game\GameObject\Stage\Object\Character\Enemy\State\Patrol\NavigationAI\PointPatrol.cpp" />
     <ClCompile Include="Game\GameObject\Stage\Object\Character\Enemy\State\EnemyStateTitle.cpp" />
     <ClCompile Include="Game\GameObject\Stage\Object\Character\Enemy\State\Combat\CombatState\CombatState.cpp" />
+    <ClCompile Include="Game\GameObject\Stage\Object\Character\Player\PlayerState\DefaultState\DefaultStateBase.cpp" />
+    <ClCompile Include="Game\GameObject\Stage\Object\Character\Player\PlayerState\DefaultState\PlayerStateStand.cpp" />
+    <ClCompile Include="Game\GameObject\Stage\Object\Character\Player\PlayerState\DefaultState\PlayerStateWalk.cpp" />
+    <ClCompile Include="Game\GameObject\Stage\Object\Character\Player\PlayerState\DefaultState\PlayerStateRun.cpp" />
+    <ClCompile Include="Game\GameObject\Stage\StageObject\Sky.cpp" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Crown">
@@ -630,16 +629,7 @@
     <ClInclude Include="Game\GameObject\Stage\Object\Character\Player\PlayerState\PlayerTitle.h">
       <Filter>Game\GameObject\Stage\Object\Character\Player\State</Filter>
     </ClInclude>
-    <ClInclude Include="Game\GameObject\Stage\Object\Character\Player\PlayerState\PlayerDefault\PlayerDefault.h">
-      <Filter>Game\GameObject\Stage\Object\Character\Player\State\PlayerStateDefault</Filter>
-    </ClInclude>
-    <ClInclude Include="Game\GameObject\Stage\Object\Character\Player\PlayerState\PlayerDefault\PlayerDefaultStateBase.h">
-      <Filter>Game\GameObject\Stage\Object\Character\Player\State\PlayerStateDefault</Filter>
-    </ClInclude>
-    <ClInclude Include="Game\GameObject\Stage\Object\Character\Player\PlayerState\PlayerDefault\PlayerMove.h">
-      <Filter>Game\GameObject\Stage\Object\Character\Player\State\PlayerStateDefault</Filter>
-    </ClInclude>
-    <ClInclude Include="Game\GameObject\Stage\Object\Character\Player\PlayerState\PlayerDefault\PlayerStand.h">
+    <ClInclude Include="Game\GameObject\Stage\Object\Character\Player\PlayerState\PlayerDefault.h">
       <Filter>Game\GameObject\Stage\Object\Character\Player\State\PlayerStateDefault</Filter>
     </ClInclude>
     <ClInclude Include="Game\GameObject\Stage\Object\Character\Player\PlayerState\PlayerAttack.h">
@@ -697,6 +687,11 @@
     <ClInclude Include="MathLibrary.h" />
     <ClInclude Include="Game\GameObject\Stage\Object\Character\Enemy\State\EnemyStateTitle.h" />
     <ClInclude Include="Game\GameObject\Stage\Object\Character\Enemy\State\Combat\CombatState\CombatState.h" />
+    <ClInclude Include="Game\GameObject\Stage\Object\Character\Player\PlayerState\DefaultState\DefaultStateBase.h" />
+    <ClInclude Include="Game\GameObject\Stage\Object\Character\Player\PlayerState\DefaultState\PlayerStateStand.h" />
+    <ClInclude Include="Game\GameObject\Stage\Object\Character\Player\PlayerState\DefaultState\PlayerStateWalk.h" />
+    <ClInclude Include="Game\GameObject\Stage\Object\Character\Player\PlayerState\DefaultState\PlayerStateRun.h" />
+    <ClInclude Include="Game\GameObject\Stage\StageObject\Sky.h" />
   </ItemGroup>
   <ItemGroup>
     <Text Include="ヘッダーテンプレート.txt" />
@@ -762,6 +757,8 @@
     <FxCompile Include="Shader\UI\EnemyHPUI\EnemyHPUI_PS.hlsl">
       <Filter>Shader\UI</Filter>
     </FxCompile>
+    <FxCompile Include="Shader\Obj\SkyVS.hlsl" />
+    <FxCompile Include="Shader\Obj\SkyPS.hlsl" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Crown\Shader\Data.hlsli">

@@ -1,6 +1,6 @@
 #pragma once
-#include "./../PlayerState.h"
-#include "./../../../../../../../DesignPatterns/FiniteStateMachine.h"
+#include "./PlayerState.h"
+#include "./../../../../../../DesignPatterns/FiniteStateMachine.h"
 
 class Player::PlayerDefault : public Player::PlayerState
 {
@@ -20,16 +20,21 @@ public:
 private:
 	Player* m_owner;
 
-	class PlayerDefaultStateBase;
-	class PlayerStand;
-	class PlayerMove;
-
-	enum class State
+	class State;
+	class Stand;
+	class Walk;
+	class Run;
+	enum class StateID
 	{
-		Stand,
-		Move
+		STAND,
+		WALK,
+		RUN,
 	};
+	Crown::FiniteStateMachine<StateID, State> m_state;
 
-	State m_nowState;
-	Crown::FiniteStateMachine<State, PlayerDefaultStateBase> m_state;
+	static constexpr float WALK_ACCELERATION = 0.2f;
+	static constexpr float WALK_DECELERATION = 0.985f;
+	static constexpr float WALK_SPEED = 0.01f;
+
+	static constexpr float RUN_SPEED = 0.1f;
 };

@@ -38,6 +38,12 @@ static float VectorInnerProduct(const DirectX::XMFLOAT3& in1, const DirectX::XMF
 	return in1.x * in2.x + in1.y * in2.y + in1.z * in2.z;
 }
 
+//	DirextX::XMFLOAT2の内積を計算するよ☆
+static float VectorInnerProduct(const DirectX::XMFLOAT2& in1, const DirectX::XMFLOAT2& in2) noexcept
+{
+	return in1.x * in2.x + in1.y * in2.y;
+}
+
 //	DirextX::XMFLOAT3の正規化をするよ☆
 static DirectX::XMFLOAT3 VectorNormalize(const DirectX::XMFLOAT3& in) noexcept
 {
@@ -49,10 +55,26 @@ static DirectX::XMFLOAT3 VectorNormalize(const DirectX::XMFLOAT3& in) noexcept
 	return ret;
 }
 
+//	DirextX::XMFLOAT2の正規化をするよ☆
+static DirectX::XMFLOAT2 VectorNormalize(const DirectX::XMFLOAT2& in) noexcept
+{
+	float tmp = sqrtf(in.x * in.x + in.y * in.y);
+	DirectX::XMFLOAT2 ret;
+	ret.x = in.x / tmp;
+	ret.y = in.y / tmp;
+	return ret;
+}
+
 //	ベクトルのサイズの二乗を取得するよ☆
 static float VectorSquareSize(const DirectX::XMFLOAT3& in)noexcept
 {
 	return in.x * in.x + in.y * in.y + in.z * in.z;
+}
+
+//	ベクトルのサイズの二乗を取得するよ☆
+static float VectorSquareSize(const DirectX::XMFLOAT2 in)noexcept
+{
+	return in.x * in.x + in.y * in.y;
 }
 
 //	DirextX::XMFLOAT3のスケーリングを行うよ☆

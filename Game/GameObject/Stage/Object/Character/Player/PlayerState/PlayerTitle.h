@@ -24,4 +24,5 @@ private:
 	static constexpr float CAMERA_PLAY_DISTANCE = 25.0f;
 	Player* m_owner;
 	bool m_startFlag;
+	float m_timer;
 };

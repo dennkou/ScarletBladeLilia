@@ -15,7 +15,8 @@ Player::PlayerAttack::PlayerAttack(Player* player)
 			{ DirectX::XMFLOAT3(0,10,0),DirectX::XMFLOAT3(-21.6506f, 10, 12.5f),	DirectX::XMFLOAT3(0, 10, 25) },
 		}), 
 	m_attackFlag(false),
-	m_startPosition(DirectX::XMFLOAT3(0,0,0))  
+	m_startPosition(DirectX::XMFLOAT3(0,0,0)),
+	m_timer(0)
 {
 }
 
@@ -26,15 +27,14 @@ Player::PlayerAttack::~PlayerAttack()
 
 void Player::PlayerAttack::Enter()
 {
-	m_player->m_stateTimer = 0;
 	m_startPosition = m_player->GetPosition();
 	m_attackFlag = false;
 }
 
 void Player::PlayerAttack::Update(float time)
 {
-	m_player->m_stateTimer += time;
-	float animFlame = m_player->m_stateTimer / ANIMATION_FPS;
+	m_timer += time;
+	float animFlame = m_timer / ANIMATION_FPS;
 	m_player->m_drawingSwordAttackAnim.GetAnimation(animFlame, m_player->m_bone, m_player->GetModel().GetBoneDate());
 
 	//	アニメーション終了時デフォルトに戻るよ☆
@@ -78,7 +78,7 @@ void Player::PlayerAttack::Update(float time)
 
 void Player::PlayerAttack::Exit()
 {
-	m_player->m_stateTimer = 0;
+	m_timer = 0;
 	m_player->m_camera.SetFovAngle(DEFAULT_FOV_ANGLE);
 }
 
@@ -117,7 +117,7 @@ void Player::PlayerAttack::CameraAnim(float animFlame)
 
 void Player::PlayerAttack::FlameProcess(float start, float end, std::function<void(float)> process)
 {
-	float animFlame = m_player->m_stateTimer / ANIMATION_FPS;
+	float animFlame = m_timer / ANIMATION_FPS;
 	if (start <= animFlame && animFlame <= end)
 	{
 		process((animFlame - start) / (end - start));

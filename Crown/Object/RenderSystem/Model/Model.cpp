@@ -135,7 +135,7 @@ void Crown::RenderObject::Model::DataUpload()
 	{
 		map->world = DirectX::XMMatrixRotationRollPitchYaw(m_rotate.x, m_rotate.y, m_rotate.z) * DirectX::XMMatrixTranslation(m_position.x, m_position.y, m_position.z);
 
-		const int boneNum = m_bone.GetData().size();
+		const int boneNum = static_cast<int>(m_bone.GetData().size());
 
 		std::vector<DirectX::XMMATRIX> bone(boneNum);
 		for (int i = 0; i < boneNum; ++i)

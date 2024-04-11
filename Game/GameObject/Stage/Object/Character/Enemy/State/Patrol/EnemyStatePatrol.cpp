@@ -44,7 +44,6 @@ void Enemy::EnemyStatePatrol::Update(float time)
 	//	ƒvƒŒƒCƒ„[‚ªŽ‹ŠE“à‚É“ü‚Á‚Ä‚¢‚é‚©‚Ì”»’è‚¾‚æ™
 	DirectX::XMFLOAT3 toPlayerVector = VectorSub(m_enemy->GetPosition(), m_enemy->m_enemyCollider.GetPlayerPosition());
 
-	std::cout << toPlayerVector.x << "," << toPlayerVector.y << "," << toPlayerVector.z << std::endl;
 	if (VectorSquareSize(toPlayerVector) <= (SEARCH_DISTANCE * SEARCH_DISTANCE))
 	{
 		float tmp = rotate.y - atan2(toPlayerVector.z, toPlayerVector.x);

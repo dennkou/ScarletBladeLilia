@@ -12,13 +12,12 @@ Stage::Stage(Game* game)
 {
 	this->CreateGameObject<Player>(DirectX::XMFLOAT3(0,0,0), DirectX::XMFLOAT3(0, 0, 0));	//	ƒvƒŒƒCƒ„[‚ð¶¬‚·‚é‚æ™
 
-
 	this->CreateGameObject<Enemy>(DirectX::XMFLOAT3(0, 0, -100), DirectX::XMFLOAT3(0, 0, 0), new PointPatrol({DirectX::XMFLOAT3(0,0,-150), DirectX::XMFLOAT3(0,0,-500), DirectX::XMFLOAT3(10,0,-500) }));
 
 	int num = 100;
 	for (int i = 0; i < num; ++i)
 	{
-		this->CreateGameObject<StageObject>(DirectX::XMFLOAT3(0, 0, (i * 99.9999) - ((num / 2) * 99.9999)));
+		this->CreateGameObject<StageObject>(DirectX::XMFLOAT3(0, 0, (i * 99.9999f) - ((num / 2) * 99.9999f)));
 	}
 }
 

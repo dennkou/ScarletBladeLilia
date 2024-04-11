@@ -8,11 +8,11 @@ PlayerHpUi::PlayerHpUi()
 
 	m_constBuffer->SetParameter(static_cast<unsigned int>(ConstBufferOffset::HP_PERCENT_OFFSET), 1.0f);
 	m_constBuffer->SetParameter(static_cast<unsigned int>(ConstBufferOffset::INCLINATION_OFFSET), 0.08f);
-	m_constBuffer->SetParameter(static_cast<unsigned int>(ConstBufferOffset::COLOR_OFFSET), DirectX::XMFLOAT3(0.6, 0.2, 0.2));
-	m_constBuffer->SetParameter(static_cast<unsigned int>(ConstBufferOffset::FLAME_COLOR_OFFSET), DirectX::XMFLOAT3(0.2, 0.2,0.2));
-	m_constBuffer->SetParameter(static_cast<unsigned int>(ConstBufferOffset::BACKGROUND_COLOR_OFFSET), DirectX::XMFLOAT3(0.4, 0.4,0.4));
-	m_constBuffer->SetParameter(static_cast<unsigned int>(ConstBufferOffset::SIZE_OFFSET), DirectX::XMFLOAT2(0.8,0.05));
-	m_constBuffer->SetParameter(static_cast<unsigned int>(ConstBufferOffset::POSITION_OFFSET), DirectX::XMFLOAT2(0.25, 1.8));
+	m_constBuffer->SetParameter(static_cast<unsigned int>(ConstBufferOffset::COLOR_OFFSET), DirectX::XMFLOAT3(0.6f, 0.2f, 0.2f));
+	m_constBuffer->SetParameter(static_cast<unsigned int>(ConstBufferOffset::FLAME_COLOR_OFFSET), DirectX::XMFLOAT3(0.2f, 0.2f, 0.2f));
+	m_constBuffer->SetParameter(static_cast<unsigned int>(ConstBufferOffset::BACKGROUND_COLOR_OFFSET), DirectX::XMFLOAT3(0.4f, 0.4f, 0.4f));
+	m_constBuffer->SetParameter(static_cast<unsigned int>(ConstBufferOffset::SIZE_OFFSET), DirectX::XMFLOAT2(0.8f, 0.05f));
+	m_constBuffer->SetParameter(static_cast<unsigned int>(ConstBufferOffset::POSITION_OFFSET), DirectX::XMFLOAT2(0.25f, 1.8f));
 	m_constBuffer->SetParameter(static_cast<unsigned int>(ConstBufferOffset::ALPHA_OFFSET), 1.0f);
 
 	Crown::RenderObject::GraphicsPipeline graphicsPipeline;

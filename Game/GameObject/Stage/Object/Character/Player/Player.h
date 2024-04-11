@@ -40,10 +40,8 @@ private:
 	ColliderSystem::PlayerCollider m_collider;
 	PlayerHpUi m_hpUi;
 	DirectX::XMMATRIX m_bone[255];									//	現在プレイヤーが取るべきポーズだよ☆
-	float m_stateTimer;												//	ステートで利用する想定のタイマーだよ☆この値が何を示すかは現在のステートに依存するよ☆
 	DirectX::XMFLOAT2 m_inputMove;
-	float m_targetAngle;											//	プレイヤーが向うとしている角度だよ☆
-	bool hasSword;													//	剣を手に持っているよ☆
+	DirectX::XMFLOAT3 m_velocity;
 
 	class PlayerState;
 	class PlayerTitle;
@@ -69,11 +67,11 @@ private:
 	Crown::RenderObject::AnimationData m_walkStartAnim;
 	static constexpr float WALK_START_ANIM_SPEED = 2.0f;
 	Crown::RenderObject::AnimationData m_walkAnim;
-	static constexpr float WALK_ANIM_SPEED = 2.0f;
+	static constexpr float WALK_ANIM_SPEED = 1.0f;
 	Crown::RenderObject::AnimationData m_runStartAnim;				
 	static constexpr float RUN_START_ANIM_SPEED = 2.0f;				
 	Crown::RenderObject::AnimationData m_runAnim;					
-	static constexpr float RUN_ANIM_SPEED = 8.0f;					
+	static constexpr float RUN_ANIM_SPEED = 7.0f;					
 	Crown::RenderObject::AnimationData m_drawingSwordAttackAnim;	
 	static constexpr float DRAWING_SWORD_ATTACK_ANIM_SPEED = 2.0f;	
 

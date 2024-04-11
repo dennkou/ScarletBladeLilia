@@ -10,7 +10,7 @@
 
 #include "./PlayerState/PlayerState.h"
 #include "./PlayerState/PlayerTitle.h"
-#include "./PlayerState/PlayerDefault/PlayerDefault.h"
+#include "./PlayerState/PlayerDefault.h"
 #include "./PlayerState/PlayerAttack.h"
 #include "./PlayerState/PlayerAvoidance.h"
 #include <numbers>
@@ -22,7 +22,7 @@ Player::Player(Game* game, DirectX::XMFLOAT3 position, DirectX::XMFLOAT3 rotate)
 	:
 	Character(game, position, rotate, L"Resource/Model/PMX/リリア/リリア.pmx", MAX_HP),
 	m_inputMove(0,0),
-	hasSword(false)
+	m_velocity(0,0,0)
 {
 	CreateMaterial();		//	マテリアルの設定をするよ☆
 	StateSetUp();			//	ステートマシンを設定をするよ☆
@@ -493,8 +493,8 @@ void Player::AnimLoad()
 	}
 
 	m_standAnim.LaodVMD(L"Resource/Motion/待機.vmd");
+	m_walkStartAnim.LaodVMD(L"Resource/Motion/歩き始め.vmd");
 	m_walkAnim.LaodVMD(L"Resource/Motion/歩き.vmd");
-	m_runStartAnim.LaodVMD(L"Resource/Motion/スタートダッシュ.vmd");
 	m_runAnim.LaodVMD(L"Resource/Motion/ダッシュ.vmd");
 	m_drawingSwordAttackAnim.LaodVMD(L"Resource/Motion/抜刀攻撃.vmd");
 }
