@@ -10,6 +10,7 @@
 #include "Camera.h"
 #include "UI/UiManager.h"
 #include <algorithm>
+#include "DirectX12Wraps/DefaultRootSignature.h"
 
 //	ライブラリのリンクだよ☆
 #pragma comment(lib,"d3d12.lib")
@@ -28,7 +29,7 @@ Crown::RenderObject::RenderSystem::RenderSystem(Crown::Window& renderTargetWindo
 
 Crown::RenderObject::RenderSystem::~RenderSystem()
 {
-	m_commandList.RunAndWait();
+	m_commandList.Finalize();
 	ResourceUploader::DeleteInstance();
 	Shader::DeleteInstance();
 	DescriptorHeaps::DeleteDescriptorHeaps();
@@ -70,7 +71,8 @@ void Crown::RenderObject::RenderSystem::Initialize()
 		//	Direct3Dデバイスの初期化だよ☆
 		D3D12CreateDevice(selectAdapter.Get(), level, IID_PPV_ARGS(&m_device));		//	D3D12Deviceの作成だよ☆
 	}
-	m_commandList.Initialize(m_device.Get(), 1, 0);
+	DefaultRootSignature::GetRootSignature().Create(m_device.Get());
+	m_commandList.Initialize(m_device.Get(), 2, 0);
 	m_swapChain.Initialize(m_device.Get(), &m_renderTargetWindow, m_commandList.GetCommandQueue(), 2);
 	ResourceUploader::CreateResourceUploader(m_device.Get(), m_commandList);
 	DescriptorHeaps::CreateDescriptorHeaps(m_device.Get(), 100);
@@ -80,16 +82,19 @@ void Crown::RenderObject::RenderSystem::Initialize()
 	Camera::CreateInstance(m_device.Get());
 }
 
-
-
-
+void Crown::RenderObject::RenderSystem::Finalize()
+{
+	m_commandList.WaitForGpu();
+}
 
 void Crown::RenderObject::RenderSystem::Update()
 {
+	m_commandList.Begin();
+
 	ID3D12DescriptorHeap* descriptorHeap = DescriptorHeaps::GetInstance().GetDescriptorHeap();
 	m_commandList.GetGraphicsCommandList()->SetDescriptorHeaps(1, &descriptorHeap);
 
-	for (unsigned int i = 0, size = m_renderTargets.size(); i < size;)
+	for (unsigned int i = 0, size = static_cast<unsigned int>(m_renderTargets.size()); i < size;)
 	{	
 		std::shared_ptr<RenderTarget> renderTarget = m_renderTargets[i].second.lock();
 		if(renderTarget)
@@ -113,11 +118,12 @@ void Crown::RenderObject::RenderSystem::Update()
 	D3D12_CPU_DESCRIPTOR_HANDLE rtvH = m_swapChain.GetRenderTargetDescriptorHeap()->GetCPUDescriptorHandleForHeapStart();
 	rtvH.ptr += static_cast<SIZE_T>(m_swapChain.GetBackBufferIndex()) * m_swapChain.GetRenderTargetViewSize();
 	const D3D12_CPU_DESCRIPTOR_HANDLE CPU_DESCRIPTOR_HANDLE = m_swapChain.GetDepthStencilDescriptorHeap()->GetCPUDescriptorHandleForHeapStart();
-	m_commandList.GetGraphicsCommandList()->OMSetRenderTargets(1, &rtvH, false, &CPU_DESCRIPTOR_HANDLE);																	//	レンダーターゲットを指定するよ☆
 
 	//	画面を初期化☆
 	m_commandList.GetGraphicsCommandList()->ClearRenderTargetView(rtvH, CLEAR_COLOR, 0, nullptr);
 	m_commandList.GetGraphicsCommandList()->ClearDepthStencilView(CPU_DESCRIPTOR_HANDLE, D3D12_CLEAR_FLAG_DEPTH, 1.0f, 0, 0, nullptr);
+
+	m_commandList.GetGraphicsCommandList()->OMSetRenderTargets(1, &rtvH, false, &CPU_DESCRIPTOR_HANDLE);																	//	レンダーターゲットを指定するよ☆
 
 	D3D12_VIEWPORT viewport = {};
 	viewport.Width = static_cast<float>(m_renderTargetWindow.GetWindowWidth() * 2);
@@ -138,7 +144,6 @@ void Crown::RenderObject::RenderSystem::Update()
 
 	//	描画☆
 	m_modelManager.Draw(MaterialTag::Normal,m_commandList);
-
 	UiManager::GetInstance()->Render(m_commandList);
 
 	//	描画終了～☆
@@ -147,8 +152,7 @@ void Crown::RenderObject::RenderSystem::Update()
 		m_commandList.GetGraphicsCommandList()->ResourceBarrier(1, &tmp);
 	}
 
-	m_commandList.RunCommandList();
-	ResourceUploader::GetInstance()->DeleteUploadResource();
+	m_commandList.End();
 	m_swapChain.Present(0);
 
 	DescriptorHeaps::GetInstance().ResetDescriptorHeapFlag();

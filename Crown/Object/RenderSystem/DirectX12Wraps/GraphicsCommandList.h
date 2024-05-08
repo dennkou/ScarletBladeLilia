@@ -50,34 +50,24 @@ namespace Crown
 			/// <param name="failedProcessingNum">処理落ちを許可するフレーム数だよ☆</param>
 			void Initialize(ID3D12Device* device, unsigned int allocatorNum = 2, unsigned int failedProcessingNum = 1);
 
+			void Finalize();
+
 			/// <summary>
 			///	描画に使用中のリソースが誤って解放されないように保持しておくよ☆
 			/// </summary>
 			/// <param name="lockResource"></param>
 			inline void LockResource(const Microsoft::WRL::ComPtr<ID3D12Resource>& lockResource) { m_commandAllocators[m_index]->LockResource(lockResource); }
 
-			/// <summary>
-			/// GPU側の全ての処理が終了するまで待機するよ☆
-			/// コマンドリストの実行はしないよ☆
-			/// </summary>
+
+			inline void LockCopyResource(const Microsoft::WRL::ComPtr<ID3D12Resource>& lockResource) { m_copyAllocators[m_copyIndex]->LockResource(lockResource); }
+
 			void WaitForGpu() noexcept;
 
-			/// <summary>
-			/// コマンドリストを実行するよ☆
-			/// </summary>
-			void RunCommandList();
+			void Begin();
 
-			/// <summary>
-			/// コマンドリストを実行し、処理が完了するまで待機するよ☆
-			/// </summary>
-			void RunAndWait();
+			void End();
 
 		private:
-
-			/// <summary>
-			/// コマンドリストに積んだ処理を走らせるよ☆
-			/// </summary>
-			void Run();
 
 			/// <summary>
 			/// 次のコマンドアロケーターを取得するよ☆

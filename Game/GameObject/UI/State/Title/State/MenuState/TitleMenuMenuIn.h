@@ -13,6 +13,6 @@ public:
 
 	virtual void InputSelect() {};
 private:
-	float m_timer;
+	float m_animTimer;
 	UITitleMenu* m_owner;
 };

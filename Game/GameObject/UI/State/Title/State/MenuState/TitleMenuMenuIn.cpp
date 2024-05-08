@@ -18,7 +18,7 @@ void GameUI::UITitle::UITitleMenu::TitleMenuMenuIn::Enter()
 	m_owner->m_owner->m_start.SetPosition(DirectX::XMFLOAT2(0, SELECT_ITEM_START_POS_Y));
 	m_owner->m_owner->m_end.SetPosition(DirectX::XMFLOAT2(0, SELECT_ITEM_START_POS_Y));
 	m_owner->m_owner->m_option.SetPosition(DirectX::XMFLOAT2(0, SELECT_ITEM_START_POS_Y));
-	m_timer = 0;
+	m_animTimer = 0;
 }
 
 void GameUI::UITitle::UITitleMenu::TitleMenuMenuIn::Update(Timer& timer)
@@ -29,23 +29,23 @@ void GameUI::UITitle::UITitleMenu::TitleMenuMenuIn::Update(Timer& timer)
 		return std::lerp(startPos, endPos, t);
 	};
 
-	m_timer += timer.GetSystemTime() * SELECT_ITEM_SPEED;
+	m_animTimer += timer.GetSystemTime() * SELECT_ITEM_SPEED;
 
-	m_owner->m_owner->m_start.SetPosition(DirectX::XMFLOAT2(0, PosUpdate(SELECT_ITEM_START_POS_Y, SELECT_ITEM_POSITION_Y, m_timer)));
-	if (m_timer >= SELECT_ITEM_INTERVAL)
+	m_owner->m_owner->m_start.SetPosition(DirectX::XMFLOAT2(0, PosUpdate(SELECT_ITEM_START_POS_Y, SELECT_ITEM_POSITION_Y, m_animTimer)));
+	if (m_animTimer >= SELECT_ITEM_INTERVAL)
 	{
-		m_owner->m_owner->m_end.SetPosition(DirectX::XMFLOAT2(0, PosUpdate(SELECT_ITEM_START_POS_Y, SELECT_ITEM_POSITION_Y - SELECT_ITEM_POSITION_GAP_Y, m_timer - SELECT_ITEM_INTERVAL)));
+		m_owner->m_owner->m_end.SetPosition(DirectX::XMFLOAT2(0, PosUpdate(SELECT_ITEM_START_POS_Y, SELECT_ITEM_POSITION_Y - SELECT_ITEM_POSITION_GAP_Y, m_animTimer - SELECT_ITEM_INTERVAL)));
 	}
-	if (m_timer >= (SELECT_ITEM_INTERVAL * 2))
+	if (m_animTimer >= (SELECT_ITEM_INTERVAL * 2))
 	{
-		m_owner->m_owner->m_option.SetPosition(DirectX::XMFLOAT2(0, PosUpdate(SELECT_ITEM_START_POS_Y, SELECT_ITEM_POSITION_Y - (SELECT_ITEM_POSITION_GAP_Y * 2), m_timer - (SELECT_ITEM_INTERVAL * 2))));
+		m_owner->m_owner->m_option.SetPosition(DirectX::XMFLOAT2(0, PosUpdate(SELECT_ITEM_START_POS_Y, SELECT_ITEM_POSITION_Y - (SELECT_ITEM_POSITION_GAP_Y * 2), m_animTimer - (SELECT_ITEM_INTERVAL * 2))));
 	}
-	if (m_timer >= (SELECT_ITEM_INTERVAL * 3))
+	if (m_animTimer >= (SELECT_ITEM_INTERVAL * 3))
 	{
-		m_owner->m_owner->m_cursor.SetPosition(DirectX::XMFLOAT2(PosUpdate(CURSOR_START_POS_X, CURSOR_POSITION_X, m_timer - (SELECT_ITEM_INTERVAL * 3)), SELECT_ITEM_POSITION_Y));
+		m_owner->m_owner->m_cursor.SetPosition(DirectX::XMFLOAT2(PosUpdate(CURSOR_START_POS_X, CURSOR_POSITION_X, m_animTimer - (SELECT_ITEM_INTERVAL * 3)), SELECT_ITEM_POSITION_Y));
 	}
 
-	if ((m_timer - (SELECT_ITEM_INTERVAL * 3)) >= 1.0f)
+	if ((m_animTimer - (SELECT_ITEM_INTERVAL * 3)) >= 1.0f)
 	{
 		m_owner->m_state.ChangeState(State::Menu);
 	}

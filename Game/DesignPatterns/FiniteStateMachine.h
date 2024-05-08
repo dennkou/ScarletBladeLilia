@@ -127,15 +127,10 @@ namespace Crown
 		/// <param name="collFunction"> 呼び出す関数の関数ポインタだよ☆ </param>
 		/// <returns></returns>
 		template<class Return, class ...Args>
-		Return CallFunction(Return(IState::* function)(Args...), Args ...args)
+		Return CallStateFunction(Return(IState::*function)(Args...), Args ...args)
 		{
 			assert(m_currentState);
 			return (m_currentState->*function)(args...);
-		}
-
-		IState* GetState(StateID stateID)
-		{
-			return m_stateTable[stateID].get();
 		}
 
 		/// <summary>
@@ -169,6 +164,5 @@ namespace Crown
 		void(IState::*m_exitFunction)();									//	終了時に呼び出す関数だよ☆
 		std::unordered_map<StateID, std::unique_ptr<IState>> m_stateTable;	//	遷移可能なステートの一覧だよ☆
 		IState* m_currentState;												//	現在のステート☆
-
 	};
 }

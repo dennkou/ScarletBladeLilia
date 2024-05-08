@@ -30,18 +30,21 @@ namespace Crown
 		public:
 			class ModelLoader;
 			class CreateModel;
+			class CopyModel;
 
 			Model();
 			Model(const Model& model);
 			~Model();
 
+			void Copy(const Model& model);
+
 			inline DirectX::XMFLOAT3 GetRotate() const noexcept { return m_rotate; }
-			inline void SetRotate(const DirectX::XMFLOAT3& rotate) noexcept { m_rotate = rotate; m_updateFlag = true; }
+			inline void SetRotate(const DirectX::XMFLOAT3& rotate) noexcept { m_rotate = rotate; StackDataUploadQueue(); }
 			inline DirectX::XMFLOAT3 GetPosition() const noexcept { return m_position; }
-			inline void SetPosition(const DirectX::XMFLOAT3& position) noexcept { m_position = position; m_updateFlag = true; }
+			inline void SetPosition(const DirectX::XMFLOAT3& position) noexcept { m_position = position; StackDataUploadQueue(); }
 			inline const BoneData& GetBoneDate() const noexcept { return m_bone; }
 			void SetPause(const DirectX::XMMATRIX* pause) noexcept;
-			inline MaterialMesh& GetMaterialMesh(unsigned int index) { return m_materialMeshs[index]; }
+			inline MaterialMesh& GetMaterialMesh(unsigned int index) { return m_materialMeshs[index];  }
 			void SetDrawFlag(bool flag);
 
 			void LoadPMD(const std::wstring& fileName);
@@ -56,16 +59,20 @@ namespace Crown
 			inline D3D12_INDEX_BUFFER_VIEW GetIndexBufferView() { return *m_vertices.GetIndexBufferView(); }
 			inline const Microsoft::WRL::ComPtr<ID3D12Resource> GetConstIndexBuffer() { return m_vertices.GetConstIndexBuffer(); }
 
-			void Draw(MaterialTag drawTag, GraphicsCommandList& commandList);
+			//	データのアップロードを行うよ☆
+			void DataUpload();
+
+			void Draw(MaterialTag drawTag, ID3D12GraphicsCommandList* commandList);
+
 		private:
+
+			void StackDataUploadQueue();
+
 			struct ModelData		//モデルのインスタンスデータ☆
 			{
 				DirectX::XMMATRIX world;
 				DirectX::XMMATRIX bone[255];
 			};
-
-			//	データのアップロードを行うよ☆
-			void DataUpload();
 
 			DirectX::XMFLOAT3 m_position;
 			DirectX::XMFLOAT3 m_rotate;
@@ -78,10 +85,7 @@ namespace Crown
 			std::vector<MaterialMesh> m_materialMeshs;															//
 			unsigned int m_descriptorOffset;																	//	モデルのインスタンスデータのオフセット位置☆
 			Microsoft::WRL::ComPtr<ID3D12Resource> m_resource;													//	モデルのインスタンスデータのメモリ領域☆
-			std::vector<Microsoft::WRL::ComPtr<ID3D12GraphicsCommandList>>		m_bundleCommandLists;			//	描画種ごとのバンドルコマンドリスト☆
-			std::vector<Microsoft::WRL::ComPtr<ID3D12CommandAllocator>>			m_bundleCommandAllocators;		//	描画種ごとのバンドルコマンドアロケーター☆
 			std::vector<std::vector<Microsoft::WRL::ComPtr<ID3D12Resource>>>	m_bundleResource;				//	各描画種の描画で使用するリソースデータ☆
-			std::vector<bool>													m_bundleFlag;					//	各描画種がバンドル化されているかのフラグ☆
 		};
 	}
 }

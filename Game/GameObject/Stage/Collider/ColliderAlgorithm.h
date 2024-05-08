@@ -1,6 +1,6 @@
 #pragma once
 #include "DirectXMath.h"
-//	当たり判定で使用するアルゴリズムをまとめたものだよ☆
+//	当たり判定で使用するアルゴリズムをまとめたものだよ☆(ほとんどのコードはDXライブラリから引用しました)
 class ColliderAlgorithm
 {
 public:
@@ -31,6 +31,14 @@ public:
 		Point start;
 		Point end;
 	};
+
+	//	3D空間上の球だよ☆
+	struct Sphere
+	{
+		Point point;
+		float radius;
+	};
+
 	//	3D空間上のカプセルだよ☆
 	struct Capsule
 	{
@@ -44,6 +52,9 @@ public:
 
 	// 線分と三角形の当たり判定だよ☆
 	static bool HitCheckLineTriangle(const LineSegment& lineSegment, const Triangle& triangle);
+
+	//	球と三角形の当たり判定だよ☆
+	static bool CheckHitSphereTriangle(const Sphere& capsule, const Triangle& triangle);
 
 	//	 線分と三角形の最近点間の距離の二乗を返すよ☆
 	static float SegmentTriangleMinLengthSquare(const LineSegment& lineSegment, const Triangle& triangle);
@@ -59,6 +70,9 @@ public:
 
 	// 指定の座標から三角形の重心を求める
 	static void TriangleBarycenter_Base(const Triangle& triangle, const Point& position, float* TrianglePos1Weight, float* TrianglePos2Weight, float* TrianglePos3Weight) noexcept;
+
+	// 点に一番近い三角形上の座標を得る
+	static DirectX::XMFLOAT3 GetTrianglePointMinPosition(Point point, Triangle triangle);
 private:
 	//	インスタンスの作成は想定しないよ☆
 	ColliderAlgorithm() = delete;

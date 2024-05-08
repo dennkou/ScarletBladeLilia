@@ -1,11 +1,16 @@
 #include "ModelManager.h"
 #include "Model.h"
 #include "ModelLoader.h"
+#include "./../DirectX12Wraps/DefaultRootSignature.h"
+#include "./../DirectX12Wraps/DefaultRootSignature.h"
 
 Crown::RenderObject::ModelManager::ModelManager()
 	:
 	m_device(),
-	m_textureBuffer()
+	m_textureBuffer(),
+	m_bundleCommandLists(static_cast<unsigned int>(MaterialTag::Num)),
+	m_bundleCommandAllocators(static_cast<unsigned int>(MaterialTag::Num)),
+	m_bundle(static_cast<unsigned int>(MaterialTag::Num))
 {
 }
 
@@ -17,6 +22,14 @@ void Crown::RenderObject::ModelManager::Initialize(ID3D12Device* device, Texture
 {
 	m_device = device;
 	m_textureBuffer = textureBuffer;
+
+	for (unsigned int i = 0; i < static_cast<unsigned int>(MaterialTag::Num); ++i)
+	{
+		m_device->CreateCommandAllocator(D3D12_COMMAND_LIST_TYPE_BUNDLE, IID_PPV_ARGS(&m_bundleCommandAllocators[i]));
+		m_device->CreateCommandList(0, D3D12_COMMAND_LIST_TYPE_BUNDLE, m_bundleCommandAllocators[i].Get(), nullptr, IID_PPV_ARGS(&m_bundleCommandLists[i]));
+		m_bundleCommandLists[i]->Close();
+	}
+	ResetBundle();
 }
 
 void Crown::RenderObject::ModelManager::AddModel(Model* newModel)
@@ -26,6 +39,7 @@ void Crown::RenderObject::ModelManager::AddModel(Model* newModel)
 	{
 		m_models.push_back(newModel);
 	}
+	ResetBundle();
 }
 
 void Crown::RenderObject::ModelManager::DeleteModel(Model* deleteModel)
@@ -35,17 +49,50 @@ void Crown::RenderObject::ModelManager::DeleteModel(Model* deleteModel)
 		if (m_models[i] == deleteModel) 
 		{
 			m_models.erase(m_models.begin() + i);
-			return;
+			break;
 		}
 	}
+	for (int i = 0, size = static_cast<int>(m_uploadQueue.size()); i < size;)
+	{
+		if (m_uploadQueue[i] == deleteModel)
+		{
+			m_uploadQueue[i]->DataUpload();
+ 			m_uploadQueue.erase(m_uploadQueue.begin() + i);
+			--size;
+		}
+		else
+		{
+			++i;
+		}
+	}
+	ResetBundle();
 }
 
 void Crown::RenderObject::ModelManager::Draw(MaterialTag drawTag, GraphicsCommandList& commandList)
 {
-	for (Model* model : m_models)
+	for (Model* model : m_uploadQueue)
 	{
-		model->Draw(drawTag, commandList);
+		model->DataUpload();
 	}
+	m_uploadQueue.clear();
+
+	if (!m_bundle[static_cast<unsigned int>(drawTag)])
+	{
+		m_bundleCommandAllocators[static_cast<unsigned int>(drawTag)].Get()->Reset();
+		m_bundleCommandLists[static_cast<unsigned int>(drawTag)].Get()->Reset(m_bundleCommandAllocators[static_cast<unsigned int>(drawTag)].Get(), nullptr);
+
+		ID3D12DescriptorHeap* descriptorHeap = DescriptorHeaps::GetInstance().GetDescriptorHeap();
+		m_bundleCommandLists[static_cast<unsigned int>(drawTag)]->SetDescriptorHeaps(1, &descriptorHeap);
+		m_bundleCommandLists[static_cast<unsigned int>(drawTag)]->SetGraphicsRootSignature(DefaultRootSignature::GetRootSignature().GetRootSignature().Get());
+		m_bundleCommandLists[static_cast<unsigned int>(drawTag)]->IASetPrimitiveTopology(D3D_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
+		for (Model* model : m_models)
+		{
+			model->Draw(drawTag, m_bundleCommandLists[static_cast<unsigned int>(drawTag)].Get());
+		}
+		m_bundleCommandLists[static_cast<unsigned int>(drawTag)].Get()->Close();
+		m_bundle[static_cast<unsigned int>(drawTag)] = true;
+	}
+	commandList.GetGraphicsCommandList()->ExecuteBundle(m_bundleCommandLists[static_cast<unsigned int>(drawTag)].Get());
 }
 
 void Crown::RenderObject::ModelManager::LoadModel(Model::ModelLoader* modelLoader)
@@ -53,8 +100,16 @@ void Crown::RenderObject::ModelManager::LoadModel(Model::ModelLoader* modelLoade
 	modelLoader->Load(m_device, m_textureBuffer);
 }
 
-void Crown::RenderObject::ModelManager::CreateBundle(Microsoft::WRL::ComPtr<ID3D12GraphicsCommandList>& bundleCommandList, Microsoft::WRL::ComPtr<ID3D12CommandAllocator>& bundleCommandAllocator)
+void Crown::RenderObject::ModelManager::StackDataUploadQueue(Model* model)
 {
-	m_device->CreateCommandAllocator(D3D12_COMMAND_LIST_TYPE_BUNDLE, IID_PPV_ARGS(&bundleCommandAllocator));
-	m_device->CreateCommandList(0,D3D12_COMMAND_LIST_TYPE_BUNDLE, bundleCommandAllocator.Get(),nullptr, IID_PPV_ARGS(&bundleCommandList));
+	m_uploadQueue.push_back(model);
+}
+
+void Crown::RenderObject::ModelManager::ResetBundle()
+{
+	unsigned int size = m_bundle.size();
+	for (unsigned int i = 0; i < size; ++i)
+	{
+		m_bundle[i] = false;
+	}
 }

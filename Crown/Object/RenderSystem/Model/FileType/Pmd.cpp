@@ -215,18 +215,15 @@ void Crown::RenderObject::Pmd::Load(ID3D12Device* device, std::wstring& fileName
 
 		//	マテリアル描画の仕方を決定☆
 		std::vector<std::shared_ptr<RenderCommand::RenderCommandBase>> renderCommands;
-		RenderCommand::RenderCommandFactory::CreateSetRootSignature(renderCommands, rootSignature->GetRootSignature());
-		RenderCommand::RenderCommandFactory::CreateSetPrimitiveTopology(renderCommands, D3D_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
 		RenderCommand::RenderCommandFactory::CreateSetVertexBuffer(renderCommands, 0, 1, verticesBuffer.GetVertexBufferView());
 		RenderCommand::RenderCommandFactory::CreateSetIndexBuffer(renderCommands, verticesBuffer.GetIndexBufferView());
-		RenderCommand::RenderCommandFactory::CreateSetDescriptorHeap(renderCommands);
 		RenderCommand::RenderCommandFactory::CreateSetDescriptor(renderCommands, 0, Camera::GetInstance()->GetDescriptorOffset());
 		RenderCommand::RenderCommandFactory::CreateSetDescriptor(renderCommands, 1, descriptorOffset);
 		RenderCommand::RenderCommandFactory::CreateSetDescriptor(renderCommands, 2, constBuffer.GetDescriptorOffset());
-		RenderCommand::RenderCommandFactory::CreateSetDescriptor(renderCommands, 3, textureBuffer.TextureAcquisition(texture));
-		RenderCommand::RenderCommandFactory::CreateSetDescriptor(renderCommands, 4, textureBuffer.TextureAcquisition(sph));
-		RenderCommand::RenderCommandFactory::CreateSetDescriptor(renderCommands, 5, textureBuffer.TextureAcquisition(spa));
-		RenderCommand::RenderCommandFactory::CreateSetDescriptor(renderCommands, 6, textureBuffer.TextureAcquisition(toonTexture));
+		RenderCommand::RenderCommandFactory::CreateSetDescriptor(renderCommands, 4, textureBuffer.TextureAcquisition(texture));
+		RenderCommand::RenderCommandFactory::CreateSetDescriptor(renderCommands, 5, textureBuffer.TextureAcquisition(sph));
+		RenderCommand::RenderCommandFactory::CreateSetDescriptor(renderCommands, 6, textureBuffer.TextureAcquisition(spa));
+		RenderCommand::RenderCommandFactory::CreateSetDescriptor(renderCommands, 7, textureBuffer.TextureAcquisition(toonTexture));
 		RenderCommand::RenderCommandFactory::CreateSetPipelineState(renderCommands, graphicsPipeline->GetPipelineState());
 		std::vector<Microsoft::WRL::ComPtr<ID3D12Resource>> resources;
 		resources.emplace_back(verticesBuffer.GetConstVertexBuffer());

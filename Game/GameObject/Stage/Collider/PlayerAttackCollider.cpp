@@ -42,7 +42,7 @@ void ColliderSystem::PlayerAttackCollider::CheckHitEnemy(EnemyCollider* enemyCol
 			DirectX::XMStoreFloat3(&triangle.point[i].point, transform);
 		}
 
-		isHit = ColliderAlgorithm::CheckHitCapsuleTriangle(enemyCollider->GetCollision(), triangle);
+		isHit = ColliderAlgorithm::CheckHitSphereTriangle(enemyCollider->GetCollision(), triangle);
 		if (isHit)
 		{
 			break;

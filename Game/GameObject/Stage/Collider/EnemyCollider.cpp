@@ -3,9 +3,10 @@
 #include "./../../MathLibrary.h"
 
 
-ColliderSystem::EnemyCollider::EnemyCollider(std::function<void(int)> hit)
+ColliderSystem::EnemyCollider::EnemyCollider(std::function<void(float)> hit, std::function<void(void)> wallHit)
 	:
-	m_hit(hit)
+	m_hit(hit),
+	m_wallHit(wallHit)
 {
 	m_instanceCollection.SetEnemyCollider(this);
 }
@@ -15,19 +16,17 @@ ColliderSystem::EnemyCollider::~EnemyCollider()
 	m_instanceCollection.DeleteEnemyCollider(this);
 }
 
-void ColliderSystem::EnemyCollider::Hit(int damage)
+void ColliderSystem::EnemyCollider::Hit(float damage)
 {
 	m_hit(damage);
 }
 
-void ColliderSystem::EnemyCollider::SetPosition(DirectX::XMFLOAT3 position) noexcept
+void ColliderSystem::EnemyCollider::HitWall()
 {
-	m_capsule.line.start.point = position;
-	m_capsule.line.end.point = VectorAdd(m_capsuleVector, m_capsule.line.start.point);
+	m_wallHit();
 }
 
-void ColliderSystem::EnemyCollider::SetCapsuleVector(DirectX::XMFLOAT3 capsuleVector) noexcept
+void ColliderSystem::EnemyCollider::SetPosition(DirectX::XMFLOAT3 position) noexcept
 {
-	m_capsuleVector = capsuleVector;
-	m_capsule.line.end.point = VectorAdd(m_capsuleVector, m_capsule.line.start.point);
+	m_sphere.point = position;
 }

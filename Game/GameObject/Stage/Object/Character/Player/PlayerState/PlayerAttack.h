@@ -17,7 +17,7 @@ public:
 	virtual void OnInputCamera(DirectX::XMFLOAT2 input) override;
 private:
 	void CameraAnim(float animFlame);
-	void FlameProcess(float start, float end, std::function<void(float)> process);
+	void FlameProcess(float start, float end, std::function<void(float)> process) const;
 	static constexpr float MOVING_DISTANCE = 1.43345f;	//	ˆÚ“®‹——£‚¾‚æ™
 	static constexpr int MOVING_END_FLAME = 22;			//	ˆÚ“®‚ªI—¹‚·‚éƒtƒŒ[ƒ€‚¾‚æ™
 	static constexpr float MAX_FOV_ANGLE = DirectX::XMConvertToRadians(90);
@@ -31,5 +31,5 @@ private:
 
 	Player* m_player;
 	DirectX::XMFLOAT3 m_startPosition;
-	float m_timer;
+	float m_animTimer;
 };

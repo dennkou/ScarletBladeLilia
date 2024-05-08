@@ -4,7 +4,7 @@
 GameUI::UITitle::UITitlePleaseSpaceKey::UITitlePleaseSpaceKey(UITitle* owner)
 	:
 	m_pleaseSpaceKey(nullptr),
-	m_timer(0),
+	m_animTimer(0),
 	m_owner(owner),
 	m_startFlag(false)
 {
@@ -18,7 +18,7 @@ GameUI::UITitle::UITitlePleaseSpaceKey::~UITitlePleaseSpaceKey()
 
 void GameUI::UITitle::UITitlePleaseSpaceKey::Enter()
 {
-	m_timer = 0.0f;
+	m_animTimer = 0.0f;
 	m_startFlag = false;
 	if (!m_pleaseSpaceKey)
 	{
@@ -30,18 +30,18 @@ void GameUI::UITitle::UITitlePleaseSpaceKey::Enter()
 
 void GameUI::UITitle::UITitlePleaseSpaceKey::Update(Timer& timer)
 {
-	m_timer += timer.GetSystemTime();
+	m_animTimer += timer.GetSystemTime();
 	if (m_startFlag)
 	{
-		m_pleaseSpaceKey->SetAlpha((std::sin(m_timer * BLINK_SPEED) + 1.0f) / 2);
-		if (m_timer >= CHANGE_TIME)
+		m_pleaseSpaceKey->SetAlpha((std::sin(m_animTimer * BLINK_SPEED) + 1.0f) / 2);
+		if (m_animTimer >= CHANGE_TIME)
 		{
 			m_owner->m_titleState.ChangeState(State::Menu);
 		}
 	}
 	else
 	{
-		m_pleaseSpaceKey->SetAlpha((std::sin(m_timer * FADE_SPEED) + 1.0f) / 2);
+		m_pleaseSpaceKey->SetAlpha((std::sin(m_animTimer * FADE_SPEED) + 1.0f) / 2);
 	}
 }
 
@@ -54,5 +54,5 @@ void GameUI::UITitle::UITitlePleaseSpaceKey::Exit()
 void GameUI::UITitle::UITitlePleaseSpaceKey::InputSelect()
 {
 	m_startFlag = true;
-	m_timer = 0.0f;
+	m_animTimer = 0.0f;
 }

@@ -6,7 +6,7 @@
 //#define DISPLAY_LOG		//	ログを表示するよ☆
 #ifdef DISPLAY_LOG
 #include <unordered_map>
-//#define IGNORE_UPDATE_EVENT	//	アップデートイベントのログを表示しないよ☆
+#define IGNORE_UPDATE_EVENT	//	アップデートイベントのログを表示しないよ☆
 #endif // DISPLAY_LOG
 
 
@@ -18,6 +18,7 @@
 #include "./DesignPatterns/FiniteStateMachine.h"
 #include <iostream>
 #include <chrono>
+#include <mutex>
 
 
 
@@ -55,7 +56,7 @@ private:
 
 	// イベントを実行するよ☆
 	template<class... Argument>
-	void EventTrigger(void (GameObject::*handler)(Argument...), Argument... argument)
+	void EventTrigger(void(GameObject::*handler)(Argument...), Argument... argument)
 	{
 		//	存在しないオブジェクトを削除しながら全てのオブジェクトのイベントを呼ぶよ☆
 
@@ -116,6 +117,6 @@ private:
 	#endif // DISPLAY_LOG
 	bool m_endFlag;
 
-	Timer m_timer;
+	Timer m_animTimer;
 };
 #endif GAME

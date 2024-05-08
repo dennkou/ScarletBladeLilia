@@ -170,7 +170,6 @@ bool ColliderAlgorithm::HitCheckLineTriangle(const LineSegment& lineSegment, con
 		{
 			return Seg2_TriProSeg2_Dist * Seg2_TriProSeg2_Dist < 0.0000001f;
 		}
-		return false;
 	}
 
 	// 線分が三角形と同一平面上にある場合のみ三角形に横から当たっているかどうかの判定を行う
@@ -184,6 +183,11 @@ bool ColliderAlgorithm::HitCheckLineTriangle(const LineSegment& lineSegment, con
 	}
 
 	return false;
+}
+
+bool ColliderAlgorithm::CheckHitSphereTriangle(const Sphere& capsule, const Triangle& triangle)
+{
+	return (capsule.radius * capsule.radius) >= VectorSquareSize(VectorSub(capsule.point.point, GetTrianglePointMinPosition(capsule.point, triangle)));
 }
 
 float ColliderAlgorithm::SegmentTriangleMinLengthSquare(const LineSegment& lineSegment, const Triangle& triangle)
@@ -404,7 +408,7 @@ float ColliderAlgorithm::SegmentSegmentMinLengthSquare(const LineSegment& lineSe
 	if (a <= 0.0f && -d <= 0.0f)
 	{
 		tp = VectorSub(lineSegmentA.start.point, lineSegmentB.start.point);
-		return sqrt(VectorInnerProduct(tp, tp));
+		return static_cast<float>(sqrt(VectorInnerProduct(tp, tp)));
 	}
 
 	if (a <= 0.0f)
@@ -495,4 +499,77 @@ void ColliderAlgorithm::TriangleBarycenter_Base(const Triangle& triangle, const 
 	*TrianglePos2Weight = (d13 * d22 - d12 * d23) / divn;
 	*TrianglePos3Weight = (d11 * d23 - d13 * d12) / divn;
 	*TrianglePos1Weight = 1.0f - *TrianglePos2Weight - *TrianglePos3Weight;
+}
+
+DirectX::XMFLOAT3 ColliderAlgorithm::GetTrianglePointMinPosition(Point point, Triangle triangle)
+{
+	DirectX::XMFLOAT3 Line12, Line23, Line31, Line1P, Line2P, Line3P, Result;
+	float Dot1P2, Dot1P3, Dot2P1, Dot2P3, Dot2PH, Dot3P1, Dot3P2, Dot3PH, OPA, OPB, OPC, Div, t, v, w;
+
+	Line12 = VectorSub(triangle.point[1].point, triangle.point[0].point);
+	Line31 = VectorSub(triangle.point[0].point, triangle.point[2].point);
+	Line1P = VectorSub(point.point, triangle.point[0].point);
+	Dot1P2 = VectorInnerProduct(Line12, Line1P);
+	Dot1P3 = VectorInnerProduct(Line31, Line1P);
+	if (Dot1P2 <= 0.0f && Dot1P3 >= 0.0f)
+	{
+		return triangle.point[0].point;
+	}
+
+	Line23 = VectorSub(triangle.point[2].point, triangle.point[1].point);
+	Line2P = VectorSub(point.point, triangle.point[1].point);
+	Dot2P1 = VectorInnerProduct(Line12, Line2P);
+	Dot2P3 = VectorInnerProduct(Line23, Line2P);
+	if (Dot2P1 >= 0.0f && Dot2P3 <= 0.0f)
+	{
+		return triangle.point[1].point;
+	}
+
+	Dot2PH = VectorInnerProduct(Line31, Line2P);
+	OPC = Dot1P2 * -Dot2PH - Dot2P1 * -Dot1P3;	// ←ラグランジュ恒等式
+	if (OPC <= 0.0f && Dot1P2 >= 0.0f && Dot2P1 <= 0.0f)
+	{
+		t = Dot1P2 / (Dot1P2 - Dot2P1);
+		Result.x = triangle.point[0].point.x + Line12.x * t;
+		Result.y = triangle.point[0].point.y + Line12.y * t;
+		Result.z = triangle.point[0].point.z + Line12.z * t;
+		return Result;
+	}
+
+	Line3P = VectorSub(point.point, triangle.point[2].point);
+	Dot3P1 = VectorInnerProduct(Line31, Line3P);
+	Dot3P2 = VectorInnerProduct(Line23, Line3P);
+	if (Dot3P1 <= 0.0f && Dot3P2 >= 0.0f)
+	{
+		return triangle.point[2].point;
+	}
+
+	Dot3PH = VectorInnerProduct(Line12, Line3P);
+	OPB = Dot3PH * -Dot1P3 - Dot1P2 * -Dot3P1;	// ←ラグランジュ恒等式
+	if (OPB <= 0.0f && Dot1P3 <= 0.0f && Dot3P1 >= 0.0f)
+	{
+		t = Dot3P1 / (Dot3P1 - Dot1P3);
+		Result.x = triangle.point[2].point.x + Line31.x * t;
+		Result.y = triangle.point[2].point.y + Line31.y * t;
+		Result.z = triangle.point[2].point.z + Line31.z * t;
+		return Result;
+	}
+
+	OPA = Dot2P1 * -Dot3P1 - Dot3PH * -Dot2PH;	// ←ラグランジュ恒等式
+	if (OPA <= 0.0f && (-Dot2PH - Dot2P1) >= 0.0f && (Dot3PH + Dot3P1) >= 0.0f)
+	{
+		t = (-Dot2PH - Dot2P1) / ((-Dot2PH - Dot2P1) + (Dot3PH + Dot3P1));
+		Result.x = triangle.point[1].point.x + Line23.x * t;
+		Result.y = triangle.point[1].point.y + Line23.y * t;
+		Result.z = triangle.point[1].point.z + Line23.z * t;
+		return Result;
+	}
+
+	Div = 1.0f / (OPA + OPB + OPC);
+	v = OPB * Div;
+	w = OPC * Div;
+	Result.x = triangle.point[0].point.x + Line12.x * v - Line31.x * w;
+	Result.y = triangle.point[0].point.y + Line12.y * v - Line31.y * w;
+	Result.z = triangle.point[0].point.z + Line12.z * v - Line31.z * w;
+	return Result;
 }

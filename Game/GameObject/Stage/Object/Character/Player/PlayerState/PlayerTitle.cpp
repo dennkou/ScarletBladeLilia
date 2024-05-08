@@ -15,7 +15,7 @@ Player::PlayerTitle::~PlayerTitle()
 void Player::PlayerTitle::Enter()
 {
 	m_startFlag = false;
-	m_timer = 0.0f;
+	m_animTimer = 0.0f;
 
 	m_owner->m_camera.SetPosition(CAMERA_TITLE_POSITION);
 	m_owner->m_camera.SetRotate(CAMERA_TITLE_ROTATE);
@@ -25,7 +25,7 @@ void Player::PlayerTitle::Enter()
 void Player::PlayerTitle::Exit()
 {
 	m_owner->m_hpUi.SetAlpha(1);
-	m_owner->m_hpUi.SetPlayerHPPercent(static_cast<float>(m_owner->GetHp()) / m_owner->GetMaxHp());
+	m_owner->m_hpUi.SetPlayerHPPercent(m_owner->m_hp.GetHPPercent());
 
 	m_owner->m_camera.SetPosition(CAMERA_PLAY_POSITION);
 	m_owner->m_camera.SetRotate(CAMERA_PLAY_ROTATE);
@@ -34,16 +34,16 @@ void Player::PlayerTitle::Exit()
 
 void Player::PlayerTitle::Update(float time)
 {
-	m_owner->m_hpUi.SetAlpha(m_timer / CHANGE_ANIMATION_TIME);
-	m_owner->m_hpUi.SetPlayerHPPercent(std::lerp(0, m_owner->GetHp() / m_owner->GetMaxHp(), m_timer / CHANGE_ANIMATION_TIME));
+	m_owner->m_hpUi.SetAlpha(m_animTimer / CHANGE_ANIMATION_TIME);
+	m_owner->m_hpUi.SetPlayerHPPercent(std::lerp(0.0f, m_owner->m_hp.GetHPPercent(), m_animTimer / CHANGE_ANIMATION_TIME));
 
-	m_owner->m_standAnim.GetAnimation(0.0f, m_owner->m_bone, m_owner->GetModel().GetBoneDate());
+	m_owner->m_standAnim.GetAnimation(0.0f, m_owner->m_bone, m_owner->m_model.GetBoneDate());
 	if (m_startFlag)
 	{
-		m_timer += time;								//	ステートタイマーの更新☆
-		if (m_timer >= CHANGE_ANIMATION_TIME)
+		m_animTimer += time;								//	ステートタイマーの更新☆
+		if (m_animTimer >= CHANGE_ANIMATION_TIME)
 		{
-			m_owner->m_playerState.ChangeState(StateID::Normal);
+			m_owner->m_playerState.ChangeState(StateID::Stand);
 			m_owner->EventTrigger(&Game::GameObject::OnPlayStart);
 		}
 		else
@@ -60,7 +60,7 @@ void Player::PlayerTitle::OnPlayStartAnimation()
 
 void Player::PlayerTitle::CameraUpdate()
 {
-	float timeRatio = m_timer / CHANGE_ANIMATION_TIME;
+	float timeRatio = m_animTimer / CHANGE_ANIMATION_TIME;
 
 	DirectX::XMFLOAT3 tmp;
 	tmp.x = std::lerp(CAMERA_TITLE_POSITION.x, CAMERA_PLAY_POSITION.x, timeRatio);

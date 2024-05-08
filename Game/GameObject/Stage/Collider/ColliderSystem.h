@@ -10,6 +10,9 @@ public:
 	class EnemyAttackCollider;
 	class StageCollider;
 
+	class AisleCollider;
+
+
 	ColliderSystem() = delete;
 	~ColliderSystem() = delete;
 

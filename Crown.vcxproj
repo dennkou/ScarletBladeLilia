@@ -166,6 +166,14 @@
     </FxCompile>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Game\GameObject\Stage\Collider\AisleCollider.cpp" />
+    <ClCompile Include="Game\GameObject\Stage\Collider\EnemyAttackCollider.cpp" />
+    <ClCompile Include="Game\GameObject\Stage\Object\Character\Enemy\AIState\CombatAction\CombatAttack.cpp" />
+    <ClCompile Include="Game\GameObject\Stage\Object\Character\Enemy\AIState\CombatAction\CombatAttack1.cpp" />
+    <ClCompile Include="Game\GameObject\Stage\Object\Character\HP.cpp" />
+    <ClCompile Include="Game\GameObject\Stage\StageObject\Aisle.cpp" />
+    <ClCompile Include="Crown\Object\RenderSystem\DirectX12Wraps\DefaultRootSignature.cpp" />
+    <ClCompile Include="Game\GameObject\Stage\Object\Character\Enemy\AIState\CombatAction\CombatVigilance.cpp" />
     <ClCompile Include="Crown\Object\Input.cpp" />
     <ClCompile Include="Crown\Object\RenderSystem\Animation\AnimationData.cpp" />
     <ClCompile Include="Crown\Object\RenderSystem\Animation\AnimationDataManager.cpp" />
@@ -191,18 +199,12 @@
     <ClCompile Include="Crown\Object\RenderSystem\RenderCommands\RenderCommandFactory.cpp" />
     <ClCompile Include="Crown\Object\RenderSystem\RenderCommands\RenderCommandQueue.cpp" />
     <ClCompile Include="Crown\Object\RenderSystem\RenderCommands\SetDescriptor.cpp" />
-    <ClCompile Include="Crown\Object\RenderSystem\RenderCommands\SetDescriptorHeap.cpp" />
     <ClCompile Include="Crown\Object\RenderSystem\RenderCommands\SetIndexBuffer.cpp" />
     <ClCompile Include="Crown\Object\RenderSystem\RenderCommands\SetPipelineState.cpp" />
-    <ClCompile Include="Crown\Object\RenderSystem\RenderCommands\SetPrimitiveTopology.cpp" />
-    <ClCompile Include="Crown\Object\RenderSystem\RenderCommands\SetRootSignature.cpp" />
     <ClCompile Include="Crown\Object\RenderSystem\RenderCommands\SetVertexBuffer.cpp" />
     <ClCompile Include="Crown\Object\RenderSystem\RenderSystem.cpp" />
     <ClCompile Include="Crown\Object\RenderSystem\RenderTarget.cpp" />
     <ClCompile Include="Crown\Object\RenderSystem\Shader.cpp" />
-    <ClCompile Include="Crown\Object\RenderSystem\TestSystem\DrawCall.cpp" />
-    <ClCompile Include="Crown\Object\RenderSystem\TestSystem\PipelineStateManager.cpp" />
-    <ClCompile Include="Crown\Object\RenderSystem\TestSystem\TestSystem.cpp" />
     <ClCompile Include="Crown\Object\RenderSystem\TextureBuffer.cpp" />
     <ClCompile Include="Crown\Object\RenderSystem\UI\Ui.cpp" />
     <ClCompile Include="Crown\Object\RenderSystem\UI\UiManager.cpp" />
@@ -222,28 +224,22 @@
     <ClCompile Include="Game\GameObject\Stage\Collider\PlayerAttackCollider.cpp" />
     <ClCompile Include="Game\GameObject\Stage\Collider\PlayerCollider.cpp" />
     <ClCompile Include="Game\GameObject\Stage\Collider\StageCollider.cpp" />
-    <ClCompile Include="Game\GameObject\Stage\Object\Character\Character.cpp" />
     <ClCompile Include="Game\GameObject\Stage\Object\Character\Enemy\Enemy.cpp" />
-    <ClCompile Include="Game\GameObject\Stage\Object\Character\Enemy\State\Combat\CombatState\CombatState.cpp" />
-    <ClCompile Include="Game\GameObject\Stage\Object\Character\Enemy\State\Combat\EnemyStateCombat.cpp" />
-    <ClCompile Include="Game\GameObject\Stage\Object\Character\Enemy\State\EnemyStateTitle.cpp" />
-    <ClCompile Include="Game\GameObject\Stage\Object\Character\Enemy\State\Patrol\EnemyStatePatrol.cpp" />
-    <ClCompile Include="Game\GameObject\Stage\Object\Character\Enemy\State\Patrol\NavigationAI\PointPatrol.cpp" />
+    <ClCompile Include="Game\GameObject\Stage\Object\Character\Enemy\AIState\EnemyAIStateCombat.cpp" />
+    <ClCompile Include="Game\GameObject\Stage\Object\Character\Enemy\AIState\EnemyAIStateTitle.cpp" />
+    <ClCompile Include="Game\GameObject\Stage\Object\Character\Enemy\AIState\EnemyAIStatePatrol.cpp" />
+    <ClCompile Include="Game\GameObject\Stage\Object\Character\Enemy\AIState\NavigationAI\PointPatrol.cpp" />
     <ClCompile Include="Game\GameObject\Stage\Object\Character\Enemy\UI\EnemyUi.cpp" />
     <ClCompile Include="Game\GameObject\Stage\Object\Character\Player\Player.cpp" />
     <ClCompile Include="Game\GameObject\Stage\Object\Character\Player\PlayerCamera.cpp" />
-    <ClCompile Include="Game\GameObject\Stage\Object\Character\Player\PlayerState\DefaultState\DefaultStateBase.cpp" />
-    <ClCompile Include="Game\GameObject\Stage\Object\Character\Player\PlayerState\DefaultState\PlayerStateRun.cpp" />
-    <ClCompile Include="Game\GameObject\Stage\Object\Character\Player\PlayerState\DefaultState\PlayerStateStand.cpp" />
+    <ClCompile Include="Game\GameObject\Stage\Object\Character\Player\PlayerState\PlayerStateRun.cpp" />
+    <ClCompile Include="Game\GameObject\Stage\Object\Character\Player\PlayerState\PlayerStateStand.cpp" />
     <ClCompile Include="Game\GameObject\Stage\Object\Character\Player\PlayerState\PlayerAttack.cpp" />
     <ClCompile Include="Game\GameObject\Stage\Object\Character\Player\PlayerState\PlayerAvoidance.cpp" />
-    <ClCompile Include="Game\GameObject\Stage\Object\Character\Player\PlayerState\PlayerDefault.cpp" />
     <ClCompile Include="Game\GameObject\Stage\Object\Character\Player\PlayerState\PlayerTitle.cpp" />
     <ClCompile Include="Game\GameObject\Stage\Object\Character\Player\UI\PlayerHpUi.cpp" />
-    <ClCompile Include="Game\GameObject\Stage\Object\Object.cpp" />
     <ClCompile Include="Game\GameObject\Stage\Stage.cpp" />
     <ClCompile Include="Game\GameObject\Stage\StageObject\Sky.cpp" />
-    <ClCompile Include="Game\GameObject\Stage\StageObject\StageObject.cpp" />
     <ClCompile Include="Game\GameObject\UI\GameUI.cpp" />
     <ClCompile Include="Game\GameObject\UI\State\Play\UIPlay.cpp" />
     <ClCompile Include="Game\GameObject\UI\State\Title\State\MenuState\TitleMenu.cpp" />
@@ -256,9 +252,17 @@
     <ClCompile Include="Game\GameObject\UI\State\Title\UITitle.cpp" />
     <ClCompile Include="Game\Timer.cpp" />
     <ClCompile Include="main.cpp" />
-    <ClCompile Include="Game\GameObject\Stage\Object\Character\Player\PlayerState\DefaultState\PlayerStateWalk.cpp" />
+    <ClCompile Include="Game\GameObject\Stage\Object\Character\Player\PlayerState\PlayerStateWalk.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Game\GameObject\Stage\Collider\AisleCollider.h" />
+    <ClInclude Include="Game\GameObject\Stage\Collider\EnemyAttackCollider.h" />
+    <ClInclude Include="Game\GameObject\Stage\Object\Character\Enemy\AIState\CombatAction\CombatAttack.h" />
+    <ClInclude Include="Game\GameObject\Stage\Object\Character\Enemy\AIState\CombatAction\CombatAttack1.h" />
+    <ClInclude Include="Game\GameObject\Stage\Object\Character\HP.h" />
+    <ClInclude Include="Game\GameObject\Stage\StageObject\Aisle.h" />
+    <ClInclude Include="Crown\Object\RenderSystem\DirectX12Wraps\DefaultRootSignature.h" />
+    <ClInclude Include="Game\GameObject\Stage\Object\Character\Enemy\AIState\CombatAction\CombatVigilance.h" />
     <ClInclude Include="Crown\Object\Algorithm.h" />
     <ClInclude Include="Crown\Object\Input.h" />
     <ClInclude Include="Crown\Object\RenderSystem\Animation\AnimationData.h" />
@@ -287,18 +291,12 @@
     <ClInclude Include="Crown\Object\RenderSystem\RenderCommands\RenderCommandFactory.h" />
     <ClInclude Include="Crown\Object\RenderSystem\RenderCommands\RenderCommandQueue.h" />
     <ClInclude Include="Crown\Object\RenderSystem\RenderCommands\SetDescriptor.h" />
-    <ClInclude Include="Crown\Object\RenderSystem\RenderCommands\SetDescriptorHeap.h" />
     <ClInclude Include="Crown\Object\RenderSystem\RenderCommands\SetIndexBuffer.h" />
     <ClInclude Include="Crown\Object\RenderSystem\RenderCommands\SetPipelineState.h" />
-    <ClInclude Include="Crown\Object\RenderSystem\RenderCommands\SetPrimitiveTopology.h" />
-    <ClInclude Include="Crown\Object\RenderSystem\RenderCommands\SetRootSignature.h" />
     <ClInclude Include="Crown\Object\RenderSystem\RenderCommands\SetVertexBuffer.h" />
     <ClInclude Include="Crown\Object\RenderSystem\RenderSystem.h" />
     <ClInclude Include="Crown\Object\RenderSystem\RenderTarget.h" />
     <ClInclude Include="Crown\Object\RenderSystem\Shader.h" />
-    <ClInclude Include="Crown\Object\RenderSystem\TestSystem\DrawCall.h" />
-    <ClInclude Include="Crown\Object\RenderSystem\TestSystem\PipelineStateManager.h" />
-    <ClInclude Include="Crown\Object\RenderSystem\TestSystem\TestSystem.h" />
     <ClInclude Include="Crown\Object\RenderSystem\TextureBuffer.h" />
     <ClInclude Include="Crown\Object\RenderSystem\UI\Ui.h" />
     <ClInclude Include="Crown\Object\RenderSystem\UI\UiManager.h" />
@@ -324,27 +322,23 @@
     <ClInclude Include="Game\GameObject\Stage\Collider\PlayerAttackCollider.h" />
     <ClInclude Include="Game\GameObject\Stage\Collider\PlayerCollider.h" />
     <ClInclude Include="Game\GameObject\Stage\Collider\StageCollider.h" />
-    <ClInclude Include="Game\GameObject\Stage\Object\Character\Character.h" />
+    <ClInclude Include="Game\GameObject\Stage\Object\Character\Enemy\AIState\CombatAction\CombatActionState.h" />
     <ClInclude Include="Game\GameObject\Stage\Object\Character\Enemy\Enemy.h" />
-    <ClInclude Include="Game\GameObject\Stage\Object\Character\Enemy\State\Combat\CombatState\CombatState.h" />
-    <ClInclude Include="Game\GameObject\Stage\Object\Character\Enemy\State\EnemyState.h" />
-    <ClInclude Include="Game\GameObject\Stage\Object\Character\Enemy\State\Combat\EnemyStateCombat.h" />
-    <ClInclude Include="Game\GameObject\Stage\Object\Character\Enemy\State\EnemyStateTitle.h" />
-    <ClInclude Include="Game\GameObject\Stage\Object\Character\Enemy\State\Patrol\EnemyStatePatrol.h" />
-    <ClInclude Include="Game\GameObject\Stage\Object\Character\Enemy\State\Patrol\NavigationAI\PointPatrol.h" />
+    <ClInclude Include="Game\GameObject\Stage\Object\Character\Enemy\AIState\EnemyAIState.h" />
+    <ClInclude Include="Game\GameObject\Stage\Object\Character\Enemy\AIState\EnemyAIStateCombat.h" />
+    <ClInclude Include="Game\GameObject\Stage\Object\Character\Enemy\AIState\EnemyAIStateTitle.h" />
+    <ClInclude Include="Game\GameObject\Stage\Object\Character\Enemy\AIState\EnemyAIStatePatrol.h" />
+    <ClInclude Include="Game\GameObject\Stage\Object\Character\Enemy\AIState\NavigationAI\PointPatrol.h" />
     <ClInclude Include="Game\GameObject\Stage\Object\Character\Enemy\UI\EnemyUi.h" />
     <ClInclude Include="Game\GameObject\Stage\Object\Character\Player\Player.h" />
     <ClInclude Include="Game\GameObject\Stage\Object\Character\Player\PlayerCamera.h" />
-    <ClInclude Include="Game\GameObject\Stage\Object\Character\Player\PlayerState\DefaultState\DefaultStateBase.h" />
-    <ClInclude Include="Game\GameObject\Stage\Object\Character\Player\PlayerState\DefaultState\PlayerStateRun.h" />
-    <ClInclude Include="Game\GameObject\Stage\Object\Character\Player\PlayerState\DefaultState\PlayerStateStand.h" />
+    <ClInclude Include="Game\GameObject\Stage\Object\Character\Player\PlayerState\PlayerStateRun.h" />
+    <ClInclude Include="Game\GameObject\Stage\Object\Character\Player\PlayerState\PlayerStateStand.h" />
     <ClInclude Include="Game\GameObject\Stage\Object\Character\Player\PlayerState\PlayerAttack.h" />
     <ClInclude Include="Game\GameObject\Stage\Object\Character\Player\PlayerState\PlayerAvoidance.h" />
-    <ClInclude Include="Game\GameObject\Stage\Object\Character\Player\PlayerState\PlayerDefault.h" />
     <ClInclude Include="Game\GameObject\Stage\Object\Character\Player\PlayerState\PlayerState.h" />
     <ClInclude Include="Game\GameObject\Stage\Object\Character\Player\PlayerState\PlayerTitle.h" />
     <ClInclude Include="Game\GameObject\Stage\Object\Character\Player\UI\PlayerHpUi.h" />
-    <ClInclude Include="Game\GameObject\Stage\Object\Object.h" />
     <ClInclude Include="Game\GameObject\Stage\Stage.h" />
     <ClInclude Include="Game\GameObject\Stage\StageObject\Sky.h" />
     <ClInclude Include="Game\GameObject\Stage\StageObject\StageObject.h" />
@@ -363,7 +357,7 @@
     <ClInclude Include="Game\GameObject\UI\State\UIState.h" />
     <ClInclude Include="Game\Timer.h" />
     <ClInclude Include="MathLibrary.h" />
-    <ClInclude Include="Game\GameObject\Stage\Object\Character\Player\PlayerState\DefaultState\PlayerStateWalk.h" />
+    <ClInclude Include="Game\GameObject\Stage\Object\Character\Player\PlayerState\PlayerStateWalk.h" />
   </ItemGroup>
   <ItemGroup>
     <Text Include="ヘッダーテンプレート.txt" />
@@ -433,6 +427,31 @@
     <FxCompile Include="Crown\Shader\UIvs.hlsl">
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Vertex</ShaderType>
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Vertex</ShaderType>
+    </FxCompile>
+    <FxCompile Include="Shader\Obj\Obj_GS.hlsl">
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Geometry</ShaderType>
+      <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">5.1</ShaderModel>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Geometry</ShaderType>
+      <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">4.0</ShaderModel>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Geometry</ShaderType>
+      <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">4.0</ShaderModel>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Geometry</ShaderType>
+      <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Release|x64'">4.0</ShaderModel>
+      <ObjectFileOutput Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Resource/Shader/Obj/%(Filename).cso</ObjectFileOutput>
+    </FxCompile>
+    <FxCompile Include="Shader\Obj\Obj_PS.hlsl">
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Pixel</ShaderType>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Pixel</ShaderType>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Pixel</ShaderType>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Pixel</ShaderType>
+      <ObjectFileOutput Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Resource/Shader/Obj/%(Filename).cso</ObjectFileOutput>
+    </FxCompile>
+    <FxCompile Include="Shader\Obj\Obj_VS.hlsl">
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Vertex</ShaderType>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Vertex</ShaderType>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Vertex</ShaderType>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Vertex</ShaderType>
+      <ObjectFileOutput Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Resource/Shader/Obj/%(Filename).cso</ObjectFileOutput>
     </FxCompile>
     <FxCompile Include="Shader\Obj\SkyPS.hlsl">
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Pixel</ShaderType>

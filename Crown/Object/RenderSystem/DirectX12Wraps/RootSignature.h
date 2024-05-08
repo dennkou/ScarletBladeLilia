@@ -17,6 +17,9 @@ namespace Crown
 		class RootSignature
 		{
 		public:
+			static constexpr int CBV_NUM = 4;
+			static constexpr int SRV_NUM = 4;
+
 			RootSignature();
 			~RootSignature();
 

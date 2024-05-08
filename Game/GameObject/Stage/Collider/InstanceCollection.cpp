@@ -2,6 +2,8 @@
 #include "PlayerCollider.h"
 #include "PlayerAttackCollider.h"
 #include "EnemyCollider.h"
+#include "EnemyAttackCollider.h"
+#include "AisleCollider.h"
 
 ColliderSystem::InstanceCollection::InstanceCollection()
 {
@@ -24,7 +26,21 @@ void ColliderSystem::InstanceCollection::Update()
 		for (PlayerAttackCollider* playerAttackCollider : m_playerAttackCollider)
 		{
 			playerAttackCollider->CheckHitEnemy(enemyCollider);
+		}
+	}
+	for (EnemyAttackCollider* enemyAttackCollider : m_enemyAttackCollider)
+	{
+		enemyAttackCollider->CheckHitPlayer(m_playerCollider);
+	}
 
+	//	ステージの判定☆
+	for (AisleCollider* aisleCollider : m_aisleCollider)
+	{
+		aisleCollider->CheckHitPlayer(m_playerCollider);
+
+		for (EnemyCollider* enemy : m_enemyCollider)
+		{
+			aisleCollider->CheckHitEnemy(enemy);
 		}
 	}
 }
@@ -80,6 +96,21 @@ std::vector<ColliderSystem::EnemyCollider*>* ColliderSystem::InstanceCollection:
 	return &m_enemyCollider;
 }
 
+void ColliderSystem::InstanceCollection::SetEnemyAttackCollider(EnemyAttackCollider* enemyAttackCollider)
+{
+	m_enemyAttackCollider.push_back(enemyAttackCollider);
+}
+
+void ColliderSystem::InstanceCollection::DeleteEnemyAttackCollider(EnemyAttackCollider* enemyAttackCollider)
+{
+	m_enemyAttackCollider.erase(std::find(m_enemyAttackCollider.begin(), m_enemyAttackCollider.end(), enemyAttackCollider));
+}
+
+std::vector<ColliderSystem::EnemyAttackCollider*>* ColliderSystem::InstanceCollection::GetEnemyAttackCollider()
+{
+	return &m_enemyAttackCollider;
+}
+
 
 
 void ColliderSystem::InstanceCollection::SetStageCollider(StageCollider* stageCollider)
@@ -95,4 +126,23 @@ void ColliderSystem::InstanceCollection::DeleteStageCollider(StageCollider* stag
 std::vector<ColliderSystem::StageCollider*>* ColliderSystem::InstanceCollection::GetStageColliders()
 {
 	return &m_stageCollider;
+}
+
+
+
+
+
+void ColliderSystem::InstanceCollection::SetAisleCollider(AisleCollider* aisleCollider)
+{
+	m_aisleCollider.push_back(aisleCollider);
+}
+
+void ColliderSystem::InstanceCollection::DeleteAisleCollider(AisleCollider* aisleCollider)
+{
+	m_aisleCollider.erase(std::find(m_aisleCollider.begin(), m_aisleCollider.end(), aisleCollider));
+}
+
+std::vector<ColliderSystem::AisleCollider*>* ColliderSystem::InstanceCollection::GetAisleColliders()
+{
+	return &m_aisleCollider;
 }

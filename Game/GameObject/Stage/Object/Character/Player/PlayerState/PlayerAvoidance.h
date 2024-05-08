@@ -11,4 +11,5 @@ public:
 	virtual void Exit() override;
 private:
 	Player* m_player;
+	float m_animTimer;
 };

@@ -42,7 +42,7 @@ namespace Crown
 			/// テクスチャのバッファを取得するよ☆
 			/// </summary>
 			/// <returns></returns>
-			const Microsoft::WRL::ComPtr<ID3D12Resource> GetTextureBuffer(unsigned int offset);
+			const Microsoft::WRL::ComPtr<ID3D12Resource> GetTextureBuffer(unsigned int m_offset);
 
 			/// <summary>
 			/// 渡されたRGBA配列をテクスチャとして登録するよ☆

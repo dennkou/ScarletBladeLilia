@@ -38,7 +38,3 @@ void Crown::RenderObject::ResourceUploader::DeleteInstance()
 {
 	delete me;
 }
-
-void Crown::RenderObject::ResourceUploader::DeleteUploadResource()
-{
-}

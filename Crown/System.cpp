@@ -49,9 +49,8 @@ void Crown::System::Update()
 
 void Crown::System::Finalize()
 {
+	m_renderSystem.Finalize();
 }
-
-
 
 LRESULT CrownWindowProcedure(HWND hwnd, UINT msg, WPARAM wparam, LPARAM lparam)
 {

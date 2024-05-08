@@ -17,7 +17,7 @@ class ColliderSystem::PlayerAttackCollider
 public:
 	PlayerAttackCollider() = default;
 	PlayerAttackCollider(int damage, std::initializer_list<ColliderAlgorithm::Triangle> collider);
-	~PlayerAttackCollider() = default;
+	virtual ~PlayerAttackCollider() = default;
 
 	void CheckHitEnemy(EnemyCollider* enemyCollider);
 

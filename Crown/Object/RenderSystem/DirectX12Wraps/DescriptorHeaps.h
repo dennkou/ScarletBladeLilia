@@ -42,7 +42,7 @@ namespace Crown
 			/// 指定位置のGPUハンドルを取得するよ☆
 			/// </summary>
 			/// <returns></returns>
-			D3D12_GPU_DESCRIPTOR_HANDLE GetHandle(unsigned int offset) const;
+			D3D12_GPU_DESCRIPTOR_HANDLE GetHandle(unsigned int m_offset) const;
 
 			/// <summary>
 			/// 

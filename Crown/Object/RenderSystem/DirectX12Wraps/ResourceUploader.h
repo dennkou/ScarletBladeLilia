@@ -38,10 +38,6 @@ namespace Crown
 			template<typename DataType>
 			UINT64 Get255AlignmentSize(unsigned int size = 1) { return static_cast<UINT64>(((sizeof(DataType) * size) + 0xff) & ~0xff); }
 
-			/// <summary>
-			/// アップロードに使用したバッファーを開放するよ☆
-			/// </summary>
-			void DeleteUploadResource();
 		private:
 			ResourceUploader();
 			~ResourceUploader();
@@ -69,8 +65,8 @@ namespace Crown
 			upload->Unmap(0, nullptr);
 
 			m_commandList->GetCopyCommandList()->CopyBufferRegion(uploadTarget.Get(), 0, upload.Get(), 0, dataSize);
-			m_commandList->LockResource(upload);
-			m_commandList->LockResource(uploadTarget);
+			m_commandList->LockCopyResource(upload);
+			m_commandList->LockCopyResource(uploadTarget);
 		}
 	}
 }

@@ -36,11 +36,19 @@ namespace Crown
 			void Draw(MaterialTag drawTag, GraphicsCommandList& commandList);
 
 			void LoadModel(Model::ModelLoader* modelLoader);
-			void CreateBundle(Microsoft::WRL::ComPtr<ID3D12GraphicsCommandList>& bundleCommandList, Microsoft::WRL::ComPtr<ID3D12CommandAllocator>& bundleCommandAllocator);
+
+			void StackDataUploadQueue(Model* model);
 		private:
+			void ResetBundle();
+
 			ID3D12Device* m_device;
 			std::vector<Model*> m_models;
 			TextureBuffer* m_textureBuffer;
+
+			std::vector<bool> m_bundle;
+			std::vector<Microsoft::WRL::ComPtr<ID3D12GraphicsCommandList>>		m_bundleCommandLists;			//	描画種ごとのバンドルコマンドリスト☆
+			std::vector<Microsoft::WRL::ComPtr<ID3D12CommandAllocator>>			m_bundleCommandAllocators;		//	描画種ごとのバンドルコマンドアロケーター☆
+			std::vector<Model*> m_uploadQueue;
 		};
 	}
 }

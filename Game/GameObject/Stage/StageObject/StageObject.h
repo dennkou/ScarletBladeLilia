@@ -1,14 +1,15 @@
 #pragma once
-#include "./../Object/Object.h"
 #include "./../../../../Crown/Object/RenderSystem/Model/Model.h"
+#include "./../../GameObject.h"
+#include <DirectXMath.h>
 
-class StageObject : public Object
+class StageObject
 {
 public:
-	StageObject(Game* game, DirectX::XMFLOAT3 position);
-	~StageObject();
+	StageObject() = default;
+	virtual ~StageObject() = default;
 
-
+	virtual void Update() = 0;
 private:
-	void CreateMaterial();
+
 };

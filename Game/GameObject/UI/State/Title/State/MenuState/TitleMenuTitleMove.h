@@ -12,7 +12,7 @@ public:
 
 	virtual void InputSelect() override;
 private:
-	float m_timer;
+	float m_animTimer;
 	static constexpr float END_POSITION_X = 0.0f;		//	タイトルロゴの終了X座標だよ☆
 	static constexpr float END_POSITION_Y = 0.5f;		//	タイトルロゴの終了Y座標だよ☆
 	static constexpr float END_SIZE = 0.7f;				//	タイトルロゴの終了サイズだよ☆

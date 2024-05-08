@@ -49,8 +49,8 @@ Game::~Game()
 // XV‚ÌÀs™
 void Game::Update()
 {
-	m_timer.Update();
-	EventTrigger<Timer&>(&GameObject::OnGameUpdate, m_timer);
+	m_animTimer.Update();
+	EventTrigger<Timer&>(&GameObject::OnGameUpdate, m_animTimer);
 #ifdef DISPLAY_LOG
 	m_updateTime += m_timer.GetSystemTime();
 	++m_updateNum;

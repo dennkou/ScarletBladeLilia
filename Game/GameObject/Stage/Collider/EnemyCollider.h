@@ -7,23 +7,24 @@
 class ColliderSystem::EnemyCollider
 {
 public:
-	EnemyCollider(std::function<void(int)> hit);
+	EnemyCollider(std::function<void(float)> hit, std::function<void(void)> wallHit);
 	virtual ~EnemyCollider();
 
-	void Hit(int damage);																//	攻撃を受けたよ☆
+	void Hit(float damage);														//	攻撃を受けたよ☆
+	void HitWall();
 
 	void SetPosition(DirectX::XMFLOAT3 position) noexcept;								//	エネミーの位置を設定するよ☆
-	void SetCapsuleVector(DirectX::XMFLOAT3 capsuleVector) noexcept;					//	エネミーの体勢を設定するよ☆
-	DirectX::XMFLOAT3 GetPosition() { return m_capsule.line.start.point; }				//	エネミーの位置を取得するよ☆
-	void SetRadius(float radius) noexcept { m_capsule.radius = radius; }				//	当たり判定のカプセルの半径を設定するよ☆
-	ColliderAlgorithm::Capsule GetCollision() const noexcept { return m_capsule; }		//	当たり判定のカプセルを取得するよ☆
-	void SetPlayerPosition(DirectX::XMFLOAT3 pos) { m_playerPosition = pos; }			//	プレイヤー位置を入力するよ☆
-	DirectX::XMFLOAT3 GetPlayerPosition() { return m_playerPosition; }					//	プレイヤーの位置を取得するよ☆
-	bool IsEngagement() { return m_engagement; }										//	プレイヤーを発見しているかどうかだよ☆
+	inline DirectX::XMFLOAT3 GetPosition() const noexcept { return m_sphere.point.point; }		//	エネミーの位置を取得するよ☆
+	inline void SetRadius(float radius) noexcept { m_sphere.radius = radius; }					//	当たり判定のカプセルの半径を設定するよ☆
+	inline ColliderAlgorithm::Sphere GetCollision() const noexcept { return m_sphere; }			//	当たり判定のカプセルを取得するよ☆
+	inline void SetPlayerPosition(DirectX::XMFLOAT3 pos) { m_playerPosition = pos; }			//	プレイヤー位置を入力するよ☆
+	inline DirectX::XMFLOAT3 GetPlayerPosition() const noexcept { return m_playerPosition; }	//	プレイヤーの位置を取得するよ☆
+	inline bool IsEngagement() const noexcept { return m_engagement; }							//	プレイヤーを発見しているかどうかだよ☆
 private:
-	ColliderAlgorithm::Capsule m_capsule;
-	DirectX::XMFLOAT3 m_capsuleVector;
-	std::function<void(int)> m_hit;
+	ColliderAlgorithm::Sphere m_sphere;
+	std::vector<ColliderAlgorithm::Triangle> m_attack;
+	std::function<void(float)> m_hit;
+	std::function<void(void)> m_wallHit;
 	DirectX::XMFLOAT3 m_playerPosition;
 	bool m_engagement;
 };

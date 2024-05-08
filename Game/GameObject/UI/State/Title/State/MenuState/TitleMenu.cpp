@@ -4,7 +4,7 @@ GameUI::UITitle::UITitleMenu::TitleMenu::TitleMenu(UITitleMenu* owner)
 	:
 	m_owner(owner),
 	m_targetPositionY(SELECT_ITEM_POSITION_Y),
-	m_timer(0)
+	m_animTimer(0)
 {
 
 }
@@ -16,7 +16,7 @@ GameUI::UITitle::UITitleMenu::TitleMenu::~TitleMenu()
 
 void GameUI::UITitle::UITitleMenu::TitleMenu::TitleMenu::Enter()
 {
-	m_timer = 0;
+	m_animTimer = 0;
 	m_owner->m_owner->m_start.SetPosition(DirectX::XMFLOAT2(0, SELECT_ITEM_POSITION_Y));
 	m_owner->m_owner->m_end.SetPosition(DirectX::XMFLOAT2(0, SELECT_ITEM_POSITION_Y - SELECT_ITEM_POSITION_GAP_Y));
 	m_owner->m_owner->m_option.SetPosition(DirectX::XMFLOAT2(0, SELECT_ITEM_POSITION_Y - (SELECT_ITEM_POSITION_GAP_Y * 2)));
@@ -25,7 +25,7 @@ void GameUI::UITitle::UITitleMenu::TitleMenu::TitleMenu::Enter()
 
 void GameUI::UITitle::UITitleMenu::TitleMenu::Update(Timer& timer)
 {
-	m_timer += timer.GetSystemTime();
+	m_animTimer += timer.GetSystemTime();
 
 	float posY = m_owner->m_owner->m_cursor.GetPosition().y;
 

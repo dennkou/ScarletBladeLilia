@@ -33,6 +33,8 @@ namespace Crown
 			/// </summary>
 			void Initialize();
 
+			void Finalize();
+
 			/// <summary>
 			/// 表示内容の更新をするよ☆
 			/// </summary>

@@ -2,50 +2,19 @@
 #include "./../../RenderCommands/RenderCommandFactory.h"
 #include "./../../Shader.h"
 #include "./../../Camera.h"
+#include "./../../DirectX12Wraps/DefaultRootSignature.h"
 
-Microsoft::WRL::ComPtr<ID3D12RootSignature> Crown::RenderObject::TriangleColliderDebug::rootSignature = nullptr;
 std::unique_ptr<Crown::RenderObject::GraphicsPipeline> Crown::RenderObject::TriangleColliderDebug::graphicsPipeline = nullptr;
 D3D12_INPUT_LAYOUT_DESC Crown::RenderObject::TriangleColliderDebug::inputLayoutDesc;
 const D3D12_INPUT_ELEMENT_DESC Crown::RenderObject::TriangleColliderDebug::inputLayout[1] =
 {
-	{ "POSITION",		0,DXGI_FORMAT_R32G32B32_FLOAT,		0,D3D12_APPEND_ALIGNED_ELEMENT,D3D12_INPUT_CLASSIFICATION_PER_VERTEX_DATA,0 }
+	{ "POSITION",	0,DXGI_FORMAT_R32G32B32_FLOAT,	0,D3D12_APPEND_ALIGNED_ELEMENT,D3D12_INPUT_CLASSIFICATION_PER_VERTEX_DATA,0 }
 };
 
 void Crown::RenderObject::TriangleColliderDebug::Load(ID3D12Device* device, Vertices& verticesBuffer, std::vector<MaterialMesh>& materialMeshs, const std::initializer_list<ColliderAlgorithm::Triangle>& collider, DirectX::XMFLOAT4 color, Microsoft::WRL::ComPtr<ID3D12Resource> resource)
 {
-	if (rootSignature.Get() == nullptr || !graphicsPipeline)
+	if (!graphicsPipeline)
 	{
-		//	ディスクリプタレンジの設定だよ☆
-		D3D12_DESCRIPTOR_RANGE descriptorRange[1] = {};
-		descriptorRange[0].NumDescriptors = 1;
-		descriptorRange[0].RangeType = D3D12_DESCRIPTOR_RANGE_TYPE_CBV;
-		descriptorRange[0].BaseShaderRegister = 0;
-		descriptorRange[0].OffsetInDescriptorsFromTableStart = D3D12_DESCRIPTOR_RANGE_OFFSET_APPEND;
-
-		//	ルートパラメータの作成を行うよ☆
-		static const unsigned int parameterNum = 1;
-		D3D12_ROOT_PARAMETER rootParameter[parameterNum] = {};
-		rootParameter[0].ParameterType = D3D12_ROOT_PARAMETER_TYPE_DESCRIPTOR_TABLE;
-		rootParameter[0].ShaderVisibility = D3D12_SHADER_VISIBILITY_ALL;
-		rootParameter[0].DescriptorTable.pDescriptorRanges = &descriptorRange[0];
-		rootParameter[0].DescriptorTable.NumDescriptorRanges = 1;
-
-		//	ルートシグネチャーの設定だよ☆
-		D3D12_ROOT_SIGNATURE_DESC rootSignatureDesc = {};
-		rootSignatureDesc.Flags = D3D12_ROOT_SIGNATURE_FLAG_ALLOW_INPUT_ASSEMBLER_INPUT_LAYOUT;
-		rootSignatureDesc.pParameters = rootParameter;
-		rootSignatureDesc.NumParameters = parameterNum;
-		rootSignatureDesc.pStaticSamplers = nullptr;
-		rootSignatureDesc.NumStaticSamplers = 0;
-
-		//	ルートシグネチャーを作成するよ☆
-		ID3DBlob* rootSigBlob = nullptr;
-		D3D12SerializeRootSignature(&rootSignatureDesc, D3D_ROOT_SIGNATURE_VERSION_1_0, &rootSigBlob, nullptr);
-		device->CreateRootSignature(0, rootSigBlob->GetBufferPointer(), rootSigBlob->GetBufferSize(), IID_PPV_ARGS(&rootSignature));	//	ルートシグネチャーを作成するよ☆
-		rootSigBlob->Release();
-
-
-
 		graphicsPipeline.reset(new GraphicsPipeline());
 		D3D12_RASTERIZER_DESC rasterizerDesc;
 		rasterizerDesc = graphicsPipeline->GetState().RasterizerState;
@@ -53,7 +22,7 @@ void Crown::RenderObject::TriangleColliderDebug::Load(ID3D12Device* device, Vert
 		graphicsPipeline->SetRasterizerState(rasterizerDesc);
 		graphicsPipeline->SetVS(*Shader::GetInstance()->GetShader(L"Debug/DebugVS"));
 		graphicsPipeline->SetPS(*Shader::GetInstance()->GetShader(L"Debug/DebugPS"));
-		graphicsPipeline->SetRootSignature(rootSignature.Get());
+		graphicsPipeline->SetRootSignature(DefaultRootSignature::GetRootSignature().GetRootSignature().Get());
 		inputLayoutDesc.pInputElementDescs = inputLayout;
 		inputLayoutDesc.NumElements = 1;
 		graphicsPipeline->SetInputLayout(inputLayoutDesc);
@@ -87,12 +56,9 @@ void Crown::RenderObject::TriangleColliderDebug::Load(ID3D12Device* device, Vert
 
 	//	マテリアル描画の仕方を決定☆
 	std::vector<std::shared_ptr<RenderCommand::RenderCommandBase>> renderCommands;
-	RenderCommand::RenderCommandFactory::CreateSetRootSignature(renderCommands, rootSignature.Get());
 	RenderCommand::RenderCommandFactory::CreateSetPipelineState(renderCommands, graphicsPipeline->GetPipelineState());
-	RenderCommand::RenderCommandFactory::CreateSetPrimitiveTopology(renderCommands, D3D_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
 	RenderCommand::RenderCommandFactory::CreateSetVertexBuffer(renderCommands, 0, 1, verticesBuffer.GetVertexBufferView());
 	RenderCommand::RenderCommandFactory::CreateSetIndexBuffer(renderCommands, verticesBuffer.GetIndexBufferView());
-	RenderCommand::RenderCommandFactory::CreateSetDescriptorHeap(renderCommands);
 	RenderCommand::RenderCommandFactory::CreateSetDescriptor(renderCommands, 0, constBuffer.GetDescriptorOffset());
 	std::vector<Microsoft::WRL::ComPtr<ID3D12Resource>> resources;
 	resources.emplace_back(verticesBuffer.GetConstVertexBuffer());

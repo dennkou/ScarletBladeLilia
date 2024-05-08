@@ -3,7 +3,7 @@
 GameUI::UITitle::UITitleFadeOut::UITitleFadeOut(UITitle* owner)
 	:
 	m_owner(owner),
-	m_timer(0)
+	m_animTimer(0)
 {
 
 }
@@ -20,15 +20,15 @@ void GameUI::UITitle::UITitleFadeOut::Enter()
 
 void GameUI::UITitle::UITitleFadeOut::Update(Timer& timer)
 {
-	m_timer += timer.GetSystemTime();
+	m_animTimer += timer.GetSystemTime();
 
-	m_owner->m_titleLogo.SetAlpha(1 - (m_timer / CHANGE_TIME));
-	m_owner->m_start.SetAlpha(1 - (m_timer / CHANGE_TIME));
-	m_owner->m_end.SetAlpha(1 - (m_timer / CHANGE_TIME));
-	m_owner->m_option.SetAlpha(1 - (m_timer / CHANGE_TIME));
-	m_owner->m_cursor.SetAlpha(1 - (m_timer / CHANGE_TIME));
+	m_owner->m_titleLogo.SetAlpha(1 - (m_animTimer / CHANGE_TIME));
+	m_owner->m_start.SetAlpha(1 - (m_animTimer / CHANGE_TIME));
+	m_owner->m_end.SetAlpha(1 - (m_animTimer / CHANGE_TIME));
+	m_owner->m_option.SetAlpha(1 - (m_animTimer / CHANGE_TIME));
+	m_owner->m_cursor.SetAlpha(1 - (m_animTimer / CHANGE_TIME));
 
-	if (m_timer >= CHANGE_TIME)
+	if (m_animTimer >= CHANGE_TIME)
 	{
 		m_owner->m_owner->m_state.ChangeState(GameUI::State::Play);
 

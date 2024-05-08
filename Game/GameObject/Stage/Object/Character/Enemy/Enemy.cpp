@@ -1,27 +1,44 @@
 #include "Enemy.h"
-#include "State/EnemyState.h"
-#include "State/EnemyStateTitle.h"
-#include "State/Patrol/EnemyStatePatrol.h"
-#include "State/Combat/EnemyStateCombat.h"
+#include "AIState/EnemyAIState.h"
+#include "AIState/EnemyAIStateTitle.h"
+#include "AIState/EnemyAIStatePatrol.h"
+#include "AIState/EnemyAIStateCombat.h"
 
-Enemy::Enemy(Game* game, DirectX::XMFLOAT3 positon, DirectX::XMFLOAT3 rotate, NavigationAI* navigationAI)
+#include "./../../../../../../MathLibrary.h"
+
+Enemy::Enemy(Game* game, DirectX::XMFLOAT3 positon, DirectX::XMFLOAT3 rotate, NavigationAI* navigationAI, std::shared_ptr<std::mt19937> random)
 	:
-	Character(game, positon, rotate, L"Resource/Model/PMX/enemy.pmx", MAX_HP),
-	m_enemyCollider([&](int damage) { HitPlayerAttack(damage); })
+	GameObject(game),
+	m_position(positon),
+	m_rotate(rotate),
+	m_hp(MAX_HP),
+	m_enemyCollider([&](float damage) { HitPlayerAttack(damage); }, [&]() { HitWall(); }),
+	m_offset(),
+	m_random(random)
 {
-	m_enemyCollider.SetRadius(2.0f);
-	m_enemyCollider.SetCapsuleVector(DirectX::XMFLOAT3(0,20,0));
-	m_enemyCollider.SetPosition(GetPosition());
+	m_model.LoadPMX(L"Resource/Model/PMX/Enemy.pmx");
 
-	m_state.RegisterState<EnemyStateTitle>(State::Title, this);
-	m_state.RegisterState<EnemyStatePatrol>(State::Patrol,this, navigationAI);
-	m_state.RegisterState<EnemyStateCombat>(State::Combat,this);
+	m_enemyCollider.SetRadius(8.0f);
+	m_enemyCollider.SetPosition(positon);
 
-	m_state.ChangeState(State::Title);
+	m_aiState.RegisterState<EnemyAIStateTitle>(AIState::Title, this);
+	m_aiState.RegisterState<EnemyAIStatePatrol>(AIState::Patrol,this, navigationAI);
+	m_aiState.RegisterState<EnemyAIStateCombat>(AIState::Combat,this);
+
+	m_aiState.ChangeState(AIState::Title);
 
 	m_ui.SetPositionOffset(UI_POSITION_OFFSET);
 	m_ui.SetPosition(positon);
 	m_ui.SetHPPercent(1);
+
+	m_standAnim.LaodVMD(L"Resource/Motion/EnemyStand.vmd");
+	m_attackAnim.LaodVMD(L"Resource/Motion/EnemyAttack.vmd");
+	m_attack1Anim.LaodVMD(L"Resource/Motion/EnemyAttack1.vmd");
+
+	for (int i = 0; i < 255; i++)
+	{
+		m_bone[i] = DirectX::XMMatrixIdentity();
+	}
 }
 
 Enemy::~Enemy()
@@ -31,30 +48,47 @@ Enemy::~Enemy()
 
 void Enemy::OnGameUpdate(Timer& timer)
 {
-	timer;
-	SetPosition(m_enemyCollider.GetPosition());
+	m_position = VectorSub(m_enemyCollider.GetPosition(), m_offset);
 
-	m_state.CallFunction(&EnemyState::Update, timer.GetEnemyTime());
+	m_aiState.CallStateFunction(&EnemyAIState::Update, timer.GetEnemyTime());
 
-	m_enemyCollider.SetPosition(GetPosition());
-	m_ui.SetPosition(GetPosition());
+	if (m_position.y > 0)
+	{
+		m_position.y -= 0.1f * timer.GetEnemyTime();
+	}
+
+	m_model.SetPause(m_bone);
+
+	//	当たり判定の位置を設定するよ☆
+	m_model.GetBoneDate().Find(L"全ての親").RecursiveMatrixMultiply(m_bone);
+	unsigned int index = m_model.GetBoneDate().Find(L"本体").GetIndex();
+	m_offset = VectorAdd(DirectX::XMFLOAT3(m_bone[index].r[3].m128_f32[0], m_bone[index].r[3].m128_f32[1], m_bone[index].r[3].m128_f32[2]), BONE_OFFSET);
+
+	m_enemyCollider.SetPosition(VectorAdd(m_offset, m_position));
+	m_ui.SetPosition(m_position);
+	m_model.SetPosition(m_position);
+	m_model.SetRotate(m_rotate);
 }
 
-void Enemy::HitPlayerAttack(int damage)
+void Enemy::HitPlayerAttack(float damage)
 {
-	std::cout << "当たったよ☆" << std::endl;
-	Damage(damage);
-	m_ui.SetHPPercent(static_cast<float>(GetHp()) / GetMaxHp());
+	m_hp.Damage(damage);
+	m_ui.SetHPPercent(m_hp.GetHPPercent());
 
 	//	死亡処理だよ☆
-	if (!GetHp())
+	if (m_hp.IsDied())
 	{
 		EventTrigger(&GameObject::OnEnemyDied, this);
 		delete this;
 	}
 }
 
+void Enemy::HitWall()
+{
+	m_aiState.CallStateFunction(&EnemyAIState::OnWallHit);
+}
+
 void Enemy::OnPlayStart()
 {
-	m_state.CallFunction(&EnemyState::OnPlayStart);
+	m_aiState.CallStateFunction(&EnemyAIState::OnPlayStart);
 }

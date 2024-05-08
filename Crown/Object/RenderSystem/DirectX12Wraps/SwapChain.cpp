@@ -46,12 +46,16 @@ inline void Crown::RenderObject::SwapChain::CreateSwapChain(IDXGIFactory2* dxgiF
 	swapchainDesc.BufferUsage = DXGI_USAGE_BACK_BUFFER;																	//	リソースはバックバッファーだよ☆
 	swapchainDesc.BufferCount = m_backBufferCount;																		//	バッファーの数の指定だよ☆
 	swapchainDesc.Scaling = DXGI_SCALING_STRETCH;																		//	ウィンドウサイズに合わせるよ☆
-	swapchainDesc.SwapEffect = DXGI_SWAP_EFFECT_FLIP_DISCARD;															//	
+	swapchainDesc.SwapEffect = DXGI_SWAP_EFFECT_FLIP_SEQUENTIAL;														//	
 	swapchainDesc.AlphaMode = DXGI_ALPHA_MODE_UNSPECIFIED;																//	透明度の動作は指定しないよ☆
 	swapchainDesc.Flags = DXGI_SWAP_CHAIN_FLAG_ALLOW_MODE_SWITCH;														//	
 
 	DXGI_SWAP_CHAIN_FULLSCREEN_DESC fullScreenDesc = {};
+	fullScreenDesc.RefreshRate.Denominator = 1;
+	fullScreenDesc.RefreshRate.Numerator = 60;
 	fullScreenDesc.Windowed = true;
+	fullScreenDesc.ScanlineOrdering = DXGI_MODE_SCANLINE_ORDER_UNSPECIFIED;
+	fullScreenDesc.Scaling = DXGI_MODE_SCALING_STRETCHED;
 	dxgiFactory->CreateSwapChainForHwnd(commandQueue, windowHandle, &swapchainDesc, &fullScreenDesc, nullptr, (IDXGISwapChain1**)m_swapchain.GetAddressOf());	//	全画面設定なしでスワップチェーンの作成を行うよ☆
 	m_backBufferIndex = m_swapchain->GetCurrentBackBufferIndex();
 
@@ -96,7 +100,7 @@ inline void Crown::RenderObject::SwapChain::CreatDepthBuffer(ID3D12Device* devic
 	D3D12_RESOURCE_DESC depthResDesc = {};
 	depthResDesc.Dimension = D3D12_RESOURCE_DIMENSION_TEXTURE2D;													//	2次元のテクスチャデータとして扱うよ☆
 	depthResDesc.Width = static_cast<UINT64>(width) * 2;															//	幅と高さはレンダーターゲットと同じだよ☆
-	depthResDesc.Height =height * 2;																				//	上に同じだよ☆
+	depthResDesc.Height = height * 2;																				//	上に同じだよ☆
 	depthResDesc.DepthOrArraySize = 1;																				//	テクスチャ配列でもないし3Dテクスチャでもないよ☆
 	depthResDesc.Format = DXGI_FORMAT_D32_FLOAT;																	//	深度値書き込み用フォーマットだよ☆
 	depthResDesc.SampleDesc.Count = 1;																				//	サンプルは1ピクセル当たり1つだよ☆

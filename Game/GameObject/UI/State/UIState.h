@@ -19,5 +19,7 @@ public:
 	virtual void InputCursorRight() {}
 	virtual void InputSelect() {}
 
+	virtual void OnPlayerDied() {}
+
 private:
 };

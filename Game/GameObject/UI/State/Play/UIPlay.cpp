@@ -16,9 +16,14 @@ void GameUI::UIPlay::Enter()
 
 void GameUI::UIPlay::Update(Timer& timer)
 {
+	timer;
 }
 
 void GameUI::UIPlay::Exit()
 {
 
+}
+
+void GameUI::UIPlay::OnPlayerDied()
+{
 }

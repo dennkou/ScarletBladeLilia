@@ -80,10 +80,10 @@ unsigned int Crown::RenderObject::DescriptorHeaps::CreateShaderResourceView(ID3D
 	return m_descriptorNum - 1;
 }
 
-D3D12_GPU_DESCRIPTOR_HANDLE Crown::RenderObject::DescriptorHeaps::GetHandle(unsigned int offset) const
+D3D12_GPU_DESCRIPTOR_HANDLE Crown::RenderObject::DescriptorHeaps::GetHandle(unsigned int m_offset) const
 {
 	D3D12_GPU_DESCRIPTOR_HANDLE ret = GetDescriptorHeap()->GetGPUDescriptorHandleForHeapStart();
-	ret.ptr += DESCRIPTOR_HANDLE_INCREMENT_SIZE * offset;
+	ret.ptr += DESCRIPTOR_HANDLE_INCREMENT_SIZE * m_offset;
 	return ret;
 }
 
@@ -151,7 +151,6 @@ void Crown::RenderObject::DescriptorHeaps::CreateDescriptorHeap(D3D12_DESCRIPTOR
 	assert(m_device);
 	assert(descriptorHeap);
 	assert(NumDescriptors);
-
 
 	D3D12_DESCRIPTOR_HEAP_DESC descHeapDesc = {};
 	descHeapDesc.Flags = flags;

@@ -25,7 +25,7 @@ void GameUI::OnGameInitialize()
 
 void GameUI::OnGameUpdate(Timer& timer)
 {
-	m_state.CallFunction<void, Timer&>(&UIState::Update, timer);
+	m_state.CallStateFunction<void, Timer&>(&UIState::Update, timer);
 }
 
 void GameUI::OnGameFinalize()
@@ -34,25 +34,30 @@ void GameUI::OnGameFinalize()
 
 void GameUI::OnInputSelect()
 {
-	m_state.CallFunction(&UIState::InputSelect);
+	m_state.CallStateFunction(&UIState::InputSelect);
 }
 
 void GameUI::OnInputCursorUp()
 {
-	m_state.CallFunction(&UIState::InputCursorUp);
+	m_state.CallStateFunction(&UIState::InputCursorUp);
 }
 
 void GameUI::OnInputCursorDown()
 {
-	m_state.CallFunction(&UIState::InputCursorDown);
+	m_state.CallStateFunction(&UIState::InputCursorDown);
 }
 
 void GameUI::OnInputCursorLeft()
 {
-	m_state.CallFunction(&UIState::InputCursorLeft);
+	m_state.CallStateFunction(&UIState::InputCursorLeft);
 }
 
 void GameUI::OnInputCursorRight()
 {
-	m_state.CallFunction(&UIState::InputCursorRight);
+	m_state.CallStateFunction(&UIState::InputCursorRight);
+}
+
+void GameUI::OnPlayerDied()
+{
+	m_state.CallStateFunction(&UIState::OnPlayerDied);
 }

@@ -6,16 +6,18 @@
 Microsoft::WRL::ComPtr<ID3D12PipelineState> EnemyUi::pipelineState;
 
 EnemyUi::EnemyUi()
+	:
+	m_positionOffset()
 {
 	m_constBuffer = new Crown::RenderObject::BlobConstBuffer(BUFFER_DATA, Crown::RenderObject::UiManager::GetInstance()->GetDevice());
 
 	m_constBuffer->SetParameter(static_cast<unsigned int>(ConstBufferOffset::VIEW_PROJECTION_OFFSET), Crown::RenderObject::Camera::GetInstance()->GetView() * Crown::RenderObject::Camera::GetInstance()->GetProjection());
 	m_constBuffer->SetParameter(static_cast<unsigned int>(ConstBufferOffset::POSITION_OFFSET), DirectX::XMFLOAT3(0, 20, -100));
 	m_constBuffer->SetParameter(static_cast<unsigned int>(ConstBufferOffset::HP_PERCENT_OFFSET), 1);
-	m_constBuffer->SetParameter(static_cast<unsigned int>(ConstBufferOffset::SIZE_OFFSET), DirectX::XMFLOAT2(0.07, 0.01));
-	m_constBuffer->SetParameter(static_cast<unsigned int>(ConstBufferOffset::COLOR_OFFSET), DirectX::XMFLOAT3(1, 0.2, 0.2));
-	m_constBuffer->SetParameter(static_cast<unsigned int>(ConstBufferOffset::FLAME_COLOR_OFFSET), DirectX::XMFLOAT3(0.2, 0.2, 0.2));
-	m_constBuffer->SetParameter(static_cast<unsigned int>(ConstBufferOffset::BACKGROUND_COLOR_OFFSET), DirectX::XMFLOAT3(0.4, 0.4, 0.4));
+	m_constBuffer->SetParameter(static_cast<unsigned int>(ConstBufferOffset::SIZE_OFFSET), DirectX::XMFLOAT2(0.07f, 0.01f));
+	m_constBuffer->SetParameter(static_cast<unsigned int>(ConstBufferOffset::COLOR_OFFSET), DirectX::XMFLOAT3(1.0f, 0.2f, 0.2f));
+	m_constBuffer->SetParameter(static_cast<unsigned int>(ConstBufferOffset::FLAME_COLOR_OFFSET), DirectX::XMFLOAT3(0.2f, 0.2f, 0.2f));
+	m_constBuffer->SetParameter(static_cast<unsigned int>(ConstBufferOffset::BACKGROUND_COLOR_OFFSET), DirectX::XMFLOAT3(0.4f, 0.4f, 0.4f));
 
 	//	レンタリングパイプラインの設定だよ☆
 	Crown::RenderObject::GraphicsPipeline graphicsPipeline;

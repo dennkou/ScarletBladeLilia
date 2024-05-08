@@ -49,6 +49,17 @@ namespace Crown
 			const std::initializer_list<ColliderAlgorithm::Triangle>& m_collider;
 			DirectX::XMFLOAT4 m_color;
 		};
+
+		class Model::CopyModel : public Model::ModelLoader
+		{
+		public:
+			CopyModel(Model& model, const Model& copyModel);
+			~CopyModel();
+
+			virtual void Load(ID3D12Device* device, TextureBuffer* textureBuffer) override;
+		private:
+			const Model& copyModel;
+		};
 	}
 }
 #endif // !CROWN_RENDEROBJECT_MODELLOADER

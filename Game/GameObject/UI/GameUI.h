@@ -16,6 +16,8 @@ public:
 	virtual void OnInputCursorDown() override;
 	virtual void OnInputCursorLeft() override;
 	virtual void OnInputCursorRight() override;
+
+	virtual void OnPlayerDied() override;
 private:
 	enum class State
 	{

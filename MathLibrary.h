@@ -86,3 +86,23 @@ static DirectX::XMFLOAT3 VectorScale(DirectX::XMFLOAT3 in, float scale) noexcept
 	ret.z = in.z * scale;
 	return ret;
 }
+
+static float VectorDistance(const DirectX::XMFLOAT3& in1, const DirectX::XMFLOAT3& in2) noexcept
+{
+	return sqrt( VectorSquareSize(VectorSub(in1, in2)));
+}
+
+// 
+static float RollNormal(float roll) noexcept
+{
+	roll = fmod(roll, DirectX::XMConvertToRadians(360.0f));
+	if (roll < DirectX::XMConvertToRadians(-180))
+	{
+		roll += DirectX::XMConvertToRadians(360);
+	}
+	else if (roll > DirectX::XMConvertToRadians(180))
+	{
+		roll -= DirectX::XMConvertToRadians(360);
+	}
+	return roll;
+};

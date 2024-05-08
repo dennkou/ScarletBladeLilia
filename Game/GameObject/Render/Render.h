@@ -1,5 +1,6 @@
 #pragma once
 #include "./../GameObject.h"
+#include "./../../Crown/Object/RenderSystem/RenderTarget.h"
 class Render : public Game::GameObject
 {
 public:
@@ -8,4 +9,5 @@ public:
 
 	void OnGameUpdate(Timer& timer) override;
 private:
+
 };

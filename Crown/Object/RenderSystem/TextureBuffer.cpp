@@ -84,10 +84,10 @@ unsigned int Crown::RenderObject::TextureBuffer::TextureAcquisition(std::wstring
 
 
 
-const Microsoft::WRL::ComPtr<ID3D12Resource> Crown::RenderObject::TextureBuffer::GetTextureBuffer(unsigned int offset)
+const Microsoft::WRL::ComPtr<ID3D12Resource> Crown::RenderObject::TextureBuffer::GetTextureBuffer(unsigned int m_offset)
 {
-	assert(m_resources.find(offset) != m_resources.end());
-	return m_resources[offset];
+	assert(m_resources.find(m_offset) != m_resources.end());
+	return m_resources[m_offset];
 }
 
 
@@ -103,7 +103,7 @@ void Crown::RenderObject::TextureBuffer::CreateData(std::wstring& dataName, UINT
 {
 	//	作成対象のバッファーだよ☆
 	Microsoft::WRL::ComPtr<ID3D12Resource> textureBuffer = nullptr;
-	unsigned int offset = 0;
+	unsigned int m_offset = 0;
 
 	//	255アライメントしたrowPitchだよ☆
 	UINT dataPitchAlignment = rowPitch + D3D12_TEXTURE_DATA_PITCH_ALIGNMENT - rowPitch % D3D12_TEXTURE_DATA_PITCH_ALIGNMENT;
@@ -163,9 +163,9 @@ void Crown::RenderObject::TextureBuffer::CreateData(std::wstring& dataName, UINT
 	srvDesc.Shader4ComponentMapping = D3D12_DEFAULT_SHADER_4_COMPONENT_MAPPING;
 	srvDesc.ViewDimension = D3D12_SRV_DIMENSION_TEXTURE2D;
 	srvDesc.Texture2D.MipLevels = 1;
-	offset = m_descriptorHeap->CreateShaderResourceView(textureBuffer.Get(), srvDesc);
+	m_offset = m_descriptorHeap->CreateShaderResourceView(textureBuffer.Get(), srvDesc);
 
 	//	データの登録をするよ☆
-	m_textureDescriptorHeapOffsets[dataName] = offset;
-	m_resources[offset] = textureBuffer;
+	m_textureDescriptorHeapOffsets[dataName] = m_offset;
+	m_resources[m_offset] = textureBuffer;
 }

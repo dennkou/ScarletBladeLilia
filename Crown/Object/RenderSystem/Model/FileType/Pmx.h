@@ -59,9 +59,6 @@ namespace Crown
 				VerticesData() = default;
 			};
 
-			static void Create(ID3D12Device* device);
-
-			static Microsoft::WRL::ComPtr<ID3D12RootSignature> rootSignature;
 			static std::unique_ptr<GraphicsPipeline> graphicsPipeline;
 			static const D3D12_INPUT_ELEMENT_DESC inputLayout[13];
 

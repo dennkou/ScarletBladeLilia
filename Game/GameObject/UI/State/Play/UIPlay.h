@@ -10,5 +10,12 @@ public:
 	virtual void Enter() override;
 	virtual void Update(Timer& timer) override;
 	virtual void Exit() override;
+
+	virtual void OnPlayerDied() override;
 private:
+	enum class State
+	{
+		GameOver,
+
+	};
 };

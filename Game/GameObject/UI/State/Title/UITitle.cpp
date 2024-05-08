@@ -46,7 +46,7 @@ void GameUI::UITitle::Enter()
 
 void GameUI::UITitle::Update(Timer& timer)
 {
-	m_titleState.CallFunction<void, Timer&>(&UITitleState::Update, timer);
+	m_titleState.CallStateFunction<void, Timer&>(&UITitleState::Update, timer);
 }
 
 void GameUI::UITitle::Exit()
@@ -56,20 +56,20 @@ void GameUI::UITitle::Exit()
 
 void GameUI::UITitle::InputMouse(DirectX::XMFLOAT2 input)
 {
-	m_titleState.CallFunction(&UITitleState::InputMouse, input);
+	m_titleState.CallStateFunction(&UITitleState::InputMouse, input);
 }
 
 void GameUI::UITitle::InputCursorUp()
 {
-	m_titleState.CallFunction(&UITitleState::InputCursorUp);
+	m_titleState.CallStateFunction(&UITitleState::InputCursorUp);
 }
 
 void GameUI::UITitle::InputCursorDown()
 {
-	m_titleState.CallFunction(&UITitleState::InputCursorDown);
+	m_titleState.CallStateFunction(&UITitleState::InputCursorDown);
 }
 
 void GameUI::UITitle::InputSelect()
 {
-	m_titleState.CallFunction(&UITitleState::InputSelect);
+	m_titleState.CallStateFunction(&UITitleState::InputSelect);
 }

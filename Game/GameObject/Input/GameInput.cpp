@@ -87,6 +87,7 @@ void GameInput::OnGameUpdate(Timer& timer)
 		DirectX::XMFLOAT2 mouse = Crown::Input::GetMouse()->GetMousePosint();
 		mouse.x -= windowHalfSizeX;
 		mouse.y -= windowHalfSizeY;
+
 		//	どちらかから入力があればマウスポインターを原点に移動させるよ☆
 		if ((static_cast<int>(Crown::Input::GetMouse()->GetMousePosint().y - windowHalfSizeY) != 0) ||
 			(static_cast<int>(Crown::Input::GetMouse()->GetMousePosint().x - windowHalfSizeX) != 0))

@@ -23,7 +23,7 @@ private:
 
 	UITitle* m_owner;
 	Crown::RenderObject::UiGraphic* m_pleaseSpaceKey;
-	float m_timer;
+	float m_animTimer;
 	bool m_startFlag;
 };
 
