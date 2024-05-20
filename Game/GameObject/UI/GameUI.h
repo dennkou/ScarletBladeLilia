@@ -17,9 +17,11 @@ public:
 	virtual void OnInputCursorLeft() override;
 	virtual void OnInputCursorRight() override;
 
+	virtual void OnPlayRestart() override;
+
 	virtual void OnPlayerDied() override;
 private:
-	enum class State
+	enum class IState
 	{
 		Title,		//	タイトルUI
 		Play,		//	プレイ中のUI
@@ -30,5 +32,5 @@ private:
 	class UIPlay;
 	class UISetting;
 
-	Crown::FiniteStateMachine<State, UIState> m_state;
+	Crown::FiniteStateMachine<IState, UIState> m_state;
 };

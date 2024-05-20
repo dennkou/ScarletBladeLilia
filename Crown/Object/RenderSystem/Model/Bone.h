@@ -20,14 +20,26 @@ public:
 	inline const DirectX::XMFLOAT3& GetPosition() const noexcept { return m_position; }
 	inline void SetIndex(unsigned int index) noexcept { m_index = index; };
 	inline unsigned int GetIndex() const noexcept { return m_index; }
-	inline void PushChildren(Bone* children) { m_children.push_back(children); }
+	inline void PushChildren(Bone* children) { m_children.push_back(children); children->SetParent(this); }
 
+	inline DirectX::XMMATRIX GetWorldMatrix(DirectX::XMMATRIX pause[255]) const noexcept
+	{
+		if (parent)
+		{
+			return pause[m_index] *= parent->GetWorldMatrix(pause);
+		}
+		else
+		{
+			return pause[m_index];
+		}
+	}
 private:
-
+	inline void SetParent(Bone* bone) noexcept { parent = bone; }
 
 	unsigned int m_index;
 	DirectX::XMFLOAT3 m_position;
 	std::vector<Bone*> m_children;
+	Bone* parent;
 
 	inline void RecursiveMatrixMultiply(DirectX::XMMATRIX pause[255], const DirectX::XMMATRIX& matrix) const
 	{

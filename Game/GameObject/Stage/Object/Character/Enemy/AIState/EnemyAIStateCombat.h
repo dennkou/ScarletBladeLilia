@@ -12,23 +12,35 @@ public:
 	virtual void Enter() override;
 	virtual void Update(float time) override;
 	virtual void Exit() override;
-	virtual void OnDamage(int damage) override;
+	virtual void OnDamage(float damage) override;
 private:
-	static constexpr float ATTACK_DISTANCE = 150;
+	void ActionBranch();
 
 	Enemy* m_enemy;
 
-	class State;
-	class Vigilance;
+	class IState;
+	class WrapAround;
+	class Approach;
 	class Attack;
-	class Attack1;
+	class ThrustAttack;
+	class Shot;
 
-	enum class StateType
+	enum class StateID
 	{
-		Vigilance,
+		WrapAround,
+		Approach,
 		Attack,
-		Attack1,
+		ThrustAttack,
+		Shot,
 	};
 
-	Crown::FiniteStateMachine<StateType, State> m_state;
+	Crown::FiniteStateMachine<StateID, IState> m_state;
+
+
+	static constexpr float APPROACH_DISTANCE = 100.0f;
+	static constexpr float ATTACK_DISTANCE = 110.0f;
+
+	//	各行動の重みパラメータだよ☆
+	static constexpr int ATTACK = 4;
+	static constexpr int MOVE = 4;
 };

@@ -47,7 +47,7 @@ void GameUI::UITitle::UITitleMenu::TitleMenuMenuIn::Update(Timer& timer)
 
 	if ((m_animTimer - (SELECT_ITEM_INTERVAL * 3)) >= 1.0f)
 	{
-		m_owner->m_state.ChangeState(State::Menu);
+		m_owner->m_state.ChangeState(IState::Menu);
 	}
 }
 

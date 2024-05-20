@@ -10,7 +10,7 @@ public:
 	virtual void Enter() override;
 	virtual void Update(float time) override;
 	virtual void Exit() override;
-	virtual void OnDamage(int damage) override;
+	virtual void OnDamage(float damage) override;
 
 private:
 	static constexpr float SPEED = 0.01f;		//	‘¬“x‚¾‚æ™

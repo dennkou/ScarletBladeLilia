@@ -30,10 +30,10 @@ void GameUI::UITitle::UITitleFadeOut::Update(Timer& timer)
 
 	if (m_animTimer >= CHANGE_TIME)
 	{
-		m_owner->m_owner->m_state.ChangeState(GameUI::State::Play);
+		m_owner->m_owner->m_state.ChangeState(GameUI::IState::Play);
 
 		//	このステートを削除するよ☆
-		m_owner->m_owner->m_state.DeleteState(GameUI::State::Title);
+		m_owner->m_owner->m_state.DeleteState(GameUI::IState::Title);
 		return;
 	}
 

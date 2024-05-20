@@ -23,15 +23,19 @@ namespace Crown
 			MaterialMesh(unsigned int indexNum, unsigned int m_indexOffset);
 			~MaterialMesh();
 
-			Material& GetMaterial(MaterialTag drawTag) { return m_materials[static_cast<int>(drawTag)]; }
+			Material& GetMaterial(MaterialTag drawTag) { m_materialFlag[static_cast<int>(drawTag)] = true; return m_materials[static_cast<int>(drawTag)]; }
 
 			inline void Draw(MaterialTag drawTag, ID3D12GraphicsCommandList* commandList, std::vector<Microsoft::WRL::ComPtr<ID3D12Resource>>& useResource) const
 			{
-				m_materials[static_cast<int>(drawTag)].Draw(commandList, useResource);
-				commandList->DrawIndexedInstanced(m_indexNum, 1, m_indexOffset, 0, 0);
+				if (m_materialFlag[static_cast<int>(drawTag)])
+				{
+					m_materials[static_cast<int>(drawTag)].Draw(commandList, useResource);
+					commandList->DrawIndexedInstanced(m_indexNum, 1, m_indexOffset, 0, 0);
+				}
 			}
 		private:
 			std::vector<Material> m_materials;
+			std::vector<bool> m_materialFlag;
 			unsigned int m_indexNum;
 			unsigned int m_indexOffset;
 		};

@@ -7,6 +7,7 @@
 #include "./../../Crown/Object/RenderSystem/Camera.h"
 #include "./../../Crown/Object/RenderSystem/TextureBuffer.h"
 #include "./../../../../MathLibrary.h"
+#include "./../../Render/Render.h"
 
 Aisle::Aisle()
 {
@@ -38,7 +39,6 @@ void Aisle::Create(DirectX::XMFLOAT3 position, float rotate, const Crown::Render
 
 void Aisle::Update()
 {
-
 	for (unsigned int i = 0, size = static_cast<unsigned int>(m_model.size()); i < size; ++i)
 	{
 		m_model[i].SetDrawFlag(VectorDistance(Crown::RenderObject::Camera::GetInstance()->GetEye(), m_model[i].GetPosition()) < 10000.0f);
@@ -51,39 +51,42 @@ void Aisle::CreateMaterial()
 	std::vector<Crown::RenderObject::BlobConstBuffer::DataType> bufferData;			//	データ構造を指定する配列だよ☆
 	bufferData.emplace_back(Crown::RenderObject::BlobConstBuffer::DataType::Int);
 
-
 	//	マテリアルの生成をするよ☆
+
 	Crown::RenderObject::GraphicsPipeline graphicsPipeline;
 	{
 		graphicsPipeline.SetVS(*Crown::RenderObject::Shader::GetInstance()->GetShader(L"Obj/Obj_VS"));
-		graphicsPipeline.SetGS(*Crown::RenderObject::Shader::GetInstance()->GetShader(L"Obj/Obj_GS"));
 		graphicsPipeline.SetPS(*Crown::RenderObject::Shader::GetInstance()->GetShader(L"Obj/Obj_PS"));
 		graphicsPipeline.SetInputLayout(Crown::RenderObject::Pmx::GetInputLayout());
+	}
+	Crown::RenderObject::GraphicsPipeline shadowGraphicsPipeline;
+	{
+		shadowGraphicsPipeline.SetVS(*Crown::RenderObject::Shader::GetInstance()->GetShader(L"Obj/Obj_Shadow_VS"));
+		shadowGraphicsPipeline.SetPS(*Crown::RenderObject::Shader::GetInstance()->GetShader(L"Obj/Obj_Shadow_PS"));
+		shadowGraphicsPipeline.SetInputLayout(Crown::RenderObject::Pmx::GetInputLayout());
 	}
 
 	for (unsigned int i = 0, size = static_cast<unsigned int>(m_model.size()); i < size; ++i)
 	{
-		//	定数バッファの作成☆
-		Crown::RenderObject::BlobConstBuffer constBuffer(bufferData, Crown::System::GetInstance().GetRenderSystem().GetDevice().Get());
-		constBuffer.SetParameter(0, 100);
-
 		//	定数バッファを指定☆
 		std::vector<unsigned int> constBufferIndexs;
 		constBufferIndexs.push_back(Crown::RenderObject::Camera::GetInstance()->GetDescriptorOffset());
 		constBufferIndexs.push_back(m_model[i].GetDescriptorOffest());
-		constBufferIndexs.push_back(constBuffer.GetDescriptorOffset());
+		constBufferIndexs.push_back(Render::GetShadowMapBuffer()->GetDescriptorOffset());
 
 		//	テクスチャを指定☆
 		std::vector<unsigned int> textureBufferIndexs;
+		textureBufferIndexs.push_back(Render::GetShadowMapColorBufferIndex());
+		textureBufferIndexs.push_back(Render::GetShadowMapDepthBufferIndex());
+
 
 		std::vector<Microsoft::WRL::ComPtr<ID3D12Resource>> resources;
 		resources.emplace_back(Crown::RenderObject::Camera::GetInstance()->GetConstConstBuffer());
 		resources.emplace_back(m_model[i].GetModelData());
-		resources.emplace_back(constBuffer.GetBuffer());
 
 		std::vector<Crown::RenderObject::BlobConstBuffer> constBuffers;
-		constBuffers.push_back(constBuffer);
 
 		materialFactory.CreateMaterial(graphicsPipeline, m_model[i], 0, Crown::RenderObject::MaterialTag::Normal, constBufferIndexs, textureBufferIndexs, resources, constBuffers);
+		materialFactory.CreateMaterial(shadowGraphicsPipeline, m_model[i], 0, Crown::RenderObject::MaterialTag::Shadow, constBufferIndexs, textureBufferIndexs, resources, constBuffers);
 	}
 }

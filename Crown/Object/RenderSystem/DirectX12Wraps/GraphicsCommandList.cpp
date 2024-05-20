@@ -36,7 +36,6 @@ void Crown::RenderObject::GraphicsCommandList::Initialize(ID3D12Device* device, 
 
 	m_commandAllocators.emplace_back(new CommandAllocator(device, D3D12_COMMAND_LIST_TYPE_DIRECT));
 	device->CreateCommandList(1, D3D12_COMMAND_LIST_TYPE_DIRECT, m_commandAllocators.front()->GetCommandAllocator(), nullptr, IID_PPV_ARGS(&m_graphicsCommandList));	//	コマンドリストの作成だよ☆
-	m_graphicsCommandList->Close();
 
 	m_copyAllocators.emplace_back(new CommandAllocator(device, D3D12_COMMAND_LIST_TYPE_DIRECT));
 	device->CreateCommandList(1, D3D12_COMMAND_LIST_TYPE_DIRECT, m_copyAllocators.front()->GetCommandAllocator(), nullptr, IID_PPV_ARGS(&m_copyCommandList));
@@ -44,55 +43,14 @@ void Crown::RenderObject::GraphicsCommandList::Initialize(ID3D12Device* device, 
 	D3D12_COMMAND_QUEUE_DESC cmdQueueDesc = {};
 	cmdQueueDesc.Flags = D3D12_COMMAND_QUEUE_FLAG_NONE;																						//	タイムアウトなしだよ☆
 	cmdQueueDesc.NodeMask = 0;
-	cmdQueueDesc.Priority = D3D12_COMMAND_QUEUE_PRIORITY_NORMAL;																			//	優先度は普通を指定するよ☆
+	cmdQueueDesc.Priority = D3D12_COMMAND_QUEUE_PRIORITY_HIGH;																				//	優先度は普通を指定するよ☆
 	cmdQueueDesc.Type = D3D12_COMMAND_LIST_TYPE_DIRECT;																						//	コマンドリストのタイプはダイレクトコマンドリストだよ☆
 	device->CreateCommandQueue(&cmdQueueDesc, IID_PPV_ARGS(&m_commandQueue));																//	コマンドキュー生成だよ☆
 }
 
 void Crown::RenderObject::GraphicsCommandList::Finalize()
 {
-	Begin();
-	End();
 	WaitForGpu();
-}
-
-void Crown::RenderObject::GraphicsCommandList::Begin()
-{
-	NextCommandAllocator();
-	m_commandAllocators[m_index]->Reset();
-	m_graphicsCommandList->Reset(m_commandAllocators[m_index]->GetCommandAllocator(), nullptr);
-}
-
-void Crown::RenderObject::GraphicsCommandList::End()
-{
-	{
-		m_copyCommandList->Close();																									//	コピー用コマンドリストをクローズ☆
-		ID3D12CommandList* cmdlists[] = { m_copyCommandList.Get() };
-		m_commandQueue->ExecuteCommandLists(1, cmdlists);																			//	コマンドリストの内容を実行するよ☆
-		m_copyAllocators[m_copyIndex]->CountUp();
-		m_commandQueue->Signal(m_copyAllocators[m_copyIndex]->GetFence(), m_copyAllocators[m_copyIndex]->GetFenceValue());
-		for (unsigned int i = 0, size = static_cast<unsigned int>(m_copyAllocators.size()); i <= size; ++i)
-		{
-			if (i == size)
-			{
-				m_copyAllocators.emplace_back(new CommandAllocator(m_device, D3D12_COMMAND_LIST_TYPE_DIRECT));
-			}
-			if (!m_copyAllocators[i]->NotDrewEnd())
-			{
-				m_copyIndex = i;
-				break;
-			}
-		}
-		m_copyAllocators[m_copyIndex]->Reset();
-		m_copyCommandList->Reset(m_copyAllocators[m_copyIndex]->GetCommandAllocator(), nullptr);
-	}
-	{
-		m_graphicsCommandList->Close();																								//	コマンドリストをクローズ☆以降このコマンドリストは命令を受け付けないよ☆
-		ID3D12CommandList* cmdlists[] = { m_graphicsCommandList.Get() };
-		m_commandQueue->ExecuteCommandLists(1, cmdlists);																			//	コマンドリストの内容を実行するよ☆
-		m_commandAllocators[m_index]->CountUp();
-		m_commandQueue->Signal(m_commandAllocators[m_index]->GetFence(), m_commandAllocators[m_index]->GetFenceValue());
-	}
 }
 
 void Crown::RenderObject::GraphicsCommandList::WaitForGpu() noexcept
@@ -101,6 +59,42 @@ void Crown::RenderObject::GraphicsCommandList::WaitForGpu() noexcept
 	{
 		allocator->WaitForGpu(m_waitEvent);
 	}
+}
+
+void Crown::RenderObject::GraphicsCommandList::CopyExecute()
+{
+	m_copyCommandList->Close();																									//	コピー用コマンドリストをクローズ☆
+	ID3D12CommandList* cmdlists[] = { m_copyCommandList.Get() };
+	m_commandQueue->ExecuteCommandLists(1, cmdlists);																			//	コマンドリストの内容を実行するよ☆
+	m_copyAllocators[m_copyIndex]->CountUp();
+	m_commandQueue->Signal(m_copyAllocators[m_copyIndex]->GetFence(), m_copyAllocators[m_copyIndex]->GetFenceValue());
+	for (unsigned int i = 0, size = static_cast<unsigned int>(m_copyAllocators.size()); i <= size; ++i)
+	{
+		if (i == size)
+		{
+			m_copyAllocators.emplace_back(new CommandAllocator(m_device, D3D12_COMMAND_LIST_TYPE_DIRECT));
+		}
+		if (!m_copyAllocators[i]->NotDrewEnd())
+		{
+			m_copyIndex = i;
+			break;
+		}
+	}
+	m_copyAllocators[m_copyIndex]->Reset();
+	m_copyCommandList->Reset(m_copyAllocators[m_copyIndex]->GetCommandAllocator(), nullptr);
+}
+
+void Crown::RenderObject::GraphicsCommandList::DrawExecute()
+{
+	m_graphicsCommandList->Close();																								//	コマンドリストをクローズ☆以降このコマンドリストは命令を受け付けないよ☆
+	ID3D12CommandList* cmdlists[] = { m_graphicsCommandList.Get() };
+	m_commandQueue->ExecuteCommandLists(1, cmdlists);																			//	コマンドリストの内容を実行するよ☆
+	m_commandAllocators[m_index]->CountUp();
+	m_commandQueue->Signal(m_commandAllocators[m_index]->GetFence(), m_commandAllocators[m_index]->GetFenceValue());
+
+	NextCommandAllocator();
+	m_commandAllocators[m_index]->Reset();
+	m_graphicsCommandList->Reset(m_commandAllocators[m_index]->GetCommandAllocator(), nullptr);
 }
 
 void Crown::RenderObject::GraphicsCommandList::NextCommandAllocator()

@@ -44,7 +44,7 @@ void Crown::RenderObject::Pmx::Load(ID3D12Device* device, std::wstring& fileName
 		inputLayoutDesc.pInputElementDescs = inputLayout;
 		inputLayoutDesc.NumElements = 13;
 		graphicsPipeline->SetInputLayout(inputLayoutDesc);
-		graphicsPipeline->Commit(*device);
+		graphicsPipeline->Commit(device);
 	}
 	FILE* file = nullptr;
 	if (fileName.rfind(L"pmx") == -1)

@@ -2,7 +2,7 @@
 #include "CombatActionState.h"
 #include "./../../Game/GameObject/Stage/Collider/EnemyAttackCollider.h"
 
-class Enemy::EnemyAIStateCombat::Attack : public Enemy::EnemyAIStateCombat::State
+class Enemy::EnemyAIStateCombat::Attack : public Enemy::EnemyAIStateCombat::IState
 {
 public:
 	Attack(EnemyAIStateCombat* owner);
@@ -17,7 +17,7 @@ private:
 	static constexpr float TRACKING_END_FLAME = 40;
 	static constexpr float ATTACK_TRACKING_START_FLAME = 54;
 	static constexpr float ATTACK_TRACKING_END_FLAME = 56;
-	static constexpr float ATTACK_TRACKING_ROLL = 0.1f;
+	static constexpr float ATTACK_TRACKING_ROLL = 0.0091f;
 	EnemyAIStateCombat* m_owner;
 	ColliderSystem::EnemyAttackCollider m_attackCollider;
 	float m_animTimer;

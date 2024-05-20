@@ -25,28 +25,21 @@ void Enemy::EnemyAIStateCombat::Attack::Enter()
 
 void Enemy::EnemyAIStateCombat::Attack::Update(float time)
 {
+	Enemy* enemy = m_owner->m_enemy;
+
 	m_animTimer += time / ANIMATION_FPS;
+	enemy->m_attackAnim.GetAnimation(m_animTimer, enemy->m_bone, enemy->m_model.GetBoneDate());
 
-	m_owner->m_enemy->m_attackAnim.GetAnimation(m_animTimer, m_owner->m_enemy->m_bone, m_owner->m_enemy->m_model.GetBoneDate());
-
-	DirectX::XMMATRIX matrix = DirectX::XMMatrixRotationRollPitchYaw(m_owner->m_enemy->m_rotate.x, m_owner->m_enemy->m_rotate.y, m_owner->m_enemy->m_rotate.z) * DirectX::XMMatrixTranslation(m_owner->m_enemy->m_position.x, m_owner->m_enemy->m_position.y, m_owner->m_enemy->m_position.z);
+	DirectX::XMMATRIX matrix = DirectX::XMMatrixRotationRollPitchYaw(enemy->m_rotate.x, enemy->m_rotate.y, enemy->m_rotate.z) * DirectX::XMMatrixTranslation(enemy->m_position.x, enemy->m_position.y, enemy->m_position.z);
 	m_attackCollider.SetWorld(matrix);
 
 	if (m_animTimer < TRACKING_END_FLAME || (ATTACK_TRACKING_START_FLAME <= m_animTimer && m_animTimer <= ATTACK_TRACKING_END_FLAME))
 	{
 		//	ƒvƒŒƒCƒ„[‚Ì•û‚ðŒü‚­
-		const DirectX::XMFLOAT3 toPlayerVector = VectorSub(m_owner->m_enemy->m_position, m_owner->m_enemy->m_enemyCollider.GetPlayerPosition());
-		float roll = atan2(-toPlayerVector.x, -toPlayerVector.z) - m_owner->m_enemy->m_rotate.y;
-		roll = fmod(roll, 360.0f);
-		if (roll < -180)
-		{
-			roll += 360;
-		}
-		else if (roll > 180)
-		{
-			roll -= 360;
-		}
-		roll = std::clamp(roll, -ATTACK_TRACKING_ROLL * time, ATTACK_TRACKING_ROLL * time);
+		const DirectX::XMFLOAT3 toPlayerVector = VectorSub(enemy->m_position, enemy->m_enemyCollider.GetPlayerPosition());
+		float roll = atan2(-toPlayerVector.x, -toPlayerVector.z) - enemy->m_rotate.y;
+		roll = RollNormal(roll);
+		enemy->m_rotate.y += std::clamp(roll, -ATTACK_TRACKING_ROLL * time, ATTACK_TRACKING_ROLL * time);
 	}
 
 	if (ATTACK_START_FLAME <= m_animTimer && m_animTimer <= ATTACK_END_FLAME)
@@ -58,9 +51,9 @@ void Enemy::EnemyAIStateCombat::Attack::Update(float time)
 		m_attackCollider.SetActive(false);
 	}
 
-	if (m_animTimer > m_owner->m_enemy->m_attackAnim.GetMaxFrame())
+	if (m_animTimer > enemy->m_attackAnim.GetMaxFrame())
 	{
-		m_owner->m_state.ChangeState(StateType::Vigilance);
+		m_owner->ActionBranch();
 	}
 }
 

@@ -27,10 +27,14 @@ private:
 	void HitPlayerAttack(float damage);
 	void HitWall();
 
-	static constexpr int MAX_HP = 100;
+	static constexpr int MAX_HP = 500;
 
 	DirectX::XMFLOAT3 m_position;
 	DirectX::XMFLOAT3 m_rotate;
+
+	float m_damageAnimTimer;
+	DirectX::XMFLOAT3 m_damageAnim;
+	static constexpr float DamageAnimLength = 0.3f;
 
 	DirectX::XMFLOAT3 m_offset; //	当たり判定のオフセット位置だよ☆
 	ColliderSystem::EnemyCollider m_enemyCollider;
@@ -62,5 +66,6 @@ private:
 	Crown::RenderObject::AnimationData m_standAnim;
 	Crown::RenderObject::AnimationData m_attackAnim;
 	Crown::RenderObject::AnimationData m_attack1Anim;
+	Crown::RenderObject::AnimationData m_shotAnim;
 	std::shared_ptr<std::mt19937> m_random;
 };

@@ -26,7 +26,7 @@ void Crown::RenderObject::TriangleColliderDebug::Load(ID3D12Device* device, Vert
 		inputLayoutDesc.pInputElementDescs = inputLayout;
 		inputLayoutDesc.NumElements = 1;
 		graphicsPipeline->SetInputLayout(inputLayoutDesc);
-		graphicsPipeline->Commit(*device);
+		graphicsPipeline->Commit(device);
 	}
 
 	//	頂点バッファの作成だよ☆

@@ -2,14 +2,15 @@
 #include "./../../System.h"
 #include "DirectX12Wraps/DescriptorHeaps.h"
 
-Crown::RenderObject::RenderTarget::RenderTarget(MaterialTag materialTag, unsigned int x, unsigned int y, DirectX::XMFLOAT4 clearColor)
+Crown::RenderObject::RenderTarget::RenderTarget(MaterialTag materialTag, unsigned int x, unsigned int y, DirectX::XMFLOAT4 clearColor, DXGI_FORMAT format)
 	:
 	CLEAR_COLOR(clearColor),
 	m_materialTag(materialTag),
 	m_xSize(x),
 	m_ySize(y),
 	m_texture(0),
-	m_depth(0)
+	m_depth(0),
+	m_format(format)
 {
 }
 
@@ -24,11 +25,17 @@ void Crown::RenderObject::RenderTarget::Initialize(ID3D12Device* device)
 	CreatDepthBuffer(device, m_xSize, m_ySize);
 
 	D3D12_SHADER_RESOURCE_VIEW_DESC srvDesc = {};
-	srvDesc.Format = DXGI_FORMAT_R8G8B8A8_UNORM;
+	srvDesc.Format = m_format;
 	srvDesc.Shader4ComponentMapping = D3D12_DEFAULT_SHADER_4_COMPONENT_MAPPING;
 	srvDesc.ViewDimension = D3D12_SRV_DIMENSION_TEXTURE2D;
 	srvDesc.Texture2D.MipLevels = 1;
 	m_texture = DescriptorHeaps::GetInstance().CreateShaderResourceView(m_rtvResource.Get(), srvDesc);
+
+	srvDesc.Format = DXGI_FORMAT_R32_FLOAT;
+	srvDesc.Shader4ComponentMapping = D3D12_DEFAULT_SHADER_4_COMPONENT_MAPPING;
+	srvDesc.ViewDimension = D3D12_SRV_DIMENSION_TEXTURE2D;
+	srvDesc.Texture2D.MipLevels = 1;
+	m_depth = DescriptorHeaps::GetInstance().CreateShaderResourceView(m_depthResource.Get(), srvDesc);
 }
 
 void Crown::RenderObject::RenderTarget::Draw(GraphicsCommandList& commandList, ModelManager* modelManager)
@@ -98,20 +105,20 @@ inline void Crown::RenderObject::RenderTarget::CreateRenderTargetView(ID3D12Devi
 
 	//	レンダーターゲット用のリソースを作成するよ☆
 	D3D12_HEAP_PROPERTIES heapProperties = CD3DX12_HEAP_PROPERTIES(D3D12_HEAP_TYPE_DEFAULT);
-	D3D12_RESOURCE_DESC resourceDesc = CD3DX12_RESOURCE_DESC::Tex2D(DXGI_FORMAT_R8G8B8A8_UNORM, width, height);
+	D3D12_RESOURCE_DESC resourceDesc = CD3DX12_RESOURCE_DESC::Tex2D(m_format, width, height);
 	resourceDesc.Flags = D3D12_RESOURCE_FLAG_ALLOW_RENDER_TARGET;
 	D3D12_CLEAR_VALUE clearValue;
-	clearValue.Color[0] = 0.0f;
-	clearValue.Color[1] = 1.0f;
-	clearValue.Color[2] = 1.0f;
-	clearValue.Color[3] = 1.0f;
-	clearValue.Format = DXGI_FORMAT_R8G8B8A8_UNORM;
+	clearValue.Color[0] = CLEAR_COLOR.x;
+	clearValue.Color[1] = CLEAR_COLOR.y;
+	clearValue.Color[2] = CLEAR_COLOR.z;
+	clearValue.Color[3] = CLEAR_COLOR.w;
+	clearValue.Format = m_format;
 	device->CreateCommittedResource(&heapProperties, D3D12_HEAP_FLAG_NONE, &resourceDesc, D3D12_RESOURCE_STATE_ALL_SHADER_RESOURCE, &clearValue, IID_PPV_ARGS(&m_rtvResource));
 
 	//	SRGBレンダーターゲットビュー設定
 	D3D12_RENDER_TARGET_VIEW_DESC rtvDesc = {};
 	rtvDesc.ViewDimension = D3D12_RTV_DIMENSION_TEXTURE2D;
-	rtvDesc.Format = DXGI_FORMAT_R8G8B8A8_UNORM;																	//	フォーマットの指定だよ☆
+	rtvDesc.Format = m_format;																	//	フォーマットの指定だよ☆
 	rtvDesc.Texture2D.MipSlice = 0;
 	rtvDesc.Texture2D.PlaneSlice = 0;
 	device->CreateRenderTargetView(m_rtvResource.Get(), &rtvDesc, rtvH);												//	レンダーターゲットビューの作成だよ☆

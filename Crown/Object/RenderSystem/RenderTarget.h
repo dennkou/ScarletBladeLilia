@@ -13,7 +13,7 @@ namespace Crown
 		class RenderTarget
 		{
 		public:
-			RenderTarget(MaterialTag materialTag, unsigned int x, unsigned int y, DirectX::XMFLOAT4 clearColor);
+			RenderTarget(MaterialTag materialTag, unsigned int x, unsigned int y, DirectX::XMFLOAT4 clearColor, DXGI_FORMAT format = DXGI_FORMAT_R8G8B8A8_UNORM);
 			~RenderTarget();
 
 			void Initialize(ID3D12Device* device);
@@ -38,6 +38,7 @@ namespace Crown
 			Microsoft::WRL::ComPtr<ID3D12Resource>			m_rtvResource;		//	レンダーターゲットヒープだよ☆バックバッファーと合わさっているよ☆
 			Microsoft::WRL::ComPtr<ID3D12DescriptorHeap>	m_dsvHeap;			//	デプスステンシルヒープだよ☆
 			Microsoft::WRL::ComPtr<ID3D12Resource>			m_depthResource;	//	デプスステンシルバッファーだよ☆
+			DXGI_FORMAT m_format;
 		};
 	}
 }

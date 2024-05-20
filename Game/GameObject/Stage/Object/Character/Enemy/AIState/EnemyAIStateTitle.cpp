@@ -23,7 +23,7 @@ void Enemy::EnemyAIStateTitle::Exit()
 {
 }
 
-void Enemy::EnemyAIStateTitle::OnDamage(int damage)
+void Enemy::EnemyAIStateTitle::OnDamage(float damage)
 {
 	damage;
 }

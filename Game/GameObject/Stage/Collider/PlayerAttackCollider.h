@@ -16,7 +16,7 @@ class ColliderSystem::PlayerAttackCollider
 {
 public:
 	PlayerAttackCollider() = default;
-	PlayerAttackCollider(int damage, std::initializer_list<ColliderAlgorithm::Triangle> collider);
+	PlayerAttackCollider(float damage, std::initializer_list<ColliderAlgorithm::Triangle> collider);
 	virtual ~PlayerAttackCollider() = default;
 
 	void CheckHitEnemy(EnemyCollider* enemyCollider);
@@ -28,7 +28,7 @@ private:
 	bool m_active;
 	DirectX::XMMATRIX m_playerWorld;
 	std::vector<ColliderAlgorithm::Triangle> m_collider;
-	int m_damage;
+	float m_damage;
 	std::vector<EnemyCollider*> m_hitEnemyList;
 
 #ifdef DEBUG_MODEL

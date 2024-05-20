@@ -33,6 +33,7 @@ void Player::PlayerAttack::Enter()
 
 void Player::PlayerAttack::Update(float time)
 {
+	time *= 1.5;
 	m_animTimer += time;
 	float animFlame = m_animTimer / ANIMATION_FPS;
 	m_player->m_drawingSwordAttackAnim.GetAnimation(animFlame, m_player->m_bone, m_player->m_model.GetBoneDate());

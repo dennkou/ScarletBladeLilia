@@ -27,6 +27,10 @@ public:
 	void DeleteEnemyAttackCollider(EnemyAttackCollider* enemyAttackCollider);
 	std::vector<EnemyAttackCollider*>* GetEnemyAttackCollider();
 
+	void SetBulletCollider(BulletCollider* bulletCollider);
+	void DeleteBulletCollider(BulletCollider* bulletCollider);
+	std::vector<BulletCollider*>* GetBulletCollider();
+
 	void SetStageCollider(StageCollider* stageCollider);
 	void DeleteStageCollider(StageCollider* stageCollider);
 	std::vector<StageCollider*>* GetStageColliders();
@@ -42,6 +46,7 @@ private:
 	std::vector<PlayerAttackCollider*> m_playerAttackCollider;
 	std::vector<EnemyCollider*> m_enemyCollider;
 	std::vector<EnemyAttackCollider*> m_enemyAttackCollider;
+	std::vector<BulletCollider*> m_bulletCollider;
 	std::vector<StageCollider*> m_stageCollider;
 
 	std::vector<AisleCollider*> m_aisleCollider;

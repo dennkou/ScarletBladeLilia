@@ -10,9 +10,9 @@ GameUI::GameUI(Game* game)
 	//	ステートマシンの設定だよ☆
 	m_state.SetEnterFunction(&UIState::Enter);
 	m_state.SetExitFunction(&UIState::Exit);
-	m_state.RegisterState<UITitle>(State::Title, this);
-	m_state.RegisterState<UIPlay>(State::Play);
-	m_state.ChangeState(State::Title);
+	m_state.RegisterState<UITitle>(IState::Title, this);
+	m_state.RegisterState<UIPlay>(IState::Play, this);
+	m_state.ChangeState(IState::Title);
 }
 
 GameUI::~GameUI()
@@ -55,6 +55,11 @@ void GameUI::OnInputCursorLeft()
 void GameUI::OnInputCursorRight()
 {
 	m_state.CallStateFunction(&UIState::InputCursorRight);
+}
+
+void GameUI::OnPlayRestart()
+{
+	m_state.CallStateFunction(&UIState::OnPlayRestart);
 }
 
 void GameUI::OnPlayerDied()

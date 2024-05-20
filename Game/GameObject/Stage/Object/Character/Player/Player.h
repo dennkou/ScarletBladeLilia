@@ -20,6 +20,7 @@ public:
 	virtual void OnGameUpdate(Timer& timer) override;
 	virtual void OnPlayStartAnimation() override;
 	virtual void OnPlayStart() override;
+	virtual void OnPlayRestart() override;
 
 	//	入力系☆
 	virtual void OnInputMove(DirectX::XMFLOAT2 input) override;		//	移動の入力が変わったよ☆
@@ -49,6 +50,8 @@ private:
 
 	static constexpr float RUN_SPEED = 0.1f;
 
+	DirectX::XMFLOAT3 m_startPosition;
+	DirectX::XMFLOAT3 m_startRotate;
 	DirectX::XMFLOAT3 m_position;
 	DirectX::XMFLOAT3 m_rotate;
 
@@ -68,6 +71,7 @@ private:
 	class PlayerRun;
 	class PlayerAttack;
 	class PlayerAvoidance;
+	class PlayerDied;
 
 	enum class StateID
 	{
@@ -77,6 +81,7 @@ private:
 		Run,
 		Attack,
 		Avoidance,
+		Died,
 	};
 
 	Crown::FiniteStateMachine<StateID, PlayerState> m_playerState;	//	状態を示すステートマシンだよ☆

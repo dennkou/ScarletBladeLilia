@@ -64,7 +64,7 @@ namespace Crown
 			dataCopy(map);
 			upload->Unmap(0, nullptr);
 
-			m_commandList->GetCopyCommandList()->CopyBufferRegion(uploadTarget.Get(), 0, upload.Get(), 0, dataSize);
+			m_commandList->GetCopyCommandList()->CopyResource(uploadTarget.Get(), upload.Get());
 			m_commandList->LockCopyResource(upload);
 			m_commandList->LockCopyResource(uploadTarget);
 		}

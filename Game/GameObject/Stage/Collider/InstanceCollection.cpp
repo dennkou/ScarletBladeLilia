@@ -111,6 +111,21 @@ std::vector<ColliderSystem::EnemyAttackCollider*>* ColliderSystem::InstanceColle
 	return &m_enemyAttackCollider;
 }
 
+void ColliderSystem::InstanceCollection::SetBulletCollider(BulletCollider* bulletCollider)
+{
+	m_bulletCollider.push_back(bulletCollider);
+}
+
+void ColliderSystem::InstanceCollection::DeleteBulletCollider(BulletCollider* bulletCollider)
+{
+	m_bulletCollider.erase(std::find(m_bulletCollider.begin(), m_bulletCollider.end(), bulletCollider));
+}
+
+std::vector<ColliderSystem::BulletCollider*>* ColliderSystem::InstanceCollection::GetBulletCollider()
+{
+	return &m_bulletCollider;
+}
+
 
 
 void ColliderSystem::InstanceCollection::SetStageCollider(StageCollider* stageCollider)

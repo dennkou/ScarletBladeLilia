@@ -51,7 +51,7 @@ namespace Crown
 			inline void SetCachedPSO(D3D12_CACHED_PIPELINE_STATE cachedPSO) { m_nawState.CachedPSO = cachedPSO; }
 			inline void SetFlags(D3D12_PIPELINE_STATE_FLAGS flags) { m_nawState.Flags = flags; }
 
-			void Commit(ID3D12Device& device);
+			void Commit(ID3D12Device* device);
 		private:
 			D3D12_GRAPHICS_PIPELINE_STATE_DESC m_nawState;
 			Microsoft::WRL::ComPtr<ID3D12PipelineState> m_pipelineState;

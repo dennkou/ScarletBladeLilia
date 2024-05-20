@@ -9,6 +9,8 @@
 #include "./GameObject/Stage/Stage.h"
 #include "./Debug/DebugLog.h"
 
+#include "./GameObject/Render/Render.h"
+
 Game::Game()
 	:
 #ifdef DISPLAY_LOG
@@ -23,7 +25,9 @@ Game::Game()
 #endif // DISPLAY_LOG
 
 
+
 	//	システム系オブジェクトの生成をするよ☆
+	CreateGameObject<Render>();			//	
 	CreateGameObject<GameInput>();
 	CreateGameObject<GameUI>();			//	ゲームのUIだよ☆
 	CreateGameObject<Stage>();			//	ステージの生成をするよ☆

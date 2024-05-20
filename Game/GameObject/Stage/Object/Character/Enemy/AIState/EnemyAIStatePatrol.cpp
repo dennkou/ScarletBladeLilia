@@ -66,7 +66,8 @@ void Enemy::EnemyAIStatePatrol::Exit()
 
 }
 
-void Enemy::EnemyAIStatePatrol::OnDamage(int damage)
+void Enemy::EnemyAIStatePatrol::OnDamage(float damage)
 {
 	damage;
+	m_enemy->m_aiState.ChangeState(AIState::Combat);
 }

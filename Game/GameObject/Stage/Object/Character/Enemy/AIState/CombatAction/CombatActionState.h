@@ -1,11 +1,11 @@
 #pragma once
 #include "./../EnemyAIStateCombat.h"
 
-class Enemy::EnemyAIStateCombat::State
+class Enemy::EnemyAIStateCombat::IState
 {
 public:
-	State() = default;
-	virtual ~State() = default;
+	IState() = default;
+	virtual ~IState() = default;
 
 	virtual void Enter() = 0;
 	virtual void Update(float time) = 0;

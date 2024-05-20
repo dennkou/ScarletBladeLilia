@@ -224,14 +224,19 @@
     <ClCompile Include="Game\GameObject\Stage\Object\Character\Player\PlayerState\PlayerStateWalk.cpp" />
     <ClCompile Include="Game\GameObject\Stage\Object\Character\Player\PlayerState\PlayerStateRun.cpp" />
     <ClCompile Include="Game\GameObject\Stage\StageObject\Sky.cpp" />
-    <ClCompile Include="Game\GameObject\Stage\Object\Character\Enemy\AIState\CombatAction\CombatVigilance.cpp" />
     <ClCompile Include="Crown\Object\RenderSystem\DirectX12Wraps\DefaultRootSignature.cpp" />
     <ClCompile Include="Game\GameObject\Stage\StageObject\Aisle.cpp" />
     <ClCompile Include="Game\GameObject\Stage\Collider\AisleCollider.cpp" />
     <ClCompile Include="Game\GameObject\Stage\Object\Character\Enemy\AIState\CombatAction\CombatAttack.cpp" />
     <ClCompile Include="Game\GameObject\Stage\Collider\EnemyAttackCollider.cpp" />
-    <ClCompile Include="Game\GameObject\Stage\Object\Character\Enemy\AIState\CombatAction\CombatAttack1.cpp" />
     <ClCompile Include="Game\GameObject\Stage\Object\Character\HP.cpp" />
+    <ClCompile Include="Game\GameObject\Stage\Object\Character\Player\PlayerState\PlayerDied.cpp" />
+    <ClCompile Include="Game\GameObject\Stage\Object\Character\Enemy\AIState\CombatAction\WrapAround.cpp" />
+    <ClCompile Include="Game\GameObject\Stage\Object\Character\Enemy\AIState\CombatAction\Approach.cpp" />
+    <ClCompile Include="Game\GameObject\Stage\Object\Character\Enemy\AIState\CombatAction\ThrustAttack.cpp" />
+    <ClCompile Include="Game\GameObject\Stage\Object\Character\Enemy\AIState\CombatAction\Shot.cpp" />
+    <ClCompile Include="Game\GameObject\Stage\Object\Bullet.cpp" />
+    <ClCompile Include="Game\GameObject\Stage\Collider\BulletCollider.cpp" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Crown">
@@ -640,14 +645,19 @@
     <ClInclude Include="Game\GameObject\Stage\Object\Character\Player\PlayerState\PlayerStateRun.h" />
     <ClInclude Include="Game\GameObject\Stage\StageObject\Sky.h" />
     <ClInclude Include="Game\GameObject\Stage\Object\Character\Enemy\AIState\CombatAction\CombatActionState.h" />
-    <ClInclude Include="Game\GameObject\Stage\Object\Character\Enemy\AIState\CombatAction\CombatVigilance.h" />
     <ClInclude Include="Crown\Object\RenderSystem\DirectX12Wraps\DefaultRootSignature.h" />
     <ClInclude Include="Game\GameObject\Stage\StageObject\Aisle.h" />
     <ClInclude Include="Game\GameObject\Stage\Collider\AisleCollider.h" />
     <ClInclude Include="Game\GameObject\Stage\Object\Character\Enemy\AIState\CombatAction\CombatAttack.h" />
     <ClInclude Include="Game\GameObject\Stage\Collider\EnemyAttackCollider.h" />
-    <ClInclude Include="Game\GameObject\Stage\Object\Character\Enemy\AIState\CombatAction\CombatAttack1.h" />
     <ClInclude Include="Game\GameObject\Stage\Object\Character\HP.h" />
+    <ClInclude Include="Game\GameObject\Stage\Object\Character\Player\PlayerState\PlayerDied.h" />
+    <ClInclude Include="Game\GameObject\Stage\Object\Character\Enemy\AIState\CombatAction\WrapAround.h" />
+    <ClInclude Include="Game\GameObject\Stage\Object\Character\Enemy\AIState\CombatAction\Approach.h" />
+    <ClInclude Include="Game\GameObject\Stage\Object\Character\Enemy\AIState\CombatAction\ThrustAttack.h" />
+    <ClInclude Include="Game\GameObject\Stage\Object\Character\Enemy\AIState\CombatAction\Shot.h" />
+    <ClInclude Include="Game\GameObject\Stage\Object\Bullet.h" />
+    <ClInclude Include="Game\GameObject\Stage\Collider\BulletCollider.h" />
   </ItemGroup>
   <ItemGroup>
     <Text Include="ヘッダーテンプレート.txt" />
@@ -717,7 +727,12 @@
     <FxCompile Include="Shader\Obj\SkyPS.hlsl" />
     <FxCompile Include="Shader\Obj\Obj_VS.hlsl" />
     <FxCompile Include="Shader\Obj\Obj_PS.hlsl" />
-    <FxCompile Include="Shader\Obj\Obj_GS.hlsl" />
+    <FxCompile Include="Shader\Default\ShadowVS.hlsl" />
+    <FxCompile Include="Shader\Default\ShadowPS.hlsl" />
+    <FxCompile Include="Shader\Default\DefaultVS.hlsl" />
+    <FxCompile Include="Shader\Default\DefaultPS.hlsl" />
+    <FxCompile Include="Shader\Obj\Obj_Shadow_VS.hlsl" />
+    <FxCompile Include="Shader\Obj\Obj_Shadow_PS.hlsl" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Crown\Shader\Data.hlsli">
@@ -726,5 +741,6 @@
     <None Include="Crown\Shader\UI.hlsli">
       <Filter>Crown\Shader\UI</Filter>
     </None>
+    <None Include="packages.config" />
   </ItemGroup>
 </Project>

@@ -12,11 +12,11 @@ GameUI::UITitle::UITitleMenu::UITitleMenu(UITitle* uiOutputTitle)
 {
 	m_state.SetEnterFunction(&TitleMenuState::Enter);
 	m_state.SetExitFunction(&TitleMenuState::Exit);
-	m_state.RegisterState<TitleMenuTitleMove>(State::TitleMove, this);
-	m_state.RegisterState<TitleMenuMenuIn>(State::MenuIn, this);
-	m_state.RegisterState<TitleMenu>(State::Menu, this);
+	m_state.RegisterState<TitleMenuTitleMove>(IState::TitleMove, this);
+	m_state.RegisterState<TitleMenuMenuIn>(IState::MenuIn, this);
+	m_state.RegisterState<TitleMenu>(IState::Menu, this);
 
-	m_state.ChangeState(State::TitleMove);
+	m_state.ChangeState(IState::TitleMove);
 }
 
 GameUI::UITitle::UITitleMenu::~UITitleMenu()

@@ -8,6 +8,7 @@ public:
 	class PlayerAttackCollider;
 	class EnemyCollider;
 	class EnemyAttackCollider;
+	class BulletCollider;
 	class StageCollider;
 
 	class AisleCollider;

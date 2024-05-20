@@ -36,7 +36,7 @@ void Crown::RenderObject::Pmd::Load(ID3D12Device* device, std::wstring& fileName
 		inputLayoutDesc.pInputElementDescs = inputLayout;
 		inputLayoutDesc.NumElements = 5;
 		graphicsPipeline->SetInputLayout(inputLayoutDesc);
-		graphicsPipeline->Commit(*device);
+		graphicsPipeline->Commit(device);
 	}
 	FILE* file = nullptr;
 	if(fileName.rfind(L"pmd") == -1)

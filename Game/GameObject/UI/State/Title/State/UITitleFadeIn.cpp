@@ -32,7 +32,7 @@ void GameUI::UITitle::UITitleFadeIn::Update(Timer& timer)
 	m_fade->SetAlpha(m_fadeAlpha);
 	if (m_fadeAlpha <= 0.0f)
 	{
-		m_owner->m_titleState.ChangeState(State::PleaseSpaceKey);
+		m_owner->m_titleState.ChangeState(IState::PleaseSpaceKey);
 	}
 }
 
@@ -45,5 +45,5 @@ void GameUI::UITitle::UITitleFadeIn::Exit()
 
 void GameUI::UITitle::UITitleFadeIn::InputSelect()
 {
-	m_owner->m_titleState.ChangeState(State::PleaseSpaceKey);
+	m_owner->m_titleState.ChangeState(IState::PleaseSpaceKey);
 }

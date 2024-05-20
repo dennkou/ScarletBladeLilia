@@ -41,7 +41,7 @@ namespace Crown
 			void Update();
 
 			
-			void AddRenderTarget(int priority, std::weak_ptr<RenderTarget> renderTarget);
+			void AddRenderTarget(int priority, std::shared_ptr<RenderTarget> renderTarget);
 
 			ModelManager& GetModelManager() { return m_modelManager; }
 			Microsoft::WRL::ComPtr<ID3D12Device> GetDevice() { return m_device; }
@@ -54,7 +54,7 @@ namespace Crown
 			GraphicsCommandList m_commandList;
 			SwapChain m_swapChain;
 
-			std::vector<std::pair<int, std::weak_ptr<RenderTarget>>> m_renderTargets;
+			std::vector<std::pair<int, std::shared_ptr<RenderTarget>>> m_renderTargets;
 			ModelManager m_modelManager;
 			TextureBuffer m_textureBuffer;
 

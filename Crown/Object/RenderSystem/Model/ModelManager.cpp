@@ -68,16 +68,20 @@ void Crown::RenderObject::ModelManager::DeleteModel(Model* deleteModel)
 	ResetBundle();
 }
 
-void Crown::RenderObject::ModelManager::Draw(MaterialTag drawTag, GraphicsCommandList& commandList)
+void Crown::RenderObject::ModelManager::DataCopy()
 {
 	for (Model* model : m_uploadQueue)
 	{
 		model->DataUpload();
 	}
 	m_uploadQueue.clear();
+}
 
+void Crown::RenderObject::ModelManager::Draw(MaterialTag drawTag, GraphicsCommandList& commandList)
+{
 	if (!m_bundle[static_cast<unsigned int>(drawTag)])
 	{
+		commandList.WaitForGpu();
 		m_bundleCommandAllocators[static_cast<unsigned int>(drawTag)].Get()->Reset();
 		m_bundleCommandLists[static_cast<unsigned int>(drawTag)].Get()->Reset(m_bundleCommandAllocators[static_cast<unsigned int>(drawTag)].Get(), nullptr);
 
@@ -107,7 +111,7 @@ void Crown::RenderObject::ModelManager::StackDataUploadQueue(Model* model)
 
 void Crown::RenderObject::ModelManager::ResetBundle()
 {
-	unsigned int size = m_bundle.size();
+	unsigned long long size = m_bundle.size();
 	for (unsigned int i = 0; i < size; ++i)
 	{
 		m_bundle[i] = false;

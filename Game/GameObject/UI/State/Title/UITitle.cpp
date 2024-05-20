@@ -18,11 +18,11 @@ GameUI::UITitle::UITitle(GameUI* gameUI)
 	//	ステートマシンの設定だよ☆
 	m_titleState.SetEnterFunction(&UITitleState::Enter);
 	m_titleState.SetExitFunction(&UITitleState::Exit);
-	m_titleState.RegisterState<UITitleFadeIn>(State::FadeIn, this);
-	m_titleState.RegisterState<UITitlePleaseSpaceKey>(State::PleaseSpaceKey, this);
-	m_titleState.RegisterState<UITitleMenu>(State::Menu, this);
-	m_titleState.RegisterState<UITitleFadeOut>(State::FadeOut, this);
-	m_titleState.ChangeState(State::FadeIn);
+	m_titleState.RegisterState<UITitleFadeIn>(IState::FadeIn, this);
+	m_titleState.RegisterState<UITitlePleaseSpaceKey>(IState::PleaseSpaceKey, this);
+	m_titleState.RegisterState<UITitleMenu>(IState::Menu, this);
+	m_titleState.RegisterState<UITitleFadeOut>(IState::FadeOut, this);
+	m_titleState.ChangeState(IState::FadeIn);
 
 	//	uiの初期化だよ☆
 	m_start.SetPosition(DirectX::XMFLOAT2(0, SELECT_ITEM_START_POS_Y));

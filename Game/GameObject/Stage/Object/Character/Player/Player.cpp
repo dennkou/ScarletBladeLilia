@@ -5,6 +5,7 @@
 #include "./../../Crown/Object/RenderSystem/Model/FileType/Pmx.h"
 #include "./../../Crown/Object/RenderSystem/Camera.h"
 #include "./../../Crown/Object/RenderSystem/TextureBuffer.h"
+#include "./../../../../Render/Render.h"
 
 #include "./../../Crown/Object/RenderSystem/Animation/AnimationData.h"
 
@@ -15,6 +16,7 @@
 #include "./PlayerState/PlayerStateRun.h"
 #include "./PlayerState/PlayerAttack.h"
 #include "./PlayerState/PlayerAvoidance.h"
+#include "./PlayerState/PlayerDied.h"
 #include <numbers>
 #include <algorithm>
 
@@ -27,11 +29,17 @@ Player::Player(Game* game, DirectX::XMFLOAT3 position, DirectX::XMFLOAT3 rotate)
 	m_hp(MAX_HP),
 	m_inputMove(0,0),
 	m_velocity(0,0,0),
-	m_collider([&](float damage) {Hit(damage); })
+	m_collider([&](float damage) {Hit(damage); }),
+	m_startPosition(position),
+	m_startRotate(rotate),
+	m_position(position),
+	m_rotate(rotate)
 {
 	m_model.LoadPMX(L"Resource/Model/PMX/リリア/リリア.pmx");
-	m_model.SetPosition(position);
-	m_model.SetRotate(rotate);
+	m_model.SetPosition(m_startPosition);
+	m_model.SetRotate(m_startRotate);
+
+	m_collider.SetPosition(m_startPosition);
 
 	CreateMaterial();		//	マテリアルの設定をするよ☆
 	StateSetUp();			//	ステートマシンを設定をするよ☆
@@ -63,6 +71,18 @@ void Player::OnPlayStartAnimation()
 void Player::OnPlayStart()
 {
 	m_playerState.CallStateFunction(&PlayerState::OnPlayStart);
+}
+
+void Player::OnPlayRestart()
+{
+	m_model.SetPosition(m_startPosition);
+	m_model.SetRotate(m_startRotate);
+	m_collider.SetPosition(m_startPosition);
+	m_playerState.ChangeState(StateID::Stand);
+	m_hp.SetMaxHp(MAX_HP);
+	m_hp.HpRecover(MAX_HP);
+	m_hpUi.SetPlayerHPPercent(m_hp.GetHPPercent());
+	m_camera.SetRotate(PlayerTitle::CAMERA_PLAY_ROTATE);
 }
 
 void Player::OnInputMove(DirectX::XMFLOAT2 input)
@@ -102,42 +122,8 @@ void Player::CreateMaterial()
 
 	//	服のマテリアルの生成をするよ☆
 	{
-		Crown::RenderObject::GraphicsPipeline graphicsPipeline;
-		{
-			D3D12_RASTERIZER_DESC rasterizer = graphicsPipeline.GetState().RasterizerState;
-			rasterizer.CullMode = D3D12_CULL_MODE_NONE;
-			graphicsPipeline.SetRasterizerState(rasterizer);
-			graphicsPipeline.SetVS(*Crown::RenderObject::Shader::GetInstance()->GetShader(L"Riria/Riria_VS"));
-			graphicsPipeline.SetPS(*Crown::RenderObject::Shader::GetInstance()->GetShader(L"Riria/RiriaClothes_PS"));
-			graphicsPipeline.SetInputLayout(Crown::RenderObject::Pmx::GetInputLayout());
-		}
-
-		//	定数バッファの作成☆
-		Crown::RenderObject::BlobConstBuffer constBuffer(bufferData, Crown::System::GetInstance().GetRenderSystem().GetDevice().Get());
-		constBuffer.SetParameter(0, DirectX::XMFLOAT4(0.95f, 0.95f, 0.95f, 1.0f));
-		constBuffer.SetParameter(1, DirectX::XMFLOAT4(1.0f, 1.0f, 1.0f, 0.01f));
-		constBuffer.SetParameter(2, DirectX::XMFLOAT3(0.6f, 0.5f, 0.4f));
-
-		//	定数バッファを指定☆
-		std::vector<unsigned int> constBufferIndexs;
-		constBufferIndexs.push_back(Crown::RenderObject::Camera::GetInstance()->GetDescriptorOffset());
-		constBufferIndexs.push_back(m_model.GetDescriptorOffest());
-		constBufferIndexs.push_back(constBuffer.GetDescriptorOffset());
-
-		//	テクスチャを指定☆
-		std::vector<unsigned int> textureBufferIndexs;
-		textureBufferIndexs.push_back(Crown::System::GetInstance().GetRenderSystem().GetTextureBuffer().TextureAcquisition(L"Resource/Model/PMX/リリア/textures/服.png"));
-
-		std::vector<Microsoft::WRL::ComPtr<ID3D12Resource>> resources;
-		resources.emplace_back(Crown::RenderObject::Camera::GetInstance()->GetConstConstBuffer());
-		resources.emplace_back(m_model.GetModelData());
-		resources.emplace_back(constBuffer.GetBuffer());
-		resources.emplace_back(textureBuffer.GetTextureBuffer(textureBuffer.TextureAcquisition(L"Resource/Model/PMX/リリア/textures/服.png")));
-
-		std::vector<Crown::RenderObject::BlobConstBuffer> constBuffers;
-		constBuffers.push_back(constBuffer);
-
-		materialFactory.CreateMaterial(graphicsPipeline, m_model, 0, Crown::RenderObject::MaterialTag::Normal, constBufferIndexs, textureBufferIndexs, resources, constBuffers);
+		materialFactory.CreateShadow(m_model,0);
+		materialFactory.CreateDefaultMaterial(m_model,0, textureBuffer.TextureAcquisition(L"Resource/Model/PMX/リリア/textures/服.png"), DirectX::XMFLOAT4(0.95f, 0.95f, 0.95f, 1.0f), DirectX::XMFLOAT3(0.6f, 0.5f, 0.4f));
 	}
 	
 	//	髪のマテリアルの生成をするよ☆
@@ -175,6 +161,7 @@ void Player::CreateMaterial()
 		constBuffers.push_back(constBuffer);
 
 		materialFactory.CreateMaterial(graphicsPipeline, m_model, 7, Crown::RenderObject::MaterialTag::Normal, constBufferIndexs, textureBufferIndexs, resources, constBuffers);
+		materialFactory.CreateShadow(m_model, 7);
 	}
 
 	//	タイツのマテリアルの生成をするよ☆
@@ -212,6 +199,7 @@ void Player::CreateMaterial()
 		constBuffers.push_back(constBuffer);
 
 		materialFactory.CreateMaterial(graphicsPipeline, m_model, 4, Crown::RenderObject::MaterialTag::Normal, constBufferIndexs, textureBufferIndexs, resources, constBuffers);
+		materialFactory.CreateShadow(m_model, 4);
 	}
 
 	//	肌のマテリアルの生成をするよ☆
@@ -249,86 +237,19 @@ void Player::CreateMaterial()
 		constBuffers.push_back(constBuffer);
 
 		materialFactory.CreateMaterial(graphicsPipeline, m_model, 3, Crown::RenderObject::MaterialTag::Normal, constBufferIndexs, textureBufferIndexs, resources, constBuffers);
+		materialFactory.CreateShadow(m_model, 3);
 	}
 
 	//	ブーツのマテリアルの生成をするよ☆
 	{
-		Crown::RenderObject::GraphicsPipeline graphicsPipeline;
-		{
-			D3D12_RASTERIZER_DESC rasterizer = graphicsPipeline.GetState().RasterizerState;
-			rasterizer.CullMode = D3D12_CULL_MODE_NONE;
-			graphicsPipeline.SetRasterizerState(rasterizer);
-			graphicsPipeline.SetVS(*Crown::RenderObject::Shader::GetInstance()->GetShader(L"Riria/Riria_VS"));
-			graphicsPipeline.SetPS(*Crown::RenderObject::Shader::GetInstance()->GetShader(L"Riria/RiriaClothes_PS"));
-			graphicsPipeline.SetInputLayout(Crown::RenderObject::Pmx::GetInputLayout());
-		}
-
-		//	定数バッファの作成☆
-		Crown::RenderObject::BlobConstBuffer constBuffer(bufferData, Crown::System::GetInstance().GetRenderSystem().GetDevice().Get());
-		constBuffer.SetParameter(0, DirectX::XMFLOAT4(1.0f, 1.0f, 1.0f, 1.0f));
-		constBuffer.SetParameter(1, DirectX::XMFLOAT4(1.0f, 1.0f, 1.0f, 0.01f));
-		constBuffer.SetParameter(2, DirectX::XMFLOAT3(0.6f, 0.55f, 0.5f));
-
-		//	定数バッファを指定☆
-		std::vector<unsigned int> constBufferIndexs;
-		constBufferIndexs.push_back(Crown::RenderObject::Camera::GetInstance()->GetDescriptorOffset());
-		constBufferIndexs.push_back(m_model.GetDescriptorOffest());
-		constBufferIndexs.push_back(constBuffer.GetDescriptorOffset());
-
-		//	テクスチャを指定☆
-		std::vector<unsigned int> textureBufferIndexs;
-		textureBufferIndexs.push_back(Crown::System::GetInstance().GetRenderSystem().GetTextureBuffer().TextureAcquisition(L"Resource/Model/PMX/リリア/textures/靴.png"));
-
-		std::vector<Microsoft::WRL::ComPtr<ID3D12Resource>> resources;
-		resources.emplace_back(Crown::RenderObject::Camera::GetInstance()->GetConstConstBuffer());
-		resources.emplace_back(m_model.GetModelData());
-		resources.emplace_back(constBuffer.GetBuffer());
-		resources.emplace_back(textureBuffer.GetTextureBuffer(textureBuffer.TextureAcquisition(L"Resource/Model/PMX/リリア/textures/靴.png")));
-
-		std::vector<Crown::RenderObject::BlobConstBuffer> constBuffers;
-		constBuffers.push_back(constBuffer);
-
-		materialFactory.CreateMaterial(graphicsPipeline, m_model, 2, Crown::RenderObject::MaterialTag::Normal, constBufferIndexs, textureBufferIndexs, resources, constBuffers);
+		materialFactory.CreateShadow(m_model, 2);
+		materialFactory.CreateDefaultMaterial(m_model, 2, textureBuffer.TextureAcquisition(L"Resource/Model/PMX/リリア/textures/靴.png"), DirectX::XMFLOAT4(0.95f, 0.95f, 0.95f, 1.0f), DirectX::XMFLOAT3(0.6f, 0.5f, 0.4f));
 	}
 
 	//	ブーツのマテリアルの生成をするよ☆
 	{
-		Crown::RenderObject::GraphicsPipeline graphicsPipeline;
-		{
-			D3D12_RASTERIZER_DESC rasterizer = graphicsPipeline.GetState().RasterizerState;
-			rasterizer.CullMode = D3D12_CULL_MODE_NONE;
-			graphicsPipeline.SetRasterizerState(rasterizer);
-			graphicsPipeline.SetVS(*Crown::RenderObject::Shader::GetInstance()->GetShader(L"Riria/Riria_VS"));
-			graphicsPipeline.SetPS(*Crown::RenderObject::Shader::GetInstance()->GetShader(L"Riria/RiriaClothes_PS"));
-			graphicsPipeline.SetInputLayout(Crown::RenderObject::Pmx::GetInputLayout());
-		}
-
-		//	定数バッファの作成☆
-		Crown::RenderObject::BlobConstBuffer constBuffer(bufferData, Crown::System::GetInstance().GetRenderSystem().GetDevice().Get());
-		constBuffer.SetParameter(0, DirectX::XMFLOAT4(1.0f, 1.0f, 1.0f, 1.0f));
-		constBuffer.SetParameter(1, DirectX::XMFLOAT4(1.0f, 1.0f, 1.0f, 0.01f));
-		constBuffer.SetParameter(2, DirectX::XMFLOAT3(0.6f, 0.55f, 0.5f));
-
-		//	定数バッファを指定☆
-		std::vector<unsigned int> constBufferIndexs;
-		constBufferIndexs.push_back(Crown::RenderObject::Camera::GetInstance()->GetDescriptorOffset());
-		constBufferIndexs.push_back(m_model.GetDescriptorOffest());
-		constBufferIndexs.push_back(constBuffer.GetDescriptorOffset());
-
-		//	テクスチャを指定☆
-		std::vector<unsigned int> textureBufferIndexs;
-		textureBufferIndexs.push_back(Crown::System::GetInstance().GetRenderSystem().GetTextureBuffer().TextureAcquisition(L"Resource/Model/PMX/リリア/textures/靴.png"));
-
-		std::vector<Microsoft::WRL::ComPtr<ID3D12Resource>> resources;
-		resources.emplace_back(Crown::RenderObject::Camera::GetInstance()->GetConstConstBuffer());
-		resources.emplace_back(m_model.GetModelData());
-		resources.emplace_back(constBuffer.GetBuffer());
-		resources.emplace_back(textureBuffer.GetTextureBuffer(textureBuffer.TextureAcquisition(L"Resource/Model/PMX/リリア/textures/靴.png")));
-
-		std::vector<Crown::RenderObject::BlobConstBuffer> constBuffers;
-		constBuffers.push_back(constBuffer);
-
-		materialFactory.CreateMaterial(graphicsPipeline, m_model, 1, Crown::RenderObject::MaterialTag::Normal, constBufferIndexs, textureBufferIndexs, resources, constBuffers);
+		materialFactory.CreateShadow(m_model, 1);
+		materialFactory.CreateDefaultMaterial(m_model, 1, textureBuffer.TextureAcquisition(L"Resource/Model/PMX/リリア/textures/靴.png"), DirectX::XMFLOAT4(0.95f, 0.95f, 0.95f, 1.0f), DirectX::XMFLOAT3(0.6f, 0.5f, 0.4f));
 	}
 
 	//	眉のマテリアルの生成をするよ☆
@@ -366,6 +287,7 @@ void Player::CreateMaterial()
 		constBuffers.push_back(constBuffer);
 
 		materialFactory.CreateMaterial(graphicsPipeline, m_model, 5, Crown::RenderObject::MaterialTag::Normal, constBufferIndexs, textureBufferIndexs, resources, constBuffers);
+		materialFactory.CreateShadow(m_model, 5);
 	}
 
 	//	剣のマテリアルの生成をするよ☆
@@ -405,6 +327,9 @@ void Player::CreateMaterial()
 		materialFactory.CreateMaterial(graphicsPipeline, m_model, 8, Crown::RenderObject::MaterialTag::Normal, constBufferIndexs, textureBufferIndexs, resources, constBuffers);
 		materialFactory.CreateMaterial(graphicsPipeline, m_model, 9, Crown::RenderObject::MaterialTag::Normal, constBufferIndexs, textureBufferIndexs, resources, constBuffers);
 		materialFactory.CreateMaterial(graphicsPipeline, m_model, 10, Crown::RenderObject::MaterialTag::Normal, constBufferIndexs, textureBufferIndexs, resources, constBuffers);
+		materialFactory.CreateShadow(m_model, 8);
+		materialFactory.CreateShadow(m_model, 9);
+		materialFactory.CreateShadow(m_model, 10);
 	}
 
 	//	白目のマテリアルの生成をするよ☆
@@ -490,6 +415,7 @@ void Player::StateSetUp()
 	m_playerState.RegisterState<PlayerRun>(StateID::Run, this);
 	m_playerState.RegisterState<PlayerAttack>(StateID::Attack, this);
 	m_playerState.RegisterState<PlayerAvoidance>(StateID::Avoidance, this);
+	m_playerState.RegisterState<PlayerDied>(StateID::Died, this);
 
 	m_playerState.SetEnterFunction(&PlayerState::Enter);
 	m_playerState.SetExitFunction(&PlayerState::Exit);
@@ -543,6 +469,6 @@ void Player::Hit(float damage)
 
 	if (m_hp.IsDied())
 	{
-		EventTrigger(&GameObject::OnPlayerDied);
+		m_playerState.ChangeState(StateID::Died);
 	}
 }

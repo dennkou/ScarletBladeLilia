@@ -60,7 +60,6 @@ void Crown::RenderObject::RenderSystem::Initialize()
 		{
 			DXGI_ADAPTER_DESC adesc = {};
 			tmpAdapter->GetDesc(&adesc);
-
 			std::wstring strDesc = adesc.Description;
 			if (strDesc.find(L"NVIDIA") != std::string::npos || strDesc.find(L"AMD") != std::string::npos)
 			{
@@ -71,9 +70,10 @@ void Crown::RenderObject::RenderSystem::Initialize()
 		//	Direct3Dデバイスの初期化だよ☆
 		D3D12CreateDevice(selectAdapter.Get(), level, IID_PPV_ARGS(&m_device));		//	D3D12Deviceの作成だよ☆
 	}
+
 	DefaultRootSignature::GetRootSignature().Create(m_device.Get());
-	m_commandList.Initialize(m_device.Get(), 2, 0);
-	m_swapChain.Initialize(m_device.Get(), &m_renderTargetWindow, m_commandList.GetCommandQueue(), 2);
+	m_commandList.Initialize(m_device.Get(), 5, 5);
+	m_swapChain.Initialize(m_device.Get(), &m_renderTargetWindow, m_commandList.GetCommandQueue(), 3);
 	ResourceUploader::CreateResourceUploader(m_device.Get(), m_commandList);
 	DescriptorHeaps::CreateDescriptorHeaps(m_device.Get(), 100);
 	m_textureBuffer.Initialize(m_device.Get(),m_commandList.GetCopyCommandList(), &DescriptorHeaps::GetInstance());
@@ -89,17 +89,17 @@ void Crown::RenderObject::RenderSystem::Finalize()
 
 void Crown::RenderObject::RenderSystem::Update()
 {
-	m_commandList.Begin();
-
 	ID3D12DescriptorHeap* descriptorHeap = DescriptorHeaps::GetInstance().GetDescriptorHeap();
 	m_commandList.GetGraphicsCommandList()->SetDescriptorHeaps(1, &descriptorHeap);
 
+	m_modelManager.DataCopy();
+	m_commandList.CopyExecute();
+
 	for (unsigned int i = 0, size = static_cast<unsigned int>(m_renderTargets.size()); i < size;)
-	{	
-		std::shared_ptr<RenderTarget> renderTarget = m_renderTargets[i].second.lock();
-		if(renderTarget)
+	{
+		if(m_renderTargets[i].second)
 		{
-			renderTarget->Draw(m_commandList, &m_modelManager);
+			m_renderTargets[i].second->Draw(m_commandList, &m_modelManager);
 			++i;
 		}
 		else
@@ -120,10 +120,10 @@ void Crown::RenderObject::RenderSystem::Update()
 	const D3D12_CPU_DESCRIPTOR_HANDLE CPU_DESCRIPTOR_HANDLE = m_swapChain.GetDepthStencilDescriptorHeap()->GetCPUDescriptorHandleForHeapStart();
 
 	//	画面を初期化☆
+	m_commandList.GetGraphicsCommandList()->OMSetRenderTargets(1, &rtvH, false, &CPU_DESCRIPTOR_HANDLE);																	//	レンダーターゲットを指定するよ☆
+
 	m_commandList.GetGraphicsCommandList()->ClearRenderTargetView(rtvH, CLEAR_COLOR, 0, nullptr);
 	m_commandList.GetGraphicsCommandList()->ClearDepthStencilView(CPU_DESCRIPTOR_HANDLE, D3D12_CLEAR_FLAG_DEPTH, 1.0f, 0, 0, nullptr);
-
-	m_commandList.GetGraphicsCommandList()->OMSetRenderTargets(1, &rtvH, false, &CPU_DESCRIPTOR_HANDLE);																	//	レンダーターゲットを指定するよ☆
 
 	D3D12_VIEWPORT viewport = {};
 	viewport.Width = static_cast<float>(m_renderTargetWindow.GetWindowWidth() * 2);
@@ -152,15 +152,15 @@ void Crown::RenderObject::RenderSystem::Update()
 		m_commandList.GetGraphicsCommandList()->ResourceBarrier(1, &tmp);
 	}
 
-	m_commandList.End();
+	m_commandList.DrawExecute();
 	m_swapChain.Present(0);
 
 	DescriptorHeaps::GetInstance().ResetDescriptorHeapFlag();
 }
 
-void Crown::RenderObject::RenderSystem::AddRenderTarget(int priority, std::weak_ptr<RenderTarget> renderTarget)
+void Crown::RenderObject::RenderSystem::AddRenderTarget(int priority, std::shared_ptr<RenderTarget> renderTarget)
 {
-	renderTarget.lock()->Initialize(m_device.Get());
+	renderTarget->Initialize(m_device.Get());
 	m_renderTargets.push_back(std::make_pair(priority, renderTarget));
-	std::sort(m_renderTargets.begin(), m_renderTargets.end(), [](std::pair<int, std::weak_ptr<RenderTarget>>& l, std::pair<int, std::weak_ptr<RenderTarget>>& r) { return l.first < r.first; });
+	std::sort(m_renderTargets.begin(), m_renderTargets.end(), [](std::pair<int, std::shared_ptr<RenderTarget>>& l, std::pair<int, std::shared_ptr<RenderTarget>>& r) { return l.first < r.first; });
 }

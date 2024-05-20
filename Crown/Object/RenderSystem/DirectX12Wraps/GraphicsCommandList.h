@@ -63,9 +63,8 @@ namespace Crown
 
 			void WaitForGpu() noexcept;
 
-			void Begin();
-
-			void End();
+			void CopyExecute();
+			void DrawExecute();
 
 		private:
 

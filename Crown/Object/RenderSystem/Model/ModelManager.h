@@ -33,6 +33,7 @@ namespace Crown
 			void AddModel(Model* newModel);
 			void DeleteModel(Model* deleteModel);
 
+			void DataCopy();
 			void Draw(MaterialTag drawTag, GraphicsCommandList& commandList);
 
 			void LoadModel(Model::ModelLoader* modelLoader);

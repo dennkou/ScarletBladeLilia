@@ -49,9 +49,10 @@ void Crown::RenderObject::RootSignature::Create(ID3D12Device* device)
 	}
 
 	//	サンプラーの設定だよ☆
-	const unsigned int samplerNum = 2;
+	const unsigned int samplerNum = 3;
 	D3D12_STATIC_SAMPLER_DESC samplerDesc[samplerNum] = {};
 	samplerDesc[0].Filter = D3D12_FILTER_ANISOTROPIC;
+	//samplerDesc[0].Filter = D3D12_FILTER_MIN_MAG_MIP_LINEAR;
 	samplerDesc[0].AddressU = D3D12_TEXTURE_ADDRESS_MODE_WRAP;
 	samplerDesc[0].AddressV = D3D12_TEXTURE_ADDRESS_MODE_WRAP;
 	samplerDesc[0].AddressW = D3D12_TEXTURE_ADDRESS_MODE_WRAP;
@@ -59,7 +60,7 @@ void Crown::RenderObject::RootSignature::Create(ID3D12Device* device)
 	samplerDesc[0].BorderColor = D3D12_STATIC_BORDER_COLOR_OPAQUE_BLACK;
 	samplerDesc[0].MaxLOD = D3D12_FLOAT32_MAX;
 	samplerDesc[0].MinLOD = 0.0f;
-	samplerDesc[0].ShaderVisibility = D3D12_SHADER_VISIBILITY_PIXEL;
+	samplerDesc[0].ShaderVisibility = D3D12_SHADER_VISIBILITY_ALL;
 	samplerDesc[0].ComparisonFunc = D3D12_COMPARISON_FUNC_NEVER;
 	samplerDesc[0].ShaderRegister = 0;
 	samplerDesc[1] = samplerDesc[0];//変更点以外をコピー
@@ -67,6 +68,12 @@ void Crown::RenderObject::RootSignature::Create(ID3D12Device* device)
 	samplerDesc[1].AddressV = D3D12_TEXTURE_ADDRESS_MODE_CLAMP;
 	samplerDesc[1].AddressW = D3D12_TEXTURE_ADDRESS_MODE_CLAMP;
 	samplerDesc[1].ShaderRegister = 1;
+	samplerDesc[2] = samplerDesc[0];//変更点以外をコピー
+	samplerDesc[2].AddressU = D3D12_TEXTURE_ADDRESS_MODE_BORDER;
+	samplerDesc[2].AddressV = D3D12_TEXTURE_ADDRESS_MODE_BORDER;
+	samplerDesc[2].AddressW = D3D12_TEXTURE_ADDRESS_MODE_BORDER;
+	samplerDesc[2].BorderColor = D3D12_STATIC_BORDER_COLOR_OPAQUE_WHITE;
+	samplerDesc[2].ShaderRegister = 2;
 
 	//	ルートシグネチャーの設定だよ☆
 	D3D12_ROOT_SIGNATURE_DESC rootSignatureDesc = {};

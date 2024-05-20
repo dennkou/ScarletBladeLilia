@@ -24,6 +24,7 @@ int WINAPI WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance, _
 	freopen_s(&console, "CONIN$", "r+", stdin);
 #endif // _DEBUG
 
+
 	Crown::System& crown = Crown::System::GetInstance();
 	crown.Initialize();
 	Game* game = new Game;

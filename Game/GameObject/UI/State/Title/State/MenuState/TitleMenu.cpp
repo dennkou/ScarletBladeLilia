@@ -60,7 +60,7 @@ void GameUI::UITitle::UITitleMenu::TitleMenu::InputSelect()
 	{
 		case SelectItem::Start:
 		{
-			m_owner->m_owner->m_titleState.ChangeState(GameUI::UITitle::State::FadeOut);
+			m_owner->m_owner->m_titleState.ChangeState(GameUI::UITitle::IState::FadeOut);
 		}
 		break;
 		case SelectItem::End:

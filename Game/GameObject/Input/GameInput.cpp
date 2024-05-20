@@ -69,11 +69,11 @@ void GameInput::OnGameUpdate(Timer& timer)
 		m_input = input;
 		EventTrigger(&GameObject::OnInputMove, input);
 	}
-	if (Crown::Input::GetKeyboard()->keyDown(Crown::KeyCode::Space))
+	if (Crown::Input::GetKeyboard()->keyDown(Crown::KeyCode::Shift))
 	{
 		EventTrigger(&GameObject::OnInputDash, true);
 	}
-	else if(Crown::Input::GetKeyboard()->keyUp(Crown::KeyCode::Space))
+	else if(Crown::Input::GetKeyboard()->keyUp(Crown::KeyCode::Shift))
 	{
 		EventTrigger(&GameObject::OnInputDash, false);
 	}

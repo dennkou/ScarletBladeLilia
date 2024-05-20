@@ -36,7 +36,7 @@ void GameUI::UITitle::UITitlePleaseSpaceKey::Update(Timer& timer)
 		m_pleaseSpaceKey->SetAlpha((std::sin(m_animTimer * BLINK_SPEED) + 1.0f) / 2);
 		if (m_animTimer >= CHANGE_TIME)
 		{
-			m_owner->m_titleState.ChangeState(State::Menu);
+			m_owner->m_titleState.ChangeState(IState::Menu);
 		}
 	}
 	else

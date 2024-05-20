@@ -3,7 +3,7 @@
 #include "InstanceCollection.h"
 #include "./../../Crown/Object/RenderSystem/Camera.h"
 
-ColliderSystem::EnemyAttackCollider::EnemyAttackCollider(int damage, std::initializer_list<ColliderAlgorithm::Triangle> collider)
+ColliderSystem::EnemyAttackCollider::EnemyAttackCollider(float damage, std::initializer_list<ColliderAlgorithm::Triangle> collider)
 	:
 	m_world(DirectX::XMMatrixIdentity()),
 	m_damage(damage),

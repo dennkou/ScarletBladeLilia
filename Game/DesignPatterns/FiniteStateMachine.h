@@ -91,10 +91,10 @@ namespace Crown
 		/// <typeparam name="...Args"></typeparam>
 		/// <param name="stateID"></param>
 		/// <param name="...args"></param>
-		template<class State, class ...Args>
+		template<class IState, class ...Args>
 		void RegisterState(StateID stateID, Args... args)
 		{
-			m_stateTable[stateID].reset(new State(args...));
+			m_stateTable[stateID].reset(new IState(args...));
 		}
 
 		/// <summary>

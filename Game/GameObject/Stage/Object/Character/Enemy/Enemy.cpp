@@ -14,7 +14,9 @@ Enemy::Enemy(Game* game, DirectX::XMFLOAT3 positon, DirectX::XMFLOAT3 rotate, Na
 	m_hp(MAX_HP),
 	m_enemyCollider([&](float damage) { HitPlayerAttack(damage); }, [&]() { HitWall(); }),
 	m_offset(),
-	m_random(random)
+	m_random(random),
+	m_damageAnimTimer(DamageAnimLength),
+	m_damageAnim()
 {
 	m_model.LoadPMX(L"Resource/Model/PMX/Enemy.pmx");
 
@@ -34,6 +36,7 @@ Enemy::Enemy(Game* game, DirectX::XMFLOAT3 positon, DirectX::XMFLOAT3 rotate, Na
 	m_standAnim.LaodVMD(L"Resource/Motion/EnemyStand.vmd");
 	m_attackAnim.LaodVMD(L"Resource/Motion/EnemyAttack.vmd");
 	m_attack1Anim.LaodVMD(L"Resource/Motion/EnemyAttack1.vmd");
+	m_shotAnim.LaodVMD(L"Resource/Motion/EnemyShot.vmd");
 
 	for (int i = 0; i < 255; i++)
 	{
@@ -48,6 +51,19 @@ Enemy::~Enemy()
 
 void Enemy::OnGameUpdate(Timer& timer)
 {
+	if (m_damageAnimTimer < DamageAnimLength)
+	{
+		m_damageAnimTimer += timer.GetEnemyTime() / 1000;
+
+		std::uniform_real_distribution<float> dist1(-1.0f, 1.0f);
+
+		m_damageAnim = DirectX::XMFLOAT3(dist1(*m_random.get()), dist1(*m_random.get()), dist1(*m_random.get()));
+	}
+	else
+	{
+		m_damageAnim = DirectX::XMFLOAT3(0, 0, 0);
+	}
+
 	m_position = VectorSub(m_enemyCollider.GetPosition(), m_offset);
 
 	m_aiState.CallStateFunction(&EnemyAIState::Update, timer.GetEnemyTime());
@@ -66,13 +82,15 @@ void Enemy::OnGameUpdate(Timer& timer)
 
 	m_enemyCollider.SetPosition(VectorAdd(m_offset, m_position));
 	m_ui.SetPosition(m_position);
-	m_model.SetPosition(m_position);
+	m_model.SetPosition(VectorAdd(m_position, m_damageAnim));
 	m_model.SetRotate(m_rotate);
 }
 
 void Enemy::HitPlayerAttack(float damage)
 {
+	m_damageAnimTimer = 0.0f;
 	m_hp.Damage(damage);
+	m_aiState.CallStateFunction(&EnemyAIState::OnDamage, damage);
 	m_ui.SetHPPercent(m_hp.GetHPPercent());
 
 	//	éÄñSèàóùÇæÇÊÅô

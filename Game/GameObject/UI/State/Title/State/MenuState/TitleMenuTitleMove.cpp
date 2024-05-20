@@ -29,7 +29,7 @@ void GameUI::UITitle::UITitleMenu::TitleMenuTitleMove::Update(Timer& timer)
 
 	if (t >= 0.999f)
 	{
-		m_owner->m_state.ChangeState(State::MenuIn);
+		m_owner->m_state.ChangeState(IState::MenuIn);
 	}
 }
 
@@ -41,5 +41,5 @@ void GameUI::UITitle::UITitleMenu::TitleMenuTitleMove::Exit()
 
 void GameUI::UITitle::UITitleMenu::TitleMenuTitleMove::InputSelect()
 {
-	m_owner->m_state.ChangeState(State::Menu);
+	m_owner->m_state.ChangeState(IState::Menu);
 }
