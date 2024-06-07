@@ -13,6 +13,7 @@
 #include "./Bone.h"
 #include <d3d12.h>
 #include "./FileType/TriangleColliderDebug.h"
+#include "IModel.h"
 
 namespace Crown
 {
@@ -25,7 +26,7 @@ namespace Crown
 		// モデルだよ☆
 		// 
 		//================================================
-		class Model
+		class Model : public IModel
 		{
 		public:
 			class ModelLoader;
@@ -60,9 +61,9 @@ namespace Crown
 			inline const Microsoft::WRL::ComPtr<ID3D12Resource> GetConstIndexBuffer() { return m_vertices.GetConstIndexBuffer(); }
 
 			//	データのアップロードを行うよ☆
-			void DataUpload();
+			virtual void DataUpload() override;
 
-			void Draw(MaterialTag drawTag, ID3D12GraphicsCommandList* commandList);
+			virtual void Draw(MaterialTag drawTag, ID3D12GraphicsCommandList* commandList) override;
 
 		private:
 

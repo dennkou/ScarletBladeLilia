@@ -33,7 +33,7 @@ Crown::System& Crown::System::GetInstance()
 LRESULT CrownWindowProcedure(HWND hwnd, UINT msg, WPARAM wparam, LPARAM lparam);
 void Crown::System::Initialize()
 {
-	m_window.MakeWindow(L"Crown", CrownWindowProcedure, WS_OVERLAPPED | WS_SYSMENU);
+	m_window.MakeWindow(L"Crown", CrownWindowProcedure, WS_OVERLAPPEDWINDOW);
 	m_renderSystem.Initialize();
 	m_renderSystem.Update();
 	m_window.DisplayWindow();

@@ -1,3 +1,5 @@
+#include "ShadowHeader.hlsli"
+
 struct Output
 {
 	float4 pos : POSITION;
@@ -10,10 +12,9 @@ struct Output
 };
 
 Texture2D<float4> tex : register(t0);
-Texture2D<float4> shadowColor : register(t1);
-Texture2D<float> shadowDepth : register(t2);
+//Texture2D<float4> shadowColor : register(t1);
+//Texture2D<float> shadowDepth : register(t2);
 SamplerState smp : register(s0);
-SamplerState shadowSmp : register(s2);
 
 
 cbuffer materialBuffer : register(b2)
@@ -31,8 +32,5 @@ float4 main(Output input) : SV_TARGET
 	//ディフューズ計算
 	float diffuseLight = (dot(-light, input.normal.xyz) + 1) / 2;
 	
-	float3 shadowPos = input.shadowPos.xyz / input.shadowPos.w;
-	float2 shadowUV = (shadowPos.xy + float2(1, -1)) * float2(0.5, -0.5);
-	
-	return tex.Sample(smp, input.uv) * float4(lerp(ambient, diffuse.rbg, diffuseLight), 1) * lerp(float4(shadowColor.Sample(shadowSmp, shadowUV).rgb, 1), 1.0, step(shadowPos.z, shadowDepth.Sample(shadowSmp, shadowUV) + 0.001f));
+	return tex.Sample(smp, input.uv) * float4(lerp(ambient, diffuse.rbg, diffuseLight), 1)/* * Shadow(input.shadowPos, shadowColor, shadowDepth)*/;
 }

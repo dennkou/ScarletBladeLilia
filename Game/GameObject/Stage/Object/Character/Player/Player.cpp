@@ -122,6 +122,7 @@ void Player::CreateMaterial()
 
 	//	服のマテリアルの生成をするよ☆
 	{
+		//materialFactory.CreateMaterial(graphicsPipeline, m_model, 0, Crown::RenderObject::MaterialTag::FrameBuffer, constBufferIndexs, textureBufferIndexs, resources, constBuffers);
 		materialFactory.CreateShadow(m_model,0);
 		materialFactory.CreateDefaultMaterial(m_model,0, textureBuffer.TextureAcquisition(L"Resource/Model/PMX/リリア/textures/服.png"), DirectX::XMFLOAT4(0.95f, 0.95f, 0.95f, 1.0f), DirectX::XMFLOAT3(0.6f, 0.5f, 0.4f));
 	}
@@ -130,6 +131,8 @@ void Player::CreateMaterial()
 	{
 		Crown::RenderObject::GraphicsPipeline graphicsPipeline;
 		{
+			graphicsPipeline.SetNumRenderTargets(2);
+			graphicsPipeline.SetRTVFormats(1, DXGI_FORMAT_R8G8B8A8_UNORM);
 			graphicsPipeline.SetVS(*Crown::RenderObject::Shader::GetInstance()->GetShader(L"Riria/Riria_VS"));
 			graphicsPipeline.SetPS(*Crown::RenderObject::Shader::GetInstance()->GetShader(L"Riria/RiriaHair_PS"));
 			graphicsPipeline.SetInputLayout(Crown::RenderObject::Pmx::GetInputLayout());
@@ -160,7 +163,7 @@ void Player::CreateMaterial()
 		std::vector<Crown::RenderObject::BlobConstBuffer> constBuffers;
 		constBuffers.push_back(constBuffer);
 
-		materialFactory.CreateMaterial(graphicsPipeline, m_model, 7, Crown::RenderObject::MaterialTag::Normal, constBufferIndexs, textureBufferIndexs, resources, constBuffers);
+		materialFactory.CreateMaterial(graphicsPipeline, m_model, 7, Crown::RenderObject::MaterialTag::FrameBuffer, constBufferIndexs, textureBufferIndexs, resources, constBuffers);
 		materialFactory.CreateShadow(m_model, 7);
 	}
 
@@ -168,6 +171,8 @@ void Player::CreateMaterial()
 	{
 		Crown::RenderObject::GraphicsPipeline graphicsPipeline;
 		{
+			graphicsPipeline.SetNumRenderTargets(2);
+			graphicsPipeline.SetRTVFormats(1, DXGI_FORMAT_R8G8B8A8_UNORM);
 			graphicsPipeline.SetVS(*Crown::RenderObject::Shader::GetInstance()->GetShader(L"Riria/Riria_VS"));
 			graphicsPipeline.SetPS(*Crown::RenderObject::Shader::GetInstance()->GetShader(L"Riria/RiriaTights_PS"));
 			graphicsPipeline.SetInputLayout(Crown::RenderObject::Pmx::GetInputLayout());
@@ -198,7 +203,7 @@ void Player::CreateMaterial()
 		std::vector<Crown::RenderObject::BlobConstBuffer> constBuffers;
 		constBuffers.push_back(constBuffer);
 
-		materialFactory.CreateMaterial(graphicsPipeline, m_model, 4, Crown::RenderObject::MaterialTag::Normal, constBufferIndexs, textureBufferIndexs, resources, constBuffers);
+		materialFactory.CreateMaterial(graphicsPipeline, m_model, 4, Crown::RenderObject::MaterialTag::FrameBuffer, constBufferIndexs, textureBufferIndexs, resources, constBuffers);
 		materialFactory.CreateShadow(m_model, 4);
 	}
 
@@ -206,6 +211,8 @@ void Player::CreateMaterial()
 	{
 		Crown::RenderObject::GraphicsPipeline graphicsPipeline;
 		{
+			graphicsPipeline.SetNumRenderTargets(2);
+			graphicsPipeline.SetRTVFormats(1, DXGI_FORMAT_R8G8B8A8_UNORM);
 			graphicsPipeline.SetVS(*Crown::RenderObject::Shader::GetInstance()->GetShader(L"Riria/Riria_VS"));
 			graphicsPipeline.SetPS(*Crown::RenderObject::Shader::GetInstance()->GetShader(L"Riria/RiriaSkin_PS"));
 			graphicsPipeline.SetInputLayout(Crown::RenderObject::Pmx::GetInputLayout());
@@ -236,7 +243,7 @@ void Player::CreateMaterial()
 		std::vector<Crown::RenderObject::BlobConstBuffer> constBuffers;
 		constBuffers.push_back(constBuffer);
 
-		materialFactory.CreateMaterial(graphicsPipeline, m_model, 3, Crown::RenderObject::MaterialTag::Normal, constBufferIndexs, textureBufferIndexs, resources, constBuffers);
+		materialFactory.CreateMaterial(graphicsPipeline, m_model, 3, Crown::RenderObject::MaterialTag::FrameBuffer, constBufferIndexs, textureBufferIndexs, resources, constBuffers);
 		materialFactory.CreateShadow(m_model, 3);
 	}
 
@@ -256,6 +263,8 @@ void Player::CreateMaterial()
 	{
 		Crown::RenderObject::GraphicsPipeline graphicsPipeline;
 		{
+			graphicsPipeline.SetNumRenderTargets(2);
+			graphicsPipeline.SetRTVFormats(1, DXGI_FORMAT_R8G8B8A8_UNORM);
 			graphicsPipeline.SetVS(*Crown::RenderObject::Shader::GetInstance()->GetShader(L"Riria/Riria_VS"));
 			graphicsPipeline.SetPS(*Crown::RenderObject::Shader::GetInstance()->GetShader(L"Riria/RiriaHair_PS"));
 			graphicsPipeline.SetInputLayout(Crown::RenderObject::Pmx::GetInputLayout());
@@ -286,7 +295,7 @@ void Player::CreateMaterial()
 		std::vector<Crown::RenderObject::BlobConstBuffer> constBuffers;
 		constBuffers.push_back(constBuffer);
 
-		materialFactory.CreateMaterial(graphicsPipeline, m_model, 5, Crown::RenderObject::MaterialTag::Normal, constBufferIndexs, textureBufferIndexs, resources, constBuffers);
+		materialFactory.CreateMaterial(graphicsPipeline, m_model, 5, Crown::RenderObject::MaterialTag::FrameBuffer, constBufferIndexs, textureBufferIndexs, resources, constBuffers);
 		materialFactory.CreateShadow(m_model, 5);
 	}
 
@@ -294,6 +303,8 @@ void Player::CreateMaterial()
 	{
 		Crown::RenderObject::GraphicsPipeline graphicsPipeline;
 		{
+			graphicsPipeline.SetNumRenderTargets(2);
+			graphicsPipeline.SetRTVFormats(1, DXGI_FORMAT_R8G8B8A8_UNORM);
 			graphicsPipeline.SetVS(*Crown::RenderObject::Shader::GetInstance()->GetShader(L"Riria/Riria_VS"));
 			graphicsPipeline.SetPS(*Crown::RenderObject::Shader::GetInstance()->GetShader(L"Riria/RiriaHair_PS"));
 			graphicsPipeline.SetInputLayout(Crown::RenderObject::Pmx::GetInputLayout());
@@ -324,9 +335,9 @@ void Player::CreateMaterial()
 		std::vector<Crown::RenderObject::BlobConstBuffer> constBuffers;
 		constBuffers.push_back(constBuffer);
 
-		materialFactory.CreateMaterial(graphicsPipeline, m_model, 8, Crown::RenderObject::MaterialTag::Normal, constBufferIndexs, textureBufferIndexs, resources, constBuffers);
-		materialFactory.CreateMaterial(graphicsPipeline, m_model, 9, Crown::RenderObject::MaterialTag::Normal, constBufferIndexs, textureBufferIndexs, resources, constBuffers);
-		materialFactory.CreateMaterial(graphicsPipeline, m_model, 10, Crown::RenderObject::MaterialTag::Normal, constBufferIndexs, textureBufferIndexs, resources, constBuffers);
+		materialFactory.CreateMaterial(graphicsPipeline, m_model, 8, Crown::RenderObject::MaterialTag::FrameBuffer, constBufferIndexs, textureBufferIndexs, resources, constBuffers);
+		materialFactory.CreateMaterial(graphicsPipeline, m_model, 9, Crown::RenderObject::MaterialTag::FrameBuffer, constBufferIndexs, textureBufferIndexs, resources, constBuffers);
+		materialFactory.CreateMaterial(graphicsPipeline, m_model, 10, Crown::RenderObject::MaterialTag::FrameBuffer, constBufferIndexs, textureBufferIndexs, resources, constBuffers);
 		materialFactory.CreateShadow(m_model, 8);
 		materialFactory.CreateShadow(m_model, 9);
 		materialFactory.CreateShadow(m_model, 10);
@@ -336,6 +347,8 @@ void Player::CreateMaterial()
 	{
 		Crown::RenderObject::GraphicsPipeline graphicsPipeline;
 		{
+			graphicsPipeline.SetNumRenderTargets(2);
+			graphicsPipeline.SetRTVFormats(1, DXGI_FORMAT_R8G8B8A8_UNORM);
 			graphicsPipeline.SetVS(*Crown::RenderObject::Shader::GetInstance()->GetShader(L"Riria/Riria_VS"));
 			graphicsPipeline.SetPS(*Crown::RenderObject::Shader::GetInstance()->GetShader(L"Riria/RiriaHair_PS"));
 			graphicsPipeline.SetInputLayout(Crown::RenderObject::Pmx::GetInputLayout());
@@ -366,13 +379,15 @@ void Player::CreateMaterial()
 		std::vector<Crown::RenderObject::BlobConstBuffer> constBuffers;
 		constBuffers.push_back(constBuffer);
 
-		materialFactory.CreateMaterial(graphicsPipeline, m_model, 11, Crown::RenderObject::MaterialTag::Normal, constBufferIndexs, textureBufferIndexs, resources, constBuffers);
+		materialFactory.CreateMaterial(graphicsPipeline, m_model, 11, Crown::RenderObject::MaterialTag::FrameBuffer, constBufferIndexs, textureBufferIndexs, resources, constBuffers);
 	}
 
 	//	瞳のマテリアルの生成をするよ☆
 	{
 		Crown::RenderObject::GraphicsPipeline graphicsPipeline;
 		{
+			graphicsPipeline.SetNumRenderTargets(2);
+			graphicsPipeline.SetRTVFormats(1, DXGI_FORMAT_R8G8B8A8_UNORM);
 			graphicsPipeline.SetVS(*Crown::RenderObject::Shader::GetInstance()->GetShader(L"Riria/Riria_VS"));
 			graphicsPipeline.SetPS(*Crown::RenderObject::Shader::GetInstance()->GetShader(L"Riria/RiriaEye_PS"));
 			graphicsPipeline.SetInputLayout(Crown::RenderObject::Pmx::GetInputLayout());
@@ -403,7 +418,7 @@ void Player::CreateMaterial()
 		std::vector<Crown::RenderObject::BlobConstBuffer> constBuffers;
 		constBuffers.push_back(constBuffer);
 
-		materialFactory.CreateMaterial(graphicsPipeline, m_model, 12, Crown::RenderObject::MaterialTag::Normal, constBufferIndexs, textureBufferIndexs, resources, constBuffers);
+		materialFactory.CreateMaterial(graphicsPipeline, m_model, 12, Crown::RenderObject::MaterialTag::FrameBuffer, constBufferIndexs, textureBufferIndexs, resources, constBuffers);
 	}
 }
 

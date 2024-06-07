@@ -24,7 +24,7 @@ void Crown::RenderObject::SwapChain::Initialize(ID3D12Device* device, const Crow
 	Microsoft::WRL::ComPtr<IDXGIFactory6> dxgiFactory = nullptr;
 	CreateDXGIFactory2(DXGI_CREATE_FACTORY_DEBUG, IID_PPV_ARGS(&dxgiFactory));											//	DXGIFactoryの作成だよ☆
 	CreateSwapChain(dxgiFactory.Get(), window->GetWindowWidth(), window->GetWindowHeight(), window->GetWindowHandle(), commandQueue);
-	CreateRenderTargetView(device);
+	CreateRenderTarget(device);
 	CreatDepthBuffer(device, window->GetWindowWidth(), window->GetWindowHeight());
 }
 
@@ -37,8 +37,8 @@ void Crown::RenderObject::SwapChain::Present(UINT syncInterval)
 inline void Crown::RenderObject::SwapChain::CreateSwapChain(IDXGIFactory2* dxgiFactory, UINT width, UINT height, HWND windowHandle, ID3D12CommandQueue* commandQueue)
 {
 	DXGI_SWAP_CHAIN_DESC1 swapchainDesc = {};
-	swapchainDesc.Width = width * 2;																					//	横幅はウィンドウサイズに合わせるよ☆描画結果を滑らかにする為に二倍にしているよ☆
-	swapchainDesc.Height = height * 2;																					//	縦幅はウィンドウサイズに合わせるよ☆描画結果を滑らかにする為に二倍にしているよ☆
+	swapchainDesc.Width = width;																						//	横幅はウィンドウサイズに合わせるよ☆描画結果を滑らかにする為に二倍にしているよ☆
+	swapchainDesc.Height = height;																						//	縦幅はウィンドウサイズに合わせるよ☆描画結果を滑らかにする為に二倍にしているよ☆
 	swapchainDesc.Format = DXGI_FORMAT_R8G8B8A8_UNORM;																	//	フォーマットは8*4のRGBAだよ☆
 	swapchainDesc.Stereo = false;																						//	全画面表示はしないよ☆
 	swapchainDesc.SampleDesc.Count = 1;																					//	マルチサンプリングはしないよ☆
@@ -52,7 +52,7 @@ inline void Crown::RenderObject::SwapChain::CreateSwapChain(IDXGIFactory2* dxgiF
 
 	DXGI_SWAP_CHAIN_FULLSCREEN_DESC fullScreenDesc = {};
 	fullScreenDesc.RefreshRate.Denominator = 1;
-	fullScreenDesc.RefreshRate.Numerator = 60;
+	fullScreenDesc.RefreshRate.Numerator = 120;
 	fullScreenDesc.Windowed = true;
 	fullScreenDesc.ScanlineOrdering = DXGI_MODE_SCANLINE_ORDER_UNSPECIFIED;
 	fullScreenDesc.Scaling = DXGI_MODE_SCALING_STRETCHED;
@@ -61,7 +61,7 @@ inline void Crown::RenderObject::SwapChain::CreateSwapChain(IDXGIFactory2* dxgiF
 
 }
 
-inline void Crown::RenderObject::SwapChain::CreateRenderTargetView(ID3D12Device* device)
+inline void Crown::RenderObject::SwapChain::CreateRenderTarget(ID3D12Device* device)
 {
 	D3D12_DESCRIPTOR_HEAP_DESC heapDesc = {};
 	heapDesc.Type = D3D12_DESCRIPTOR_HEAP_TYPE_RTV;																		//	レンダーターゲットビューなので当然RTV☆
@@ -99,8 +99,8 @@ inline void Crown::RenderObject::SwapChain::CreatDepthBuffer(ID3D12Device* devic
 
 	D3D12_RESOURCE_DESC depthResDesc = {};
 	depthResDesc.Dimension = D3D12_RESOURCE_DIMENSION_TEXTURE2D;													//	2次元のテクスチャデータとして扱うよ☆
-	depthResDesc.Width = static_cast<UINT64>(width) * 2;															//	幅と高さはレンダーターゲットと同じだよ☆
-	depthResDesc.Height = height * 2;																				//	上に同じだよ☆
+	depthResDesc.Width = static_cast<UINT64>(width);																//	幅と高さはレンダーターゲットと同じだよ☆
+	depthResDesc.Height = height;																					//	上に同じだよ☆
 	depthResDesc.DepthOrArraySize = 1;																				//	テクスチャ配列でもないし3Dテクスチャでもないよ☆
 	depthResDesc.Format = DXGI_FORMAT_D32_FLOAT;																	//	深度値書き込み用フォーマットだよ☆
 	depthResDesc.SampleDesc.Count = 1;																				//	サンプルは1ピクセル当たり1つだよ☆

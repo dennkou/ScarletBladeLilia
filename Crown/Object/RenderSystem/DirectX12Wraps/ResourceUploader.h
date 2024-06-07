@@ -7,6 +7,8 @@
 #include "GraphicsCommandList.h"
 #include <functional>
 #include <wrl.h>
+#include <iostream>
+
 namespace Crown
 {
 	namespace RenderObject
@@ -37,7 +39,6 @@ namespace Crown
 
 			template<typename DataType>
 			UINT64 Get255AlignmentSize(unsigned int size = 1) { return static_cast<UINT64>(((sizeof(DataType) * size) + 0xff) & ~0xff); }
-
 		private:
 			ResourceUploader();
 			~ResourceUploader();

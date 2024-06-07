@@ -15,6 +15,7 @@ public:
 
 	void SetHPPercent(float hpPercent);
 	void SetPosition(DirectX::XMFLOAT3 position);
+	void SetDrawFlag(bool flag);
 private:
 	static Microsoft::WRL::ComPtr<ID3D12PipelineState> pipelineState;
 	Crown::RenderObject::BlobConstBuffer* m_constBuffer;
@@ -25,11 +26,11 @@ private:
 		Crown::RenderObject::BlobConstBuffer::DataType::Matrix,
 		Crown::RenderObject::BlobConstBuffer::DataType::Float3,
 		Crown::RenderObject::BlobConstBuffer::DataType::Float,
+		Crown::RenderObject::BlobConstBuffer::DataType::Float,
 		Crown::RenderObject::BlobConstBuffer::DataType::Float2,
 		Crown::RenderObject::BlobConstBuffer::DataType::Float3,
 		Crown::RenderObject::BlobConstBuffer::DataType::Float3,
-		Crown::RenderObject::BlobConstBuffer::DataType::Float3,
-
+		Crown::RenderObject::BlobConstBuffer::DataType::Float3
 	};
 
 	enum class ConstBufferOffset : unsigned int
@@ -37,6 +38,7 @@ private:
 		VIEW_PROJECTION_OFFSET,
 		POSITION_OFFSET,
 		HP_PERCENT_OFFSET,
+		DRAW_FLAG,
 		SIZE_OFFSET,
 		COLOR_OFFSET,
 		FLAME_COLOR_OFFSET,

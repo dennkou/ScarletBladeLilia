@@ -57,9 +57,9 @@ DirectX::XMFLOAT3 ColliderSystem::AisleCollider::CheckHitSphere(const DirectX::X
 
 
 	float t = VectorDistance(closestPoint, m_position);
-	int index = (t + aisleSize / 2) / aisleSize;
+	int index = static_cast<int>((t + aisleSize / 2) / aisleSize);
 	DirectX::XMFLOAT3 aislePosition = VectorAdd(m_position, DirectX::XMFLOAT3(sin(m_rotate) * (index * aisleSize), 0, cos(m_rotate) * (index * aisleSize)));
-	DirectX::XMFLOAT3 ret;
+	DirectX::XMFLOAT3 ret = {};
 	auto CheckHitPillar = [&](DirectX::XMFLOAT3 position)
 		{
 			DirectX::XMFLOAT3 localPillarPosition = DirectX::XMFLOAT3(position.x * cos(-m_rotate) - position.z * sin(-m_rotate), position.y, position.x * sin(-m_rotate) + position.z * cos(-m_rotate));

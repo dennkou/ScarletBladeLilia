@@ -1,5 +1,6 @@
 #pragma once
 #include "DirectXMath.h"
+
 //	当たり判定で使用するアルゴリズムをまとめたものだよ☆(ほとんどのコードはDXライブラリから引用しました)
 class ColliderAlgorithm
 {
@@ -46,7 +47,6 @@ public:
 		float radius;
 	};
 
-
 	//	三角形とカプセルの当たり判定だよ☆
 	static bool CheckHitCapsuleTriangle(const Capsule& capsule, const Triangle& triangle);
 
@@ -73,6 +73,9 @@ public:
 
 	// 点に一番近い三角形上の座標を得る
 	static DirectX::XMFLOAT3 GetTrianglePointMinPosition(Point point, Triangle triangle);
+
+	//	球と線分の衝突座標を取得するよ☆
+	static bool GetCalcRaySphere(LineSegment lineSegment, Sphere sphere, Point& point1, Point& point2);
 private:
 	//	インスタンスの作成は想定しないよ☆
 	ColliderAlgorithm() = delete;

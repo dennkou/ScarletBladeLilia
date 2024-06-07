@@ -21,7 +21,7 @@ namespace Crown
 			~GraphicsPipeline();
 
 			void ChangeGraphicsPipelineState(const D3D12_GRAPHICS_PIPELINE_STATE_DESC& newStateDisc);
-			inline Microsoft::WRL::ComPtr<ID3D12PipelineState> GetPipelineState() const { return m_pipelineState; }
+			inline const Microsoft::WRL::ComPtr<ID3D12PipelineState> GetPipelineState() const { return m_pipelineState; }
 			inline D3D12_GRAPHICS_PIPELINE_STATE_DESC GetState() const { return m_nawState; }
 
 			inline void SetRootSignature(ID3D12RootSignature* rootSignature) { m_nawState.pRootSignature = rootSignature; }

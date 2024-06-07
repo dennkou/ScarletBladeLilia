@@ -2,6 +2,7 @@
 #ifndef CROWN_RENDEROBJECT_MODELLOADER
 #define CROWN_RENDEROBJECT_MODELLOADER
 #include "Model.h"
+#include "IModel.h"
 #include "./../TextureBuffer.h"
 #include <memory>
 
@@ -17,7 +18,7 @@ namespace Crown
 		// modelクラスの内、モデルデータの作成部分を分離したものだよ☆
 		//
 		//================================================
-		class Model::ModelLoader
+		class Model::ModelLoader : public IModel::IModelLoader
 		{
 		public:
 			enum class LoadFile

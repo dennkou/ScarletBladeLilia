@@ -1,5 +1,5 @@
 #include "ModelManager.h"
-#include "Model.h"
+#include "IModel.h"
 #include "ModelLoader.h"
 #include "./../DirectX12Wraps/DefaultRootSignature.h"
 #include "./../DirectX12Wraps/DefaultRootSignature.h"
@@ -32,7 +32,7 @@ void Crown::RenderObject::ModelManager::Initialize(ID3D12Device* device, Texture
 	ResetBundle();
 }
 
-void Crown::RenderObject::ModelManager::AddModel(Model* newModel)
+void Crown::RenderObject::ModelManager::AddModel(IModel* newModel)
 {
 	//	Ç∑Ç≈Ç…Ç†Ç¡ÇΩÇÁìoò^ÇµÇ»Ç¢Åô
 	if (std::find(m_models.begin(), m_models.end(), newModel) == m_models.end())
@@ -42,7 +42,7 @@ void Crown::RenderObject::ModelManager::AddModel(Model* newModel)
 	ResetBundle();
 }
 
-void Crown::RenderObject::ModelManager::DeleteModel(Model* deleteModel)
+void Crown::RenderObject::ModelManager::DeleteModel(IModel* deleteModel)
 {
 	for (int i = 0, size = static_cast<int>(m_models.size()); i < size; ++i)
 	{
@@ -70,14 +70,14 @@ void Crown::RenderObject::ModelManager::DeleteModel(Model* deleteModel)
 
 void Crown::RenderObject::ModelManager::DataCopy()
 {
-	for (Model* model : m_uploadQueue)
+	for (IModel* model : m_uploadQueue)
 	{
 		model->DataUpload();
 	}
 	m_uploadQueue.clear();
 }
 
-void Crown::RenderObject::ModelManager::Draw(MaterialTag drawTag, GraphicsCommandList& commandList)
+void Crown::RenderObject::ModelManager::Draw(MaterialTag drawTag, GraphicsCommandList& commandList, unsigned int index)
 {
 	if (!m_bundle[static_cast<unsigned int>(drawTag)])
 	{
@@ -89,22 +89,22 @@ void Crown::RenderObject::ModelManager::Draw(MaterialTag drawTag, GraphicsComman
 		m_bundleCommandLists[static_cast<unsigned int>(drawTag)]->SetDescriptorHeaps(1, &descriptorHeap);
 		m_bundleCommandLists[static_cast<unsigned int>(drawTag)]->SetGraphicsRootSignature(DefaultRootSignature::GetRootSignature().GetRootSignature().Get());
 		m_bundleCommandLists[static_cast<unsigned int>(drawTag)]->IASetPrimitiveTopology(D3D_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
-		for (Model* model : m_models)
+		for (IModel* model : m_models)
 		{
 			model->Draw(drawTag, m_bundleCommandLists[static_cast<unsigned int>(drawTag)].Get());
 		}
 		m_bundleCommandLists[static_cast<unsigned int>(drawTag)].Get()->Close();
 		m_bundle[static_cast<unsigned int>(drawTag)] = true;
 	}
-	commandList.GetGraphicsCommandList()->ExecuteBundle(m_bundleCommandLists[static_cast<unsigned int>(drawTag)].Get());
+	commandList.GetGraphicsCommandList(index)->ExecuteBundle(m_bundleCommandLists[static_cast<unsigned int>(drawTag)].Get());
 }
 
-void Crown::RenderObject::ModelManager::LoadModel(Model::ModelLoader* modelLoader)
+void Crown::RenderObject::ModelManager::LoadModel(IModel::IModelLoader* modelLoader)
 {
 	modelLoader->Load(m_device, m_textureBuffer);
 }
 
-void Crown::RenderObject::ModelManager::StackDataUploadQueue(Model* model)
+void Crown::RenderObject::ModelManager::StackDataUploadQueue(IModel* model)
 {
 	m_uploadQueue.push_back(model);
 }

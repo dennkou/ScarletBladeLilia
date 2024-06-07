@@ -8,7 +8,7 @@
 #include "DirectX12Wraps/RootSignature.h"
 #include <wrl.h>
 #include "TextureBuffer.h"
-#include "./RenderTarget.h"
+#include "./RenderTarget/IRenderTarget.h"
 #include <vector>
 
 namespace Crown
@@ -41,11 +41,11 @@ namespace Crown
 			void Update();
 
 			
-			void AddRenderTarget(int priority, std::shared_ptr<RenderTarget> renderTarget);
+			void AddRenderTarget(int priority, std::shared_ptr<IRenderTarget> renderTarget);
 
 			ModelManager& GetModelManager() { return m_modelManager; }
 			Microsoft::WRL::ComPtr<ID3D12Device> GetDevice() { return m_device; }
-			TextureBuffer& GetTextureBuffer() { return m_textureBuffer; }
+			TextureBuffer& GetTextureBuffer() { return *m_textureBuffer.get(); }
 		private:
 			Crown::Window& m_renderTargetWindow;			//	描画対象のウィンドウだよ☆
 
@@ -54,9 +54,9 @@ namespace Crown
 			GraphicsCommandList m_commandList;
 			SwapChain m_swapChain;
 
-			std::vector<std::pair<int, std::shared_ptr<RenderTarget>>> m_renderTargets;
+			std::vector<std::pair<int, std::shared_ptr<IRenderTarget>>> m_renderTargets;
 			ModelManager m_modelManager;
-			TextureBuffer m_textureBuffer;
+			std::unique_ptr<TextureBuffer> m_textureBuffer;
 
 			static constexpr float CLEAR_COLOR[4] = {0.0f, 0.0f, 0.0f, 1.0f};
 		};

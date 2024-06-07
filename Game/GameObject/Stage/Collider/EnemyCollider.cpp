@@ -30,3 +30,21 @@ void ColliderSystem::EnemyCollider::SetPosition(DirectX::XMFLOAT3 position) noex
 {
 	m_sphere.point = position;
 }
+
+void ColliderSystem::EnemyCollider::SetActive(bool active)
+{
+	if (m_isActive == active)
+	{
+		return;
+	}
+
+	m_isActive = active;
+	if (active)
+	{
+		m_instanceCollection.SetEnemyCollider(this);
+	}
+	else
+	{
+		m_instanceCollection.DeleteEnemyCollider(this);
+	}
+}

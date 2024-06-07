@@ -14,9 +14,10 @@ namespace Crown
 		//================================================
 		enum class MaterialTag
 		{
-			Invalid,		//	無効なタグ情報☆
+			//Invalid,		//	無効なタグ情報☆
 			Normal,			//	通常☆
 			Shadow,			//	影用だよ☆
+			FrameBuffer,
 
 			Num				//	タグの数だよ☆
 		};

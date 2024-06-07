@@ -17,6 +17,7 @@ PlayerHpUi::PlayerHpUi()
 
 	Crown::RenderObject::GraphicsPipeline graphicsPipeline;
 	graphicsPipeline.ChangeGraphicsPipelineState(Crown::RenderObject::UiManager::GetInstance()->GetDefaultGraphicsPipelineStateDesc());
+	graphicsPipeline.SetPrimitiveTopologyType(D3D12_PRIMITIVE_TOPOLOGY_TYPE_POINT);
 	graphicsPipeline.SetVS(*Crown::RenderObject::Shader::GetInstance()->GetShader(L"UI/PlayerHPUI_VS"));
 	graphicsPipeline.SetGS(*Crown::RenderObject::Shader::GetInstance()->GetShader(L"UI/PlayerHPUI_GS"));
 	graphicsPipeline.SetPS(*Crown::RenderObject::Shader::GetInstance()->GetShader(L"UI/PlayerHPUI_PS"));
@@ -41,6 +42,7 @@ void PlayerHpUi::SetPlayerHPPercent(float hpPercent)
 
 void PlayerHpUi::Render(ID3D12GraphicsCommandList* commandList)
 {
+	commandList->IASetPrimitiveTopology(D3D12_PRIMITIVE_TOPOLOGY::D3D_PRIMITIVE_TOPOLOGY_POINTLIST);
 	commandList->SetPipelineState(m_pipelineState.Get());
 	commandList->SetGraphicsRootDescriptorTable(0, Crown::RenderObject::DescriptorHeaps::GetInstance().GetHandle(m_constBuffer->GetDescriptorOffset()));
 }

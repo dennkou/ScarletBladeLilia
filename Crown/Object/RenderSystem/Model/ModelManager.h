@@ -20,8 +20,8 @@ namespace Crown
 		// 外部で作成されるmodelクラスとライブラリ内部の情報のやり取りを行うよ☆
 		// 
 		//================================================
-		class Model;
-		class Model::ModelLoader;
+		class IModel;
+		class IModel::IModelLoader;
 		class ModelManager
 		{
 		public:
@@ -30,26 +30,26 @@ namespace Crown
 
 			void Initialize(ID3D12Device* device, TextureBuffer* textureBuffer);
 
-			void AddModel(Model* newModel);
-			void DeleteModel(Model* deleteModel);
+			void AddModel(IModel* newModel);
+			void DeleteModel(IModel* deleteModel);
 
 			void DataCopy();
-			void Draw(MaterialTag drawTag, GraphicsCommandList& commandList);
+			void Draw(MaterialTag drawTag, GraphicsCommandList& commandList, unsigned int index);
 
-			void LoadModel(Model::ModelLoader* modelLoader);
+			void LoadModel(IModel::IModelLoader* modelLoader);
 
-			void StackDataUploadQueue(Model* model);
+			void StackDataUploadQueue(IModel* model);
 		private:
 			void ResetBundle();
 
 			ID3D12Device* m_device;
-			std::vector<Model*> m_models;
+			std::vector<IModel*> m_models;
 			TextureBuffer* m_textureBuffer;
 
 			std::vector<bool> m_bundle;
 			std::vector<Microsoft::WRL::ComPtr<ID3D12GraphicsCommandList>>		m_bundleCommandLists;			//	描画種ごとのバンドルコマンドリスト☆
 			std::vector<Microsoft::WRL::ComPtr<ID3D12CommandAllocator>>			m_bundleCommandAllocators;		//	描画種ごとのバンドルコマンドアロケーター☆
-			std::vector<Model*> m_uploadQueue;
+			std::vector<IModel*> m_uploadQueue;
 		};
 	}
 }

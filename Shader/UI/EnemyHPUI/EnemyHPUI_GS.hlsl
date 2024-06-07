@@ -3,6 +3,7 @@ cbuffer materialBuffer : register(b0)
 	matrix ViewProjection;
 	float3 Position;
 	float HP_Percent;
+	float drawFlag;
 	float2 Size;
 	float3 Color;
 	float3 FlameColor;
@@ -13,7 +14,7 @@ struct GSOutput
 {
 	float4 pos : SV_POSITION;
 	float2 uv : UV;
-	bool drawFlag : DrawFlag;
+	float front : DrawFlag;
 };
 
 [maxvertexcount(4)]
@@ -24,7 +25,7 @@ void main(point float4 input[1] : POSITION, inout TriangleStream<GSOutput> outpu
 	float4 position = float4(Position, 1.0);
 	position = mul(ViewProjection, position);
 	
-	element.drawFlag = position.w < 0;
+	element.front = position.z > 0;
 	
 	position.xyz /= position.w;
 	position.w = 1.0f;

@@ -20,6 +20,10 @@ public:
 	inline void SetPlayerPosition(DirectX::XMFLOAT3 pos) { m_playerPosition = pos; }			//	プレイヤー位置を入力するよ☆
 	inline DirectX::XMFLOAT3 GetPlayerPosition() const noexcept { return m_playerPosition; }	//	プレイヤーの位置を取得するよ☆
 	inline bool IsEngagement() const noexcept { return m_engagement; }							//	プレイヤーを発見しているかどうかだよ☆
+
+	void SetActive(bool active);
+	inline bool IsActive() const noexcept { return m_isActive; }
+
 private:
 	ColliderAlgorithm::Sphere m_sphere;
 	std::vector<ColliderAlgorithm::Triangle> m_attack;
@@ -27,4 +31,6 @@ private:
 	std::function<void(void)> m_wallHit;
 	DirectX::XMFLOAT3 m_playerPosition;
 	bool m_engagement;
+
+	bool m_isActive;
 };

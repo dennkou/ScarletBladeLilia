@@ -13,7 +13,8 @@ EnemyUi::EnemyUi()
 
 	m_constBuffer->SetParameter(static_cast<unsigned int>(ConstBufferOffset::VIEW_PROJECTION_OFFSET), Crown::RenderObject::Camera::GetInstance()->GetView() * Crown::RenderObject::Camera::GetInstance()->GetProjection());
 	m_constBuffer->SetParameter(static_cast<unsigned int>(ConstBufferOffset::POSITION_OFFSET), DirectX::XMFLOAT3(0, 20, -100));
-	m_constBuffer->SetParameter(static_cast<unsigned int>(ConstBufferOffset::HP_PERCENT_OFFSET), 1);
+	m_constBuffer->SetParameter(static_cast<unsigned int>(ConstBufferOffset::HP_PERCENT_OFFSET), 0);
+	m_constBuffer->SetParameter(static_cast<unsigned int>(ConstBufferOffset::DRAW_FLAG), 1.0f);
 	m_constBuffer->SetParameter(static_cast<unsigned int>(ConstBufferOffset::SIZE_OFFSET), DirectX::XMFLOAT2(0.07f, 0.01f));
 	m_constBuffer->SetParameter(static_cast<unsigned int>(ConstBufferOffset::COLOR_OFFSET), DirectX::XMFLOAT3(1.0f, 0.2f, 0.2f));
 	m_constBuffer->SetParameter(static_cast<unsigned int>(ConstBufferOffset::FLAME_COLOR_OFFSET), DirectX::XMFLOAT3(0.2f, 0.2f, 0.2f));
@@ -34,6 +35,7 @@ EnemyUi::EnemyUi()
 		graphicsPipeline.SetGS(*Crown::RenderObject::Shader::GetInstance()->GetShader(L"UI/EnemyHPUI_GS"));
 		graphicsPipeline.SetPS(*Crown::RenderObject::Shader::GetInstance()->GetShader(L"UI/EnemyHPUI_PS"));
 	}
+	graphicsPipeline.SetPrimitiveTopologyType(D3D12_PRIMITIVE_TOPOLOGY_TYPE_POINT);
 	D3D12_GRAPHICS_PIPELINE_STATE_DESC graphicsPipelineState = graphicsPipeline.GetState();
 	Crown::RenderObject::UiManager::GetInstance()->GetDevice()->CreateGraphicsPipelineState(&graphicsPipelineState, IID_PPV_ARGS(&pipelineState));
 }
@@ -47,6 +49,7 @@ void EnemyUi::Render(ID3D12GraphicsCommandList* commandList)
 {
 	m_constBuffer->SetParameter(static_cast<unsigned int>(ConstBufferOffset::VIEW_PROJECTION_OFFSET), Crown::RenderObject::Camera::GetInstance()->GetView() * Crown::RenderObject::Camera::GetInstance()->GetProjection());
 	commandList->SetPipelineState(pipelineState.Get());
+	commandList->IASetPrimitiveTopology(D3D12_PRIMITIVE_TOPOLOGY::D3D_PRIMITIVE_TOPOLOGY_POINTLIST);
 	commandList->SetGraphicsRootDescriptorTable(0, Crown::RenderObject::DescriptorHeaps::GetInstance().GetHandle(m_constBuffer->GetDescriptorOffset()));
 }
 
@@ -66,4 +69,16 @@ void EnemyUi::SetPosition(DirectX::XMFLOAT3 position)
 	position.y += m_positionOffset.y;
 	position.z += m_positionOffset.z;
 	m_constBuffer->SetParameter(static_cast<unsigned int>(ConstBufferOffset::POSITION_OFFSET), position);
+}
+
+void EnemyUi::SetDrawFlag(bool flag)
+{
+	if (flag)
+	{
+		m_constBuffer->SetParameter(static_cast<unsigned int>(ConstBufferOffset::DRAW_FLAG), 1.0f);
+	}
+	else
+	{
+		m_constBuffer->SetParameter(static_cast<unsigned int>(ConstBufferOffset::DRAW_FLAG), 0.0f);
+	}
 }

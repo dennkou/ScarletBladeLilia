@@ -27,6 +27,8 @@ Sky::Sky()
 			D3D12_DEPTH_STENCIL_DESC depthStencilState = graphicsPipeline.GetState().DepthStencilState;
 			depthStencilState.DepthEnable = false;
 			graphicsPipeline.SetDepthStencilState(depthStencilState);
+			graphicsPipeline.SetNumRenderTargets(2);
+			graphicsPipeline.SetRTVFormats(1, DXGI_FORMAT_R8G8B8A8_UNORM);
 			graphicsPipeline.SetVS(*Crown::RenderObject::Shader::GetInstance()->GetShader(L"Obj/SkyVS"));
 			graphicsPipeline.SetPS(*Crown::RenderObject::Shader::GetInstance()->GetShader(L"Obj/SkyPS"));
 			graphicsPipeline.SetInputLayout(Crown::RenderObject::Pmx::GetInputLayout());
@@ -48,7 +50,7 @@ Sky::Sky()
 
 		std::vector<Crown::RenderObject::BlobConstBuffer> constBuffers;
 
-		materialFactory.CreateMaterial(graphicsPipeline, m_model, 0, Crown::RenderObject::MaterialTag::Normal, constBufferIndexs, textureBufferIndexs, resources, constBuffers);
+		materialFactory.CreateMaterial(graphicsPipeline, m_model, 0, Crown::RenderObject::MaterialTag::FrameBuffer, constBufferIndexs, textureBufferIndexs, resources, constBuffers);
 	}
 }
 

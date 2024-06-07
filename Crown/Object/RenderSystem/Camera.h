@@ -4,9 +4,11 @@
 #include <DirectXMath.h>
 #include <d3d12.h>
 #include <wrl.h>
+#include <memory>
 #include "RenderCommands/SetDescriptor.h"
 #include "DirectX12Wraps/ResourceUploader.h"
 #include "RenderCommands/RenderCommandQueue.h"
+#include "./BlobConstBuffer/BlobConstBuffer.h"
 namespace Crown
 {
 	namespace RenderObject
@@ -34,6 +36,8 @@ namespace Crown
 			inline DirectX::XMFLOAT3 GetRotate() const noexcept { return m_cpuSideCameraData.rotate; }
 			inline float GetFovAngle() const noexcept { return m_cpuSideCameraData.fovAngle; }
 			void SetFovAngle(float fovAngle) noexcept { m_cpuSideCameraData.fovAngle = fovAngle; 	DataUpload(); }
+			inline float GetNear() const noexcept { return m_cpuSideCameraData.nearZ; }
+			inline float GetFar() const noexcept { return m_cpuSideCameraData.farZ; }
 
 			inline unsigned int GetDescriptorOffset() { return m_descriptorOffset; }
 			inline const Microsoft::WRL::ComPtr<ID3D12Resource> GetConstConstBuffer() { return m_resource; }
@@ -52,7 +56,9 @@ namespace Crown
 				DirectX::XMMATRIX projection;					//	プロジェクション行列だよ☆
 				DirectX::XMMATRIX viewProjection;				//	ビュー行列とプロジェクション行列だよ☆
 				DirectX::XMFLOAT3 eye;							//	カメラ位置だよ☆
+				float pad;
 				DirectX::XMFLOAT3 rotate;						//	カメラの回転角だよ☆
+				float pad1;
 				float fovAngle;									//	カメラの画角だよ☆
 				float aspect;									//	アスペクト比だよ☆
 				float nearZ;									//	ニアー面だよ☆

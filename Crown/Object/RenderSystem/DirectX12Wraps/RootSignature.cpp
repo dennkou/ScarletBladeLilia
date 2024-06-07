@@ -69,6 +69,9 @@ void Crown::RenderObject::RootSignature::Create(ID3D12Device* device)
 	samplerDesc[1].AddressW = D3D12_TEXTURE_ADDRESS_MODE_CLAMP;
 	samplerDesc[1].ShaderRegister = 1;
 	samplerDesc[2] = samplerDesc[0];//変更点以外をコピー
+	samplerDesc[2].Filter = D3D12_FILTER_COMPARISON_MIN_MAG_MIP_LINEAR;
+	samplerDesc[2].ComparisonFunc = D3D12_COMPARISON_FUNC_GREATER;
+	samplerDesc[2].MaxAnisotropy = 1;
 	samplerDesc[2].AddressU = D3D12_TEXTURE_ADDRESS_MODE_BORDER;
 	samplerDesc[2].AddressV = D3D12_TEXTURE_ADDRESS_MODE_BORDER;
 	samplerDesc[2].AddressW = D3D12_TEXTURE_ADDRESS_MODE_BORDER;

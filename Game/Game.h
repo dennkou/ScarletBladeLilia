@@ -65,7 +65,8 @@ private:
 		ObjectIndex i = 0;
 
 		//	指定された関数の呼び出し☆　実行によりサイズが変更するかも知れないからsize関数を使用するよ☆
-		while (i + moveNum < static_cast<ObjectIndex>(m_gameObjects.size()))
+		static const ObjectIndex objectNum = static_cast<ObjectIndex>(m_gameObjects.size());
+		while (i + moveNum < objectNum)
 		{
 			m_gameObjects[i] = m_gameObjects[i + moveNum];
 
@@ -113,10 +114,10 @@ private:
 		std::unordered_map<GameObject*, std::string> m_gameObjectName;	//	ゲームオブジェクト名の配列だよ☆
 
 		double m_updateTime;
-		unsigned int m_updateNum;
+		unsigned long long m_updateNum;
 	#endif // DISPLAY_LOG
 	bool m_endFlag;
 
-	Timer m_animTimer;
+	Timer m_timer;
 };
 #endif GAME

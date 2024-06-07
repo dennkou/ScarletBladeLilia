@@ -8,23 +8,12 @@
 
 
 
-Crown::RenderObject::TextureBuffer::TextureBuffer()
+Crown::RenderObject::TextureBuffer::TextureBuffer(ID3D12Device* device, ID3D12GraphicsCommandList* copyCommandList, DescriptorHeaps* descriptorHeap)
 	:
 	m_device(),
 	m_descriptorHeap(),
-	m_copyCommandList()
-{
-}
-
-
-
-Crown::RenderObject::TextureBuffer::~TextureBuffer()
-{
-}
-
-
-
-void Crown::RenderObject::TextureBuffer::Initialize(ID3D12Device* device, ID3D12GraphicsCommandList* copyCommandList, DescriptorHeaps* descriptorHeap)
+	m_copyCommandList(),
+	m_textureDescriptorHeapOffsets()
 {
 	m_device = device;
 	m_descriptorHeap = descriptorHeap;
@@ -50,12 +39,18 @@ void Crown::RenderObject::TextureBuffer::Initialize(ID3D12Device* device, ID3D12
 	RGBA grayGradation[2 * 256] = {};
 	for (unsigned int i = 0; i < 2 * 256; ++i)
 	{
-		grayGradation[i].r = static_cast<unsigned char>(i>>1);
-		grayGradation[i].g = static_cast<unsigned char>(i>>1);
-		grayGradation[i].b = static_cast<unsigned char>(i>>1);
+		grayGradation[i].r = static_cast<unsigned char>(i >> 1);
+		grayGradation[i].g = static_cast<unsigned char>(i >> 1);
+		grayGradation[i].b = static_cast<unsigned char>(i >> 1);
 		grayGradation[i].a = 255;
 	}
 	CreateTextureData(L"グレイグラデーションテクスチャ", 2, 256, grayGradation);
+}
+
+
+
+Crown::RenderObject::TextureBuffer::~TextureBuffer()
+{
 }
 
 

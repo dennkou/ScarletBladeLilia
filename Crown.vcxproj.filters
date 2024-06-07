@@ -107,7 +107,7 @@
     <ClCompile Include="Crown\Object\RenderSystem\UI\UIType\UiGraphic.cpp">
       <Filter>Crown\Object\RenderSystem\UI\UIType</Filter>
     </ClCompile>
-    <ClCompile Include="Crown\Object\RenderSystem\RenderTarget.cpp">
+    <ClCompile Include="Crown\Object\RenderSystem\RenderTarget\RenderTarget.cpp">
       <Filter>Crown\Object\RenderSystem</Filter>
     </ClCompile>
     <ClCompile Include="Game\GameObject\GameObject.cpp">
@@ -237,6 +237,10 @@
     <ClCompile Include="Game\GameObject\Stage\Object\Character\Enemy\AIState\CombatAction\Shot.cpp" />
     <ClCompile Include="Game\GameObject\Stage\Object\Bullet.cpp" />
     <ClCompile Include="Game\GameObject\Stage\Collider\BulletCollider.cpp" />
+    <ClCompile Include="Crown\Object\RenderSystem\RenderTarget\MultipleRenderTarget.cpp" />
+    <ClCompile Include="Game\GameObject\Render\FrameRender.cpp" />
+    <ClCompile Include="Game\GameObject\Render\PostEffects.cpp" />
+    <ClCompile Include="Game\GameObject\Stage\StageModel.cpp" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Crown">
@@ -499,7 +503,7 @@
     <ClInclude Include="Crown\Object\RenderSystem\UI\UIType\UiGraphic.h">
       <Filter>Crown\Object\RenderSystem\UI\UIType</Filter>
     </ClInclude>
-    <ClInclude Include="Crown\Object\RenderSystem\RenderTarget.h">
+    <ClInclude Include="Crown\Object\RenderSystem\RenderTarget\RenderTarget.h">
       <Filter>Crown\Object\RenderSystem</Filter>
     </ClInclude>
     <ClInclude Include="Game\GameObject\GameObject.h">
@@ -658,6 +662,12 @@
     <ClInclude Include="Game\GameObject\Stage\Object\Character\Enemy\AIState\CombatAction\Shot.h" />
     <ClInclude Include="Game\GameObject\Stage\Object\Bullet.h" />
     <ClInclude Include="Game\GameObject\Stage\Collider\BulletCollider.h" />
+    <ClInclude Include="Crown\Object\RenderSystem\RenderTarget\IRenderTarget.h" />
+    <ClInclude Include="Crown\Object\RenderSystem\RenderTarget\MultipleRenderTarget.h" />
+    <ClInclude Include="Game\GameObject\Render\FrameRender.h" />
+    <ClInclude Include="Game\GameObject\Render\PostEffects.h" />
+    <ClInclude Include="Crown\Object\RenderSystem\Model\IModel.h" />
+    <ClInclude Include="Game\GameObject\Stage\StageModel.h" />
   </ItemGroup>
   <ItemGroup>
     <Text Include="ヘッダーテンプレート.txt" />
@@ -673,9 +683,6 @@
       <Filter>Crown\Shader\MMD</Filter>
     </FxCompile>
     <FxCompile Include="Shader\Riria\Riria_VS.hlsl">
-      <Filter>Shader\Riria</Filter>
-    </FxCompile>
-    <FxCompile Include="Shader\Riria\RiriaClothes_PS.hlsl">
       <Filter>Shader\Riria</Filter>
     </FxCompile>
     <FxCompile Include="Shader\Riria\RiriaEye_PS.hlsl">
@@ -699,25 +706,16 @@
     <FxCompile Include="Crown\Shader\UIvs.hlsl">
       <Filter>Crown\Shader\UI</Filter>
     </FxCompile>
-    <FxCompile Include="Crown\Shader\UIGs.hlsl">
-      <Filter>Crown\Shader\UI</Filter>
-    </FxCompile>
     <FxCompile Include="Crown\Shader\UIPs.hlsl">
       <Filter>Crown\Shader\UI</Filter>
     </FxCompile>
     <FxCompile Include="Shader\UI\PlayerHPUI\PlayerHPUI_VS.hlsl">
       <Filter>Shader\UI</Filter>
     </FxCompile>
-    <FxCompile Include="Shader\UI\PlayerHPUI\PlayerHPUI_GS.hlsl">
-      <Filter>Shader\UI</Filter>
-    </FxCompile>
     <FxCompile Include="Shader\UI\PlayerHPUI\PlayerHPUI_PS.hlsl">
       <Filter>Shader\UI</Filter>
     </FxCompile>
     <FxCompile Include="Shader\UI\EnemyHPUI\EnemyHPUI_VS.hlsl">
-      <Filter>Shader\UI</Filter>
-    </FxCompile>
-    <FxCompile Include="Shader\UI\EnemyHPUI\EnemyHPUI_GS.hlsl">
       <Filter>Shader\UI</Filter>
     </FxCompile>
     <FxCompile Include="Shader\UI\EnemyHPUI\EnemyHPUI_PS.hlsl">
@@ -731,16 +729,21 @@
     <FxCompile Include="Shader\Default\ShadowPS.hlsl" />
     <FxCompile Include="Shader\Default\DefaultVS.hlsl" />
     <FxCompile Include="Shader\Default\DefaultPS.hlsl" />
-    <FxCompile Include="Shader\Obj\Obj_Shadow_VS.hlsl" />
     <FxCompile Include="Shader\Obj\Obj_Shadow_PS.hlsl" />
+    <FxCompile Include="Shader\Obj\Obj_Shadow_VS.hlsl" />
+    <FxCompile Include="Shader\Default\BlurVS.hlsl" />
+    <FxCompile Include="Shader\Default\BlurPS.hlsl" />
+    <FxCompile Include="Shader\Default\FrameBufferVS.hlsl" />
+    <FxCompile Include="Shader\Default\FrameBufferPS.hlsl" />
+    <FxCompile Include="Shader\Default\RenderingPS.hlsl" />
+    <FxCompile Include="Shader\Default\RenderingVS.hlsl" />
+    <FxCompile Include="Shader\UI\EnemyHPUI\EnemyHPUI_GS.hlsl" />
+    <FxCompile Include="Shader\UI\PlayerHPUI\PlayerHPUI_GS.hlsl" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Crown\Shader\Data.hlsli">
       <Filter>Crown\Shader\MMD</Filter>
     </None>
-    <None Include="Crown\Shader\UI.hlsli">
-      <Filter>Crown\Shader\UI</Filter>
-    </None>
-    <None Include="packages.config" />
+    <None Include="Shader\Default\ShadowHeader.hlsli" />
   </ItemGroup>
 </Project>

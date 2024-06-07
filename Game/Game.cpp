@@ -33,6 +33,7 @@ Game::Game()
 	CreateGameObject<Stage>();			//	ステージの生成をするよ☆
 
 	EventTrigger(&GameObject::OnGameInitialize);
+	m_timer.Update();
 }
 
 Game::~Game()
@@ -53,8 +54,8 @@ Game::~Game()
 // 更新の実行☆
 void Game::Update()
 {
-	m_animTimer.Update();
-	EventTrigger<Timer&>(&GameObject::OnGameUpdate, m_animTimer);
+	m_timer.Update();
+	EventTrigger<Timer&>(&GameObject::OnGameUpdate, m_timer);
 #ifdef DISPLAY_LOG
 	m_updateTime += m_timer.GetSystemTime();
 	++m_updateNum;

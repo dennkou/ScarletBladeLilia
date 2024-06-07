@@ -9,7 +9,9 @@ Microsoft::WRL::ComPtr<ID3D12PipelineState> Crown::RenderObject::UiGraphic::pipe
 Crown::RenderObject::UiGraphic::UiGraphic()
 	:
 	m_descriptorOffset(0),
-	m_textureResource()
+	m_textureResource(),
+	m_pos(0,0),
+	m_size(1,1)
 {
 	CreatConstBuffer();
 	SetAlpha(0.0f);
@@ -43,7 +45,7 @@ void Crown::RenderObject::UiGraphic::Render(ID3D12GraphicsCommandList* commandLi
 {
 	commandList->SetPipelineState(pipelineState.Get());
 	commandList->SetGraphicsRootDescriptorTable(0, Crown::RenderObject::DescriptorHeaps::GetInstance().GetHandle(m_constBuffer->GetDescriptorOffset()));
-	commandList->SetGraphicsRootDescriptorTable(1, Crown::RenderObject::DescriptorHeaps::GetInstance().GetHandle(m_descriptorOffset));
+	commandList->SetGraphicsRootDescriptorTable(2, Crown::RenderObject::DescriptorHeaps::GetInstance().GetHandle(m_descriptorOffset));
 }
 
 void Crown::RenderObject::UiGraphic::CreatPipelineState()
@@ -51,7 +53,6 @@ void Crown::RenderObject::UiGraphic::CreatPipelineState()
 	GraphicsPipeline graphicsPipeline;
 	graphicsPipeline.ChangeGraphicsPipelineState(UiManager::GetInstance()->GetDefaultGraphicsPipelineStateDesc());
 	graphicsPipeline.SetVS(*Crown::RenderObject::Shader::GetInstance()->GetShader(L"UI/UIvs"));
-	graphicsPipeline.SetGS(*Crown::RenderObject::Shader::GetInstance()->GetShader(L"UI/UIGs"));
 	graphicsPipeline.SetPS(*Crown::RenderObject::Shader::GetInstance()->GetShader(L"UI/UIPs"));
 	D3D12_GRAPHICS_PIPELINE_STATE_DESC graphicsPipelineState = graphicsPipeline.GetState();
 	UiManager::GetInstance()->GetDevice()->CreateGraphicsPipelineState(&graphicsPipelineState, IID_PPV_ARGS(&pipelineState));
@@ -61,19 +62,19 @@ void Crown::RenderObject::UiGraphic::CreatConstBuffer()
 {
 	std::vector<Crown::RenderObject::BlobConstBuffer::DataType> bufferData;
 
-	bufferData.emplace_back(Crown::RenderObject::BlobConstBuffer::DataType::Float2);
-	bufferData.emplace_back(Crown::RenderObject::BlobConstBuffer::DataType::Float2);
-	bufferData.emplace_back(Crown::RenderObject::BlobConstBuffer::DataType::Float);
-	bufferData.emplace_back(Crown::RenderObject::BlobConstBuffer::DataType::Float4);
+	bufferData.emplace_back(Crown::RenderObject::BlobConstBuffer::DataType::Matrix);
 	bufferData.emplace_back(Crown::RenderObject::BlobConstBuffer::DataType::Float3);
 	bufferData.emplace_back(Crown::RenderObject::BlobConstBuffer::DataType::Float);
 
 	m_constBuffer = new Crown::RenderObject::BlobConstBuffer(bufferData, UiManager::GetInstance()->GetDevice());
 
-	m_constBuffer->SetParameter(POSITION_OFFSET, DirectX::XMFLOAT2(0,0));
-	m_constBuffer->SetParameter(SIZE_OFFSET, DirectX::XMFLOAT2(1,1));
-	m_constBuffer->SetParameter(ROTATE_OFFSET, 0.0f);
-	m_constBuffer->SetParameter(STRIP_OFFSET, DirectX::XMFLOAT4(0.0f,1.0f,0.0f,1.0f));
-	m_constBuffer->SetParameter(COLOR_OFFSET, DirectX::XMFLOAT3(1.0f,1.0f,1.0f));
+	ConstBufferUpdate();
+}
+
+void Crown::RenderObject::UiGraphic::ConstBufferUpdate()
+{
+	m_constBuffer->SetParameter(MATRIX_OFFSET, DirectX::XMMatrixScaling(m_size.x, m_size.y, 0) * DirectX::XMMatrixTranslation(m_pos.x, m_pos.y, 0));
+	//m_constBuffer->SetParameter(MATRIX_OFFSET, DirectX::XMMatrixIdentity());
+	m_constBuffer->SetParameter(COLOR_OFFSET, DirectX::XMFLOAT3(1.0f, 1.0f, 1.0f));
 	m_constBuffer->SetParameter(ALPHA_OFFSET, 1.0f);
 }

@@ -573,3 +573,45 @@ DirectX::XMFLOAT3 ColliderAlgorithm::GetTrianglePointMinPosition(Point point, Tr
 	Result.z = triangle.point[0].point.z + Line12.z * v - Line31.z * w;
 	return Result;
 }
+
+bool ColliderAlgorithm::GetCalcRaySphere(LineSegment lineSegment, Sphere sphere, Point& point1, Point& point2)
+{
+	DirectX::XMFLOAT3 lineVector = VectorSub(lineSegment.start.point, lineSegment.end.point);
+
+	sphere.point.point.x = sphere.point.point.x - lineSegment.start.point.x; 
+	sphere.point.point.y = sphere.point.point.y - lineSegment.start.point.y;
+	sphere.point.point.z = sphere.point.point.z - lineSegment.start.point.z;
+
+	float A = VectorInnerProduct(lineVector, lineVector);
+	float B = VectorInnerProduct(lineVector, sphere.point.point);
+	float C = VectorInnerProduct(sphere.point.point, sphere.point.point) - sphere.radius * sphere.radius;
+
+	if (A == 0.0f)
+	{
+		return false; // ƒŒƒC‚Ì’·‚³‚ª0
+	}
+
+	float s = B * B - A * C;
+	if (s < 0.0f)
+	{
+		return false; // Õ“Ë‚µ‚Ä‚¢‚È‚¢
+	}
+
+	s = sqrtf(s);
+	float a1 = (B - s) / A;
+	float a2 = (B + s) / A;
+
+	if (a1 < 0.0f || a2 < 0.0f)
+	{
+		return false; // ƒŒƒC‚Ì”½‘Î‚ÅÕ“Ë
+	}
+
+	point1.point.x = lineSegment.start.point.x + a1 * lineVector.x;
+	point1.point.y = lineSegment.start.point.y + a1 * lineVector.y;
+	point1.point.z = lineSegment.start.point.z + a1 * lineVector.z;
+	point2.point.x = lineSegment.start.point.x + a2 * lineVector.x;
+	point2.point.y = lineSegment.start.point.y + a2 * lineVector.y;
+	point2.point.z = lineSegment.start.point.z + a2 * lineVector.z;
+
+	return true;
+}

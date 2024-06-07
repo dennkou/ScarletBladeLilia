@@ -9,21 +9,22 @@
 
 std::unique_ptr<Crown::RenderObject::GraphicsPipeline> Crown::RenderObject::Pmx::graphicsPipeline = nullptr;
 D3D12_INPUT_LAYOUT_DESC Crown::RenderObject::Pmx::inputLayoutDesc;
-const D3D12_INPUT_ELEMENT_DESC Crown::RenderObject::Pmx::inputLayout[13] =
+//const D3D12_INPUT_ELEMENT_DESC Crown::RenderObject::Pmx::inputLayout[13] =
+const D3D12_INPUT_ELEMENT_DESC Crown::RenderObject::Pmx::inputLayout[5] =
 {
 	{ "POSITION",		0,DXGI_FORMAT_R32G32B32_FLOAT,		0,D3D12_APPEND_ALIGNED_ELEMENT,D3D12_INPUT_CLASSIFICATION_PER_VERTEX_DATA,0 },
 	{ "NORMAL",			0,DXGI_FORMAT_R32G32B32_FLOAT,		0,D3D12_APPEND_ALIGNED_ELEMENT,D3D12_INPUT_CLASSIFICATION_PER_VERTEX_DATA,0 },
 	{ "TEXCOORD",		0,DXGI_FORMAT_R32G32_FLOAT,			0,D3D12_APPEND_ALIGNED_ELEMENT,D3D12_INPUT_CLASSIFICATION_PER_VERTEX_DATA,0 },
-	{ "ADDTEXCOORD",	0,DXGI_FORMAT_R32G32B32A32_FLOAT,	0,D3D12_APPEND_ALIGNED_ELEMENT,D3D12_INPUT_CLASSIFICATION_PER_VERTEX_DATA,0 },
-	{ "ADDTEXCOORD",	1,DXGI_FORMAT_R32G32B32A32_FLOAT,	0,D3D12_APPEND_ALIGNED_ELEMENT,D3D12_INPUT_CLASSIFICATION_PER_VERTEX_DATA,0 },
-	{ "ADDTEXCOORD",	2,DXGI_FORMAT_R32G32B32A32_FLOAT,	0,D3D12_APPEND_ALIGNED_ELEMENT,D3D12_INPUT_CLASSIFICATION_PER_VERTEX_DATA,0 },
-	{ "ADDTEXCOORD",	3,DXGI_FORMAT_R32G32B32A32_FLOAT,	0,D3D12_APPEND_ALIGNED_ELEMENT,D3D12_INPUT_CLASSIFICATION_PER_VERTEX_DATA,0 },
-	{ "WEIGHT_TYPE",	0,DXGI_FORMAT_R8_UINT,				0,D3D12_APPEND_ALIGNED_ELEMENT,D3D12_INPUT_CLASSIFICATION_PER_VERTEX_DATA,0 },
+	//{ "ADDTEXCOORD",	0,DXGI_FORMAT_R32G32B32A32_FLOAT,	0,D3D12_APPEND_ALIGNED_ELEMENT,D3D12_INPUT_CLASSIFICATION_PER_VERTEX_DATA,0 },
+	//{ "ADDTEXCOORD",	1,DXGI_FORMAT_R32G32B32A32_FLOAT,	0,D3D12_APPEND_ALIGNED_ELEMENT,D3D12_INPUT_CLASSIFICATION_PER_VERTEX_DATA,0 },
+	//{ "ADDTEXCOORD",	2,DXGI_FORMAT_R32G32B32A32_FLOAT,	0,D3D12_APPEND_ALIGNED_ELEMENT,D3D12_INPUT_CLASSIFICATION_PER_VERTEX_DATA,0 },
+	//{ "ADDTEXCOORD",	3,DXGI_FORMAT_R32G32B32A32_FLOAT,	0,D3D12_APPEND_ALIGNED_ELEMENT,D3D12_INPUT_CLASSIFICATION_PER_VERTEX_DATA,0 },
+	//{ "WEIGHT_TYPE",	0,DXGI_FORMAT_R8_UINT,				0,D3D12_APPEND_ALIGNED_ELEMENT,D3D12_INPUT_CLASSIFICATION_PER_VERTEX_DATA,0 },
 	{ "BONE_INDEX",		0,DXGI_FORMAT_R32G32B32A32_UINT,	0,D3D12_APPEND_ALIGNED_ELEMENT,D3D12_INPUT_CLASSIFICATION_PER_VERTEX_DATA,0 },
 	{ "WEIGHT",			0,DXGI_FORMAT_R32G32B32A32_FLOAT,	0,D3D12_APPEND_ALIGNED_ELEMENT,D3D12_INPUT_CLASSIFICATION_PER_VERTEX_DATA,0 },
-	{ "SDEF_C",			0,DXGI_FORMAT_R32G32B32A32_FLOAT,	0,D3D12_APPEND_ALIGNED_ELEMENT,D3D12_INPUT_CLASSIFICATION_PER_VERTEX_DATA,0 },
-	{ "SDEF_R",			0,DXGI_FORMAT_R32G32B32A32_FLOAT,	0,D3D12_APPEND_ALIGNED_ELEMENT,D3D12_INPUT_CLASSIFICATION_PER_VERTEX_DATA,0 },
-	{ "SDEF_R",			1,DXGI_FORMAT_R32G32B32A32_FLOAT,	0,D3D12_APPEND_ALIGNED_ELEMENT,D3D12_INPUT_CLASSIFICATION_PER_VERTEX_DATA,0 }
+	//{ "SDEF_C",			0,DXGI_FORMAT_R32G32B32A32_FLOAT,	0,D3D12_APPEND_ALIGNED_ELEMENT,D3D12_INPUT_CLASSIFICATION_PER_VERTEX_DATA,0 },
+	//{ "SDEF_R",			0,DXGI_FORMAT_R32G32B32A32_FLOAT,	0,D3D12_APPEND_ALIGNED_ELEMENT,D3D12_INPUT_CLASSIFICATION_PER_VERTEX_DATA,0 },
+	//{ "SDEF_R",			1,DXGI_FORMAT_R32G32B32A32_FLOAT,	0,D3D12_APPEND_ALIGNED_ELEMENT,D3D12_INPUT_CLASSIFICATION_PER_VERTEX_DATA,0 }
 };
 
 
@@ -33,6 +34,7 @@ void Crown::RenderObject::Pmx::Load(ID3D12Device* device, std::wstring& fileName
 {
 	if (!graphicsPipeline)
 	{
+		//float16_t a;
 		graphicsPipeline.reset(new GraphicsPipeline());
 		D3D12_RASTERIZER_DESC rasterizerDesc;
 		rasterizerDesc = graphicsPipeline->GetState().RasterizerState;
@@ -42,7 +44,7 @@ void Crown::RenderObject::Pmx::Load(ID3D12Device* device, std::wstring& fileName
 		graphicsPipeline->SetPS(*Shader::GetInstance()->GetShader(L"PMD/MMDPs"));
 		graphicsPipeline->SetRootSignature(DefaultRootSignature::GetRootSignature().GetRootSignature().Get());
 		inputLayoutDesc.pInputElementDescs = inputLayout;
-		inputLayoutDesc.NumElements = 13;
+		inputLayoutDesc.NumElements = InputElementNum;
 		graphicsPipeline->SetInputLayout(inputLayoutDesc);
 		graphicsPipeline->Commit(device);
 	}
@@ -109,10 +111,14 @@ void Crown::RenderObject::Pmx::Load(ID3D12Device* device, std::wstring& fileName
 			fread(&vertex.uv, sizeof(DirectX::XMFLOAT2), 1, file);
 			for (int i = 0; i < loadMode[static_cast<int>(LoadModeIndexs::addUvNum)]; ++i)
 			{
-				fread(&vertex.addUv[i], sizeof(DirectX::XMFLOAT4), 1, file);
+				DirectX::XMFLOAT4 addUv;
+				fread(&addUv, sizeof(DirectX::XMFLOAT4), 1, file);
+				//fread(&vertex.addUv[i], sizeof(DirectX::XMFLOAT4), 1, file);
 			}
-			fread(&vertex.weightType, sizeof(char), 1, file);
-			switch (vertex.weightType)
+			//fread(&vertex.weightType, sizeof(char), 1, file);
+			char weightType;
+			fread(&weightType, sizeof(char), 1, file);
+			switch (weightType)
 			{
 				case 0:
 					fread(&vertex.boneIndex[0], loadMode[static_cast<int>(LoadModeIndexs::boneIndexSize)], 1, file);
@@ -123,9 +129,9 @@ void Crown::RenderObject::Pmx::Load(ID3D12Device* device, std::wstring& fileName
 					vertex.boneWeight[1] = 0;
 					vertex.boneWeight[2] = 0;
 					vertex.boneWeight[3] = 0;
-					vertex.sdef_C = DirectX::XMFLOAT3(0.0f, 0.0f, 0.0f);
-					vertex.sdef_R0 = DirectX::XMFLOAT3(0.0f, 0.0f, 0.0f);
-					vertex.sdef_R1 = DirectX::XMFLOAT3(0.0f, 0.0f, 0.0f);
+					//vertex.sdef_C = DirectX::XMFLOAT3(0.0f, 0.0f, 0.0f);
+					//vertex.sdef_R0 = DirectX::XMFLOAT3(0.0f, 0.0f, 0.0f);
+					//vertex.sdef_R1 = DirectX::XMFLOAT3(0.0f, 0.0f, 0.0f);
 					break;
 				case 1:
 					fread(&vertex.boneIndex[0], loadMode[static_cast<int>(LoadModeIndexs::boneIndexSize)], 1, file);
@@ -136,9 +142,9 @@ void Crown::RenderObject::Pmx::Load(ID3D12Device* device, std::wstring& fileName
 					vertex.boneWeight[1] = 1.0f - vertex.boneWeight[0];
 					vertex.boneWeight[2] = 0;
 					vertex.boneWeight[3] = 0;
-					vertex.sdef_C = DirectX::XMFLOAT3(0.0f, 0.0f, 0.0f);
-					vertex.sdef_R0 = DirectX::XMFLOAT3(0.0f, 0.0f, 0.0f);
-					vertex.sdef_R1 = DirectX::XMFLOAT3(0.0f, 0.0f, 0.0f);
+					//vertex.sdef_C = DirectX::XMFLOAT3(0.0f, 0.0f, 0.0f);
+					//vertex.sdef_R0 = DirectX::XMFLOAT3(0.0f, 0.0f, 0.0f);
+					//vertex.sdef_R1 = DirectX::XMFLOAT3(0.0f, 0.0f, 0.0f);
 					break;
 				case 2:
 					fread(&vertex.boneIndex[0], loadMode[static_cast<int>(LoadModeIndexs::boneIndexSize)], 1, file);
@@ -149,9 +155,9 @@ void Crown::RenderObject::Pmx::Load(ID3D12Device* device, std::wstring& fileName
 					fread(&vertex.boneWeight[1], sizeof(float), 1, file);
 					fread(&vertex.boneWeight[2], sizeof(float), 1, file);
 					fread(&vertex.boneWeight[3], sizeof(float), 1, file);
-					vertex.sdef_C = DirectX::XMFLOAT3(0.0f, 0.0f, 0.0f);
-					vertex.sdef_R0 = DirectX::XMFLOAT3(0.0f, 0.0f, 0.0f);
-					vertex.sdef_R1 = DirectX::XMFLOAT3(0.0f, 0.0f, 0.0f);
+					//vertex.sdef_C = DirectX::XMFLOAT3(0.0f, 0.0f, 0.0f);
+					//vertex.sdef_R0 = DirectX::XMFLOAT3(0.0f, 0.0f, 0.0f);
+					//vertex.sdef_R1 = DirectX::XMFLOAT3(0.0f, 0.0f, 0.0f);
 					break;
 				case 3:
 					fread(&vertex.boneIndex[0], loadMode[static_cast<int>(LoadModeIndexs::boneIndexSize)], 1, file);
@@ -162,9 +168,14 @@ void Crown::RenderObject::Pmx::Load(ID3D12Device* device, std::wstring& fileName
 					vertex.boneWeight[1] = 1.0f - vertex.boneWeight[0];
 					vertex.boneWeight[2] = 0;
 					vertex.boneWeight[3] = 0;
-					fread(&vertex.sdef_C, sizeof(DirectX::XMFLOAT3), 1, file);
-					fread(&vertex.sdef_R1, sizeof(DirectX::XMFLOAT3), 1, file);
-					fread(&vertex.sdef_R0, sizeof(DirectX::XMFLOAT3), 1, file);
+
+					DirectX::XMFLOAT3 tmp;
+					fread(&tmp, sizeof(DirectX::XMFLOAT3), 1, file);
+					fread(&tmp, sizeof(DirectX::XMFLOAT3), 1, file);
+					fread(&tmp, sizeof(DirectX::XMFLOAT3), 1, file);
+					//fread(&vertex.sdef_C, sizeof(DirectX::XMFLOAT3), 1, file);
+					//fread(&vertex.sdef_R1, sizeof(DirectX::XMFLOAT3), 1, file);
+					//fread(&vertex.sdef_R0, sizeof(DirectX::XMFLOAT3), 1, file);
 					break;
 				default:
 					assert(0);		//	àŸèÌÇ»êîílÇæÇÊÅô

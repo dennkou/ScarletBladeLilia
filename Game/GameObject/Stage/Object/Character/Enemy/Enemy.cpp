@@ -9,6 +9,8 @@
 Enemy::Enemy(Game* game, DirectX::XMFLOAT3 positon, DirectX::XMFLOAT3 rotate, NavigationAI* navigationAI, std::shared_ptr<std::mt19937> random)
 	:
 	GameObject(game),
+	START_POSITION(positon),
+	START_ROTATE(rotate),
 	m_position(positon),
 	m_rotate(rotate),
 	m_hp(MAX_HP),
@@ -16,7 +18,8 @@ Enemy::Enemy(Game* game, DirectX::XMFLOAT3 positon, DirectX::XMFLOAT3 rotate, Na
 	m_offset(),
 	m_random(random),
 	m_damageAnimTimer(DamageAnimLength),
-	m_damageAnim()
+	m_damageAnim(),
+	m_isActive(true)
 {
 	m_model.LoadPMX(L"Resource/Model/PMX/Enemy.pmx");
 
@@ -51,6 +54,11 @@ Enemy::~Enemy()
 
 void Enemy::OnGameUpdate(Timer& timer)
 {
+	if (!m_isActive)
+	{
+		return;
+	}
+
 	if (m_damageAnimTimer < DamageAnimLength)
 	{
 		m_damageAnimTimer += timer.GetEnemyTime() / 1000;
@@ -88,6 +96,11 @@ void Enemy::OnGameUpdate(Timer& timer)
 
 void Enemy::HitPlayerAttack(float damage)
 {
+	if (!m_isActive)
+	{
+		return;
+	}
+
 	m_damageAnimTimer = 0.0f;
 	m_hp.Damage(damage);
 	m_aiState.CallStateFunction(&EnemyAIState::OnDamage, damage);
@@ -97,16 +110,43 @@ void Enemy::HitPlayerAttack(float damage)
 	if (m_hp.IsDied())
 	{
 		EventTrigger(&GameObject::OnEnemyDied, this);
-		delete this;
+
+		m_model.SetDrawFlag(false);
+		m_ui.SetDrawFlag(false);
+		m_enemyCollider.SetActive(false);
+		m_isActive = false;
 	}
+}
+
+void Enemy::OnPlayRestart()
+{
+	m_position = START_POSITION;
+	m_rotate = START_ROTATE;
+	m_model.SetDrawFlag(true);
+	m_ui.SetDrawFlag(true);
+	m_enemyCollider.SetActive(true);
+	m_isActive = true;
+	m_enemyCollider.SetPosition(m_position);
+	m_ui.SetPosition(m_position);
+	m_model.SetPosition(m_position);
+	m_model.SetRotate(m_rotate);
+	m_aiState.ChangeState(AIState::Patrol);
 }
 
 void Enemy::HitWall()
 {
+	if (!m_isActive)
+	{
+		return;
+	}
 	m_aiState.CallStateFunction(&EnemyAIState::OnWallHit);
 }
 
 void Enemy::OnPlayStart()
 {
+	if (!m_isActive)
+	{
+		return;
+	}
 	m_aiState.CallStateFunction(&EnemyAIState::OnPlayStart);
 }

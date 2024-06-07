@@ -1,23 +1,24 @@
 #pragma once
 #include <d3d12.h>
 #include <wrl.h>
-#include "./Model/MaterialTag.h"
-#include "./DirectX12Wraps/GraphicsCommandList.h"
-#include "./Model/ModelManager.h"
-#include "./DirectX12Wraps/DescriptorHeaps.h"
+#include "./../Model/MaterialTag.h"
+#include "./../DirectX12Wraps/GraphicsCommandList.h"
+#include "./../Model/ModelManager.h"
+#include "./../DirectX12Wraps/DescriptorHeaps.h"
+#include "./IRenderTarget.h"
 
 namespace Crown
 {
 	namespace RenderObject
 	{
-		class RenderTarget
+		class RenderTarget : public IRenderTarget
 		{
 		public:
 			RenderTarget(MaterialTag materialTag, unsigned int x, unsigned int y, DirectX::XMFLOAT4 clearColor, DXGI_FORMAT format = DXGI_FORMAT_R8G8B8A8_UNORM);
-			~RenderTarget();
+			~RenderTarget() override;
 
-			void Initialize(ID3D12Device* device);
-			void Draw(GraphicsCommandList& commandList, ModelManager* modelManager);
+			void Initialize(ID3D12Device* device) override;
+			void Draw(GraphicsCommandList& commandList, ModelManager* modelManager, unsigned int index) override;
 
 			unsigned int GetTexture() const;
 			unsigned int GetDepth() const;
@@ -25,7 +26,7 @@ namespace Crown
 			ID3D12DescriptorHeap* GetDepthStencilDescriptorHeap() const { return m_dsvHeap.Get(); }
 
 		private:
-			inline void CreateRenderTargetView(ID3D12Device* device, UINT width, UINT height);		//	レンダーターゲットビューの作成だよ☆
+			inline void CreateRenderTarget(ID3D12Device* device, UINT width, UINT height);		//	レンダーターゲットビューの作成だよ☆
 			inline void CreatDepthBuffer(ID3D12Device* device, UINT width, UINT height);			//	深度、ステンシルビューの作成だよ☆
 
 			MaterialTag m_materialTag;

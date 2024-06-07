@@ -49,7 +49,7 @@ namespace Crown
 
 		private:
 			inline void CreateSwapChain(IDXGIFactory2* dxgiFactory, UINT width, UINT height, HWND windowHandle, ID3D12CommandQueue* commandQueue);	//	スワップチェーンの作成だよ☆
-			inline void CreateRenderTargetView(ID3D12Device* device);																				//	レンダーターゲットビューの作成だよ☆
+			inline void CreateRenderTarget(ID3D12Device* device);																				//	レンダーターゲットビューの作成だよ☆
 			inline void CreatDepthBuffer(ID3D12Device* device, UINT width, UINT height);															//	深度、ステンシルビューの作成だよ☆
 
 

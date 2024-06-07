@@ -23,11 +23,15 @@ public:
 	virtual ~Enemy();
 	virtual void OnGameUpdate(Timer& timer) override;
 	virtual void OnPlayStart() override;
+	virtual void OnPlayRestart() override;
 private:
 	void HitPlayerAttack(float damage);
 	void HitWall();
 
 	static constexpr int MAX_HP = 500;
+
+	DirectX::XMFLOAT3 START_POSITION;
+	DirectX::XMFLOAT3 START_ROTATE;
 
 	DirectX::XMFLOAT3 m_position;
 	DirectX::XMFLOAT3 m_rotate;
@@ -68,4 +72,6 @@ private:
 	Crown::RenderObject::AnimationData m_attack1Anim;
 	Crown::RenderObject::AnimationData m_shotAnim;
 	std::shared_ptr<std::mt19937> m_random;
+
+	bool m_isActive;
 };
