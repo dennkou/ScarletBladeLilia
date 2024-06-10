@@ -71,7 +71,7 @@ float4x4 Inverse(float4x4 m)
 float4 Color(float2 uv)
 {
 	//ディフューズ計算
-	float diffuseLight = (dot(light, normalMap.Sample(smp, uv).xyz) + 1) / 2;
+	float diffuseLight = (dot(-light, normalMap.Sample(smp, uv).xyz) + 1) / 2;
 	float4 screenPos = float4(((uv + float2(-0.5f, -0.5f)) * float2(2.0f, -2.0f)), depthMap.Sample(smp, uv), 1);
 	float4 world = mul(Inverse(view), mul(Inverse(projection), screenPos));
 	world.xyz = world.xyz / world.w;
@@ -82,7 +82,7 @@ float4 Color(float2 uv)
 	float4 shadowPos = mul(shadowMatrix, world);
 	//return world;
 	//return (pointMap.Sample(smp, input.uv) + float4(eye, 0));
-	return colorMap.Sample(smp, uv) * float4(lerp(float3(0.7, 0.7, 0.7), float3(1, 1, 1), diffuseLight), 1) * Shadow(shadowPos, shadowMap);
+	return colorMap.Sample(smp, uv) * float4(lerp(float3(0.6, 0.6, 0.6), float3(1, 1, 1), diffuseLight), 1) * Shadow(shadowPos, shadowMap);
 	//return colorMap.Sample(smp, input.uv) * lerp(1.0, float4(0.7, 0.7, 0.7, 1), step(shadowMap.Sample(shadowSmp, shadowUV), shadowPos.z - 0.0001));
 }
 

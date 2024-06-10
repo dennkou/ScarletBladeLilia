@@ -27,11 +27,12 @@ private:
 	static Crown::RenderObject::BlobConstBuffer* shadowMapBuffer;
 
 	std::shared_ptr<Crown::RenderObject::MultipleRenderTarget> m_frameBuffer;
-
 	FrameRender m_integrationPath;
 
 	std::unique_ptr<PostEffects> m_blurShadowMap;
-
+#ifdef _DEBUG
 	Crown::RenderObject::UiGraphic m_debug;
+#endif // _DEBUG
 	Crown::RenderObject::Model m_debugModel;
+
 };

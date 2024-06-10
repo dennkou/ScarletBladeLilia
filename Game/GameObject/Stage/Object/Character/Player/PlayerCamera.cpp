@@ -34,4 +34,5 @@ void PlayerCamera::UpdateCameraTransform()
 	Crown::RenderObject::Camera::GetInstance()->SetEye(eye);
 	Crown::RenderObject::Camera::GetInstance()->SetRotate(m_rotate);
 	Crown::RenderObject::Camera::GetInstance()->SetFovAngle(m_fovAngle);
+	Crown::RenderObject::Camera::GetInstance()->SetGazePoint(m_center);
 }

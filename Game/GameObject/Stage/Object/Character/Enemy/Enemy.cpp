@@ -3,6 +3,7 @@
 #include "AIState/EnemyAIStateTitle.h"
 #include "AIState/EnemyAIStatePatrol.h"
 #include "AIState/EnemyAIStateCombat.h"
+#include "./../../../../Render/MaterialFactory.h"
 
 #include "./../../../../../../MathLibrary.h"
 
@@ -45,6 +46,7 @@ Enemy::Enemy(Game* game, DirectX::XMFLOAT3 positon, DirectX::XMFLOAT3 rotate, Na
 	{
 		m_bone[i] = DirectX::XMMatrixIdentity();
 	}
+	MaterialSetup();
 }
 
 Enemy::~Enemy()
@@ -140,6 +142,18 @@ void Enemy::HitWall()
 		return;
 	}
 	m_aiState.CallStateFunction(&EnemyAIState::OnWallHit);
+}
+
+void Enemy::MaterialSetup()
+{
+	MaterialFactory::CreateShadow(m_model, 0);
+	MaterialFactory::CreateShadow(m_model, 1);
+	MaterialFactory::CreateShadow(m_model, 2);
+	MaterialFactory::CreateShadow(m_model, 3);
+	MaterialFactory::CreateDefaultMaterial(m_model, 0, 0, DirectX::XMFLOAT4(0.3, 0, 0, 1), DirectX::XMFLOAT3(0,0,0));
+	MaterialFactory::CreateDefaultMaterial(m_model, 1, 0, DirectX::XMFLOAT4(0, 1, 1, 1), DirectX::XMFLOAT3(0,0,0));
+	MaterialFactory::CreateDefaultMaterial(m_model, 2, 0, DirectX::XMFLOAT4(0, 0, 0, 1), DirectX::XMFLOAT3(0,0,0));
+	MaterialFactory::CreateDefaultMaterial(m_model, 3, 0, DirectX::XMFLOAT4(1.0, 0, 0, 1), DirectX::XMFLOAT3(0,0,0));
 }
 
 void Enemy::OnPlayStart()

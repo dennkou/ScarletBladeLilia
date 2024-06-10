@@ -13,7 +13,7 @@ Stage::Stage(Game* game)
 
 	std::shared_ptr<std::mt19937> random;
 	random.reset(new std::mt19937(8239));
-	//this->CreateGameObject<Enemy>(DirectX::XMFLOAT3(0, 0, -100), DirectX::XMFLOAT3(0, 0, 0), new PointPatrol({DirectX::XMFLOAT3(0,0,-150), DirectX::XMFLOAT3(0,0,-500), DirectX::XMFLOAT3(10,0,-500) }), random);
+	this->CreateGameObject<Enemy>(DirectX::XMFLOAT3(0, 0, -100), DirectX::XMFLOAT3(0, 0, 0), new PointPatrol({DirectX::XMFLOAT3(0,0,-150), DirectX::XMFLOAT3(0,0,-500), DirectX::XMFLOAT3(10,0,-500) }), random);
 
 	Crown::RenderObject::Model model;
 	model.LoadPMX(L"Resource/Model/PMX/ステージ通路.pmx");

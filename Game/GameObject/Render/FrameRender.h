@@ -3,7 +3,7 @@
 #include "./../../Crown/Object/RenderSystem/DirectX12Wraps/GraphicPipeline.h"
 #include "./../../Crown/Object/RenderSystem/BlobConstBuffer/BlobConstBuffer.h"
 #include <DirectXMath.h>
-class FrameRender : Crown::RenderObject::Ui
+class FrameRender : public Crown::RenderObject::Ui
 {
 public:
 	FrameRender();

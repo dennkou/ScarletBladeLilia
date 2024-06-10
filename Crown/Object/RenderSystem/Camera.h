@@ -39,6 +39,9 @@ namespace Crown
 			inline float GetNear() const noexcept { return m_cpuSideCameraData.nearZ; }
 			inline float GetFar() const noexcept { return m_cpuSideCameraData.farZ; }
 
+			inline DirectX::XMFLOAT3 GetGazePoint() const noexcept { return m_gazePoint; }
+			inline void SetGazePoint(DirectX::XMFLOAT3 gazePoint) noexcept { m_gazePoint = gazePoint; }
+
 			inline unsigned int GetDescriptorOffset() { return m_descriptorOffset; }
 			inline const Microsoft::WRL::ComPtr<ID3D12Resource> GetConstConstBuffer() { return m_resource; }
 		private:
@@ -81,6 +84,7 @@ namespace Crown
 			static Camera* me;
 
 			CameraData m_cpuSideCameraData;
+			DirectX::XMFLOAT3 m_gazePoint;
 
 			Microsoft::WRL::ComPtr<ID3D12Resource> m_resource;	//	コンストバッファだよ☆
 			unsigned int m_descriptorOffset;					//	ディスクリプタオフセットだよ☆

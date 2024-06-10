@@ -8,6 +8,8 @@
 #include "./../../Crown/Object/RenderSystem/TextureBuffer.h"
 #include "./../../Crown/Object/RenderSystem/RenderCommands/RenderCommandFactory.h"
 
+#include "./../../Render/Render.h"
+
 Sky::Sky()
 {
 	m_model.LoadPMX(L"Resource/Model/PMX/Stage/sky.pmx");
@@ -25,7 +27,7 @@ Sky::Sky()
 			rasterizer.CullMode = D3D12_CULL_MODE_NONE;
 			graphicsPipeline.SetRasterizerState(rasterizer);
 			D3D12_DEPTH_STENCIL_DESC depthStencilState = graphicsPipeline.GetState().DepthStencilState;
-			depthStencilState.DepthEnable = false;
+			depthStencilState.DepthEnable = true;
 			graphicsPipeline.SetDepthStencilState(depthStencilState);
 			graphicsPipeline.SetNumRenderTargets(2);
 			graphicsPipeline.SetRTVFormats(1, DXGI_FORMAT_R8G8B8A8_UNORM);
@@ -38,6 +40,7 @@ Sky::Sky()
 		std::vector<unsigned int> constBufferIndexs;
 		constBufferIndexs.push_back(Crown::RenderObject::Camera::GetInstance()->GetDescriptorOffset());
 		constBufferIndexs.push_back(m_model.GetDescriptorOffest());
+		constBufferIndexs.push_back(Render::GetShadowMapBuffer()->GetDescriptorOffset());
 
 		//	テクスチャを指定☆
 		std::vector<unsigned int> textureBufferIndexs;

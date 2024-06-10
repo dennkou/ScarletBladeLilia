@@ -12,20 +12,24 @@ Crown::RenderObject::BlobConstBuffer* Render::shadowMapBuffer;
 
 Render::Render(Game* game)
 	:
-	GameObject(game),
+#ifdef _DEBUG
 	m_debug(),
-	m_debugModel()
+#endif // _DEBUG
+	m_debugModel(),
+
+	GameObject(game)
 	//m_color(),
 	//m_blurShadowMap(),
 	//m_blurShadowMapModel()
 {
+//#ifdef _DEBUG
 	m_debugModel.LoadPMX(L"Resource/Model/PMX/bullet.pmx");
-
+//#endif // _DEBUG
 	ID3D12Device* device = Crown::System::GetInstance().GetRenderSystem().GetDevice().Get();
 
 	//	影の描画設定だよ☆
 	{
-		shadowMap.reset(new Crown::RenderObject::RenderTarget(Crown::RenderObject::MaterialTag::Shadow, 1024 << 3, 1024 << 3, DirectX::XMFLOAT4(1, 1, 1, 1)));
+		shadowMap.reset(new Crown::RenderObject::RenderTarget(Crown::RenderObject::MaterialTag::Shadow, 2048 << 3, 2048 << 3, DirectX::XMFLOAT4(1, 1, 1, 1)));
 		Crown::System::GetInstance().GetRenderSystem().AddRenderTarget(0, shadowMap);
 
 		//　シャドウマップ用のパイプラインステートオブジェクトを作成するよ☆
@@ -66,7 +70,7 @@ Render::Render(Game* game)
 			1280,
 			720,
 			{
-				DirectX::XMFLOAT4(1,1,1,1),
+				DirectX::XMFLOAT4(1,1,1,0),
 				DirectX::XMFLOAT4(1,1,1,1),
 			}
 		));
@@ -76,14 +80,17 @@ Render::Render(Game* game)
 		m_integrationPath.SetNormalBuffer(m_frameBuffer->GetTexture(1));
 		m_integrationPath.SetDepthBuffer(m_frameBuffer->GetDepth(0));
 		m_integrationPath.SetShadowBuffer(shadowMap->GetDepth());
+		m_integrationPath.SetPriority(-1);
 	}
 
 	//	デバック表示だよ☆
+#ifdef _DEBUG
 	m_debug.SetTextureDescriptorOffset(shadowMap->GetDepth());
 	m_debug.SetAlpha(1.0f);
 	m_debug.SetPosition(DirectX::XMFLOAT2(0.75, 0.75));
 	m_debug.SetSize(DirectX::XMFLOAT2(0.25, 0.25));
 	m_debug.SetPriority(100);
+#endif // _DEBUG
 }
 
 Render::~Render()
@@ -96,19 +103,20 @@ void Render::OnGameUpdate(Timer& timer)
 {
 	timer;
 
-	//float size = 50;
+	//float size = 20;
 	//float size = 100;
-	float size = 500;
-	//float size = 1000;
+	//float size = 500;
+	float size = 1500;
 
 	//	ライト位置の計算だよ☆
 	DirectX::XMFLOAT3 position = {};
 	{
-		DirectX::XMFLOAT3 eye = Crown::RenderObject::Camera::GetInstance()->GetEye();
+		DirectX::XMFLOAT3 positionGap = DirectX::XMFLOAT3(0,size / 2,0);
+		DirectX::XMFLOAT3 eye = Crown::RenderObject::Camera::GetInstance()->GetGazePoint();
 		DirectX::XMFLOAT3 cameraRotate = Crown::RenderObject::Camera::GetInstance()->GetRotate();
-		position.x = cos(cameraRotate.x) * sin(cameraRotate.y) * size + eye.x;
-		position.y = sin(-cameraRotate.x) * 0 + eye.y;
-		position.z = cos(cameraRotate.x) * cos(cameraRotate.y) * size + eye.z;
+		position.x = cos(cameraRotate.x) * sin(cameraRotate.y) * size / 2+ eye.x + positionGap.x;
+		position.y = sin(-cameraRotate.x) * 0 + eye.y + positionGap.y;
+		position.z = cos(cameraRotate.x) * cos(cameraRotate.y) * size / 2 + eye.z + positionGap.z;
 	}
 
 	DirectX::XMFLOAT2 lightRotate = DirectX::XMFLOAT2(60, 60);

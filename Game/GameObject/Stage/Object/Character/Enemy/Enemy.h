@@ -25,6 +25,7 @@ public:
 	virtual void OnPlayStart() override;
 	virtual void OnPlayRestart() override;
 private:
+	void MaterialSetup();
 	void HitPlayerAttack(float damage);
 	void HitWall();
 
