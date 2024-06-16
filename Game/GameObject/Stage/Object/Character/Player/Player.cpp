@@ -14,6 +14,7 @@
 #include "./PlayerState/PlayerStateStand.h"
 #include "./PlayerState/PlayerStateWalk.h"
 #include "./PlayerState/PlayerStateRun.h"
+#include "./PlayerState/PlayerSlashAttack.h"
 #include "./PlayerState/PlayerAttack.h"
 #include "./PlayerState/PlayerAvoidance.h"
 #include "./PlayerState/PlayerDied.h"
@@ -83,6 +84,7 @@ void Player::OnPlayRestart()
 	m_hp.HpRecover(MAX_HP);
 	m_hpUi.SetPlayerHPPercent(m_hp.GetHPPercent());
 	m_camera.SetRotate(PlayerTitle::CAMERA_PLAY_ROTATE);
+	m_camera.SetPosition(PlayerTitle::CAMERA_PLAY_POSITION);
 }
 
 void Player::OnInputMove(DirectX::XMFLOAT2 input)
@@ -429,6 +431,7 @@ void Player::StateSetUp()
 	m_playerState.RegisterState<PlayerWalk>(StateID::Walk, this);
 	m_playerState.RegisterState<PlayerRun>(StateID::Run, this);
 	m_playerState.RegisterState<PlayerAttack>(StateID::Attack, this);
+	m_playerState.RegisterState<PlayerSlashAttack>(StateID::SlashAttack, this);
 	m_playerState.RegisterState<PlayerAvoidance>(StateID::Avoidance, this);
 	m_playerState.RegisterState<PlayerDied>(StateID::Died, this);
 
@@ -451,6 +454,7 @@ void Player::AnimLoad()
 	m_runAnim.LaodVMD(L"Resource/Motion/ダッシュ.vmd");
 	m_frontStepAnim.LaodVMD(L"Resource/Motion/前ステップ.vmd");
 	m_drawingSwordAttackAnim.LaodVMD(L"Resource/Motion/抜刀攻撃.vmd");
+	m_slashAttackAnim.LaodVMD(L"Resource/Motion/リリアモーション攻撃.vmd");
 }
 
 void Player::ColliderUpdate()

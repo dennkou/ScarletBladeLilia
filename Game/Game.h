@@ -87,9 +87,9 @@ private:
 
 	//	ゲームオブジェクトを追加するよ☆
 	template<class Type, class... Argument>
-	GameObject* CreateGameObject(Argument... argument)
+	Type* CreateGameObject(Argument... argument)
 	{
-		GameObject* ret = new Type(this,argument...);
+		Type* ret = new Type(this,argument...);
 		m_gameObjects.emplace_back(ret);
 
 		#ifdef DISPLAY_LOG

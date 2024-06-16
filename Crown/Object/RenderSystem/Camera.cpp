@@ -30,6 +30,8 @@ void Crown::RenderObject::Camera::DataUpload() noexcept
 		* DirectX::XMMatrixTranslation(me->m_cpuSideCameraData.eye.x, me->m_cpuSideCameraData.eye.y, me->m_cpuSideCameraData.eye.z);
 	me->m_cpuSideCameraData.view = DirectX::XMMatrixInverse(nullptr, me->m_cpuSideCameraData.view);
 	me->m_cpuSideCameraData.projection = DirectX::XMMatrixPerspectiveFovLH(me->m_cpuSideCameraData.fovAngle, me->m_cpuSideCameraData.aspect, me->m_cpuSideCameraData.nearZ, me->m_cpuSideCameraData.farZ);
+	me->m_cpuSideCameraData.inverseProjection = DirectX::XMMatrixInverse(nullptr, me->m_cpuSideCameraData.projection);
+	me->m_cpuSideCameraData.inverseView = DirectX::XMMatrixInverse(nullptr, me->m_cpuSideCameraData.view);
 	me->m_cpuSideCameraData.viewProjection = me->m_cpuSideCameraData.view * me->m_cpuSideCameraData.projection;
 	ResourceUploader::GetInstance()->UploadData<CameraData>(m_resource, ResourceUploader::GetInstance()->Get255AlignmentSize<CameraData>(1), [&](CameraData* gpuSideCameraData) { *gpuSideCameraData = m_cpuSideCameraData; });
 }

@@ -9,7 +9,7 @@ class PointPatrol : public NavigationAI
 {
 public:
 	PointPatrol(std::initializer_list<DirectX::XMFLOAT3> pointList);
-	~PointPatrol();
+	virtual ~PointPatrol();
 
 	virtual void SetPosition(DirectX::XMFLOAT3 position) override;
 	virtual DirectX::XMFLOAT3 MovingPosition() override;

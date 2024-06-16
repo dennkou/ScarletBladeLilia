@@ -50,8 +50,6 @@ namespace Crown
 			/// <param name="failedProcessingNum">処理落ちを許可するフレーム数だよ☆</param>
 			void Initialize(ID3D12Device* device, unsigned int allocatorNum = 2, unsigned int failedProcessingNum = 1);
 
-			void Finalize();
-
 			/// <summary>
 			///	描画に使用中のリソースが誤って解放されないように保持しておくよ☆
 			/// </summary>

@@ -14,6 +14,7 @@ public:
 	virtual void Exit() override;
 
 	virtual void OnInputMove(DirectX::XMFLOAT2 input) override;
+	virtual void OnInputAttackDown() override;
 	virtual void OnInputCamera(DirectX::XMFLOAT2 input) override;
 private:
 	void CameraAnim(float animFlame);
@@ -25,9 +26,11 @@ private:
 	static constexpr float MOVE_CANCEL_FLAME = 50;
 	static constexpr float ATTACK_START_FLAME = 13;
 	static constexpr float ATTACK_END_FLAME = 17;
+	static constexpr float NEXT_ATTACK_FLAME = 20;
 
 	ColliderSystem::PlayerAttackCollider m_attackCollider;
 	bool m_attackFlag;									//	UŒ‚”»’è‚ğ”­¶‚³‚¹‚½‚©‚Ìƒtƒ‰ƒO‚¾‚æ™
+	bool m_inputAttack;
 
 	Player* m_player;
 	DirectX::XMFLOAT3 m_startPosition;

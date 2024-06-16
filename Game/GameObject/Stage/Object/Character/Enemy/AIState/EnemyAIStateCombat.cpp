@@ -45,6 +45,11 @@ void Enemy::EnemyAIStateCombat::OnDamage(float damage)
 	damage;
 }
 
+void Enemy::EnemyAIStateCombat::OnWallHit()
+{
+	m_state.CallStateFunction(&IState::WallHit);
+}
+
 void Enemy::EnemyAIStateCombat::ActionBranch()
 {
 	float distance = VectorDistance(m_enemy->m_position, m_enemy->m_enemyCollider.GetPlayerPosition());

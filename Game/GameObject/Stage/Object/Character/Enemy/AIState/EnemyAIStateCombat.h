@@ -13,6 +13,8 @@ public:
 	virtual void Update(float time) override;
 	virtual void Exit() override;
 	virtual void OnDamage(float damage) override;
+
+	virtual void OnWallHit() override;
 private:
 	void ActionBranch();
 

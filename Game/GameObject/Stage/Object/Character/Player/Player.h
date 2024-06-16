@@ -70,6 +70,7 @@ private:
 	class PlayerWalk;
 	class PlayerRun;
 	class PlayerAttack;
+	class PlayerSlashAttack;
 	class PlayerAvoidance;
 	class PlayerDied;
 
@@ -80,6 +81,7 @@ private:
 		Walk,
 		Run,
 		Attack,
+		SlashAttack,
 		Avoidance,
 		Died,
 	};
@@ -109,4 +111,6 @@ private:
 	Crown::RenderObject::AnimationData m_drawingSwordAttackAnim;	
 	static constexpr float DRAWING_SWORD_ATTACK_ANIM_SPEED = 2.0f;	
 
+	Crown::RenderObject::AnimationData m_slashAttackAnim;
+	static constexpr float SLASH_ATTACK_ANIM_SPEED = 0.5f;
 };

@@ -122,6 +122,7 @@ void Enemy::HitPlayerAttack(float damage)
 
 void Enemy::OnPlayRestart()
 {
+	m_offset = DirectX::XMFLOAT3(0, 0, 0);
 	m_position = START_POSITION;
 	m_rotate = START_ROTATE;
 	m_model.SetDrawFlag(true);

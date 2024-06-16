@@ -11,6 +11,9 @@
 class NavigationAI
 {
 public:
+	NavigationAI() = default;
+	virtual ~NavigationAI() = default;
+
 	virtual void SetPosition(DirectX::XMFLOAT3 position) = 0;
 	virtual DirectX::XMFLOAT3 MovingPosition() = 0;
 private:

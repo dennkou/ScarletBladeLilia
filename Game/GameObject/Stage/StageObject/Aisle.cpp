@@ -28,7 +28,7 @@ void Aisle::Create(DirectX::XMFLOAT3 position, float rotate, const Crown::Render
 	for (unsigned int i = 0; i < num; ++i)
 	{
 		m_model[i].Copy(copyModel);
-		m_model[i].SetPosition(VectorAdd(position, DirectX::XMFLOAT3(sin(rotate) * (i * size), 0, cos(rotate) * (i * size))));
+		m_model[i].SetPosition(VectorAdd(position, DirectX::XMFLOAT3(sin(rotate) * (i * SIZE), 0, cos(rotate) * (i * SIZE))));
 		m_model[i].SetRotate(DirectX::XMFLOAT3(0, rotate, 0));
 		m_model[i].SetDrawFlag(false);
 	}
@@ -56,7 +56,7 @@ void Aisle::Update()
 		position = m_model[i].GetPosition();
 		distance = VectorDistance(cameraPositon, position);
 		//	オブジェクトはカメラに近い？☆
-		if (distance < size)
+		if (distance < SIZE * 2)
 		{
 			drawFlag = true;
 		}

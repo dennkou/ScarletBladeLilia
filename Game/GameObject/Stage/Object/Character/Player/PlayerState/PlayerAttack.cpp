@@ -16,7 +16,8 @@ Player::PlayerAttack::PlayerAttack(Player* player)
 		}), 
 	m_attackFlag(false),
 	m_startPosition(DirectX::XMFLOAT3(0,0,0)),
-	m_animTimer(0)
+	m_animTimer(0),
+	m_inputAttack(false)
 {
 }
 
@@ -29,11 +30,11 @@ void Player::PlayerAttack::Enter()
 {
 	m_startPosition = m_player->m_position;
 	m_attackFlag = false;
+	m_inputAttack = false;
 }
 
 void Player::PlayerAttack::Update(float time)
 {
-	time *= 1.5;
 	m_animTimer += time;
 	float animFlame = m_animTimer / ANIMATION_FPS;
 	m_player->m_drawingSwordAttackAnim.GetAnimation(animFlame, m_player->m_bone, m_player->m_model.GetBoneDate());
@@ -58,6 +59,11 @@ void Player::PlayerAttack::Update(float time)
 	if (animFlame >= MOVE_CANCEL_FLAME && (m_player->m_inputMove.x || m_player->m_inputMove.y))
 	{
 		m_player->m_playerState.ChangeState(StateID::Walk);
+	}
+
+	if (m_inputAttack && (m_animTimer / ANIMATION_FPS > NEXT_ATTACK_FLAME))
+	{
+		m_player->m_playerState.ChangeState(StateID::SlashAttack);
 	}
 
 	//	UŒ‚”»’è‚Ì¶¬•íœ‚¾‚æ™
@@ -85,6 +91,15 @@ void Player::PlayerAttack::OnInputMove(DirectX::XMFLOAT2 input)
 	input;
 }
 
+void Player::PlayerAttack::OnInputAttackDown()
+{
+	if (m_animTimer / ANIMATION_FPS > NEXT_ATTACK_FLAME)
+	{
+		m_player->m_playerState.ChangeState(StateID::SlashAttack);
+	}
+	m_inputAttack = true;
+}
+
 void Player::PlayerAttack::OnInputCamera(DirectX::XMFLOAT2 input)
 {
 	m_player->CameraRoll(input);
@@ -93,24 +108,6 @@ void Player::PlayerAttack::OnInputCamera(DirectX::XMFLOAT2 input)
 void Player::PlayerAttack::CameraAnim(float animFlame)
 {
 	animFlame;
-	//return;
-	//FlameProcess(0, 15, [&](float t)
-	//	{
-	//		m_player->m_camera.SetFovAngle(std::lerp(DEFAULT_FOV_ANGLE, MAX_FOV_ANGLE, t));
-	//	});
-	//FlameProcess(15, 22, [&](float t)
-	//	{
-	//		m_player->m_camera.SetFovAngle(std::lerp(MAX_FOV_ANGLE, DEFAULT_FOV_ANGLE, t));
-	//	});
-	//FlameProcess(0, 25, [&](float t)
-	//	{
-	//		t;
-	//		DirectX::XMFLOAT3 rotate = m_player->m_camera.GetRotate();
-	//		rotate.x = std::lerp(rotate.x, 0.0f, 0.05f);
-	//		rotate.y = std::lerp(rotate.y, static_cast<float>(m_player->GetRotate().y - std::numbers::pi), 0.05f);
-	//		m_player->m_camera.SetRotate(rotate);
-	//	});
-
 }
 
 void Player::PlayerAttack::FlameProcess(float start, float end, std::function<void(float)> process) const

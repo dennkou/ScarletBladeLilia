@@ -49,6 +49,7 @@ Render::Render(Game* game)
 
 		std::vector<Crown::RenderObject::BlobConstBuffer::DataType> dataTypeDescriptor;
 		dataTypeDescriptor.push_back(Crown::RenderObject::BlobConstBuffer::DataType::Matrix);
+		dataTypeDescriptor.push_back(Crown::RenderObject::BlobConstBuffer::DataType::Float3);
 		shadowMapBuffer = new Crown::RenderObject::BlobConstBuffer(dataTypeDescriptor, device);
 
 
@@ -80,7 +81,7 @@ Render::Render(Game* game)
 		m_integrationPath.SetNormalBuffer(m_frameBuffer->GetTexture(1));
 		m_integrationPath.SetDepthBuffer(m_frameBuffer->GetDepth(0));
 		m_integrationPath.SetShadowBuffer(shadowMap->GetDepth());
-		m_integrationPath.SetPriority(-1);
+		m_integrationPath.SetPriority(-100);
 	}
 
 	//	デバック表示だよ☆
@@ -132,6 +133,7 @@ void Render::OnGameUpdate(Timer& timer)
 		DirectX::XMMatrixTranslation(position.x, position.y, position.z)) *
 		DirectX::XMMatrixOrthographicOffCenterLH(-size, size, -size, size, -size, size);
 	shadowMapBuffer->SetParameter(0, lightMatrix);
+	shadowMapBuffer->SetParameter(1, lightVector);
 
 	m_integrationPath.SetCameraBuffer(Crown::RenderObject::Camera::GetInstance()->GetDescriptorOffset());
 	m_integrationPath.SetShadow(lightMatrix);

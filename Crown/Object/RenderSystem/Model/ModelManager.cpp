@@ -44,7 +44,7 @@ void Crown::RenderObject::ModelManager::AddModel(IModel* newModel)
 
 void Crown::RenderObject::ModelManager::DeleteModel(IModel* deleteModel)
 {
-	for (int i = 0, size = static_cast<int>(m_models.size()); i < size; ++i)
+	for (unsigned int i = 0, size = static_cast<unsigned int>(m_models.size()); i < size; ++i)
 	{
 		if (m_models[i] == deleteModel) 
 		{
@@ -52,7 +52,7 @@ void Crown::RenderObject::ModelManager::DeleteModel(IModel* deleteModel)
 			break;
 		}
 	}
-	for (int i = 0, size = static_cast<int>(m_uploadQueue.size()); i < size;)
+	for (unsigned int i = 0, size = static_cast<unsigned int>(m_uploadQueue.size()); i < size;)
 	{
 		if (m_uploadQueue[i] == deleteModel)
 		{

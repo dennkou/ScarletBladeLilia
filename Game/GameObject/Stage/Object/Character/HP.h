@@ -11,10 +11,10 @@ public:
 	void Damage(float damage);
 	void HpRecover(float recoverNum);
 	void SetMaxHp(float maxHp);
-	constexpr bool IsDied() const noexcept { return m_hp <= 0.0f; };
-	constexpr float GetHp() const noexcept { return m_hp; };
-	constexpr float GetMaxHp() const noexcept { return m_maxHp; };
-	constexpr float GetHPPercent() const noexcept
+	inline constexpr bool IsDied() const noexcept { return m_hp <= 0.0f; };
+	inline constexpr float GetHp() const noexcept { return m_hp; };
+	inline constexpr float GetMaxHp() const noexcept { return m_maxHp; };
+	inline constexpr float GetHPPercent() const noexcept
 	{
 		if (GetMaxHp() > 0.0f)
 		{

@@ -10,6 +10,8 @@ public:
 	virtual void Enter() = 0;
 	virtual void Update(float time) = 0;
 	virtual void Exit() = 0;
+
+	virtual void WallHit() {};
 private:
 
 };

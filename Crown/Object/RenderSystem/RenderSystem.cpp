@@ -45,7 +45,6 @@ Crown::RenderObject::RenderSystem::RenderSystem(Crown::Window& renderTargetWindo
 
 Crown::RenderObject::RenderSystem::~RenderSystem()
 {
-	m_commandList.Finalize();
 	ResourceUploader::DeleteInstance();
 	Shader::DeleteInstance();
 	DescriptorHeaps::DeleteDescriptorHeaps();

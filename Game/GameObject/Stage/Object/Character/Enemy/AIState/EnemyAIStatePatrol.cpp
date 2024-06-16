@@ -13,7 +13,7 @@ Enemy::EnemyAIStatePatrol::EnemyAIStatePatrol(Enemy* enemy, NavigationAI* naviga
 
 Enemy::EnemyAIStatePatrol::~EnemyAIStatePatrol()
 {
-
+	delete m_navigationAI;
 }
 
 void Enemy::EnemyAIStatePatrol::Enter()

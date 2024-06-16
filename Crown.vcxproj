@@ -168,6 +168,7 @@
     </FxCompile>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Game\Debug\DebugPlayer.cpp" />
     <ClCompile Include="Game\GameObject\Render\FrameRender.cpp" />
     <ClCompile Include="Game\GameObject\Stage\Collider\BulletCollider.cpp" />
     <ClCompile Include="Game\GameObject\Stage\Object\Bullet.cpp" />
@@ -264,10 +265,12 @@
     <ClCompile Include="Crown\Object\RenderSystem\RenderTarget\MultipleRenderTarget.cpp" />
     <ClCompile Include="Game\GameObject\Render\PostEffects.cpp" />
     <ClCompile Include="Game\GameObject\Stage\StageModel.cpp" />
+    <ClCompile Include="Game\GameObject\Stage\Object\Character\Player\PlayerState\PlayerSlashAttack.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Crown\Object\RenderSystem\Model\IModel.h" />
     <ClInclude Include="Crown\Object\RenderSystem\RenderTarget\IRenderTarget.h" />
+    <ClInclude Include="Game\Debug\DebugPlayer.h" />
     <ClInclude Include="Game\GameObject\Render\FrameRender.h" />
     <ClInclude Include="Game\GameObject\Stage\Collider\BulletCollider.h" />
     <ClInclude Include="Game\GameObject\Stage\Object\Bullet.h" />
@@ -380,6 +383,7 @@
     <ClInclude Include="Crown\Object\RenderSystem\RenderTarget\MultipleRenderTarget.h" />
     <ClInclude Include="Game\GameObject\Render\PostEffects.h" />
     <ClInclude Include="Game\GameObject\Stage\StageModel.h" />
+    <ClInclude Include="Game\GameObject\Stage\Object\Character\Player\PlayerState\PlayerSlashAttack.h" />
   </ItemGroup>
   <ItemGroup>
     <Text Include="ヘッダーテンプレート.txt" />

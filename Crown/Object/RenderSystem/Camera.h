@@ -66,6 +66,8 @@ namespace Crown
 				float aspect;									//	アスペクト比だよ☆
 				float nearZ;									//	ニアー面だよ☆
 				float farZ;										//	ファー面だよ☆
+				DirectX::XMMATRIX inverseProjection;							//	ビュー行列だよ☆
+				DirectX::XMMATRIX inverseView;					//	プロジェクション行列だよ☆
 				CameraData() 
 					:
 					fovAngle(DirectX::XMConvertToRadians(60)),
@@ -76,7 +78,9 @@ namespace Crown
 					projection(DirectX::XMMatrixIdentity()),
 					viewProjection(view * projection),
 					eye(DirectX::XMFLOAT3(0.0f, 0.0f, 0.0f)),
-					rotate(DirectX::XMFLOAT3(0.0f, 0.0f, 0.0f))
+					rotate(DirectX::XMFLOAT3(0.0f, 0.0f, 0.0f)),
+					inverseProjection(),
+					inverseView()
 				{
 				}
 			};

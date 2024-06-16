@@ -16,7 +16,23 @@ Crown::RenderObject::GraphicsCommandList::GraphicsCommandList()
 
 Crown::RenderObject::GraphicsCommandList::~GraphicsCommandList()
 {
-	Finalize();
+	unsigned int commandListNum = static_cast<unsigned int>(m_graphicsCommandList.size());
+	std::vector<ID3D12CommandList*> commandList(commandListNum);
+	for (unsigned int i = 0; i < commandListNum; ++i)
+	{
+		m_graphicsCommandList[i].commandList->Close();																	//	コマンドリストをクローズ☆以降このコマンドリストは命令を受け付けないよ☆
+		commandList[i] = m_graphicsCommandList[i].commandList.Get();
+	}
+
+	m_commandQueue->ExecuteCommandLists(commandListNum, commandList.data());	//	コマンドリストの内容を実行するよ☆
+	++m_fenceVal;
+	m_commandQueue->Signal(m_fence.Get(), m_fenceVal);
+
+	for (unsigned int i = 0; i < commandListNum; ++i)
+	{
+		m_commandQueue->Signal(m_commandAllocators[m_graphicsCommandList[i].allocatorIndex]->GetFence(), m_commandAllocators[m_graphicsCommandList[i].allocatorIndex]->GetFenceValue());
+	}
+	WaitForGpu();
 }
 
 ID3D12GraphicsCommandList* Crown::RenderObject::GraphicsCommandList::GetGraphicsCommandList(unsigned int index) noexcept
@@ -61,27 +77,6 @@ void Crown::RenderObject::GraphicsCommandList::Initialize(ID3D12Device* device, 
 
 	device->CreateFence(0, D3D12_FENCE_FLAG_NONE, IID_PPV_ARGS(m_fence.GetAddressOf()));
 	m_fenceVal = 0;
-}
-
-void Crown::RenderObject::GraphicsCommandList::Finalize()
-{
-	unsigned int commandListNum = static_cast<unsigned int>(m_graphicsCommandList.size());
-	std::vector<ID3D12CommandList*> commandList(commandListNum);
-	for (unsigned int i = 0; i < commandListNum; ++i)
-	{
-		m_graphicsCommandList[i].commandList->Close();																	//	コマンドリストをクローズ☆以降このコマンドリストは命令を受け付けないよ☆
-		commandList[i] = m_graphicsCommandList[i].commandList.Get();
-	}
-
-	m_commandQueue->ExecuteCommandLists(commandListNum, commandList.data());	//	コマンドリストの内容を実行するよ☆
-	++m_fenceVal;
-	m_commandQueue->Signal(m_fence.Get(), m_fenceVal);
-
-	for (unsigned int i = 0; i < commandListNum; ++i)
-	{
-		m_commandQueue->Signal(m_commandAllocators[m_graphicsCommandList[i].allocatorIndex]->GetFence(), m_commandAllocators[m_graphicsCommandList[i].allocatorIndex]->GetFenceValue());
-	}
-	WaitForGpu();
 }
 
 void Crown::RenderObject::GraphicsCommandList::WaitForGpu() noexcept

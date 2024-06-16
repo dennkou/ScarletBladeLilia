@@ -10,6 +10,8 @@
 class Aisle : public StageObject
 {
 public:
+	static constexpr float SIZE = 100.0f;
+
 	Aisle();
 	~Aisle();
 
@@ -17,7 +19,6 @@ public:
 
 	virtual void Update() override;
 private:
-	static constexpr float size = 100.0f;
 	void CreateMaterial();
 	std::vector<Crown::RenderObject::Model> m_model;
 
