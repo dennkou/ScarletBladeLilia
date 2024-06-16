@@ -6,6 +6,7 @@ struct Output
 	float4 vnormal : NORMAL1;
 	float2 uv : TEXCOORD;
 	float3 ray : VECTOR; //ベクトル
+	float4 shadowPos : SHADOW_POSITION;
 };
 
 cbuffer cameraBuffer : register(b0)
@@ -29,6 +30,11 @@ cbuffer materialBuffer : register(b2)
 	float3 ambient; //アンビエント
 };
 
+cbuffer shadow : register(b3)
+{
+	matrix shadow;
+}
+
 
 
 Output main(float4 pos : POSITION, float4 normal : NORMAL, float2 uv : TEXCOORD, min16uint4 boneIndex : BONE_INDEX, float4 weight : WEIGHT)
@@ -45,5 +51,6 @@ Output main(float4 pos : POSITION, float4 normal : NORMAL, float2 uv : TEXCOORD,
 	output.vnormal = mul(view, output.normal);						//	視線からの法線だよ☆
 	output.uv = uv;													//	UV値には変化なし☆
 	output.ray = normalize(output.pos.xyz);							//	視線ベクトルの算出☆
+	output.shadowPos = mul(shadow, mul(world, localPos));
 	return output;
 }

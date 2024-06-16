@@ -55,11 +55,11 @@ void Crown::RenderObject::GraphicsPipeline::ChangeGraphicsPipelineState(const D3
 	m_nawState = newStateDisc;
 }
 
-void Crown::RenderObject::GraphicsPipeline::Commit(ID3D12Device& device)
+void Crown::RenderObject::GraphicsPipeline::Commit(ID3D12Device* device)
 {
 	if (m_pipelineState != nullptr)
 	{
 		m_pipelineState.Reset();
 	}
-	device.CreateGraphicsPipelineState(&m_nawState, IID_PPV_ARGS(&m_pipelineState));
+	device->CreateGraphicsPipelineState(&m_nawState, IID_PPV_ARGS(&m_pipelineState));
 }

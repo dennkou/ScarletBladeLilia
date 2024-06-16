@@ -1,32 +1,23 @@
 #pragma once
-#include "./../../GameObject.h"
-#include <vector>
 
-class ColliderSystem : public Game::GameObject
+class ColliderSystem
 {
 public:
+	class InstanceCollection;
 	class PlayerCollider;
+	class PlayerAttackCollider;
 	class EnemyCollider;
+	class EnemyAttackCollider;
+	class BulletCollider;
 	class StageCollider;
 
-	ColliderSystem(Game* game);
-	virtual ~ColliderSystem();
+	class AisleCollider;
 
-	virtual void OnGameUpdate(Timer& timer) override;
+
+	ColliderSystem() = delete;
+	~ColliderSystem() = delete;
+
+	static void Update();
 private:
-	void SetPlayerCollider(PlayerCollider* playerCollider);
-	void DeletePlayerCollider();
-	PlayerCollider* GetPlayerCollider();
-	void SetEnemyCollider(EnemyCollider* enemyCollider);
-	void DeleteEnemyCollider(EnemyCollider* enemyCollider);
-	std::vector<EnemyCollider*>* GetEnemyColliders();
-	void SetStageCollider(StageCollider* stageCollider);
-	void DeleteStageCollider(StageCollider* stageCollider);
-	std::vector<StageCollider*>* GetStageColliders();
-
-
-
-	PlayerCollider* m_playerCollider;
-	std::vector<EnemyCollider*> m_enemyCollider;
-	std::vector<StageCollider*> m_stageCollider;
+	static InstanceCollection m_instanceCollection;
 };

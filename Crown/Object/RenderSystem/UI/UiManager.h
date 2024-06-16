@@ -4,6 +4,7 @@
 #include "./../DirectX12Wraps/GraphicsCommandList.h"
 #include "./../Model/Vertices.h"
 #include "./../DirectX12Wraps/GraphicPipeline.h"
+#include "./../DirectX12Wraps/CommandAllocator.h"
 #include <memory>
 #include "Ui.h"
 namespace Crown
@@ -45,10 +46,11 @@ namespace Crown
 			void CreatVertices();
 			void CreatDefaultGraphicsPipelineStateDesc();
 
-			static constexpr unsigned int INPUTLAYOUT_NUM = 1;
+			static constexpr unsigned int INPUTLAYOUT_NUM = 2;
 			static constexpr D3D12_INPUT_ELEMENT_DESC INPUTLAYOUT[INPUTLAYOUT_NUM] =
 			{
-				{ "POSITION",		0,DXGI_FORMAT_R32G32B32_FLOAT,		0,D3D12_APPEND_ALIGNED_ELEMENT,D3D12_INPUT_CLASSIFICATION_PER_VERTEX_DATA,0 }
+				{ "POSITION",		0,DXGI_FORMAT_R32G32B32_FLOAT,		0,D3D12_APPEND_ALIGNED_ELEMENT,D3D12_INPUT_CLASSIFICATION_PER_VERTEX_DATA,0 },
+				{ "UV",				0,DXGI_FORMAT_R32G32_FLOAT,			0,D3D12_APPEND_ALIGNED_ELEMENT,D3D12_INPUT_CLASSIFICATION_PER_VERTEX_DATA,0 }
 			};
 
 			Vertices m_vertices;																	//	頂点データ☆
@@ -57,6 +59,10 @@ namespace Crown
 			ID3D12Device* m_device;																	//	
 			std::vector<Ui*> m_ui;																	//	管理しているUIの配列だよ☆
 			TextureBuffer* m_textureBuffer;															//	テクスチャバッファへのポインタ☆
+
+			Microsoft::WRL::ComPtr<ID3D12GraphicsCommandList> m_commandList;
+			std::unique_ptr<CommandAllocator> m_commandAllocator;
+			bool m_isBundle;
 		};
 	}
 }

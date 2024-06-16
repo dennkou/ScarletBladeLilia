@@ -8,13 +8,26 @@ struct Output
 	float3 ray : VECTOR; //ベクトル
 };
 
+cbuffer cameraBuffer : register(b0)
+{
+	matrix camaraMatrix;
+	matrix shadowMatrix;
+	float3 light;
+};
+
 Texture2D<float4> tex : register(t0);
 SamplerState smp : register(s0);
 
-float4 main(Output input) : SV_TARGET
+struct PSOutput
 {
-	float3 light = normalize(float3(1, -1, 1)); //光の向かうベクトル(平行光線)
+	float4 color : SV_TARGET;
+	float4 normal : SV_TARGET1;
+};
 
+PSOutput main(Output input)
+{
+	PSOutput output;
+	
 	//ディフューズ計算
 	float diffuseB = saturate(dot(-light, input.normal.xyz));
 
@@ -22,5 +35,9 @@ float4 main(Output input) : SV_TARGET
 	float3 refLight = normalize(reflect(light, input.vnormal.xyz));
 	float specularB = (saturate(dot(refLight, input.ray)) + 1) / 2;
 	
-	return lerp(tex.Sample(smp, input.uv), float4(1.0f, 1.0f, 1.0f, 1.0f), step(0.6, specularB));
+	output.color = lerp(tex.Sample(smp, input.uv), float4(1.0f, 1.0f, 1.0f, 1.0f), step(0.6, specularB));
+	output.normal = input.normal;
+	output.normal.w = 1.0f;
+	
+	return output;
 }

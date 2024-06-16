@@ -143,7 +143,7 @@ namespace
         size_t size,
         TGA_FLAGS flags,
         _Out_ TexMetadata& metadata,
-        size_t& offset,
+        size_t& m_offset,
         _Inout_opt_ uint32_t* convFlags) noexcept
     {
         if (!pSource)
@@ -294,11 +294,11 @@ namespace
                 *convFlags |= CONV_FLAGS_INVERTY;
         }
 
-        offset = TGA_HEADER_LEN;
+        m_offset = TGA_HEADER_LEN;
 
         if (pHeader->bIDLength != 0)
         {
-            offset += pHeader->bIDLength;
+            m_offset += pHeader->bIDLength;
         }
 
         return S_OK;
@@ -417,12 +417,12 @@ namespace
         case DXGI_FORMAT_R8_UNORM:
             for (size_t y = 0; y < image->height; ++y)
             {
-                size_t offset = ((convFlags & CONV_FLAGS_INVERTX) ? (image->width - 1) : 0);
-                assert(offset < rowPitch);
+                size_t m_offset = ((convFlags & CONV_FLAGS_INVERTX) ? (image->width - 1) : 0);
+                assert(m_offset < rowPitch);
 
                 uint8_t* dPtr = image->pixels
                     + (image->rowPitch * ((convFlags & CONV_FLAGS_INVERTY) ? y : (image->height - y - 1)))
-                    + offset;
+                    + m_offset;
 
                 for (size_t x = 0; x < image->width; )
                 {
@@ -485,12 +485,12 @@ namespace
 
                 for (size_t y = 0; y < image->height; ++y)
                 {
-                    size_t offset = ((convFlags & CONV_FLAGS_INVERTX) ? (image->width - 1) : 0);
-                    assert(offset * 2 < rowPitch);
+                    size_t m_offset = ((convFlags & CONV_FLAGS_INVERTX) ? (image->width - 1) : 0);
+                    assert(m_offset * 2 < rowPitch);
 
                     auto dPtr = reinterpret_cast<uint16_t*>(image->pixels
                         + (image->rowPitch * ((convFlags & CONV_FLAGS_INVERTY) ? y : (image->height - y - 1))))
-                        + offset;
+                        + m_offset;
 
                     for (size_t x = 0; x < image->width; )
                     {
@@ -582,11 +582,11 @@ namespace
 
                 for (size_t y = 0; y < image->height; ++y)
                 {
-                    size_t offset = ((convFlags & CONV_FLAGS_INVERTX) ? (image->width - 1) : 0);
+                    size_t m_offset = ((convFlags & CONV_FLAGS_INVERTX) ? (image->width - 1) : 0);
 
                     auto dPtr = reinterpret_cast<uint32_t*>(image->pixels
                         + (image->rowPitch * ((convFlags & CONV_FLAGS_INVERTY) ? y : (image->height - y - 1))))
-                        + offset;
+                        + m_offset;
 
                     for (size_t x = 0; x < image->width; )
                     {
@@ -602,7 +602,7 @@ namespace
                             uint32_t t;
                             if (convFlags & CONV_FLAGS_EXPAND)
                             {
-                                assert(offset * 3 < rowPitch);
+                                assert(m_offset * 3 < rowPitch);
 
                                 if (sPtr + 2 >= endPtr)
                                     return E_FAIL;
@@ -615,7 +615,7 @@ namespace
                             }
                             else
                             {
-                                assert(offset * 4 < rowPitch);
+                                assert(m_offset * 4 < rowPitch);
 
                                 if (sPtr + 3 >= endPtr)
                                     return E_FAIL;
@@ -667,7 +667,7 @@ namespace
 
                                 if (convFlags & CONV_FLAGS_EXPAND)
                                 {
-                                    assert(offset * 3 < rowPitch);
+                                    assert(m_offset * 3 < rowPitch);
 
                                     if (sPtr + 2 >= endPtr)
                                         return E_FAIL;
@@ -680,7 +680,7 @@ namespace
                                 }
                                 else
                                 {
-                                    assert(offset * 4 < rowPitch);
+                                    assert(m_offset * 4 < rowPitch);
 
                                     if (sPtr + 3 >= endPtr)
                                         return E_FAIL;
@@ -729,11 +729,11 @@ namespace
 
                 for (size_t y = 0; y < image->height; ++y)
                 {
-                    size_t offset = ((convFlags & CONV_FLAGS_INVERTX) ? (image->width - 1) : 0);
+                    size_t m_offset = ((convFlags & CONV_FLAGS_INVERTX) ? (image->width - 1) : 0);
 
                     auto dPtr = reinterpret_cast<uint32_t*>(image->pixels
                         + (image->rowPitch * ((convFlags & CONV_FLAGS_INVERTY) ? y : (image->height - y - 1))))
-                        + offset;
+                        + m_offset;
 
                     for (size_t x = 0; x < image->width; )
                     {
@@ -746,7 +746,7 @@ namespace
                             size_t j = size_t(*sPtr & 0x7F) + 1;
                             ++sPtr;
 
-                            assert(offset * 4 < rowPitch);
+                            assert(m_offset * 4 < rowPitch);
 
                             if (sPtr + 3 >= endPtr)
                                 return E_FAIL;
@@ -787,7 +787,7 @@ namespace
                                 if (x >= image->width)
                                     return E_FAIL;
 
-                                assert(offset * 4 < rowPitch);
+                                assert(m_offset * 4 < rowPitch);
 
                                 if (sPtr + 3 >= endPtr)
                                     return E_FAIL;
@@ -831,11 +831,11 @@ namespace
 
                 for (size_t y = 0; y < image->height; ++y)
                 {
-                    size_t offset = ((convFlags & CONV_FLAGS_INVERTX) ? (image->width - 1) : 0);
+                    size_t m_offset = ((convFlags & CONV_FLAGS_INVERTX) ? (image->width - 1) : 0);
 
                     auto dPtr = reinterpret_cast<uint32_t*>(image->pixels
                         + (image->rowPitch * ((convFlags & CONV_FLAGS_INVERTY) ? y : (image->height - y - 1))))
-                        + offset;
+                        + m_offset;
 
                     for (size_t x = 0; x < image->width; )
                     {
@@ -848,7 +848,7 @@ namespace
                             size_t j = size_t(*sPtr & 0x7F) + 1;
                             ++sPtr;
 
-                            assert(offset * 3 < rowPitch);
+                            assert(m_offset * 3 < rowPitch);
 
                             if (sPtr + 2 >= endPtr)
                                 return E_FAIL;
@@ -883,7 +883,7 @@ namespace
                                 if (x >= image->width)
                                     return E_FAIL;
 
-                                assert(offset * 3 < rowPitch);
+                                assert(m_offset * 3 < rowPitch);
 
                                 if (sPtr + 2 >= endPtr)
                                     return E_FAIL;
@@ -949,12 +949,12 @@ namespace
 
             for (size_t y = 0; y < image->height; ++y)
             {
-                size_t offset = ((convFlags & CONV_FLAGS_INVERTX) ? (image->width - 1) : 0);
-                assert(offset < rowPitch);
+                size_t m_offset = ((convFlags & CONV_FLAGS_INVERTX) ? (image->width - 1) : 0);
+                assert(m_offset < rowPitch);
 
                 auto dPtr = reinterpret_cast<uint32_t*>(image->pixels
                     + (image->rowPitch * ((convFlags & CONV_FLAGS_INVERTY) ? y : (image->height - y - 1))))
-                    + offset;
+                    + m_offset;
 
                 for (size_t x = 0; x < image->width; ++x)
                 {
@@ -978,12 +978,12 @@ namespace
             case DXGI_FORMAT_R8_UNORM:
                 for (size_t y = 0; y < image->height; ++y)
                 {
-                    size_t offset = ((convFlags & CONV_FLAGS_INVERTX) ? (image->width - 1) : 0);
-                    assert(offset < rowPitch);
+                    size_t m_offset = ((convFlags & CONV_FLAGS_INVERTX) ? (image->width - 1) : 0);
+                    assert(m_offset < rowPitch);
 
                     uint8_t* dPtr = image->pixels
                         + (image->rowPitch * ((convFlags & CONV_FLAGS_INVERTY) ? y : (image->height - y - 1)))
-                        + offset;
+                        + m_offset;
 
                     for (size_t x = 0; x < image->width; ++x)
                     {
@@ -1008,12 +1008,12 @@ namespace
 
                     for (size_t y = 0; y < image->height; ++y)
                     {
-                        size_t offset = ((convFlags & CONV_FLAGS_INVERTX) ? (image->width - 1) : 0);
-                        assert(offset * 2 < rowPitch);
+                        size_t m_offset = ((convFlags & CONV_FLAGS_INVERTX) ? (image->width - 1) : 0);
+                        assert(m_offset * 2 < rowPitch);
 
                         auto dPtr = reinterpret_cast<uint16_t*>(image->pixels
                             + (image->rowPitch * ((convFlags & CONV_FLAGS_INVERTY) ? y : (image->height - y - 1))))
-                            + offset;
+                            + m_offset;
 
                         for (size_t x = 0; x < image->width; ++x)
                         {
@@ -1058,17 +1058,17 @@ namespace
 
                     for (size_t y = 0; y < image->height; ++y)
                     {
-                        size_t offset = ((convFlags & CONV_FLAGS_INVERTX) ? (image->width - 1) : 0);
+                        size_t m_offset = ((convFlags & CONV_FLAGS_INVERTX) ? (image->width - 1) : 0);
 
                         auto dPtr = reinterpret_cast<uint32_t*>(image->pixels
                             + (image->rowPitch * ((convFlags & CONV_FLAGS_INVERTY) ? y : (image->height - y - 1))))
-                            + offset;
+                            + m_offset;
 
                         for (size_t x = 0; x < image->width; ++x)
                         {
                             if (convFlags & CONV_FLAGS_EXPAND)
                             {
-                                assert(offset * 3 < rowPitch);
+                                assert(m_offset * 3 < rowPitch);
 
                                 if (sPtr + 2 >= endPtr)
                                     return E_FAIL;
@@ -1081,7 +1081,7 @@ namespace
                             }
                             else
                             {
-                                assert(offset * 4 < rowPitch);
+                                assert(m_offset * 4 < rowPitch);
 
                                 if (sPtr + 3 >= endPtr)
                                     return E_FAIL;
@@ -1128,15 +1128,15 @@ namespace
 
                     for (size_t y = 0; y < image->height; ++y)
                     {
-                        size_t offset = ((convFlags & CONV_FLAGS_INVERTX) ? (image->width - 1) : 0);
+                        size_t m_offset = ((convFlags & CONV_FLAGS_INVERTX) ? (image->width - 1) : 0);
 
                         auto dPtr = reinterpret_cast<uint32_t*>(image->pixels
                             + (image->rowPitch * ((convFlags & CONV_FLAGS_INVERTY) ? y : (image->height - y - 1))))
-                            + offset;
+                            + m_offset;
 
                         for (size_t x = 0; x < image->width; ++x)
                         {
-                            assert(offset * 4 < rowPitch);
+                            assert(m_offset * 4 < rowPitch);
 
                             if (sPtr + 3 >= endPtr)
                                 return E_FAIL;
@@ -1178,15 +1178,15 @@ namespace
 
                     for (size_t y = 0; y < image->height; ++y)
                     {
-                        size_t offset = ((convFlags & CONV_FLAGS_INVERTX) ? (image->width - 1) : 0);
+                        size_t m_offset = ((convFlags & CONV_FLAGS_INVERTX) ? (image->width - 1) : 0);
 
                         auto dPtr = reinterpret_cast<uint32_t*>(image->pixels
                             + (image->rowPitch * ((convFlags & CONV_FLAGS_INVERTY) ? y : (image->height - y - 1))))
-                            + offset;
+                            + m_offset;
 
                         for (size_t x = 0; x < image->width; ++x)
                         {
-                            assert(offset * 3 < rowPitch);
+                            assert(m_offset * 3 < rowPitch);
 
                             if (sPtr + 2 >= endPtr)
                                 return E_FAIL;
@@ -1447,8 +1447,8 @@ HRESULT DirectX::GetMetadataFromTGAMemory(
     if (!pSource || size == 0)
         return E_INVALIDARG;
 
-    size_t offset;
-    HRESULT hr = DecodeTGAHeader(pSource, size, flags, metadata, offset, nullptr);
+    size_t m_offset;
+    HRESULT hr = DecodeTGAHeader(pSource, size, flags, metadata, m_offset, nullptr);
     if (FAILED(hr))
         return hr;
 
@@ -1553,8 +1553,8 @@ HRESULT DirectX::GetMetadataFromTGAFile(const wchar_t* szFile, TGA_FLAGS flags, 
     size_t headerLen = TGA_HEADER_LEN;
 #endif
 
-    size_t offset;
-    HRESULT hr = DecodeTGAHeader(header, headerLen, flags, metadata, offset, nullptr);
+    size_t m_offset;
+    HRESULT hr = DecodeTGAHeader(header, headerLen, flags, metadata, m_offset, nullptr);
     if (FAILED(hr))
         return hr;
 
@@ -1644,25 +1644,25 @@ HRESULT DirectX::LoadFromTGAMemory(
 
     image.Release();
 
-    size_t offset;
+    size_t m_offset;
     uint32_t convFlags = 0;
     TexMetadata mdata;
-    HRESULT hr = DecodeTGAHeader(pSource, size, flags, mdata, offset, &convFlags);
+    HRESULT hr = DecodeTGAHeader(pSource, size, flags, mdata, m_offset, &convFlags);
     if (FAILED(hr))
         return hr;
 
-    if (offset > size)
+    if (m_offset > size)
         return E_FAIL;
 
     size_t paletteOffset = 0;
     uint8_t palette[256 * 4] = {};
     if (convFlags & CONV_FLAGS_PALETTED)
     {
-        const size_t remaining = size - offset;
+        const size_t remaining = size - m_offset;
         if (remaining == 0)
             return E_FAIL;
 
-        auto pColorMap = static_cast<const uint8_t*>(pSource) + offset;
+        auto pColorMap = static_cast<const uint8_t*>(pSource) + m_offset;
 
         _Analysis_assume_(size > TGA_HEADER_LEN);
         hr = ReadPalette(static_cast<const uint8_t*>(pSource), pColorMap, remaining, flags,
@@ -1671,11 +1671,11 @@ HRESULT DirectX::LoadFromTGAMemory(
             return hr;
     }
 
-    const size_t remaining = size - offset - paletteOffset;
+    const size_t remaining = size - m_offset - paletteOffset;
     if (remaining == 0)
         return E_FAIL;
 
-    const void* pPixels = static_cast<const uint8_t*>(pSource) + offset + paletteOffset;
+    const void* pPixels = static_cast<const uint8_t*>(pSource) + m_offset + paletteOffset;
 
     hr = image.Initialize2D(mdata.format, mdata.width, mdata.height, 1, 1);
     if (FAILED(hr))
@@ -1819,29 +1819,29 @@ HRESULT DirectX::LoadFromTGAFile(
     size_t headerLen = TGA_HEADER_LEN;
 #endif
 
-    size_t offset;
+    size_t m_offset;
     uint32_t convFlags = 0;
     TexMetadata mdata;
-    HRESULT hr = DecodeTGAHeader(header, headerLen, flags, mdata, offset, &convFlags);
+    HRESULT hr = DecodeTGAHeader(header, headerLen, flags, mdata, m_offset, &convFlags);
     if (FAILED(hr))
         return hr;
 
     // Read the pixels
-    auto const remaining = len - offset;
+    auto const remaining = len - m_offset;
     if (remaining == 0)
         return E_FAIL;
 
-    if (offset > TGA_HEADER_LEN)
+    if (m_offset > TGA_HEADER_LEN)
     {
     #ifdef _WIN32
             // Skip past the id string
-        const LARGE_INTEGER filePos = { { static_cast<DWORD>(offset), 0 } };
+        const LARGE_INTEGER filePos = { { static_cast<DWORD>(m_offset), 0 } };
         if (!SetFilePointerEx(hFile.get(), filePos, nullptr, FILE_BEGIN))
         {
             return HRESULT_FROM_WIN32(GetLastError());
         }
     #else
-        inFile.seekg(offset, std::ios::beg);
+        inFile.seekg(m_offset, std::ios::beg);
         if (!inFile)
             return E_FAIL;
     #endif

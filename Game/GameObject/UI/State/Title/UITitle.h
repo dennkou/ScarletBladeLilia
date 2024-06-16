@@ -51,7 +51,7 @@ private:
 	Crown::RenderObject::UiGraphic m_option;	
 	Crown::RenderObject::UiGraphic m_cursor;	
 
-	enum class State
+	enum class IState
 	{
 		FadeIn,
 		PleaseSpaceKey,
@@ -64,5 +64,5 @@ private:
 	class UITitleMenu;
 	class UITitleFadeOut;
 
-	Crown::FiniteStateMachine<State, UITitleState> m_titleState;
+	Crown::FiniteStateMachine<IState, UITitleState> m_titleState;
 };

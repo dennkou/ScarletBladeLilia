@@ -3,8 +3,6 @@
 #include "Crown/System.h"
 #include "Game/Game.h"
 
-
-
 int WINAPI WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance, _In_ LPSTR lpCmdLine, _In_ int nCmdShow)
 {
 	//	ˆø”‚ÍŽg‚í‚È‚¢‚æ™
@@ -26,14 +24,10 @@ int WINAPI WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance, _
 	freopen_s(&console, "CONIN$", "r+", stdin);
 #endif // _DEBUG
 
+
 	Crown::System& crown = Crown::System::GetInstance();
 	crown.Initialize();
-
-
-
 	Game* game = new Game;
-
-
 
 	while (!crown.GetEndFlag() && !game->GetGameEndFlag())
 	{

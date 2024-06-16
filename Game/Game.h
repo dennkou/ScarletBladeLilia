@@ -3,7 +3,7 @@
 #ifdef _DEBUG
 
 //	ログ表示系☆
-#define DISPLAY_LOG		//	ログを表示するよ☆
+//#define DISPLAY_LOG		//	ログを表示するよ☆
 #ifdef DISPLAY_LOG
 #include <unordered_map>
 #define IGNORE_UPDATE_EVENT	//	アップデートイベントのログを表示しないよ☆
@@ -18,6 +18,7 @@
 #include "./DesignPatterns/FiniteStateMachine.h"
 #include <iostream>
 #include <chrono>
+#include <mutex>
 
 
 
@@ -55,16 +56,17 @@ private:
 
 	// イベントを実行するよ☆
 	template<class... Argument>
-	void EventTrigger(void (GameObject::*handler)(Argument...), Argument... argument)
+	void EventTrigger(void(GameObject::*handler)(Argument...), Argument... argument)
 	{
 		//	存在しないオブジェクトを削除しながら全てのオブジェクトのイベントを呼ぶよ☆
 
-		int moveNum = 0;	//	存在してなかったオブジェクトの数だよ☆
+		unsigned int moveNum = 0;	//	存在してなかったオブジェクトの数だよ☆
 
 		ObjectIndex i = 0;
-		ObjectIndex size = static_cast<ObjectIndex>(m_gameObjects.size());
 
-		while (i + moveNum < size)
+		//	指定された関数の呼び出し☆　実行によりサイズが変更するかも知れないからsize関数を使用するよ☆
+		static const ObjectIndex objectNum = static_cast<ObjectIndex>(m_gameObjects.size());
+		while (i + moveNum < objectNum)
 		{
 			m_gameObjects[i] = m_gameObjects[i + moveNum];
 
@@ -85,9 +87,9 @@ private:
 
 	//	ゲームオブジェクトを追加するよ☆
 	template<class Type, class... Argument>
-	GameObject* CreateGameObject(Argument... argument)
+	Type* CreateGameObject(Argument... argument)
 	{
-		GameObject* ret = new Type(this,argument...);
+		Type* ret = new Type(this,argument...);
 		m_gameObjects.emplace_back(ret);
 
 		#ifdef DISPLAY_LOG
@@ -112,7 +114,7 @@ private:
 		std::unordered_map<GameObject*, std::string> m_gameObjectName;	//	ゲームオブジェクト名の配列だよ☆
 
 		double m_updateTime;
-		unsigned int m_updateNum;
+		unsigned long long m_updateNum;
 	#endif // DISPLAY_LOG
 	bool m_endFlag;
 

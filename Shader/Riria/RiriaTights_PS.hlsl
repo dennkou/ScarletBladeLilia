@@ -34,7 +34,13 @@ float random(float2 uv)
 	return frac(sin(dot(uv, float2(12.9898f, 78.233f))) * 43758.5453f);
 }
 
-float4 main(Output input) : SV_TARGET
+struct PSOutput
+{
+	float4 color : SV_TARGET;
+	float4 normal : SV_TARGET1;
+};
+
+PSOutput main(Output input)
 {
 	float4 skinColor = float4(0.898, 0.706, 0.592, 1);
 	float4 tightsColor = float4(0.373, 0.286, 0.235, 1);
@@ -44,8 +50,11 @@ float4 main(Output input) : SV_TARGET
 	
 	float t = lerp(min, max, dot(input.vnormal.xyz, float3(0, 0, -1)));
 	
+	PSOutput ret;
 
-	float4 baseColor = lerp(tightsColor, skinColor, t);
+	ret.color = lerp(tightsColor, skinColor, t);
+	ret.normal = input.normal;
+	ret.normal.w = 1.0f;
 	
-	return baseColor;
+	return ret;
 }

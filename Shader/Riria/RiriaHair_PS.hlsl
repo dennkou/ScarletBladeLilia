@@ -11,6 +11,13 @@ struct Output
 Texture2D<float4> tex : register(t0);
 SamplerState smp : register(s0);
 
+cbuffer cameraBuffer : register(b0)
+{
+	matrix camaraMatrix;
+	matrix shadowMatrix;
+	float3 light;
+};
+
 
 cbuffer materialBuffer : register(b2)
 {
@@ -23,18 +30,17 @@ static const float HALF_PI = 1.5707963267948966192313216916398;
 
 
 
-float random(float2 uv)
+struct PSOutput
 {
-	return frac(sin(dot(uv, float2(12.9898f, 78.233f))) * 43758.5453f);
-}
+	float4 color : SV_TARGET;
+	float4 normal : SV_TARGET1;
+};
 
 
 
-float4 main(Output input) : SV_TARGET
+PSOutput main(Output input)
 {
-	float4 ret = float4(0, 0, 0, 1);
-	
-	float3 light = normalize(float3(1, -1, 1)); //光の向かうベクトル(平行光線)
+	PSOutput ret;
 
 	//ディフューズ計算
 	float diffuseLight = (dot(-light, input.normal.xyz) + 1) / 2;
@@ -44,8 +50,9 @@ float4 main(Output input) : SV_TARGET
 	
 	float4 color = tex.Sample(smp, input.uv);	//	テクスチャカラーだよ☆
 	
-	ret = color * float4(lerp(ambient, diffuse.rbg, diffuseLight), 1);
+	ret.color = color * float4(lerp(ambient, diffuse.rbg, diffuseLight), 1);
+	ret.normal = input.normal;
+	ret.normal.w = 1.0f;
 	
 	return ret;
-
 }

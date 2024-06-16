@@ -109,11 +109,14 @@ void Crown::Input::Mouse::SetPoint(int x, int y, HWND hwnd)
 	windowInfo.cbSize = sizeof(WINDOWINFO);
 	GetWindowInfo(hwnd, &windowInfo);
 
-	SetCursorPos(x + windowInfo.rcWindow.left + 8, y + windowInfo.rcWindow.top + 35 - 4);
+	SetCursorPos(x + windowInfo.rcWindow.left + 9, y + windowInfo.rcWindow.top + 38);
 }
 
 void Crown::Input::Mouse::Update()
 {
+	m_oldL = m_l;
+	m_oldR = m_r;
+	m_oldCenter = m_center;
 }
 
 void Crown::Input::Mouse::LButtonUpMessage()

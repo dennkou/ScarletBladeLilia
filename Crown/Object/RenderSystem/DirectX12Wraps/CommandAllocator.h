@@ -31,7 +31,7 @@ namespace Crown
 			/// GPU側の処理が終るまで待機するよ☆
 			/// </summary>
 			/// <param name="waitEvent"></param>
-			void WaitForGpu(HANDLE waitEvent) noexcept;
+			void WaitForGpu() noexcept;
 
 			/// <summary>
 			///	描画に使用中のリソースが誤って解放されないように保持しておくよ☆

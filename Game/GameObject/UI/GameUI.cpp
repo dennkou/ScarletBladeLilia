@@ -10,9 +10,9 @@ GameUI::GameUI(Game* game)
 	//	ステートマシンの設定だよ☆
 	m_state.SetEnterFunction(&UIState::Enter);
 	m_state.SetExitFunction(&UIState::Exit);
-	m_state.RegisterState<UITitle>(State::Title, this);
-	m_state.RegisterState<UIPlay>(State::Play);
-	m_state.ChangeState(State::Title);
+	m_state.RegisterState<UITitle>(IState::Title, this);
+	m_state.RegisterState<UIPlay>(IState::Play, this);
+	m_state.ChangeState(IState::Title);
 }
 
 GameUI::~GameUI()
@@ -25,7 +25,7 @@ void GameUI::OnGameInitialize()
 
 void GameUI::OnGameUpdate(Timer& timer)
 {
-	m_state.CallFunction<void, Timer&>(&UIState::Update, timer);
+	m_state.CallStateFunction<void, Timer&>(&UIState::Update, timer);
 }
 
 void GameUI::OnGameFinalize()
@@ -34,25 +34,35 @@ void GameUI::OnGameFinalize()
 
 void GameUI::OnInputSelect()
 {
-	m_state.CallFunction(&UIState::InputSelect);
+	m_state.CallStateFunction(&UIState::InputSelect);
 }
 
 void GameUI::OnInputCursorUp()
 {
-	m_state.CallFunction(&UIState::InputCursorUp);
+	m_state.CallStateFunction(&UIState::InputCursorUp);
 }
 
 void GameUI::OnInputCursorDown()
 {
-	m_state.CallFunction(&UIState::InputCursorDown);
+	m_state.CallStateFunction(&UIState::InputCursorDown);
 }
 
 void GameUI::OnInputCursorLeft()
 {
-	m_state.CallFunction(&UIState::InputCursorLeft);
+	m_state.CallStateFunction(&UIState::InputCursorLeft);
 }
 
 void GameUI::OnInputCursorRight()
 {
-	m_state.CallFunction(&UIState::InputCursorRight);
+	m_state.CallStateFunction(&UIState::InputCursorRight);
+}
+
+void GameUI::OnPlayRestart()
+{
+	m_state.CallStateFunction(&UIState::OnPlayRestart);
+}
+
+void GameUI::OnPlayerDied()
+{
+	m_state.CallStateFunction(&UIState::OnPlayerDied);
 }

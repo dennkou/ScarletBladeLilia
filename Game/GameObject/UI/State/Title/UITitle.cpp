@@ -18,11 +18,11 @@ GameUI::UITitle::UITitle(GameUI* gameUI)
 	//	ステートマシンの設定だよ☆
 	m_titleState.SetEnterFunction(&UITitleState::Enter);
 	m_titleState.SetExitFunction(&UITitleState::Exit);
-	m_titleState.RegisterState<UITitleFadeIn>(State::FadeIn, this);
-	m_titleState.RegisterState<UITitlePleaseSpaceKey>(State::PleaseSpaceKey, this);
-	m_titleState.RegisterState<UITitleMenu>(State::Menu, this);
-	m_titleState.RegisterState<UITitleFadeOut>(State::FadeOut, this);
-	m_titleState.ChangeState(State::FadeIn);
+	m_titleState.RegisterState<UITitleFadeIn>(IState::FadeIn, this);
+	m_titleState.RegisterState<UITitlePleaseSpaceKey>(IState::PleaseSpaceKey, this);
+	m_titleState.RegisterState<UITitleMenu>(IState::Menu, this);
+	m_titleState.RegisterState<UITitleFadeOut>(IState::FadeOut, this);
+	m_titleState.ChangeState(IState::FadeIn);
 
 	//	uiの初期化だよ☆
 	m_start.SetPosition(DirectX::XMFLOAT2(0, SELECT_ITEM_START_POS_Y));
@@ -46,7 +46,7 @@ void GameUI::UITitle::Enter()
 
 void GameUI::UITitle::Update(Timer& timer)
 {
-	m_titleState.CallFunction<void, Timer&>(&UITitleState::Update, timer);
+	m_titleState.CallStateFunction<void, Timer&>(&UITitleState::Update, timer);
 }
 
 void GameUI::UITitle::Exit()
@@ -56,20 +56,20 @@ void GameUI::UITitle::Exit()
 
 void GameUI::UITitle::InputMouse(DirectX::XMFLOAT2 input)
 {
-	m_titleState.CallFunction(&UITitleState::InputMouse, input);
+	m_titleState.CallStateFunction(&UITitleState::InputMouse, input);
 }
 
 void GameUI::UITitle::InputCursorUp()
 {
-	m_titleState.CallFunction(&UITitleState::InputCursorUp);
+	m_titleState.CallStateFunction(&UITitleState::InputCursorUp);
 }
 
 void GameUI::UITitle::InputCursorDown()
 {
-	m_titleState.CallFunction(&UITitleState::InputCursorDown);
+	m_titleState.CallStateFunction(&UITitleState::InputCursorDown);
 }
 
 void GameUI::UITitle::InputSelect()
 {
-	m_titleState.CallFunction(&UITitleState::InputSelect);
+	m_titleState.CallStateFunction(&UITitleState::InputSelect);
 }

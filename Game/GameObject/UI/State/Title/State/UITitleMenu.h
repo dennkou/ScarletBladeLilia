@@ -18,7 +18,7 @@ public:
 private:
 	UITitle* m_owner;
 
-	enum class State
+	enum class IState
 	{
 		TitleMove,
 		MenuIn,
@@ -42,5 +42,5 @@ private:
 	};
 	SelectItem m_selectItem;
 
-	Crown::FiniteStateMachine<State, TitleMenuState> m_state;
+	Crown::FiniteStateMachine<IState, TitleMenuState> m_state;
 };

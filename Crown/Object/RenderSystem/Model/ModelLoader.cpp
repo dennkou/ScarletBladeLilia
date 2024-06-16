@@ -6,6 +6,7 @@
 #include "./../DirectX12Wraps/ResourceUploader.h"
 #include "./FileType/Pmd.h"
 #include "./FileType/Pmx.h"
+#include "./FileType/TriangleColliderDebug.h"
 
 
 
@@ -49,4 +50,68 @@ void Crown::RenderObject::Model::ModelLoader::Load(ID3D12Device* device, Texture
 			__assume(0);
 			break;
 	}
+}
+
+Crown::RenderObject::Model::CreateModel::CreateModel(const std::initializer_list<ColliderAlgorithm::Triangle>& collider, DirectX::XMFLOAT4 color, Model& model)
+	:
+	m_collider(collider),
+	m_color(color),
+	ModelLoader(model)
+{
+}
+
+Crown::RenderObject::Model::CreateModel::~CreateModel()
+{
+}
+
+void Crown::RenderObject::Model::CreateModel::Load(ID3D12Device* device, TextureBuffer* textureBuffer)
+{
+	textureBuffer;
+	if (m_model.m_resource.Get() == nullptr)	//	モデルデータ用のバッファがなければ作成☆
+	{
+		D3D12_HEAP_PROPERTIES heapProperties = CD3DX12_HEAP_PROPERTIES(D3D12_HEAP_TYPE_DEFAULT);
+		D3D12_RESOURCE_DESC resourceDesc = CD3DX12_RESOURCE_DESC::Buffer(ResourceUploader::GetInstance()->Get255AlignmentSize<Model::ModelData>());
+		device->CreateCommittedResource(&heapProperties, D3D12_HEAP_FLAG_NONE, &resourceDesc, D3D12_RESOURCE_STATE_COMMON, nullptr, IID_PPV_ARGS(&m_model.m_resource));
+		m_model.DataUpload();
+
+		//	ディスクリプタの作成を行うよ☆
+		D3D12_CONSTANT_BUFFER_VIEW_DESC constantBufferViewDesc = {};
+		constantBufferViewDesc.BufferLocation = m_model.m_resource->GetGPUVirtualAddress();
+		constantBufferViewDesc.SizeInBytes = static_cast<UINT>(ResourceUploader::GetInstance()->Get255AlignmentSize<Model::ModelData>());
+		m_model.m_descriptorOffset = DescriptorHeaps::GetInstance().CreateConstantBufferView(constantBufferViewDesc);
+	}
+	TriangleColliderDebug::Load(device, m_model.m_vertices, m_model.m_materialMeshs, m_collider, m_color, m_model.m_resource);
+}
+
+Crown::RenderObject::Model::CopyModel::CopyModel(Model& model, const Model& copyModel)
+	:
+	copyModel(copyModel),
+	ModelLoader(model)
+{
+}
+
+Crown::RenderObject::Model::CopyModel::~CopyModel()
+{
+}
+
+void Crown::RenderObject::Model::CopyModel::Load(ID3D12Device* device, TextureBuffer* textureBuffer)
+{
+	textureBuffer;
+	if (m_model.m_resource.Get() == nullptr)	//	モデルデータ用のバッファがなければ作成☆
+	{
+		D3D12_HEAP_PROPERTIES heapProperties = CD3DX12_HEAP_PROPERTIES(D3D12_HEAP_TYPE_DEFAULT);
+		D3D12_RESOURCE_DESC resourceDesc = CD3DX12_RESOURCE_DESC::Buffer(ResourceUploader::GetInstance()->Get255AlignmentSize<Model::ModelData>());
+		device->CreateCommittedResource(&heapProperties, D3D12_HEAP_FLAG_NONE, &resourceDesc, D3D12_RESOURCE_STATE_COMMON, nullptr, IID_PPV_ARGS(&m_model.m_resource));
+		m_model.DataUpload();
+
+		//	ディスクリプタの作成を行うよ☆
+		D3D12_CONSTANT_BUFFER_VIEW_DESC constantBufferViewDesc = {};
+		constantBufferViewDesc.BufferLocation = m_model.m_resource->GetGPUVirtualAddress();
+		constantBufferViewDesc.SizeInBytes = static_cast<UINT>(ResourceUploader::GetInstance()->Get255AlignmentSize<Model::ModelData>());
+		m_model.m_descriptorOffset = DescriptorHeaps::GetInstance().CreateConstantBufferView(constantBufferViewDesc);
+	}
+	m_model.m_vertices = copyModel.m_vertices;
+	m_model.m_materialMeshs = copyModel.m_materialMeshs;
+	m_model.m_position = copyModel.m_position;
+	m_model.m_rotate = copyModel.m_rotate;
 }

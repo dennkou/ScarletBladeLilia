@@ -5,7 +5,7 @@
 #include "./../Game.h"
 #include <DirectXMath.h>
 
-
+class Enemy;
 
 //	イベント引数用の前方宣言だよ☆
 class Timer;
@@ -31,6 +31,7 @@ public:
 	virtual void OnInputAttackDown() {}								//	攻撃ボタンが押されたよ☆
 	virtual void OnInputAvoidanceDown() {}							//	回避ボタンが押されたよ☆
 	virtual void OnInputCamera(DirectX::XMFLOAT2 input) { input; }	//	カメラが操作されたよ☆
+	virtual void OnInputDash(bool input) { input; }					//	ダッシュボタンが押された&離されたよ☆
 
 	//	メニュー中
 	virtual void OnInputSelect() {}
@@ -53,14 +54,14 @@ public:
 
 
 	virtual void OnPlayerDied()	{}
-	virtual void OnEnemyDied() {}
+	virtual void OnEnemyDied(Enemy* diedEnemy) { diedEnemy; }		//	
 	virtual void OnPlayerLockon() {}
 	virtual void OnEnemyLockon() {}
 	virtual void OnEnemyCreate() {}
 
 	//	ゲームオブジェクトを追加するよ☆
 	template<class Type, class... Argument>
-	GameObject* CreateGameObject(Argument... argument)
+	Type* CreateGameObject(Argument... argument)
 	{
 		return m_game->CreateGameObject<Type, Argument...>(argument...);
 	}

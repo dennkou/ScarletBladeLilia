@@ -1,3 +1,4 @@
+#include <algorithm>
 #include "GameInput.h"
 #include "./../../Crown/Object/Input.h"
 #include "./../../Crown/System.h"
@@ -18,7 +19,6 @@ GameInput::~GameInput()
 void GameInput::OnGameUpdate(Timer& timer)
 {
 	timer;
-
 	//	キーボードの入力受け取りだよ☆(メニュー時)
 	const Crown::Input::IKeyboard* keyboard = Crown::Input::GetKeyboard();
 	if (keyboard->keyDown(Crown::KeyCode::Space))
@@ -44,6 +44,7 @@ void GameInput::OnGameUpdate(Timer& timer)
 	if (keyboard->keyDown(Crown::KeyCode::ESC))
 	{
 		EventTrigger(&GameObject::OnInputMenu);
+		timer.SetWorldTimeRate(static_cast<float>(std::clamp(static_cast<int>(!m_mouseMove), 0, 1)));
 	}
 	//	キーボードの入力受け取りだよ☆(プレイ中)
 	DirectX::XMFLOAT2 input = DirectX::XMFLOAT2(0.0f, 0.0f);
@@ -68,6 +69,14 @@ void GameInput::OnGameUpdate(Timer& timer)
 		m_input = input;
 		EventTrigger(&GameObject::OnInputMove, input);
 	}
+	if (Crown::Input::GetKeyboard()->keyDown(Crown::KeyCode::Shift))
+	{
+		EventTrigger(&GameObject::OnInputDash, true);
+	}
+	else if(Crown::Input::GetKeyboard()->keyUp(Crown::KeyCode::Shift))
+	{
+		EventTrigger(&GameObject::OnInputDash, false);
+	}
 
 	//	マウス入力受け取りだよ☆(プレイ中)
 	if (!m_mouseMove)
@@ -78,6 +87,7 @@ void GameInput::OnGameUpdate(Timer& timer)
 		DirectX::XMFLOAT2 mouse = Crown::Input::GetMouse()->GetMousePosint();
 		mouse.x -= windowHalfSizeX;
 		mouse.y -= windowHalfSizeY;
+
 		//	どちらかから入力があればマウスポインターを原点に移動させるよ☆
 		if ((static_cast<int>(Crown::Input::GetMouse()->GetMousePosint().y - windowHalfSizeY) != 0) ||
 			(static_cast<int>(Crown::Input::GetMouse()->GetMousePosint().x - windowHalfSizeX) != 0))
@@ -95,6 +105,8 @@ void GameInput::OnGameUpdate(Timer& timer)
 	{
 		EventTrigger(&GameObject::OnInputAttackDown);
 	}
+
+	Crown::Input::Update();
 }
 
 void GameInput::OnInputMenu()

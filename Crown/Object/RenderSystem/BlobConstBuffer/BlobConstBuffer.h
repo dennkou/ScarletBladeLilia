@@ -19,7 +19,7 @@ namespace Crown
 		class BlobConstBuffer
 		{
 		public:
-			enum class DataType : unsigned char
+			enum class DataType : const unsigned char
 			{
 				Int = 0,
 				Float = 1,
@@ -46,7 +46,7 @@ namespace Crown
 			template<class Data>
 			void SetParameter(unsigned int parameterIndex, const Data& data);
 
-			inline unsigned int GetDescriptorOffset() { return m_descriptorOffset; }
+			inline unsigned int GetDescriptorOffset() const { return m_descriptorOffset; }
 			inline const Microsoft::WRL::ComPtr<ID3D12Resource> GetBuffer() { return m_constantBuffer; }
 		private:
 			byte* GetDataPointer(unsigned int parameterIndex);

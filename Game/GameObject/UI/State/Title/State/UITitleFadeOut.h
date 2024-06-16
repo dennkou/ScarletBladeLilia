@@ -17,5 +17,5 @@ private:
 	void SizeUpdate(Crown::RenderObject::UiGraphic* ui, bool isUpSize, float timer);
 
 	UITitle* m_owner;
-	float m_timer;
+	float m_animTimer;
 };

@@ -9,6 +9,8 @@
 #include "./GameObject/Stage/Stage.h"
 #include "./Debug/DebugLog.h"
 
+#include "./GameObject/Render/Render.h"
+
 Game::Game()
 	:
 #ifdef DISPLAY_LOG
@@ -23,12 +25,15 @@ Game::Game()
 #endif // DISPLAY_LOG
 
 
+
 	//	システム系オブジェクトの生成をするよ☆
+	CreateGameObject<Render>();			//	
 	CreateGameObject<GameInput>();
 	CreateGameObject<GameUI>();			//	ゲームのUIだよ☆
 	CreateGameObject<Stage>();			//	ステージの生成をするよ☆
 
 	EventTrigger(&GameObject::OnGameInitialize);
+	m_timer.Update();
 }
 
 Game::~Game()
@@ -52,7 +57,7 @@ void Game::Update()
 	m_timer.Update();
 	EventTrigger<Timer&>(&GameObject::OnGameUpdate, m_timer);
 #ifdef DISPLAY_LOG
-	m_updateTime += m_timer.GetTime();
+	m_updateTime += m_timer.GetSystemTime();
 	++m_updateNum;
 #endif // DISPLAY_LOG
 }

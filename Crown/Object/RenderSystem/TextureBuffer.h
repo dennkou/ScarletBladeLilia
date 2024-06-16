@@ -25,11 +25,8 @@ namespace Crown
 				unsigned char r, g, b, a;
 			};
 
-			TextureBuffer();
+			TextureBuffer(ID3D12Device* device, ID3D12GraphicsCommandList* copyCommandList, DescriptorHeaps* descriptorHeap);
 			~TextureBuffer();
-
-
-			void Initialize(ID3D12Device* device, ID3D12GraphicsCommandList* copyCommandList, DescriptorHeaps* descriptorHeap);
 
 			/// <summary>
 			/// テクスチャのディスクリプタヒープオフセットを取得するよ☆
@@ -42,7 +39,7 @@ namespace Crown
 			/// テクスチャのバッファを取得するよ☆
 			/// </summary>
 			/// <returns></returns>
-			const Microsoft::WRL::ComPtr<ID3D12Resource> GetTextureBuffer(unsigned int offset);
+			const Microsoft::WRL::ComPtr<ID3D12Resource> GetTextureBuffer(unsigned int m_offset);
 
 			/// <summary>
 			/// 渡されたRGBA配列をテクスチャとして登録するよ☆

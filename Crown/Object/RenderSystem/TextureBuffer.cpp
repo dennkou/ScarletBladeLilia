@@ -8,23 +8,12 @@
 
 
 
-Crown::RenderObject::TextureBuffer::TextureBuffer()
+Crown::RenderObject::TextureBuffer::TextureBuffer(ID3D12Device* device, ID3D12GraphicsCommandList* copyCommandList, DescriptorHeaps* descriptorHeap)
 	:
 	m_device(),
 	m_descriptorHeap(),
-	m_copyCommandList()
-{
-}
-
-
-
-Crown::RenderObject::TextureBuffer::~TextureBuffer()
-{
-}
-
-
-
-void Crown::RenderObject::TextureBuffer::Initialize(ID3D12Device* device, ID3D12GraphicsCommandList* copyCommandList, DescriptorHeaps* descriptorHeap)
+	m_copyCommandList(),
+	m_textureDescriptorHeapOffsets()
 {
 	m_device = device;
 	m_descriptorHeap = descriptorHeap;
@@ -50,12 +39,18 @@ void Crown::RenderObject::TextureBuffer::Initialize(ID3D12Device* device, ID3D12
 	RGBA grayGradation[2 * 256] = {};
 	for (unsigned int i = 0; i < 2 * 256; ++i)
 	{
-		grayGradation[i].r = static_cast<unsigned char>(i>>1);
-		grayGradation[i].g = static_cast<unsigned char>(i>>1);
-		grayGradation[i].b = static_cast<unsigned char>(i>>1);
+		grayGradation[i].r = static_cast<unsigned char>(i >> 1);
+		grayGradation[i].g = static_cast<unsigned char>(i >> 1);
+		grayGradation[i].b = static_cast<unsigned char>(i >> 1);
 		grayGradation[i].a = 255;
 	}
 	CreateTextureData(L"グレイグラデーションテクスチャ", 2, 256, grayGradation);
+}
+
+
+
+Crown::RenderObject::TextureBuffer::~TextureBuffer()
+{
 }
 
 
@@ -84,10 +79,10 @@ unsigned int Crown::RenderObject::TextureBuffer::TextureAcquisition(std::wstring
 
 
 
-const Microsoft::WRL::ComPtr<ID3D12Resource> Crown::RenderObject::TextureBuffer::GetTextureBuffer(unsigned int offset)
+const Microsoft::WRL::ComPtr<ID3D12Resource> Crown::RenderObject::TextureBuffer::GetTextureBuffer(unsigned int m_offset)
 {
-	assert(m_resources.find(offset) != m_resources.end());
-	return m_resources[offset];
+	assert(m_resources.find(m_offset) != m_resources.end());
+	return m_resources[m_offset];
 }
 
 
@@ -103,7 +98,7 @@ void Crown::RenderObject::TextureBuffer::CreateData(std::wstring& dataName, UINT
 {
 	//	作成対象のバッファーだよ☆
 	Microsoft::WRL::ComPtr<ID3D12Resource> textureBuffer = nullptr;
-	unsigned int offset = 0;
+	unsigned int m_offset = 0;
 
 	//	255アライメントしたrowPitchだよ☆
 	UINT dataPitchAlignment = rowPitch + D3D12_TEXTURE_DATA_PITCH_ALIGNMENT - rowPitch % D3D12_TEXTURE_DATA_PITCH_ALIGNMENT;
@@ -122,7 +117,7 @@ void Crown::RenderObject::TextureBuffer::CreateData(std::wstring& dataName, UINT
 	size_t pitch = dataPitchAlignment;
 	for (unsigned int i = 0; i < height; ++i)
 	{
-		std::copy_n(srcAddress, pitch, mapImage);
+		std::copy_n(srcAddress, rowPitch, mapImage);
 		srcAddress += rowPitch;
 		mapImage += pitch;
 	}
@@ -163,9 +158,9 @@ void Crown::RenderObject::TextureBuffer::CreateData(std::wstring& dataName, UINT
 	srvDesc.Shader4ComponentMapping = D3D12_DEFAULT_SHADER_4_COMPONENT_MAPPING;
 	srvDesc.ViewDimension = D3D12_SRV_DIMENSION_TEXTURE2D;
 	srvDesc.Texture2D.MipLevels = 1;
-	offset = m_descriptorHeap->CreateShaderResourceView(textureBuffer.Get(), srvDesc);
+	m_offset = m_descriptorHeap->CreateShaderResourceView(textureBuffer.Get(), srvDesc);
 
 	//	データの登録をするよ☆
-	m_textureDescriptorHeapOffsets[dataName] = offset;
-	m_resources[offset] = textureBuffer;
+	m_textureDescriptorHeapOffsets[dataName] = m_offset;
+	m_resources[m_offset] = textureBuffer;
 }

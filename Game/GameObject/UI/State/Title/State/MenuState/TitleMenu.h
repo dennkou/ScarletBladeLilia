@@ -21,5 +21,5 @@ private:
 
 	UITitleMenu* m_owner;
 	float m_targetPositionY;
-	float m_timer;
+	float m_animTimer;
 };

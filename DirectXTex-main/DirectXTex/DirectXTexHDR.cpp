@@ -97,7 +97,7 @@ namespace
         _In_reads_bytes_(size) const void* pSource,
         size_t size,
         _Out_ TexMetadata& metadata,
-        size_t& offset,
+        size_t& m_offset,
         float& exposure) noexcept
     {
         if (!pSource)
@@ -292,7 +292,7 @@ namespace
             return E_FAIL;
         }
 
-        offset = size_t(info - static_cast<const char*>(pSource));
+        m_offset = size_t(info - static_cast<const char*>(pSource));
 
         metadata.width = width;
         metadata.height = height;
@@ -587,9 +587,9 @@ HRESULT DirectX::GetMetadataFromHDRMemory(const void* pSource, size_t size, TexM
     if (!pSource || size == 0)
         return E_INVALIDARG;
 
-    size_t offset;
+    size_t m_offset;
     float exposure;
-    return DecodeHDRHeader(pSource, size, metadata, offset, exposure);
+    return DecodeHDRHeader(pSource, size, metadata, m_offset, exposure);
 }
 
 _Use_decl_annotations_
@@ -668,9 +668,9 @@ HRESULT DirectX::GetMetadataFromHDRFile(const wchar_t* szFile, TexMetadata& meta
         return E_FAIL;
 #endif
 
-    size_t offset;
+    size_t m_offset;
     float exposure;
-    return DecodeHDRHeader(header, headerLen, metadata, offset, exposure);
+    return DecodeHDRHeader(header, headerLen, metadata, m_offset, exposure);
 }
 
 
@@ -685,17 +685,17 @@ HRESULT DirectX::LoadFromHDRMemory(const void* pSource, size_t size, TexMetadata
 
     image.Release();
 
-    size_t offset;
+    size_t m_offset;
     float exposure;
     TexMetadata mdata;
-    HRESULT hr = DecodeHDRHeader(pSource, size, mdata, offset, exposure);
+    HRESULT hr = DecodeHDRHeader(pSource, size, mdata, m_offset, exposure);
     if (FAILED(hr))
         return hr;
 
-    if (offset > size)
+    if (m_offset > size)
         return E_FAIL;
 
-    const size_t remaining = size - offset;
+    const size_t remaining = size - m_offset;
     if (remaining == 0)
         return E_FAIL;
 
@@ -704,7 +704,7 @@ HRESULT DirectX::LoadFromHDRMemory(const void* pSource, size_t size, TexMetadata
         return hr;
 
     // Copy pixels
-    auto sourcePtr = static_cast<const uint8_t*>(pSource) + offset;
+    auto sourcePtr = static_cast<const uint8_t*>(pSource) + m_offset;
 
     size_t pixelLen = remaining;
 

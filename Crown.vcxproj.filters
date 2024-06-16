@@ -11,16 +11,16 @@
       <Filter>Crown\Object\RenderSystem</Filter>
     </ClCompile>
     <ClCompile Include="Crown\Object\RenderSystem\DirectX12Wraps\CommandAllocator.cpp">
-      <Filter>Crown\Object\RenderSystem\DirectX12Wraps</Filter>
+      <Filter>Crown\Object\RenderSystem\Model\DirectX12Wraps</Filter>
     </ClCompile>
     <ClCompile Include="Crown\Object\RenderSystem\DirectX12Wraps\GraphicPipeline.cpp">
-      <Filter>Crown\Object\RenderSystem\DirectX12Wraps</Filter>
+      <Filter>Crown\Object\RenderSystem\Model\DirectX12Wraps</Filter>
     </ClCompile>
     <ClCompile Include="Crown\Object\RenderSystem\DirectX12Wraps\GraphicsCommandList.cpp">
-      <Filter>Crown\Object\RenderSystem\DirectX12Wraps</Filter>
+      <Filter>Crown\Object\RenderSystem\Model\DirectX12Wraps</Filter>
     </ClCompile>
     <ClCompile Include="Crown\Object\RenderSystem\DirectX12Wraps\SwapChain.cpp">
-      <Filter>Crown\Object\RenderSystem\DirectX12Wraps</Filter>
+      <Filter>Crown\Object\RenderSystem\Model\DirectX12Wraps</Filter>
     </ClCompile>
     <ClCompile Include="Game\Game.cpp">
       <Filter>Game</Filter>
@@ -35,16 +35,16 @@
       <Filter>Crown\Object\RenderSystem\Model</Filter>
     </ClCompile>
     <ClCompile Include="Crown\Object\RenderSystem\DirectX12Wraps\ResourceUploader.cpp">
-      <Filter>Crown\Object\RenderSystem\DirectX12Wraps</Filter>
+      <Filter>Crown\Object\RenderSystem\Model\DirectX12Wraps</Filter>
     </ClCompile>
     <ClCompile Include="Crown\Object\RenderSystem\DirectX12Wraps\DescriptorHeaps.cpp">
-      <Filter>Crown\Object\RenderSystem\DirectX12Wraps</Filter>
+      <Filter>Crown\Object\RenderSystem\Model\DirectX12Wraps</Filter>
     </ClCompile>
     <ClCompile Include="Crown\Object\RenderSystem\Model\MaterialMesh.cpp">
       <Filter>Crown\Object\RenderSystem\Model</Filter>
     </ClCompile>
     <ClCompile Include="Crown\Object\RenderSystem\DirectX12Wraps\RootSignature.cpp">
-      <Filter>Crown\Object\RenderSystem\DirectX12Wraps</Filter>
+      <Filter>Crown\Object\RenderSystem\Model\DirectX12Wraps</Filter>
     </ClCompile>
     <ClCompile Include="Crown\Object\RenderSystem\Model\Material.cpp">
       <Filter>Crown\Object\RenderSystem\Model</Filter>
@@ -71,12 +71,6 @@
     <ClCompile Include="Crown\Object\RenderSystem\Camera.cpp">
       <Filter>Crown\Object\RenderSystem\Model</Filter>
     </ClCompile>
-    <ClCompile Include="Crown\Object\RenderSystem\RenderCommands\SetDescriptorHeap.cpp">
-      <Filter>Crown\Object\RenderSystem\RenderCommands\Command</Filter>
-    </ClCompile>
-    <ClCompile Include="Crown\Object\RenderSystem\RenderCommands\SetRootSignature.cpp">
-      <Filter>Crown\Object\RenderSystem\RenderCommands\Command</Filter>
-    </ClCompile>
     <ClCompile Include="Crown\Object\RenderSystem\Shader.cpp">
       <Filter>Crown\Object\RenderSystem</Filter>
     </ClCompile>
@@ -87,9 +81,6 @@
       <Filter>Crown\Object\RenderSystem\RenderCommands\Command</Filter>
     </ClCompile>
     <ClCompile Include="Crown\Object\RenderSystem\RenderCommands\SetIndexBuffer.cpp">
-      <Filter>Crown\Object\RenderSystem\RenderCommands\Command</Filter>
-    </ClCompile>
-    <ClCompile Include="Crown\Object\RenderSystem\RenderCommands\SetPrimitiveTopology.cpp">
       <Filter>Crown\Object\RenderSystem\RenderCommands\Command</Filter>
     </ClCompile>
     <ClCompile Include="Crown\Object\RenderSystem\Model\FileType\Pmd.cpp">
@@ -116,16 +107,7 @@
     <ClCompile Include="Crown\Object\RenderSystem\UI\UIType\UiGraphic.cpp">
       <Filter>Crown\Object\RenderSystem\UI\UIType</Filter>
     </ClCompile>
-    <ClCompile Include="Crown\Object\RenderSystem\TestSystem\TestSystem.cpp">
-      <Filter>Crown\Object\RenderSystem\TestSystem</Filter>
-    </ClCompile>
-    <ClCompile Include="Crown\Object\RenderSystem\TestSystem\PipelineStateManager.cpp">
-      <Filter>Crown\Object\RenderSystem\TestSystem</Filter>
-    </ClCompile>
-    <ClCompile Include="Crown\Object\RenderSystem\TestSystem\DrawCall.cpp">
-      <Filter>Crown\Object\RenderSystem\TestSystem</Filter>
-    </ClCompile>
-    <ClCompile Include="Crown\Object\RenderSystem\RenderTarget.cpp">
+    <ClCompile Include="Crown\Object\RenderSystem\RenderTarget\RenderTarget.cpp">
       <Filter>Crown\Object\RenderSystem</Filter>
     </ClCompile>
     <ClCompile Include="Game\GameObject\GameObject.cpp">
@@ -136,9 +118,6 @@
     </ClCompile>
     <ClCompile Include="Game\GameObject\UI\GameUI.cpp">
       <Filter>Game\GameObject\UI</Filter>
-    </ClCompile>
-    <ClCompile Include="Game\GameObject\Stage\Object\Character\Character.cpp">
-      <Filter>Game\GameObject\Stage\Object\Character</Filter>
     </ClCompile>
     <ClCompile Include="Game\Debug\DebugLog.cpp">
       <Filter>Game\Debug</Filter>
@@ -157,12 +136,6 @@
     </ClCompile>
     <ClCompile Include="Game\GameObject\Input\GameInput.cpp">
       <Filter>Game\GameObject\Input</Filter>
-    </ClCompile>
-    <ClCompile Include="Game\GameObject\Stage\Object\Object.cpp">
-      <Filter>Game\GameObject\Stage\Object</Filter>
-    </ClCompile>
-    <ClCompile Include="Game\GameObject\UI\State\Play\UIPlay.cpp">
-      <Filter>Game\GameObject\UI\State</Filter>
     </ClCompile>
     <ClCompile Include="Game\GameObject\UI\State\Title\UITitle.cpp">
       <Filter>Game\GameObject\UI\State\Title</Filter>
@@ -197,20 +170,8 @@
     <ClCompile Include="Game\GameObject\Stage\Stage.cpp">
       <Filter>Game\GameObject\Stage</Filter>
     </ClCompile>
-    <ClCompile Include="Game\GameObject\Stage\StageObject\StageObject.cpp">
-      <Filter>Game\GameObject\Stage\StageObjcet</Filter>
-    </ClCompile>
     <ClCompile Include="Game\GameObject\Stage\Object\Character\Player\PlayerState\PlayerTitle.cpp">
       <Filter>Game\GameObject\Stage\Object\Character\Player\State</Filter>
-    </ClCompile>
-    <ClCompile Include="Game\GameObject\Stage\Object\Character\Player\PlayerState\PlayerDefault\PlayerDefault.cpp">
-      <Filter>Game\GameObject\Stage\Object\Character\Player\State\PlayerStateDefault</Filter>
-    </ClCompile>
-    <ClCompile Include="Game\GameObject\Stage\Object\Character\Player\PlayerState\PlayerDefault\PlayerRun.cpp">
-      <Filter>Game\GameObject\Stage\Object\Character\Player\State\PlayerStateDefault</Filter>
-    </ClCompile>
-    <ClCompile Include="Game\GameObject\Stage\Object\Character\Player\PlayerState\PlayerDefault\PlayerStand.cpp">
-      <Filter>Game\GameObject\Stage\Object\Character\Player\State\PlayerStateDefault</Filter>
     </ClCompile>
     <ClCompile Include="Game\GameObject\Stage\Object\Character\Player\PlayerState\PlayerAttack.cpp">
       <Filter>Game\GameObject\Stage\Object\Character\Player\State</Filter>
@@ -230,6 +191,58 @@
     <ClCompile Include="Game\GameObject\Stage\Collider\EnemyCollider.cpp">
       <Filter>Game\GameObject\Stage\Collider</Filter>
     </ClCompile>
+    <ClCompile Include="Game\GameObject\Stage\Collider\ColliderAlgorithm.cpp">
+      <Filter>Game\GameObject\Stage\Collider</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\GameObject\Stage\Collider\InstanceCollection.cpp">
+      <Filter>Game\GameObject\Stage\Collider</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\GameObject\UI\State\Play\UIPlay.cpp">
+      <Filter>Game\GameObject\UI\State\Play</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\GameObject\Stage\Collider\PlayerAttackCollider.cpp">
+      <Filter>Game\GameObject\Stage\Collider</Filter>
+    </ClCompile>
+    <ClCompile Include="Crown\Object\RenderSystem\Model\FileType\TriangleColliderDebug.cpp">
+      <Filter>Crown\Object\RenderSystem\Model\FileType</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\GameObject\Stage\Object\Character\Player\UI\PlayerHpUi.cpp">
+      <Filter>Game\GameObject\Stage\Object\Character\Player\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\GameObject\Stage\Object\Character\Enemy\UI\EnemyUi.cpp">
+      <Filter>Game\GameObject\Stage\Object\Character\Enemy\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\GameObject\Stage\Object\Character\Enemy\AIState\EnemyAIStateCombat.cpp">
+      <Filter>Game\GameObject\Stage\Object\Character\Enemy\State</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\GameObject\Stage\Object\Character\Enemy\AIState\EnemyAIStatePatrol.cpp">
+      <Filter>Game\GameObject\Stage\Object\Character\Enemy\State\Patrol</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\GameObject\Stage\Object\Character\Enemy\AIState\NavigationAI\PointPatrol.cpp" />
+    <ClCompile Include="Game\GameObject\Stage\Object\Character\Enemy\AIState\EnemyAIStateTitle.cpp" />
+    <ClCompile Include="Game\GameObject\Stage\Object\Character\Player\PlayerState\PlayerStateStand.cpp" />
+    <ClCompile Include="Game\GameObject\Stage\Object\Character\Player\PlayerState\PlayerStateWalk.cpp" />
+    <ClCompile Include="Game\GameObject\Stage\Object\Character\Player\PlayerState\PlayerStateRun.cpp" />
+    <ClCompile Include="Game\GameObject\Stage\StageObject\Sky.cpp" />
+    <ClCompile Include="Crown\Object\RenderSystem\DirectX12Wraps\DefaultRootSignature.cpp" />
+    <ClCompile Include="Game\GameObject\Stage\StageObject\Aisle.cpp" />
+    <ClCompile Include="Game\GameObject\Stage\Collider\AisleCollider.cpp" />
+    <ClCompile Include="Game\GameObject\Stage\Object\Character\Enemy\AIState\CombatAction\CombatAttack.cpp" />
+    <ClCompile Include="Game\GameObject\Stage\Collider\EnemyAttackCollider.cpp" />
+    <ClCompile Include="Game\GameObject\Stage\Object\Character\HP.cpp" />
+    <ClCompile Include="Game\GameObject\Stage\Object\Character\Player\PlayerState\PlayerDied.cpp" />
+    <ClCompile Include="Game\GameObject\Stage\Object\Character\Enemy\AIState\CombatAction\WrapAround.cpp" />
+    <ClCompile Include="Game\GameObject\Stage\Object\Character\Enemy\AIState\CombatAction\Approach.cpp" />
+    <ClCompile Include="Game\GameObject\Stage\Object\Character\Enemy\AIState\CombatAction\ThrustAttack.cpp" />
+    <ClCompile Include="Game\GameObject\Stage\Object\Character\Enemy\AIState\CombatAction\Shot.cpp" />
+    <ClCompile Include="Game\GameObject\Stage\Object\Bullet.cpp" />
+    <ClCompile Include="Game\GameObject\Stage\Collider\BulletCollider.cpp" />
+    <ClCompile Include="Crown\Object\RenderSystem\RenderTarget\MultipleRenderTarget.cpp" />
+    <ClCompile Include="Game\GameObject\Render\FrameRender.cpp" />
+    <ClCompile Include="Game\GameObject\Render\PostEffects.cpp" />
+    <ClCompile Include="Game\GameObject\Stage\StageModel.cpp" />
+    <ClCompile Include="Game\Debug\DebugPlayer.cpp" />
+    <ClCompile Include="Game\GameObject\Stage\Object\Character\Player\PlayerState\PlayerSlashAttack.cpp" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Crown">
@@ -243,9 +256,6 @@
     </Filter>
     <Filter Include="Crown\Object\RenderSystem">
       <UniqueIdentifier>{4cb410dd-bef0-4ede-9bd1-b28dc4a8f26f}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Crown\Object\RenderSystem\DirectX12Wraps">
-      <UniqueIdentifier>{858bc5d9-f677-4520-93f3-4328e835c54f}</UniqueIdentifier>
     </Filter>
     <Filter Include="Crown\Object\RenderSystem\Model">
       <UniqueIdentifier>{2fde15c9-74f7-4820-8427-b5b78c0bd3ce}</UniqueIdentifier>
@@ -349,6 +359,36 @@
     <Filter Include="Game\GameObject\Stage\Collider">
       <UniqueIdentifier>{36e0536c-c527-4066-9165-1a8745f56f45}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Game\GameObject\UI\State\Play">
+      <UniqueIdentifier>{82c7cbcd-99a2-47fe-ad70-135bbe79c500}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\GameObject\UI\State\Play\Object">
+      <UniqueIdentifier>{68bb4864-abe5-4c74-8010-ac3cce8000fe}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\GameObject\Stage\Object\Character\Enemy\State">
+      <UniqueIdentifier>{636c843e-f2db-4603-8c6b-a3307c7777ad}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Crown\Shader\Debug">
+      <UniqueIdentifier>{4a0be055-1168-49ff-a055-449ba04af4b9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Shader\UI">
+      <UniqueIdentifier>{4e44727b-d7ba-4269-9f88-7ce0c8174646}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Crown\Object\RenderSystem\Model\DirectX12Wraps">
+      <UniqueIdentifier>{858bc5d9-f677-4520-93f3-4328e835c54f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\GameObject\UI\State\Play\State">
+      <UniqueIdentifier>{2f55c565-a94b-4521-a0a3-c1913201d8a5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\GameObject\Stage\Object\Character\Player\UI">
+      <UniqueIdentifier>{5890b18f-8ec7-420f-9ebd-dc03bfbcfde7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\GameObject\Stage\Object\Character\Enemy\UI">
+      <UniqueIdentifier>{bbeb9955-056c-4180-8eb1-6a53784e108f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\GameObject\Stage\Object\Character\Enemy\State\Patrol">
+      <UniqueIdentifier>{4ff3e19c-e140-4dc8-bed7-e6448ebba76b}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Crown\System.h">
@@ -361,16 +401,16 @@
       <Filter>Crown\Object\RenderSystem</Filter>
     </ClInclude>
     <ClInclude Include="Crown\Object\RenderSystem\DirectX12Wraps\CommandAllocator.h">
-      <Filter>Crown\Object\RenderSystem\DirectX12Wraps</Filter>
+      <Filter>Crown\Object\RenderSystem\Model\DirectX12Wraps</Filter>
     </ClInclude>
     <ClInclude Include="Crown\Object\RenderSystem\DirectX12Wraps\GraphicPipeline.h">
-      <Filter>Crown\Object\RenderSystem\DirectX12Wraps</Filter>
+      <Filter>Crown\Object\RenderSystem\Model\DirectX12Wraps</Filter>
     </ClInclude>
     <ClInclude Include="Crown\Object\RenderSystem\DirectX12Wraps\GraphicsCommandList.h">
-      <Filter>Crown\Object\RenderSystem\DirectX12Wraps</Filter>
+      <Filter>Crown\Object\RenderSystem\Model\DirectX12Wraps</Filter>
     </ClInclude>
     <ClInclude Include="Crown\Object\RenderSystem\DirectX12Wraps\SwapChain.h">
-      <Filter>Crown\Object\RenderSystem\DirectX12Wraps</Filter>
+      <Filter>Crown\Object\RenderSystem\Model\DirectX12Wraps</Filter>
     </ClInclude>
     <ClInclude Include="Game\Game.h">
       <Filter>Game</Filter>
@@ -388,10 +428,10 @@
       <Filter>Crown\Object\RenderSystem\Model</Filter>
     </ClInclude>
     <ClInclude Include="Crown\Object\RenderSystem\DirectX12Wraps\ResourceUploader.h">
-      <Filter>Crown\Object\RenderSystem\DirectX12Wraps</Filter>
+      <Filter>Crown\Object\RenderSystem\Model\DirectX12Wraps</Filter>
     </ClInclude>
     <ClInclude Include="Crown\Object\RenderSystem\DirectX12Wraps\DescriptorHeaps.h">
-      <Filter>Crown\Object\RenderSystem\DirectX12Wraps</Filter>
+      <Filter>Crown\Object\RenderSystem\Model\DirectX12Wraps</Filter>
     </ClInclude>
     <ClInclude Include="Crown\Object\RenderSystem\Model\MaterialMesh.h">
       <Filter>Crown\Object\RenderSystem\Model</Filter>
@@ -400,7 +440,7 @@
       <Filter>Crown\Object\RenderSystem\Model</Filter>
     </ClInclude>
     <ClInclude Include="Crown\Object\RenderSystem\DirectX12Wraps\RootSignature.h">
-      <Filter>Crown\Object\RenderSystem\DirectX12Wraps</Filter>
+      <Filter>Crown\Object\RenderSystem\Model\DirectX12Wraps</Filter>
     </ClInclude>
     <ClInclude Include="Crown\Object\StringAlgorithm.h">
       <Filter>Crown\Object</Filter>
@@ -429,12 +469,6 @@
     <ClInclude Include="Crown\Object\RenderSystem\Camera.h">
       <Filter>Crown\Object\RenderSystem\Model</Filter>
     </ClInclude>
-    <ClInclude Include="Crown\Object\RenderSystem\RenderCommands\SetDescriptorHeap.h">
-      <Filter>Crown\Object\RenderSystem\RenderCommands\Command</Filter>
-    </ClInclude>
-    <ClInclude Include="Crown\Object\RenderSystem\RenderCommands\SetRootSignature.h">
-      <Filter>Crown\Object\RenderSystem\RenderCommands\Command</Filter>
-    </ClInclude>
     <ClInclude Include="Crown\Object\RenderSystem\Shader.h">
       <Filter>Crown\Object\RenderSystem</Filter>
     </ClInclude>
@@ -445,9 +479,6 @@
       <Filter>Crown\Object\RenderSystem\RenderCommands\Command</Filter>
     </ClInclude>
     <ClInclude Include="Crown\Object\RenderSystem\RenderCommands\SetIndexBuffer.h">
-      <Filter>Crown\Object\RenderSystem\RenderCommands\Command</Filter>
-    </ClInclude>
-    <ClInclude Include="Crown\Object\RenderSystem\RenderCommands\SetPrimitiveTopology.h">
       <Filter>Crown\Object\RenderSystem\RenderCommands\Command</Filter>
     </ClInclude>
     <ClInclude Include="Crown\Object\RenderSystem\Model\FileType\Pmd.h">
@@ -474,16 +505,7 @@
     <ClInclude Include="Crown\Object\RenderSystem\UI\UIType\UiGraphic.h">
       <Filter>Crown\Object\RenderSystem\UI\UIType</Filter>
     </ClInclude>
-    <ClInclude Include="Crown\Object\RenderSystem\TestSystem\TestSystem.h">
-      <Filter>Crown\Object\RenderSystem\TestSystem</Filter>
-    </ClInclude>
-    <ClInclude Include="Crown\Object\RenderSystem\TestSystem\PipelineStateManager.h">
-      <Filter>Crown\Object\RenderSystem\TestSystem</Filter>
-    </ClInclude>
-    <ClInclude Include="Crown\Object\RenderSystem\TestSystem\DrawCall.h">
-      <Filter>Crown\Object\RenderSystem\TestSystem</Filter>
-    </ClInclude>
-    <ClInclude Include="Crown\Object\RenderSystem\RenderTarget.h">
+    <ClInclude Include="Crown\Object\RenderSystem\RenderTarget\RenderTarget.h">
       <Filter>Crown\Object\RenderSystem</Filter>
     </ClInclude>
     <ClInclude Include="Game\GameObject\GameObject.h">
@@ -500,9 +522,6 @@
     </ClInclude>
     <ClInclude Include="Game\GameObject\UI\GameUI.h">
       <Filter>Game\GameObject\UI</Filter>
-    </ClInclude>
-    <ClInclude Include="Game\GameObject\Stage\Object\Character\Character.h">
-      <Filter>Game\GameObject\Stage\Object\Character</Filter>
     </ClInclude>
     <ClInclude Include="Game\Debug\DebugLog.h">
       <Filter>Game\Debug</Filter>
@@ -521,12 +540,6 @@
     </ClInclude>
     <ClInclude Include="Game\GameObject\Input\GameInput.h">
       <Filter>Game\GameObject\Input</Filter>
-    </ClInclude>
-    <ClInclude Include="Game\GameObject\Stage\Object\Object.h">
-      <Filter>Game\GameObject\Stage\Object</Filter>
-    </ClInclude>
-    <ClInclude Include="Game\GameObject\UI\State\Play\UIPlay.h">
-      <Filter>Game\GameObject\UI\State</Filter>
     </ClInclude>
     <ClInclude Include="Game\GameObject\UI\State\UIState.h">
       <Filter>Game\GameObject\UI\State</Filter>
@@ -579,18 +592,6 @@
     <ClInclude Include="Game\GameObject\Stage\Object\Character\Player\PlayerState\PlayerTitle.h">
       <Filter>Game\GameObject\Stage\Object\Character\Player\State</Filter>
     </ClInclude>
-    <ClInclude Include="Game\GameObject\Stage\Object\Character\Player\PlayerState\PlayerDefault\PlayerDefault.h">
-      <Filter>Game\GameObject\Stage\Object\Character\Player\State\PlayerStateDefault</Filter>
-    </ClInclude>
-    <ClInclude Include="Game\GameObject\Stage\Object\Character\Player\PlayerState\PlayerDefault\PlayerDefaultStateBase.h">
-      <Filter>Game\GameObject\Stage\Object\Character\Player\State\PlayerStateDefault</Filter>
-    </ClInclude>
-    <ClInclude Include="Game\GameObject\Stage\Object\Character\Player\PlayerState\PlayerDefault\PlayerRun.h">
-      <Filter>Game\GameObject\Stage\Object\Character\Player\State\PlayerStateDefault</Filter>
-    </ClInclude>
-    <ClInclude Include="Game\GameObject\Stage\Object\Character\Player\PlayerState\PlayerDefault\PlayerStand.h">
-      <Filter>Game\GameObject\Stage\Object\Character\Player\State\PlayerStateDefault</Filter>
-    </ClInclude>
     <ClInclude Include="Game\GameObject\Stage\Object\Character\Player\PlayerState\PlayerAttack.h">
       <Filter>Game\GameObject\Stage\Object\Character\Player\State</Filter>
     </ClInclude>
@@ -612,6 +613,65 @@
     <ClInclude Include="Crown\Object\Algorithm.h">
       <Filter>Crown\Object</Filter>
     </ClInclude>
+    <ClInclude Include="Game\GameObject\Stage\Collider\ColliderAlgorithm.h">
+      <Filter>Game\GameObject\Stage\Collider</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\GameObject\Stage\Collider\InstanceCollection.h">
+      <Filter>Game\GameObject\Stage\Collider</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\GameObject\UI\State\Play\UIPlay.h">
+      <Filter>Game\GameObject\UI\State\Play</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\GameObject\Stage\Object\Character\Enemy\AIState\EnemyAIState.h">
+      <Filter>Game\GameObject\Stage\Object\Character\Enemy\State</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\GameObject\Stage\Collider\PlayerAttackCollider.h">
+      <Filter>Game\GameObject\Stage\Collider</Filter>
+    </ClInclude>
+    <ClInclude Include="Crown\Object\RenderSystem\Model\FileType\TriangleColliderDebug.h">
+      <Filter>Crown\Object\RenderSystem\Model\FileType</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\GameObject\Stage\Object\Character\Player\UI\PlayerHpUi.h">
+      <Filter>Game\GameObject\Stage\Object\Character\Player\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\GameObject\Stage\Object\Character\Enemy\UI\EnemyUi.h">
+      <Filter>Game\GameObject\Stage\Object\Character\Enemy\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\GameObject\Stage\Object\Character\Enemy\AIState\EnemyAIStateCombat.h">
+      <Filter>Game\GameObject\Stage\Object\Character\Enemy\State</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\GameObject\Stage\Object\Character\Enemy\AIState\EnemyAIStatePatrol.h">
+      <Filter>Game\GameObject\Stage\Object\Character\Enemy\State\Patrol</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\GameObject\Stage\Object\Character\Enemy\AIState\NavigationAI\PointPatrol.h" />
+    <ClInclude Include="MathLibrary.h" />
+    <ClInclude Include="Game\GameObject\Stage\Object\Character\Enemy\AIState\EnemyAIStateTitle.h" />
+    <ClInclude Include="Game\GameObject\Stage\Object\Character\Player\PlayerState\PlayerStateStand.h" />
+    <ClInclude Include="Game\GameObject\Stage\Object\Character\Player\PlayerState\PlayerStateWalk.h" />
+    <ClInclude Include="Game\GameObject\Stage\Object\Character\Player\PlayerState\PlayerStateRun.h" />
+    <ClInclude Include="Game\GameObject\Stage\StageObject\Sky.h" />
+    <ClInclude Include="Game\GameObject\Stage\Object\Character\Enemy\AIState\CombatAction\CombatActionState.h" />
+    <ClInclude Include="Crown\Object\RenderSystem\DirectX12Wraps\DefaultRootSignature.h" />
+    <ClInclude Include="Game\GameObject\Stage\StageObject\Aisle.h" />
+    <ClInclude Include="Game\GameObject\Stage\Collider\AisleCollider.h" />
+    <ClInclude Include="Game\GameObject\Stage\Object\Character\Enemy\AIState\CombatAction\CombatAttack.h" />
+    <ClInclude Include="Game\GameObject\Stage\Collider\EnemyAttackCollider.h" />
+    <ClInclude Include="Game\GameObject\Stage\Object\Character\HP.h" />
+    <ClInclude Include="Game\GameObject\Stage\Object\Character\Player\PlayerState\PlayerDied.h" />
+    <ClInclude Include="Game\GameObject\Stage\Object\Character\Enemy\AIState\CombatAction\WrapAround.h" />
+    <ClInclude Include="Game\GameObject\Stage\Object\Character\Enemy\AIState\CombatAction\Approach.h" />
+    <ClInclude Include="Game\GameObject\Stage\Object\Character\Enemy\AIState\CombatAction\ThrustAttack.h" />
+    <ClInclude Include="Game\GameObject\Stage\Object\Character\Enemy\AIState\CombatAction\Shot.h" />
+    <ClInclude Include="Game\GameObject\Stage\Object\Bullet.h" />
+    <ClInclude Include="Game\GameObject\Stage\Collider\BulletCollider.h" />
+    <ClInclude Include="Crown\Object\RenderSystem\RenderTarget\IRenderTarget.h" />
+    <ClInclude Include="Crown\Object\RenderSystem\RenderTarget\MultipleRenderTarget.h" />
+    <ClInclude Include="Game\GameObject\Render\FrameRender.h" />
+    <ClInclude Include="Game\GameObject\Render\PostEffects.h" />
+    <ClInclude Include="Crown\Object\RenderSystem\Model\IModel.h" />
+    <ClInclude Include="Game\GameObject\Stage\StageModel.h" />
+    <ClInclude Include="Game\Debug\DebugPlayer.h" />
+    <ClInclude Include="Game\GameObject\Stage\Object\Character\Player\PlayerState\PlayerSlashAttack.h" />
   </ItemGroup>
   <ItemGroup>
     <Text Include="ヘッダーテンプレート.txt" />
@@ -626,37 +686,7 @@
     <FxCompile Include="Crown\Shader\PmxVs.hlsl">
       <Filter>Crown\Shader\MMD</Filter>
     </FxCompile>
-    <FxCompile Include="UIGs.hlsl">
-      <Filter>Crown\Shader\UI</Filter>
-    </FxCompile>
-    <FxCompile Include="UIPs.hlsl">
-      <Filter>Crown\Shader\UI</Filter>
-    </FxCompile>
-    <FxCompile Include="UIvs.hlsl">
-      <Filter>Crown\Shader\UI</Filter>
-    </FxCompile>
-    <FxCompile Include="Crown\Shader\hpPercentPs.hlsl">
-      <Filter>Crown\Shader\UI</Filter>
-    </FxCompile>
-    <FxCompile Include="Crown\Shader\hpPercentVs.hlsl">
-      <Filter>Crown\Shader\UI</Filter>
-    </FxCompile>
-    <FxCompile Include="Crown\Shader\hpPercentGs.hlsl">
-      <Filter>Crown\Shader\UI</Filter>
-    </FxCompile>
-    <FxCompile Include="Crown\Shader\PlayerHpUiVs.hlsl">
-      <Filter>Crown\Shader\UI</Filter>
-    </FxCompile>
-    <FxCompile Include="Crown\Shader\PlayerHpUiGs.hlsl">
-      <Filter>Crown\Shader\UI</Filter>
-    </FxCompile>
-    <FxCompile Include="Crown\Shader\PlayerHpUiPs.hlsl">
-      <Filter>Crown\Shader\UI</Filter>
-    </FxCompile>
     <FxCompile Include="Shader\Riria\Riria_VS.hlsl">
-      <Filter>Shader\Riria</Filter>
-    </FxCompile>
-    <FxCompile Include="Shader\Riria\RiriaClothes_PS.hlsl">
       <Filter>Shader\Riria</Filter>
     </FxCompile>
     <FxCompile Include="Shader\Riria\RiriaEye_PS.hlsl">
@@ -671,19 +701,53 @@
     <FxCompile Include="Shader\Riria\RiriaTights_PS.hlsl">
       <Filter>Shader\Riria</Filter>
     </FxCompile>
+    <FxCompile Include="Crown\Shader\DebugVS.hlsl">
+      <Filter>Crown\Shader\Debug</Filter>
+    </FxCompile>
+    <FxCompile Include="Crown\Shader\DebugPS.hlsl">
+      <Filter>Crown\Shader\Debug</Filter>
+    </FxCompile>
+    <FxCompile Include="Crown\Shader\UIvs.hlsl">
+      <Filter>Crown\Shader\UI</Filter>
+    </FxCompile>
+    <FxCompile Include="Crown\Shader\UIPs.hlsl">
+      <Filter>Crown\Shader\UI</Filter>
+    </FxCompile>
+    <FxCompile Include="Shader\UI\PlayerHPUI\PlayerHPUI_VS.hlsl">
+      <Filter>Shader\UI</Filter>
+    </FxCompile>
+    <FxCompile Include="Shader\UI\PlayerHPUI\PlayerHPUI_PS.hlsl">
+      <Filter>Shader\UI</Filter>
+    </FxCompile>
+    <FxCompile Include="Shader\UI\EnemyHPUI\EnemyHPUI_VS.hlsl">
+      <Filter>Shader\UI</Filter>
+    </FxCompile>
+    <FxCompile Include="Shader\UI\EnemyHPUI\EnemyHPUI_PS.hlsl">
+      <Filter>Shader\UI</Filter>
+    </FxCompile>
+    <FxCompile Include="Shader\Obj\SkyVS.hlsl" />
+    <FxCompile Include="Shader\Obj\SkyPS.hlsl" />
+    <FxCompile Include="Shader\Obj\Obj_VS.hlsl" />
+    <FxCompile Include="Shader\Obj\Obj_PS.hlsl" />
+    <FxCompile Include="Shader\Default\ShadowVS.hlsl" />
+    <FxCompile Include="Shader\Default\ShadowPS.hlsl" />
+    <FxCompile Include="Shader\Default\DefaultVS.hlsl" />
+    <FxCompile Include="Shader\Default\DefaultPS.hlsl" />
+    <FxCompile Include="Shader\Obj\Obj_Shadow_PS.hlsl" />
+    <FxCompile Include="Shader\Obj\Obj_Shadow_VS.hlsl" />
+    <FxCompile Include="Shader\Default\BlurVS.hlsl" />
+    <FxCompile Include="Shader\Default\BlurPS.hlsl" />
+    <FxCompile Include="Shader\Default\FrameBufferVS.hlsl" />
+    <FxCompile Include="Shader\Default\FrameBufferPS.hlsl" />
+    <FxCompile Include="Shader\Default\RenderingPS.hlsl" />
+    <FxCompile Include="Shader\Default\RenderingVS.hlsl" />
+    <FxCompile Include="Shader\UI\EnemyHPUI\EnemyHPUI_GS.hlsl" />
+    <FxCompile Include="Shader\UI\PlayerHPUI\PlayerHPUI_GS.hlsl" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Crown\Shader\Data.hlsli">
       <Filter>Crown\Shader\MMD</Filter>
     </None>
-    <None Include="UI.hlsli">
-      <Filter>Crown\Shader\UI</Filter>
-    </None>
-    <None Include="Crown\Shader\EnemyHpUi.hlsli">
-      <Filter>Crown\Shader\UI</Filter>
-    </None>
-    <None Include="Crown\Shader\PlayerHpUi.hlsli">
-      <Filter>Crown\Shader\UI</Filter>
-    </None>
+    <None Include="Shader\Default\ShadowHeader.hlsli" />
   </ItemGroup>
 </Project>

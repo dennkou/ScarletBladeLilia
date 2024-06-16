@@ -28,7 +28,7 @@ namespace Crown
 			/// コマンドリストを渡すよ☆
 			/// </summary>
 			/// <returns></returns>
-			inline ID3D12GraphicsCommandList* GetGraphicsCommandList() const noexcept { return m_graphicsCommandList.Get(); }
+			ID3D12GraphicsCommandList* GetGraphicsCommandList(unsigned int index) noexcept;
 
 			/// <summary>
 			/// リソースのコピー専門のコマンドリストを渡すよ☆
@@ -54,50 +54,46 @@ namespace Crown
 			///	描画に使用中のリソースが誤って解放されないように保持しておくよ☆
 			/// </summary>
 			/// <param name="lockResource"></param>
-			inline void LockResource(const Microsoft::WRL::ComPtr<ID3D12Resource>& lockResource) { m_commandAllocators[m_index]->LockResource(lockResource); }
+			inline void LockResource(unsigned int index, const Microsoft::WRL::ComPtr<ID3D12Resource>& lockResource) { m_commandAllocators[index]->LockResource(lockResource); }
 
-			/// <summary>
-			/// GPU側の全ての処理が終了するまで待機するよ☆
-			/// コマンドリストの実行はしないよ☆
-			/// </summary>
+
+			inline void LockCopyResource(const Microsoft::WRL::ComPtr<ID3D12Resource>& lockResource) { m_copyAllocators[m_copyIndex]->LockResource(lockResource); }
+
 			void WaitForGpu() noexcept;
 
-			/// <summary>
-			/// コマンドリストを実行するよ☆
-			/// </summary>
-			void RunCommandList();
-
-			/// <summary>
-			/// コマンドリストを実行し、処理が完了するまで待機するよ☆
-			/// </summary>
-			void RunAndWait();
+			void CopyExecute();
+			void DrawExecute();
 
 		private:
-
-			/// <summary>
-			/// コマンドリストに積んだ処理を走らせるよ☆
-			/// </summary>
-			void Run();
+			struct CommandList
+			{
+				CommandList()
+					:
+					allocatorIndex(0),
+					commandList()
+				{}
+				unsigned int										allocatorIndex;				//	現在使用中のコマンドアロケーターのインデックスだよ☆
+				Microsoft::WRL::ComPtr<ID3D12GraphicsCommandList>	commandList;
+			};
 
 			/// <summary>
 			/// 次のコマンドアロケーターを取得するよ☆
 			/// </summary>
-			void NextCommandAllocator();
+			void NextCommandAllocator(unsigned int& index);
 
-			unsigned int													m_addCommandAllocatorNum;						//	現在追加を許可されているコマンドアロケーターの数だよ☆
-			const unsigned int												MAX_FAILEDPROCESSING_NUM;						//	処理落ちが許可されたフレーム数だよ☆
-			unsigned int													m_failedProcessingNum;							//	現在の処理落ち数だよ☆
-			unsigned int													m_index;										//	現在使用中のコマンドアロケーターのインデックスだよ☆
-			unsigned int													m_copyIndex;									//	コピー専門のコマンドアロケーターのインデックスだよ☆
-			Microsoft::WRL::ComPtr<ID3D12GraphicsCommandList>				m_graphicsCommandList;							//	コマンドリストだよ☆
-			Microsoft::WRL::ComPtr<ID3D12GraphicsCommandList>				m_copyCommandList;								//	コピー用コマンドリストだよ☆
-			Microsoft::WRL::ComPtr<ID3D12CommandQueue>						m_commandQueue;									//	コマンドキューだよ☆
-			std::vector<std::unique_ptr<CommandAllocator>>					m_commandAllocators;							//	コマンドアロケーターの配列だよ☆
-			std::vector<std::unique_ptr<CommandAllocator>>					m_copyAllocators;								//	コピー用コマンドアロケーターの配列だよ☆
+			unsigned int											m_addCommandAllocatorNum;	//	現在追加を許可されているコマンドアロケーターの数だよ☆
+			const unsigned int										MAX_FAILEDPROCESSING_NUM;	//	処理落ちが許可されたフレーム数だよ☆
+			unsigned int											m_failedProcessingNum;		//	現在の処理落ち数だよ☆
+			unsigned int											m_copyIndex;				//	コピー専門のコマンドアロケーターのインデックスだよ☆
+			std::vector<CommandList>								m_graphicsCommandList;		//	コマンドリストだよ☆
+			Microsoft::WRL::ComPtr<ID3D12GraphicsCommandList>		m_copyCommandList;			//	コピー用コマンドリストだよ☆
+			Microsoft::WRL::ComPtr<ID3D12CommandQueue>				m_commandQueue;				//	コマンドキューだよ☆
+			std::vector<std::unique_ptr<CommandAllocator>>			m_commandAllocators;		//	コマンドアロケーターの配列だよ☆
+			std::vector<std::unique_ptr<CommandAllocator>>			m_copyAllocators;			//	コピー用コマンドアロケーターの配列だよ☆
+			Microsoft::WRL::ComPtr<ID3D12Fence>						m_fence;					//	待機用のフェンスだよ☆
+			unsigned long long										m_fenceVal;					//	フェンス値だよ☆
 
-			HANDLE															m_waitEvent;									//	描画狩猟まで待機する為のイベントだよ☆
-
-			ID3D12Device*													m_device;
+			ID3D12Device*											m_device;
 		};
 	}
 }

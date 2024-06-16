@@ -1681,19 +1681,19 @@ HRESULT DirectX::LoadFromDDSMemory(
     if (FAILED(hr))
         return hr;
 
-    size_t offset = sizeof(uint32_t) + sizeof(DDS_HEADER);
+    size_t m_offset = sizeof(uint32_t) + sizeof(DDS_HEADER);
     if (convFlags & CONV_FLAGS_DX10)
-        offset += sizeof(DDS_HEADER_DXT10);
+        m_offset += sizeof(DDS_HEADER_DXT10);
 
-    assert(offset <= size);
+    assert(m_offset <= size);
 
     const uint32_t *pal8 = nullptr;
     if (convFlags & CONV_FLAGS_PAL8)
     {
-        pal8 = reinterpret_cast<const uint32_t*>(static_cast<const uint8_t*>(pSource) + offset);
+        pal8 = reinterpret_cast<const uint32_t*>(static_cast<const uint8_t*>(pSource) + m_offset);
         assert(pal8);
-        offset += (256 * sizeof(uint32_t));
-        if (size < offset)
+        m_offset += (256 * sizeof(uint32_t));
+        if (size < m_offset)
             return E_FAIL;
     }
 
@@ -1711,10 +1711,10 @@ HRESULT DirectX::LoadFromDDSMemory(
         cflags |= CP_FLAGS_BAD_DXTN_TAILS;
     }
 
-    const void* pPixels = static_cast<const uint8_t*>(pSource) + offset;
+    const void* pPixels = static_cast<const uint8_t*>(pSource) + m_offset;
     assert(pPixels);
     hr = CopyImage(pPixels,
-        size - offset,
+        size - m_offset,
         mdata,
         cflags,
         convFlags,
@@ -1821,7 +1821,7 @@ HRESULT DirectX::LoadFromDDSFile(
     if (FAILED(hr))
         return hr;
 
-    size_t offset = MAX_HEADER_SIZE;
+    size_t m_offset = MAX_HEADER_SIZE;
 
     if (!(convFlags & CONV_FLAGS_DX10))
     {
@@ -1838,7 +1838,7 @@ HRESULT DirectX::LoadFromDDSFile(
             return E_FAIL;
     #endif
 
-        offset = sizeof(uint32_t) + sizeof(DDS_HEADER);
+        m_offset = sizeof(uint32_t) + sizeof(DDS_HEADER);
     }
 
     std::unique_ptr<uint32_t[]> pal8;
@@ -1866,10 +1866,10 @@ HRESULT DirectX::LoadFromDDSFile(
             return E_FAIL;
     #endif
 
-        offset += (256 * sizeof(uint32_t));
+        m_offset += (256 * sizeof(uint32_t));
     }
 
-    const size_t remaining = len - offset;
+    const size_t remaining = len - m_offset;
     if (remaining == 0)
         return E_FAIL;
 

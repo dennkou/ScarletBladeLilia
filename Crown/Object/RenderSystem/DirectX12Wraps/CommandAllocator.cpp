@@ -10,12 +10,7 @@ Crown::RenderObject::CommandAllocator::CommandAllocator(ID3D12Device* device, D3
 
 Crown::RenderObject::CommandAllocator::~CommandAllocator()
 {
-	HANDLE waitEvent = CreateEvent(nullptr, false, false, nullptr);	//	ƒCƒxƒ“ƒg‚ðì¬‚·‚é‚æ™
-	if (waitEvent != 0)
-	{
-		WaitForGpu(waitEvent);
-		CloseHandle(waitEvent);
-	}
+	WaitForGpu();
 	m_commandAllocator.Reset();
 }
 
@@ -24,12 +19,11 @@ bool Crown::RenderObject::CommandAllocator::NotDrewEnd()
 	return m_fence->GetCompletedValue() != m_fenceValue;
 }
 
-void Crown::RenderObject::CommandAllocator::WaitForGpu(HANDLE waitEvent) noexcept
+void Crown::RenderObject::CommandAllocator::WaitForGpu() noexcept
 {
 	if (NotDrewEnd())
 	{
-		m_fence->SetEventOnCompletion(m_fenceValue, waitEvent);
-		WaitForSingleObject(waitEvent, INFINITE);
+		m_fence->SetEventOnCompletion(m_fenceValue, nullptr);
 	}
 }
 
