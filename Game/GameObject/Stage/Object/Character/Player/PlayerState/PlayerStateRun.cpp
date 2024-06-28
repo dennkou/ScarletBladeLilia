@@ -30,23 +30,20 @@ void Player::PlayerRun::Exit()
 void Player::PlayerRun::Update(float time)
 {
 	float inputAngle = m_player->m_camera.GetRotate().y + atan2(-m_player->m_inputMove.x, -m_player->m_inputMove.y);
-
 	m_inputVector.x += sin(inputAngle) * ROLL_SPEED * time;
 	m_inputVector.y += cos(inputAngle) * ROLL_SPEED * time;
 	m_inputVector = VectorNormalize(m_inputVector);
 
 	//	位置を更新するよ☆
-	m_player->m_position.x -= sin(atan2(m_inputVector.x, m_inputVector.y)) * RUN_SPEED * time;
-	m_player->m_position.z -= cos(atan2(m_inputVector.x, m_inputVector.y)) * RUN_SPEED * time;
+	float moveAngle = atan2(m_inputVector.x, m_inputVector.y);
+	m_player->m_position.x -= sin(moveAngle) * RUN_SPEED * time;
+	m_player->m_position.z -= cos(moveAngle) * RUN_SPEED * time;
 
 	//	角度を更新するよ☆
-	m_player->m_rotate.y = atan2(m_inputVector.x, m_inputVector.y);
+	m_player->m_rotate.y = moveAngle;
 
 	//	変数を更新するよ☆
 	m_player->m_camera.SetPosition(m_player->m_position);
-
-	m_animTimer += time / ANIMATION_FPS * RUN_ANIM_SPEED;
-	m_player->m_runAnim.GetAnimation(m_animTimer - m_player->m_walkStartAnim.GetMaxFrame(), m_player->m_bone, m_player->m_model.GetBoneDate());
 }
 
 void Player::PlayerRun::OnInputMove(DirectX::XMFLOAT2 input)

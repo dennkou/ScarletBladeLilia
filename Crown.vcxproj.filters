@@ -243,6 +243,10 @@
     <ClCompile Include="Game\GameObject\Stage\StageModel.cpp" />
     <ClCompile Include="Game\Debug\DebugPlayer.cpp" />
     <ClCompile Include="Game\GameObject\Stage\Object\Character\Player\PlayerState\PlayerSlashAttack.cpp" />
+    <ClCompile Include="Game\GameObject\Stage\Object\Character\Player\PlayerModel.cpp" />
+    <ClCompile Include="Game\GameObject\Stage\Object\Character\Player\PlayerAnimState\PlayerAnimStand.cpp" />
+    <ClCompile Include="Game\GameObject\Stage\Object\Character\Player\PlayerAnimState\PlayerAnimStandToWalk.cpp" />
+    <ClCompile Include="Game\GameObject\Stage\Object\Character\Player\PlayerAnimState\PlayerAnimWalk.cpp" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Crown">
@@ -672,6 +676,11 @@
     <ClInclude Include="Game\GameObject\Stage\StageModel.h" />
     <ClInclude Include="Game\Debug\DebugPlayer.h" />
     <ClInclude Include="Game\GameObject\Stage\Object\Character\Player\PlayerState\PlayerSlashAttack.h" />
+    <ClInclude Include="Game\GameObject\Stage\Object\Character\Player\PlayerModel.h" />
+    <ClInclude Include="Game\GameObject\Stage\Object\Character\Player\PlayerAnimState\PlayerAnimState.h" />
+    <ClInclude Include="Game\GameObject\Stage\Object\Character\Player\PlayerAnimState\PlayerAnimStand.h" />
+    <ClInclude Include="Game\GameObject\Stage\Object\Character\Player\PlayerAnimState\PlayerAnimStandToWalk.h" />
+    <ClInclude Include="Game\GameObject\Stage\Object\Character\Player\PlayerAnimState\PlayerAnimWalk.h" />
   </ItemGroup>
   <ItemGroup>
     <Text Include="ヘッダーテンプレート.txt" />

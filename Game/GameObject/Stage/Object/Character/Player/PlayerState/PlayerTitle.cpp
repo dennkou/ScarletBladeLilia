@@ -37,7 +37,6 @@ void Player::PlayerTitle::Update(float time)
 	m_owner->m_hpUi.SetAlpha(m_animTimer / CHANGE_ANIMATION_TIME);
 	m_owner->m_hpUi.SetPlayerHPPercent(std::lerp(0.0f, m_owner->m_hp.GetHPPercent(), m_animTimer / CHANGE_ANIMATION_TIME));
 
-	m_owner->m_standAnim.GetAnimation(0.0f, m_owner->m_bone, m_owner->m_model.GetBoneDate());
 	if (m_startFlag)
 	{
 		m_animTimer += time;								//	ステートタイマーの更新☆

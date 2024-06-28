@@ -1,5 +1,6 @@
 #pragma once
 #include "PlayerState.h"
+#include "./../../../../Collider/PlayerAttackCollider.h"
 
 class Player::PlayerSlashAttack : public Player::PlayerState
 {
@@ -20,8 +21,17 @@ public:
 	virtual void OnPlayStartAnimation() {};							//	プレイ開始が選択されたよ☆
 	virtual void OnPlayStart() {};									//	ゲームプレイが開始されたよ☆
 private:
+	static constexpr float ROTATE_START_FLAME = 0;								//	
+	static constexpr float ROTATE_END_FLAME = 5;								//	
+	static constexpr float ROTATE_SPEED = DirectX::XMConvertToRadians(10.0f);	//	
+	static constexpr float ATTACK_START_FLAME = 10;								//	
+	static constexpr float ATTACK_END_FLAME = 13;								//	
+	static constexpr float MOVING_DISTANCE = 6.0f;								//	
+	static constexpr float MOVE_END = 66.0f;									//	
+	static constexpr float END = 70.0f;											//	
+
 	Player* m_player;
 	float m_animTimer;
 
-	static constexpr float MOVING_DISTANCE = 6.0f;
+	ColliderSystem::PlayerAttackCollider m_attackCollider;
 };

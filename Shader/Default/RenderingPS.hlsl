@@ -38,13 +38,11 @@ struct VSOutput
 float4 Color(float2 uv)
 {
 	//ディフューズ計算
-	float diffuseLight = (dot(-light, normalMap.Sample(smp, uv).xyz) + 1) / 2;
+	float diffuseLight = (dot(-normalize(light), normalMap.Sample(smp, uv).xyz) + 1) / 2;
 	float4 screenPos = float4(((uv + float2(-0.5f, -0.5f)) * float2(2.0f, -2.0f)), depthMap.Sample(smp, uv), 1);
 	float4 world = mul(inverseView, mul(inverseProjection, screenPos));
 	world.xyz = world.xyz / world.w;
 	world.w = 1.0f;
-	
-	
 	
 	float4 shadowPos = mul(shadowMatrix, world);
 	return colorMap.Sample(smp, uv) * float4(lerp(float3(0.6, 0.6, 0.6), float3(1, 1, 1), diffuseLight), 1) * Shadow(shadowPos, shadowMap);

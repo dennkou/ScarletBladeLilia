@@ -25,8 +25,6 @@ void Player::PlayerStand::Exit()
 
 void Player::PlayerStand::Update(float time)
 {
-	m_animTimer += time / ANIMATION_FPS * STAND_ANIM_SPEED;
-	m_player->m_standAnim.GetAnimation(m_animTimer, m_player->m_bone, m_player->m_model.GetBoneDate());
 }
 
 void Player::PlayerStand::OnInputMove(DirectX::XMFLOAT2 input)

@@ -48,14 +48,8 @@ void Player::PlayerWalk::Update(float time)
 	//	角度を更新するよ☆
 	m_player->m_rotate.y = atan2(m_inputVector.x, m_inputVector.y);
 
-
-	if (m_animTimer <= m_player->m_walkStartAnim.GetMaxFrame())
-	{
-		//	開始時の挙動だよ☆
-		m_player->m_walkStartAnim.GetAnimation(m_animTimer, m_player->m_bone, m_player->m_model.GetBoneDate());
-		m_animTimer += time / ANIMATION_FPS * WALK_START_ANIM_SPEED;
-	}
-	else if (inputPower <= 0.0f)
+	m_player->m_model.Move(m_inputVector);
+	if (inputPower <= 0.0f)
 	{
 		//	終了時の挙動だよ☆
 		m_player->m_playerState.ChangeState(StateID::Stand);
@@ -65,12 +59,6 @@ void Player::PlayerWalk::Update(float time)
 		//	振り向きの挙動だよ☆
 		m_inputVector.x = sin(inputAngle);
 		m_inputVector.y = cos(inputAngle);
-	}
-	else
-	{
-		//	通常の挙動だよ☆
-		m_animTimer += time / ANIMATION_FPS * WALK_ANIM_SPEED;
-		m_player->m_walkAnim.GetAnimation(m_animTimer - m_player->m_walkStartAnim.GetMaxFrame(), m_player->m_bone, m_player->m_model.GetBoneDate());
 	}
 
 	//	変数を更新するよ☆
