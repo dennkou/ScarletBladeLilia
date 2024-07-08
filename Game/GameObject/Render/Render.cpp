@@ -18,9 +18,6 @@ Render::Render(Game* game)
 	m_debugModel(),
 
 	GameObject(game)
-	//m_color(),
-	//m_blurShadowMap(),
-	//m_blurShadowMapModel()
 {
 //#ifdef _DEBUG
 	m_debugModel.LoadPMX(L"Resource/Model/PMX/bullet.pmx");
@@ -51,18 +48,6 @@ Render::Render(Game* game)
 		dataTypeDescriptor.push_back(Crown::RenderObject::BlobConstBuffer::DataType::Matrix);
 		dataTypeDescriptor.push_back(Crown::RenderObject::BlobConstBuffer::DataType::Float3);
 		shadowMapBuffer = new Crown::RenderObject::BlobConstBuffer(dataTypeDescriptor, device);
-
-
-
-		//Crown::System::GetInstance().GetRenderSystem().AddRenderTarget(0, shadowMap);
-
-
-		//	ブラー用モデルの作成だよ☆
-		std::vector<Crown::RenderObject::BlobConstBuffer::DataType> dataTypes;
-		dataTypes;
-		//m_blurShadowMap.reset(new PostEffects(1024, 1024, DirectX::XMFLOAT4(1, 1, 1, 1), DXGI_FORMAT_R32_FLOAT, L"", L"", dataTypes));
-
-		//m_blurGraphicsPipeline
 	}
 
 	//	ディファードレンタリング用の統合パスだよ☆

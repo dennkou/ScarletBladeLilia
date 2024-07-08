@@ -25,11 +25,13 @@ void Player::PlayerStand::Exit()
 
 void Player::PlayerStand::Update(float time)
 {
+	m_animTimer += time / PlayerModel::ANIMATION_FPS;
+	m_player->m_model.GetStandAnim().GetAnimation(m_animTimer, m_player->m_model.GetBone(), m_player->m_model.GetBoneMap());
 }
 
 void Player::PlayerStand::OnInputMove(DirectX::XMFLOAT2 input)
 {
-	if (VectorSquareSize(input) > 0.0f)
+	if (Crown::Math::VectorSquareSize(input) > 0.0f)
 	{
 		m_player->m_playerState.ChangeState(StateID::Walk);
 	}
@@ -37,7 +39,7 @@ void Player::PlayerStand::OnInputMove(DirectX::XMFLOAT2 input)
 
 void Player::PlayerStand::OnInputDash(bool input)
 {
-	if (input && VectorSquareSize(m_player->m_inputMove) > 0.3f)
+	if (input && Crown::Math::VectorSquareSize(m_player->m_inputMove) > 0.3f)
 	{
 		m_player->m_playerState.ChangeState(StateID::Run);
 	}

@@ -32,26 +32,26 @@ void Enemy::EnemyAIStatePatrol::Update(float time)
 	}
 
 	//	ˆÚ“®ˆ—‚¾‚æ™
-	DirectX::XMFLOAT3 toTargetPosition = VectorSub(m_navigationAI->MovingPosition(), m_enemy->m_position);
-	DirectX::XMFLOAT3 moveVector = VectorScale(VectorNormalize(toTargetPosition), SPEED * time);
-	m_vector = VectorAdd(m_vector, moveVector);
-	m_vector = VectorScale(m_vector, FRICTION);
+	DirectX::XMFLOAT3 toTargetPosition = Crown::Math::VectorSub(m_navigationAI->MovingPosition(), m_enemy->m_position);
+	DirectX::XMFLOAT3 moveVector = Crown::Math::VectorScale(Crown::Math::VectorNormalize(toTargetPosition), SPEED * time);
+	m_vector = Crown::Math::VectorAdd(m_vector, moveVector);
+	m_vector = Crown::Math::VectorScale(m_vector, FRICTION);
 	
 	//	‰ñ“]‚Ìˆ—‚¾‚æ™
 	m_enemy->m_rotate.y = atan2(m_vector.x, m_vector.z);
 
-	m_enemy->m_position = VectorAdd(m_vector,m_enemy->m_position);
+	m_enemy->m_position = Crown::Math::VectorAdd(m_vector,m_enemy->m_position);
 
 	//	ƒvƒŒƒCƒ„[‚ªŽ‹ŠE“à‚É“ü‚Á‚Ä‚¢‚é‚©‚Ì”»’è‚¾‚æ™
-	DirectX::XMFLOAT3 toPlayerVector = VectorSub(m_enemy->m_position, m_enemy->m_enemyCollider.GetPlayerPosition());
-	if (VectorSquareSize(toPlayerVector) <= (SEARCH_DISTANCE * SEARCH_DISTANCE))
+	DirectX::XMFLOAT3 toPlayerVector = Crown::Math::VectorSub(m_enemy->m_position, m_enemy->m_enemyCollider.GetPlayerPosition());
+	if (Crown::Math::VectorSquareSize(toPlayerVector) <= (SEARCH_DISTANCE * SEARCH_DISTANCE))
 	{
 		DirectX::XMFLOAT3 front;
 		front.x = sin(m_enemy->m_rotate.y) * cos(m_enemy->m_rotate.x);
 		front.y = sin(m_enemy->m_rotate.x);
 		front.z = cos(m_enemy->m_rotate.y) * cos(m_enemy->m_rotate.x);
-		front = VectorNormalize(front);
-		if (VectorInnerProduct(front, toPlayerVector) <= DirectX::XMConvertToRadians(SEARCH_ANGLE))
+		front = Crown::Math::VectorNormalize(front);
+		if (Crown::Math::VectorInnerProduct(front, toPlayerVector) <= DirectX::XMConvertToRadians(SEARCH_ANGLE))
 		{
 			m_enemy->m_aiState.ChangeState(AIState::Combat);
 		}

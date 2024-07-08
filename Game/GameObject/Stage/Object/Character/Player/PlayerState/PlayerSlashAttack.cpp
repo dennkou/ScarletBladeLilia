@@ -1,6 +1,7 @@
 #include "PlayerSlashAttack.h"
-#include "../../../MathLibrary.h"
+#include "../../MathLibrary.h"
 #include <algorithm>
+#include "../PlayerModel.h"
 
 Player::PlayerSlashAttack::PlayerSlashAttack(Player* player)
 	:
@@ -28,7 +29,6 @@ Player::PlayerSlashAttack::~PlayerSlashAttack()
 void Player::PlayerSlashAttack::Enter()
 {
 	m_animTimer = 0.0f;
-	m_player->m_model.Attack();
 }
 
 void Player::PlayerSlashAttack::Exit()
@@ -39,18 +39,18 @@ void Player::PlayerSlashAttack::Exit()
 void Player::PlayerSlashAttack::Update(float time)
 {
 	//	フレームを進める
-	m_animTimer += time * 1.5f;
+	m_animTimer += time * 2.0f / PlayerModel::ANIMATION_FPS;
 
 	//	カメラ位置の更新☆
 	DirectX::XMFLOAT3 cameraPosition = DirectX::XMFLOAT3(0,0,0);
 	cameraPosition.x -= sin(m_player->m_rotate.y) * MOVING_DISTANCE * m_animTimer / MOVE_END;
 	cameraPosition.z -= cos(m_player->m_rotate.y) * MOVING_DISTANCE * m_animTimer / MOVE_END;
-	m_player->m_camera.SetPosition(VectorAdd(m_player->m_position, cameraPosition));
+	m_player->m_camera.SetPosition(Crown::Math::VectorAdd(m_player->m_position, cameraPosition));
 
 	//	アニメーション終了時デフォルトに戻るよ☆
 	if (m_animTimer > END)
 	{
-		m_player->m_position = VectorAdd(m_player->m_position, cameraPosition);
+		m_player->m_position = Crown::Math::VectorAdd(m_player->m_position, cameraPosition);
 		m_player->m_playerState.ChangeState(StateID::Stand);
 	}
 
@@ -69,8 +69,14 @@ void Player::PlayerSlashAttack::Update(float time)
 	//	回転の処理☆
 	if (ROTATE_START_FLAME <= m_animTimer && m_animTimer <= ROTATE_END_FLAME)
 	{
-
 		float inputAngle = m_player->m_camera.GetRotate().y + atan2(-m_player->m_inputMove.x, -m_player->m_inputMove.y);
 		m_player->m_rotate.y = std::clamp(inputAngle, m_player->m_rotate.y - ROTATE_SPEED, m_player->m_rotate.y + ROTATE_SPEED);
+		m_player->m_rotate.y = inputAngle;
+	}
+
+	//	アニメーションを再生するよ☆
+	if (m_animTimer < m_player->m_model.GetSlashAttackAnim().GetMaxFrame())
+	{
+		m_player->m_model.GetSlashAttackAnim().GetAnimation(m_animTimer, m_player->m_model.GetBone(), m_player->m_model.GetBoneMap());
 	}
 }

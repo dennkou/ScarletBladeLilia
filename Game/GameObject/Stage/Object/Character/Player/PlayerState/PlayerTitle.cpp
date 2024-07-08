@@ -6,6 +6,8 @@ Player::PlayerTitle::PlayerTitle(Player* owner)
 {
 	m_owner->m_hpUi.SetAlpha(0);
 	m_owner->m_hpUi.SetPlayerHPPercent(0);
+
+	m_owner->m_model.GetStandAnim().GetAnimation(0.0f, m_owner->m_model.GetBone(), m_owner->m_model.GetBoneMap());
 }
 
 Player::PlayerTitle::~PlayerTitle()

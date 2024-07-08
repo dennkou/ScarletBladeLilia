@@ -74,7 +74,7 @@ void Enemy::OnGameUpdate(Timer& timer)
 		m_damageAnim = DirectX::XMFLOAT3(0, 0, 0);
 	}
 
-	m_position = VectorSub(m_enemyCollider.GetPosition(), m_offset);
+	m_position = Crown::Math::VectorSub(m_enemyCollider.GetPosition(), m_offset);
 
 	m_aiState.CallStateFunction(&EnemyAIState::Update, timer.GetEnemyTime());
 
@@ -88,11 +88,11 @@ void Enemy::OnGameUpdate(Timer& timer)
 	//	当たり判定の位置を設定するよ☆
 	m_model.GetBoneDate().Find(L"全ての親").RecursiveMatrixMultiply(m_bone);
 	unsigned int index = m_model.GetBoneDate().Find(L"本体").GetIndex();
-	m_offset = VectorAdd(DirectX::XMFLOAT3(m_bone[index].r[3].m128_f32[0], m_bone[index].r[3].m128_f32[1], m_bone[index].r[3].m128_f32[2]), BONE_OFFSET);
+	m_offset = Crown::Math::VectorAdd(DirectX::XMFLOAT3(m_bone[index].r[3].m128_f32[0], m_bone[index].r[3].m128_f32[1], m_bone[index].r[3].m128_f32[2]), BONE_OFFSET);
 
-	m_enemyCollider.SetPosition(VectorAdd(m_offset, m_position));
+	m_enemyCollider.SetPosition(Crown::Math::VectorAdd(m_offset, m_position));
 	m_ui.SetPosition(m_position);
-	m_model.SetPosition(VectorAdd(m_position, m_damageAnim));
+	m_model.SetPosition(Crown::Math::VectorAdd(m_position, m_damageAnim));
 	m_model.SetRotate(m_rotate);
 }
 
@@ -151,10 +151,10 @@ void Enemy::MaterialSetup()
 	MaterialFactory::CreateShadow(m_model, 1);
 	MaterialFactory::CreateShadow(m_model, 2);
 	MaterialFactory::CreateShadow(m_model, 3);
-	MaterialFactory::CreateDefaultMaterial(m_model, 0, 0, DirectX::XMFLOAT4(0.3, 0, 0, 1), DirectX::XMFLOAT3(0,0,0));
+	MaterialFactory::CreateDefaultMaterial(m_model, 0, 0, DirectX::XMFLOAT4(0.3f, 0, 0, 1), DirectX::XMFLOAT3(0,0,0));
 	MaterialFactory::CreateDefaultMaterial(m_model, 1, 0, DirectX::XMFLOAT4(0, 1, 1, 1), DirectX::XMFLOAT3(0,0,0));
 	MaterialFactory::CreateDefaultMaterial(m_model, 2, 0, DirectX::XMFLOAT4(0, 0, 0, 1), DirectX::XMFLOAT3(0,0,0));
-	MaterialFactory::CreateDefaultMaterial(m_model, 3, 0, DirectX::XMFLOAT4(1.0, 0, 0, 1), DirectX::XMFLOAT3(0,0,0));
+	MaterialFactory::CreateDefaultMaterial(m_model, 3, 0, DirectX::XMFLOAT4(1.0f, 0, 0, 1), DirectX::XMFLOAT3(0,0,0));
 }
 
 void Enemy::OnPlayStart()

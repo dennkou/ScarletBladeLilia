@@ -42,7 +42,7 @@ namespace Crown
 			inline DirectX::XMFLOAT3 GetGazePoint() const noexcept { return m_gazePoint; }
 			inline void SetGazePoint(DirectX::XMFLOAT3 gazePoint) noexcept { m_gazePoint = gazePoint; }
 
-			inline unsigned int GetDescriptorOffset() { return m_descriptorOffset; }
+			inline unsigned int GetDescriptorOffset() const noexcept { return m_descriptorOffset; }
 			inline const Microsoft::WRL::ComPtr<ID3D12Resource> GetConstConstBuffer() { return m_resource; }
 		private:
 			Camera();
@@ -59,9 +59,7 @@ namespace Crown
 				DirectX::XMMATRIX projection;					//	プロジェクション行列だよ☆
 				DirectX::XMMATRIX viewProjection;				//	ビュー行列とプロジェクション行列だよ☆
 				DirectX::XMFLOAT3 eye;							//	カメラ位置だよ☆
-				float pad;
 				DirectX::XMFLOAT3 rotate;						//	カメラの回転角だよ☆
-				float pad1;
 				float fovAngle;									//	カメラの画角だよ☆
 				float aspect;									//	アスペクト比だよ☆
 				float nearZ;									//	ニアー面だよ☆

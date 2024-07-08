@@ -35,7 +35,7 @@ void Player::PlayerAttack::Enter()
 
 void Player::PlayerAttack::Update(float time)
 {
-	m_animTimer += time;
+	m_animTimer += time / PlayerModel::ANIMATION_FPS;
 
 	//	アニメーション終了時デフォルトに戻るよ☆
 	if (m_animTimer > END_FLAME)
@@ -76,6 +76,9 @@ void Player::PlayerAttack::Update(float time)
 	}
 	DirectX::XMMATRIX matrix = DirectX::XMMatrixRotationRollPitchYaw(m_player->m_rotate.x, m_player->m_rotate.y, m_player->m_rotate.z) * DirectX::XMMatrixTranslation(m_player->m_position.x, m_player->m_position.y, m_player->m_position.z);
 	m_attackCollider.SetPlayerWorld(matrix);
+
+	//	アニメーションを再生するよ☆
+	m_player->m_model.GetDrawingSwordAttackAnim().GetAnimation(m_animTimer, m_player->m_model.GetBone(), m_player->m_model.GetBoneMap());
 }
 
 void Player::PlayerAttack::Exit()

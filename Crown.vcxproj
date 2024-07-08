@@ -117,6 +117,7 @@
       <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
       <DebugInformationFormat>EditAndContinue</DebugInformationFormat>
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
+      <TreatWarningAsError>true</TreatWarningAsError>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -267,9 +268,6 @@
     <ClCompile Include="Game\GameObject\Stage\StageModel.cpp" />
     <ClCompile Include="Game\GameObject\Stage\Object\Character\Player\PlayerState\PlayerSlashAttack.cpp" />
     <ClCompile Include="Game\GameObject\Stage\Object\Character\Player\PlayerModel.cpp" />
-    <ClCompile Include="Game\GameObject\Stage\Object\Character\Player\PlayerAnimState\PlayerAnimStand.cpp" />
-    <ClCompile Include="Game\GameObject\Stage\Object\Character\Player\PlayerAnimState\PlayerAnimStandToWalk.cpp" />
-    <ClCompile Include="Game\GameObject\Stage\Object\Character\Player\PlayerAnimState\PlayerAnimWalk.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Crown\Object\RenderSystem\Model\IModel.h" />
@@ -389,10 +387,6 @@
     <ClInclude Include="Game\GameObject\Stage\StageModel.h" />
     <ClInclude Include="Game\GameObject\Stage\Object\Character\Player\PlayerState\PlayerSlashAttack.h" />
     <ClInclude Include="Game\GameObject\Stage\Object\Character\Player\PlayerModel.h" />
-    <ClInclude Include="Game\GameObject\Stage\Object\Character\Player\PlayerAnimState\PlayerAnimState.h" />
-    <ClInclude Include="Game\GameObject\Stage\Object\Character\Player\PlayerAnimState\PlayerAnimStand.h" />
-    <ClInclude Include="Game\GameObject\Stage\Object\Character\Player\PlayerAnimState\PlayerAnimStandToWalk.h" />
-    <ClInclude Include="Game\GameObject\Stage\Object\Character\Player\PlayerAnimState\PlayerAnimWalk.h" />
   </ItemGroup>
   <ItemGroup>
     <Text Include="ヘッダーテンプレート.txt" />

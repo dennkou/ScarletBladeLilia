@@ -27,7 +27,7 @@ private:
 	static constexpr float ATTACK_START_FLAME = 10;								//	
 	static constexpr float ATTACK_END_FLAME = 13;								//	
 	static constexpr float MOVING_DISTANCE = 6.0f;								//	
-	static constexpr float MOVE_END = 66.0f;									//	
+	static constexpr float MOVE_END = 60.0f;									//	
 	static constexpr float END = 70.0f;											//	
 
 	Player* m_player;

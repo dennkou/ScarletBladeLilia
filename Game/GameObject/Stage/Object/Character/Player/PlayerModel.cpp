@@ -8,17 +8,12 @@
 #include "./../../../../Render/Render.h"
 #include "./../../Crown/Object/RenderSystem/Animation/AnimationData.h"
 
-#include "PlayerAnimState/PlayerAnimState.h"
-#include "PlayerAnimState/PlayerAnimStand.h"
-#include "PlayerAnimState/PlayerAnimStandToWalk.h"
-#include "PlayerAnimState/PlayerAnimWalk.h"
 
 PlayerModel::PlayerModel()
 {
 	m_model.LoadPMX(L"Resource/Model/PMX/リリア/リリア.pmx");
-	CreateMaterial();
 	AnimLoad();
-	StateSetUp();
+	CreateMaterial();
 }
 
 PlayerModel::~PlayerModel()
@@ -26,36 +21,21 @@ PlayerModel::~PlayerModel()
 
 }
 
-void PlayerModel::Update(float time)
+void PlayerModel::Update()
 {
-	m_state.CallStateFunction(&PlayerAnimState::Update, time);
 	m_model.SetPause(m_bone);
 }
 
-void PlayerModel::Attack()
+void PlayerModel::AnimLoad()
 {
-	m_state.CallStateFunction(&PlayerAnimState::Attack);
-}
-
-void PlayerModel::Avoidance()
-{
-	m_state.CallStateFunction(&PlayerAnimState::Avoidance);
-}
-
-void PlayerModel::Move(DirectX::XMFLOAT2 move)
-{
-	m_move = move;
-	m_state.CallStateFunction(&PlayerAnimState::Move, move);
-}
-
-float PlayerModel::GetAnimTime()
-{
-	return m_state.CallStateFunction(&PlayerAnimState::GetAnimTime);
-}
-
-float PlayerModel::GetMaxFrame()
-{
-	return m_state.CallStateFunction(&PlayerAnimState::GetMaxFrame);
+	m_standAnim.LaodVMD(L"Resource/Motion/待機.vmd");
+	m_walkStartAnim.LaodVMD(L"Resource/Motion/歩き始め.vmd");
+	m_walkAnim.LaodVMD(L"Resource/Motion/歩き.vmd");
+	//m_runStartAnim.LaodVMD(L"Resource/Motion/歩き.vmd");
+	m_runAnim.LaodVMD(L"Resource/Motion/ダッシュ.vmd");
+	m_frontStepAnim.LaodVMD(L"Resource/Motion/前ステップ.vmd");
+	m_drawingSwordAttackAnim.LaodVMD(L"Resource/Motion/抜刀攻撃.vmd");
+	m_slashAttackAnim.LaodVMD(L"Resource/Motion/リリアモーション攻撃.vmd");
 }
 
 void PlayerModel::CreateMaterial()
@@ -213,7 +193,7 @@ void PlayerModel::CreateMaterial()
 			graphicsPipeline.SetNumRenderTargets(2);
 			graphicsPipeline.SetRTVFormats(1, DXGI_FORMAT_R8G8B8A8_UNORM);
 			graphicsPipeline.SetVS(*Crown::RenderObject::Shader::GetInstance()->GetShader(L"Riria/Riria_VS"));
-			graphicsPipeline.SetPS(*Crown::RenderObject::Shader::GetInstance()->GetShader(L"Riria/RiriaHair_PS"));
+			graphicsPipeline.SetPS(*Crown::RenderObject::Shader::GetInstance()->GetShader(L"Riria/RiriaEye_PS"));
 			graphicsPipeline.SetInputLayout(Crown::RenderObject::Pmx::GetInputLayout());
 		}
 
@@ -242,8 +222,8 @@ void PlayerModel::CreateMaterial()
 		std::vector<Crown::RenderObject::BlobConstBuffer> constBuffers;
 		constBuffers.push_back(constBuffer);
 
-		materialFactory.CreateMaterial(graphicsPipeline, m_model, 5, Crown::RenderObject::MaterialTag::FrameBuffer, constBufferIndexs, textureBufferIndexs, resources, constBuffers);
-		materialFactory.CreateShadow(m_model, 5);
+		materialFactory.CreateMaterial(graphicsPipeline, m_model, 6, Crown::RenderObject::MaterialTag::FrameBuffer, constBufferIndexs, textureBufferIndexs, resources, constBuffers);
+		materialFactory.CreateShadow(m_model, 6);
 	}
 
 	//	剣のマテリアルの生成をするよ☆
@@ -297,7 +277,7 @@ void PlayerModel::CreateMaterial()
 			graphicsPipeline.SetNumRenderTargets(2);
 			graphicsPipeline.SetRTVFormats(1, DXGI_FORMAT_R8G8B8A8_UNORM);
 			graphicsPipeline.SetVS(*Crown::RenderObject::Shader::GetInstance()->GetShader(L"Riria/Riria_VS"));
-			graphicsPipeline.SetPS(*Crown::RenderObject::Shader::GetInstance()->GetShader(L"Riria/RiriaHair_PS"));
+			graphicsPipeline.SetPS(*Crown::RenderObject::Shader::GetInstance()->GetShader(L"Riria/RiriaEye_PS"));
 			graphicsPipeline.SetInputLayout(Crown::RenderObject::Pmx::GetInputLayout());
 		}
 
@@ -315,7 +295,7 @@ void PlayerModel::CreateMaterial()
 
 		//	テクスチャを指定☆
 		std::vector<unsigned int> textureBufferIndexs;
-		textureBufferIndexs.push_back(Crown::System::GetInstance().GetRenderSystem().GetTextureBuffer().TextureAcquisition(L"Resource/Model/PMX/リリア/textures/sword.png"));
+		textureBufferIndexs.push_back(Crown::System::GetInstance().GetRenderSystem().GetTextureBuffer().TextureAcquisition(L"白テクスチャ"));
 
 		std::vector<Microsoft::WRL::ComPtr<ID3D12Resource>> resources;
 		resources.emplace_back(Crown::RenderObject::Camera::GetInstance()->GetConstConstBuffer());
@@ -367,26 +347,4 @@ void PlayerModel::CreateMaterial()
 
 		materialFactory.CreateMaterial(graphicsPipeline, m_model, 12, Crown::RenderObject::MaterialTag::FrameBuffer, constBufferIndexs, textureBufferIndexs, resources, constBuffers);
 	}
-}
-
-void PlayerModel::StateSetUp()
-{
-	m_state.RegisterState<PlayerAnimStand>(AnimState::Stand, this);
-	m_state.RegisterState<PlayerAnimStandToWalk>(AnimState::StandToWalk, this);
-	m_state.RegisterState<PlayerAnimWalk>(AnimState::Walk, this);
-	m_state.ChangeState(AnimState::Stand);
-}
-
-void PlayerModel::AnimLoad()
-{
-	for (int i = 0; i < 255; ++i)
-	{
-		m_bone[i] = DirectX::XMMatrixIdentity();
-	}
-
-
-	m_runAnim.LaodVMD(L"Resource/Motion/ダッシュ.vmd");
-	m_frontStepAnim.LaodVMD(L"Resource/Motion/前ステップ.vmd");
-	m_drawingSwordAttackAnim.LaodVMD(L"Resource/Motion/抜刀攻撃.vmd");
-	m_slashAttackAnim.LaodVMD(L"Resource/Motion/リリアモーション攻撃.vmd");
 }

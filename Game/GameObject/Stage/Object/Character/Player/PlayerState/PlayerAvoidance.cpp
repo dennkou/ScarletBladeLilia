@@ -20,6 +20,7 @@ void Player::PlayerAvoidance::Enter()
 
 void Player::PlayerAvoidance::Update(float time)
 {
+	time;
 }
 
 void Player::PlayerAvoidance::Exit()

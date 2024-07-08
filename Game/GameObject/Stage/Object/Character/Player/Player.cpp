@@ -43,7 +43,7 @@ void Player::OnGameUpdate(Timer& timer)
 {
 	m_position = m_collider.GetPosition();
 	m_playerState.CallStateFunction(&PlayerState::Update, timer.GetWorldTime());
-	m_model.Update(timer.GetWorldTime());
+	m_model.Update();
 	m_camera.UpdateCameraTransform();
 
 	ColliderUpdate();

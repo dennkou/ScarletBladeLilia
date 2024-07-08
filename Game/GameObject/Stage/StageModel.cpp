@@ -3,6 +3,7 @@
 
 StageModel::StageModel(const Crown::RenderObject::Model& model, unsigned int instanceCount)
 {
+	model;
 	m_instanceCount = instanceCount;
 	Crown::System::GetInstance().GetRenderSystem().GetModelManager().AddModel(this);
 }
@@ -35,10 +36,12 @@ void StageModel::DataUpload()
 		};
 
 	//	アップロード☆
-	Crown::RenderObject::ResourceUploader::GetInstance()->UploadData<DirectX::XMMATRIX>(m_resource, Crown::RenderObject::ResourceUploader::GetInstance()->Get255AlignmentSize<DirectX::XMMATRIX>(m_matrixs.size()), upload);
+	Crown::RenderObject::ResourceUploader::GetInstance()->UploadData<DirectX::XMMATRIX>(m_resource, Crown::RenderObject::ResourceUploader::GetInstance()->Get255AlignmentSize<DirectX::XMMATRIX>(static_cast<unsigned int>(m_matrixs.size())), upload);
 }
 
 void StageModel::Draw(Crown::RenderObject::MaterialTag drawTag, ID3D12GraphicsCommandList* commandList)
 {
+	drawTag;
+	commandList;
 
 }

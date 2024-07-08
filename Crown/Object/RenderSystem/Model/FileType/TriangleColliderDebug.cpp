@@ -72,6 +72,6 @@ void Crown::RenderObject::TriangleColliderDebug::Load(ID3D12Device* device, Vert
 	constbuffers.push_back(constBuffer);
 
 	//	マテリアルを適用するメッシュデータの作成を行うよ☆
-	materialMeshs.emplace_back(indexes.size(), 0);
+	materialMeshs.emplace_back(static_cast<unsigned int>(indexes.size()), 0);
 	materialMeshs.back().GetMaterial(MaterialTag::Normal).CreateData(pmdRenderCommandQueue, constbuffers);
 }

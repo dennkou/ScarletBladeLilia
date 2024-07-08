@@ -15,22 +15,22 @@ bool ColliderAlgorithm::HitCheckLineTriangle(const LineSegment& lineSegment, con
 	DirectX::XMFLOAT3 LineL1C, LineL2C;
 	float u, v, w, totalr;
 
-	LineL1L2 = VectorSub(lineSegment.end.point, lineSegment.start.point);
-	LineL1T1 = VectorSub(triangle.point[0].point, lineSegment.start.point);
-	LineL1T2 = VectorSub(triangle.point[1].point, lineSegment.start.point);
-	LineL1T3 = VectorSub(triangle.point[2].point, lineSegment.start.point);
+	LineL1L2 = Crown::Math::VectorSub(lineSegment.end.point, lineSegment.start.point);
+	LineL1T1 = Crown::Math::VectorSub(triangle.point[0].point, lineSegment.start.point);
+	LineL1T2 = Crown::Math::VectorSub(triangle.point[1].point, lineSegment.start.point);
+	LineL1T3 = Crown::Math::VectorSub(triangle.point[2].point, lineSegment.start.point);
 
-	OP = VectorOuterProduct(LineL1L2, LineL1T2);
-	u = VectorInnerProduct(OP, LineL1T3);
+	OP = Crown::Math::VectorOuterProduct(LineL1L2, LineL1T2);
+	u = Crown::Math::VectorInnerProduct(OP, LineL1T3);
 
-	OP = VectorOuterProduct(LineL1L2, LineL1T2);
-	u = VectorInnerProduct(OP, LineL1T3);
+	OP = Crown::Math::VectorOuterProduct(LineL1L2, LineL1T2);
+	u = Crown::Math::VectorInnerProduct(OP, LineL1T3);
 
-	OP = VectorOuterProduct(LineL1L2, LineL1T3);
-	v = VectorInnerProduct(OP, LineL1T1);
+	OP = Crown::Math::VectorOuterProduct(LineL1L2, LineL1T3);
+	v = Crown::Math::VectorInnerProduct(OP, LineL1T1);
 
-	OP = VectorOuterProduct(LineL1L2, LineL1T1);
-	w = VectorInnerProduct(OP, LineL1T2);
+	OP = Crown::Math::VectorOuterProduct(LineL1L2, LineL1T1);
+	w = Crown::Math::VectorInnerProduct(OP, LineL1T2);
 
 	if (!(((u < 0.0f || v < 0.0f || w < 0.0f) &&
 		(u > 0.0f || v > 0.0f || w > 0.0f)) ||
@@ -48,9 +48,9 @@ bool ColliderAlgorithm::HitCheckLineTriangle(const LineSegment& lineSegment, con
 		pos.y = triangle.point[0].point.y * u + triangle.point[1].point.y * v + triangle.point[2].point.y * w;
 		pos.z = triangle.point[0].point.z * u + triangle.point[1].point.z * v + triangle.point[2].point.z * w;
 
-		LineL1C = VectorSub(lineSegment.start.point, pos);
-		LineL2C = VectorSub(lineSegment.end.point, pos);
-		if (VectorInnerProduct(LineL1C, LineL2C) <= 0.0f)
+		LineL1C = Crown::Math::VectorSub(lineSegment.start.point, pos);
+		LineL2C = Crown::Math::VectorSub(lineSegment.end.point, pos);
+		if (Crown::Math::VectorInnerProduct(LineL1C, LineL2C) <= 0.0f)
 		{
 			return true;
 		}
@@ -76,17 +76,17 @@ bool ColliderAlgorithm::HitCheckLineTriangle(const LineSegment& lineSegment, con
 	float Seg1_TriProSeg1_DistBase = 0.0f;
 	float Seg2_TriProSeg2_DistBase = 0.0f;
 
-	Seg1_2 = VectorSub(lineSegment.end.point, lineSegment.start.point);
-	Tri1_2 = VectorSub(triangle.point[1].point, triangle.point[0].point);
-	Tri1_3 = VectorSub(triangle.point[2].point, triangle.point[0].point);
-	TriNorm = VectorOuterProduct(Tri1_2, Tri1_3);
-	TriNorm = VectorNormalize(TriNorm);
+	Seg1_2 = Crown::Math::VectorSub(lineSegment.end.point, lineSegment.start.point);
+	Tri1_2 = Crown::Math::VectorSub(triangle.point[1].point, triangle.point[0].point);
+	Tri1_3 = Crown::Math::VectorSub(triangle.point[2].point, triangle.point[0].point);
+	TriNorm = Crown::Math::VectorOuterProduct(Tri1_2, Tri1_3);
+	TriNorm = Crown::Math::VectorNormalize(TriNorm);
 
 	// 三角形が示す平面状に頂点を投影する
-	Tri1_Seg1 = VectorSub(lineSegment.start.point, triangle.point[0].point);
-	Seg1_TriProSeg1_DistBase = VectorInnerProduct(Tri1_Seg1, TriNorm);
-	tv = VectorScale(TriNorm, Seg1_TriProSeg1_DistBase);
-	Seg1_TriPro = VectorSub(lineSegment.start.point, tv);
+	Tri1_Seg1 = Crown::Math::VectorSub(lineSegment.start.point, triangle.point[0].point);
+	Seg1_TriProSeg1_DistBase = Crown::Math::VectorInnerProduct(Tri1_Seg1, TriNorm);
+	tv = Crown::Math::VectorScale(TriNorm, Seg1_TriProSeg1_DistBase);
+	Seg1_TriPro = Crown::Math::VectorSub(lineSegment.start.point, tv);
 	if (Seg1_TriProSeg1_DistBase < 0.0f)
 	{
 		Seg1_TriProSeg1_Dist = -Seg1_TriProSeg1_DistBase;
@@ -104,10 +104,10 @@ bool ColliderAlgorithm::HitCheckLineTriangle(const LineSegment& lineSegment, con
 	Project1 = Seg1_TriPro_w1 >= 0.0f && Seg1_TriPro_w1 <= 1.0f && Seg1_TriPro_w2 >= 0.0f && Seg1_TriPro_w2 <= 1.0f && Seg1_TriPro_w3 >= 0.0f && Seg1_TriPro_w3 <= 1.0f;
 
 	// 三角形が示す平面状に頂点を投影する
-	Tri1_Seg2 = VectorSub(lineSegment.end.point, triangle.point[0].point);
-	Seg2_TriProSeg2_DistBase = VectorInnerProduct(Tri1_Seg2, TriNorm);
-	tv = VectorScale(TriNorm, Seg2_TriProSeg2_DistBase);
-	Seg2_TriPro = VectorSub(lineSegment.end.point, tv);
+	Tri1_Seg2 = Crown::Math::VectorSub(lineSegment.end.point, triangle.point[0].point);
+	Seg2_TriProSeg2_DistBase = Crown::Math::VectorInnerProduct(Tri1_Seg2, TriNorm);
+	tv = Crown::Math::VectorScale(TriNorm, Seg2_TriProSeg2_DistBase);
+	Seg2_TriPro = Crown::Math::VectorSub(lineSegment.end.point, tv);
 	if(Seg2_TriProSeg2_DistBase < 0.0f)
 	{
 		Seg2_TriProSeg2_Dist = -Seg2_TriProSeg2_DistBase;
@@ -139,8 +139,8 @@ bool ColliderAlgorithm::HitCheckLineTriangle(const LineSegment& lineSegment, con
 
 		// 三角形が表す平面と線分との接点と重心を算出する
 		TriPos_SegPos1_2_t = Seg1_TriProSeg1_Dist / (Seg1_TriProSeg1_Dist + Seg2_TriProSeg2_Dist);
-		Seg_TriPos = VectorScale(Seg1_2, TriPos_SegPos1_2_t);
-		Seg_TriPos = VectorAdd(Seg_TriPos, lineSegment.start.point);
+		Seg_TriPos = Crown::Math::VectorScale(Seg1_2, TriPos_SegPos1_2_t);
+		Seg_TriPos = Crown::Math::VectorAdd(Seg_TriPos, lineSegment.start.point);
 
 		{
 			Point tmp;
@@ -187,7 +187,7 @@ bool ColliderAlgorithm::HitCheckLineTriangle(const LineSegment& lineSegment, con
 
 bool ColliderAlgorithm::CheckHitSphereTriangle(const Sphere& capsule, const Triangle& triangle)
 {
-	return (capsule.radius * capsule.radius) >= VectorSquareSize(VectorSub(capsule.point.point, GetTrianglePointMinPosition(capsule.point, triangle)));
+	return (capsule.radius * capsule.radius) >= Crown::Math::VectorSquareSize(Crown::Math::VectorSub(capsule.point.point, GetTrianglePointMinPosition(capsule.point, triangle)));
 }
 
 float ColliderAlgorithm::SegmentTriangleMinLengthSquare(const LineSegment& lineSegment, const Triangle& triangle)
@@ -209,16 +209,16 @@ float ColliderAlgorithm::SegmentTriangleMinLengthSquare(const LineSegment& lineS
 		return 0.0f;
 	}
 
-	v12 = VectorSub(triangle.point[1].point, triangle.point[0].point);
-	v13 = VectorSub(triangle.point[2].point, triangle.point[0].point);
-	tnorm = VectorOuterProduct(v12, v13);
-	tnorm = VectorNormalize(tnorm);
+	v12 = Crown::Math::VectorSub(triangle.point[1].point, triangle.point[0].point);
+	v13 = Crown::Math::VectorSub(triangle.point[2].point, triangle.point[0].point);
+	tnorm = Crown::Math::VectorOuterProduct(v12, v13);
+	tnorm = Crown::Math::VectorNormalize(tnorm);
 
 	// 三角形が示す平面状に頂点を投影する
-	tv = VectorSub(lineSegment.start.point, triangle.point[0].point);
+	tv = Crown::Math::VectorSub(lineSegment.start.point, triangle.point[0].point);
 	stw1 = tv;
-	tv = VectorScale(tnorm, VectorInnerProduct(tv, tnorm));
-	st1 = VectorSub(lineSegment.start.point, tv);
+	tv = Crown::Math::VectorScale(tnorm, Crown::Math::VectorInnerProduct(tv, tnorm));
+	st1 = Crown::Math::VectorSub(lineSegment.start.point, tv);
 
 	// 三角形内に頂点が存在するかどうかを調べる
 	{
@@ -229,15 +229,15 @@ float ColliderAlgorithm::SegmentTriangleMinLengthSquare(const LineSegment& lineS
 	Touei1 = !(st1u <= 0.0f || st1u >= 1.0f || st1v <= 0.0f || st1v >= 1.0f || st1w <= 0.0f || st1w >= 1.0f);
 	if (Touei1)
 	{
-		tv = VectorSub(lineSegment.start.point, st1);
-		l1 = VectorInnerProduct(tv, tv);
+		tv = Crown::Math::VectorSub(lineSegment.start.point, st1);
+		l1 = Crown::Math::VectorInnerProduct(tv, tv);
 	}
 
 	// 三角形が示す平面状に頂点を投影する
-	tv = VectorSub(lineSegment.end.point, lineSegment.start.point);
+	tv = Crown::Math::VectorSub(lineSegment.end.point, lineSegment.start.point);
 	stw2 = tv;
-	tv = VectorScale(tnorm, VectorInnerProduct(tv, tnorm));
-	st2 = VectorSub(lineSegment.end.point, tv);
+	tv = Crown::Math::VectorScale(tnorm, Crown::Math::VectorInnerProduct(tv, tnorm));
+	st2 = Crown::Math::VectorSub(lineSegment.end.point, tv);
 
 	// 三角形内に頂点が存在するかどうかを調べる
 	{
@@ -248,8 +248,8 @@ float ColliderAlgorithm::SegmentTriangleMinLengthSquare(const LineSegment& lineS
 	Touei2 = !(st2u <= 0.0f || st2u >= 1.0f || st2v <= 0.0f || st2v >= 1.0f || st2w <= 0.0f || st2w >= 1.0f);
 	if (Touei2)
 	{
-		tv = VectorSub(lineSegment.end.point, st2);
-		l2 = VectorInnerProduct(tv, tv);
+		tv = Crown::Math::VectorSub(lineSegment.end.point, st2);
+		l2 = Crown::Math::VectorInnerProduct(tv, tv);
 	}
 
 	// どちらも三角形の範囲にあった場合
@@ -258,8 +258,8 @@ float ColliderAlgorithm::SegmentTriangleMinLengthSquare(const LineSegment& lineS
 		float i1, i2;
 
 		// 線分の各頂点が三角形の前後にあるか判定
-		i1 = VectorInnerProduct(tnorm, stw1);
-		i2 = VectorInnerProduct(tnorm, stw2);
+		i1 = Crown::Math::VectorInnerProduct(tnorm, stw1);
+		i2 = Crown::Math::VectorInnerProduct(tnorm, stw2);
 		if ((i1 < 0.0f && i2 < 0.0f) || (i1 >= 0.0f && i2 >= 0.0f))
 		{
 			// 片方の側にどちらの頂点もある場合は、より近いほうの頂点と平面との距離を結果にする
@@ -363,15 +363,15 @@ float ColliderAlgorithm::SegmentSegmentMinLengthSquare(const LineSegment& lineSe
 	float a, b, c, d, e, f, w, s, t = 0.0f;
 	float tmpA, tmpB;
 
-	da = VectorSub(lineSegmentA.end.point, lineSegmentA.start.point);
-	db = VectorSub(lineSegmentB.end.point, lineSegmentB.start.point);
-	p = VectorSub(lineSegmentA.start.point, lineSegmentB.start.point);
-	a = VectorInnerProduct(da, da);
-	b = -VectorInnerProduct(da, db);
+	da = Crown::Math::VectorSub(lineSegmentA.end.point, lineSegmentA.start.point);
+	db = Crown::Math::VectorSub(lineSegmentB.end.point, lineSegmentB.start.point);
+	p = Crown::Math::VectorSub(lineSegmentA.start.point, lineSegmentB.start.point);
+	a = Crown::Math::VectorInnerProduct(da, da);
+	b = -Crown::Math::VectorInnerProduct(da, db);
 	c = -b;
-	d = -VectorInnerProduct(db, db);
-	e = -VectorInnerProduct(da, p);
-	f = -VectorInnerProduct(db, p);
+	d = -Crown::Math::VectorInnerProduct(db, db);
+	e = -Crown::Math::VectorInnerProduct(da, p);
+	f = -Crown::Math::VectorInnerProduct(db, p);
 
 	// SA1 - SA2 または SB1 - SB2 の距離が限りなくゼロに近いかどうかのチェック
 	tmpA = a < 0.0f ? -a : a;
@@ -380,7 +380,7 @@ float ColliderAlgorithm::SegmentSegmentMinLengthSquare(const LineSegment& lineSe
 	{
 		if (tmpB < 0.00000001f)
 		{
-			return VectorSquareSize(VectorSub(lineSegmentA.start.point, lineSegmentB.start.point));
+			return Crown::Math::VectorSquareSize(Crown::Math::VectorSub(lineSegmentA.start.point, lineSegmentB.start.point));
 		}
 		else
 		{
@@ -407,8 +407,8 @@ float ColliderAlgorithm::SegmentSegmentMinLengthSquare(const LineSegment& lineSe
 	// 二つの線分が縮退していたら点と見なして点同士の距離を返す
 	if (a <= 0.0f && -d <= 0.0f)
 	{
-		tp = VectorSub(lineSegmentA.start.point, lineSegmentB.start.point);
-		return static_cast<float>(sqrt(VectorInnerProduct(tp, tp)));
+		tp = Crown::Math::VectorSub(lineSegmentA.start.point, lineSegmentB.start.point);
+		return static_cast<float>(sqrt(Crown::Math::VectorInnerProduct(tp, tp)));
 	}
 
 	if (a <= 0.0f)
@@ -471,14 +471,14 @@ float ColliderAlgorithm::SegmentSegmentMinLengthSquare(const LineSegment& lineSe
 		}
 	}
 
-	e1 = VectorScale(da, s);
-	e1 = VectorAdd(e1, lineSegmentA.start.point);
+	e1 = Crown::Math::VectorScale(da, s);
+	e1 = Crown::Math::VectorAdd(e1, lineSegmentA.start.point);
 
-	e2 = VectorScale(db, t);
-	e2 = VectorAdd(e2, lineSegmentB.start.point);
+	e2 = Crown::Math::VectorScale(db, t);
+	e2 = Crown::Math::VectorAdd(e2, lineSegmentB.start.point);
 
-	tp = VectorSub(e1, e2);
-	return VectorInnerProduct(tp, tp);
+	tp = Crown::Math::VectorSub(e1, e2);
+	return Crown::Math::VectorInnerProduct(tp, tp);
 }
 
 void ColliderAlgorithm::TriangleBarycenter_Base(const Triangle& triangle, const Point& position, float* TrianglePos1Weight, float* TrianglePos2Weight, float* TrianglePos3Weight) noexcept
@@ -486,15 +486,15 @@ void ColliderAlgorithm::TriangleBarycenter_Base(const Triangle& triangle, const 
 	DirectX::XMFLOAT3 v1, v2, v3;
 	float d11, d12, d22, d13, d23, divn;
 
-	v1 = VectorSub(triangle.point[1].point, triangle.point[0].point);
-	v2 = VectorSub(triangle.point[2].point, triangle.point[0].point);
-	v3 = VectorSub(position.point, triangle.point[0].point);
+	v1 = Crown::Math::VectorSub(triangle.point[1].point, triangle.point[0].point);
+	v2 = Crown::Math::VectorSub(triangle.point[2].point, triangle.point[0].point);
+	v3 = Crown::Math::VectorSub(position.point, triangle.point[0].point);
 
-	d11 = VectorInnerProduct(v1, v1);
-	d12 = VectorInnerProduct(v2, v1);
-	d22 = VectorInnerProduct(v2, v2);
-	d13 = VectorInnerProduct(v1, v3);
-	d23 = VectorInnerProduct(v2, v3);
+	d11 = Crown::Math::VectorInnerProduct(v1, v1);
+	d12 = Crown::Math::VectorInnerProduct(v2, v1);
+	d22 = Crown::Math::VectorInnerProduct(v2, v2);
+	d13 = Crown::Math::VectorInnerProduct(v1, v3);
+	d23 = Crown::Math::VectorInnerProduct(v2, v3);
 	divn = d11 * d22 - d12 * d12;
 	*TrianglePos2Weight = (d13 * d22 - d12 * d23) / divn;
 	*TrianglePos3Weight = (d11 * d23 - d13 * d12) / divn;
@@ -506,26 +506,26 @@ DirectX::XMFLOAT3 ColliderAlgorithm::GetTrianglePointMinPosition(Point point, Tr
 	DirectX::XMFLOAT3 Line12, Line23, Line31, Line1P, Line2P, Line3P, Result;
 	float Dot1P2, Dot1P3, Dot2P1, Dot2P3, Dot2PH, Dot3P1, Dot3P2, Dot3PH, OPA, OPB, OPC, Div, t, v, w;
 
-	Line12 = VectorSub(triangle.point[1].point, triangle.point[0].point);
-	Line31 = VectorSub(triangle.point[0].point, triangle.point[2].point);
-	Line1P = VectorSub(point.point, triangle.point[0].point);
-	Dot1P2 = VectorInnerProduct(Line12, Line1P);
-	Dot1P3 = VectorInnerProduct(Line31, Line1P);
+	Line12 = Crown::Math::VectorSub(triangle.point[1].point, triangle.point[0].point);
+	Line31 = Crown::Math::VectorSub(triangle.point[0].point, triangle.point[2].point);
+	Line1P = Crown::Math::VectorSub(point.point, triangle.point[0].point);
+	Dot1P2 = Crown::Math::VectorInnerProduct(Line12, Line1P);
+	Dot1P3 = Crown::Math::VectorInnerProduct(Line31, Line1P);
 	if (Dot1P2 <= 0.0f && Dot1P3 >= 0.0f)
 	{
 		return triangle.point[0].point;
 	}
 
-	Line23 = VectorSub(triangle.point[2].point, triangle.point[1].point);
-	Line2P = VectorSub(point.point, triangle.point[1].point);
-	Dot2P1 = VectorInnerProduct(Line12, Line2P);
-	Dot2P3 = VectorInnerProduct(Line23, Line2P);
+	Line23 = Crown::Math::VectorSub(triangle.point[2].point, triangle.point[1].point);
+	Line2P = Crown::Math::VectorSub(point.point, triangle.point[1].point);
+	Dot2P1 = Crown::Math::VectorInnerProduct(Line12, Line2P);
+	Dot2P3 = Crown::Math::VectorInnerProduct(Line23, Line2P);
 	if (Dot2P1 >= 0.0f && Dot2P3 <= 0.0f)
 	{
 		return triangle.point[1].point;
 	}
 
-	Dot2PH = VectorInnerProduct(Line31, Line2P);
+	Dot2PH = Crown::Math::VectorInnerProduct(Line31, Line2P);
 	OPC = Dot1P2 * -Dot2PH - Dot2P1 * -Dot1P3;	// ←ラグランジュ恒等式
 	if (OPC <= 0.0f && Dot1P2 >= 0.0f && Dot2P1 <= 0.0f)
 	{
@@ -536,15 +536,15 @@ DirectX::XMFLOAT3 ColliderAlgorithm::GetTrianglePointMinPosition(Point point, Tr
 		return Result;
 	}
 
-	Line3P = VectorSub(point.point, triangle.point[2].point);
-	Dot3P1 = VectorInnerProduct(Line31, Line3P);
-	Dot3P2 = VectorInnerProduct(Line23, Line3P);
+	Line3P = Crown::Math::VectorSub(point.point, triangle.point[2].point);
+	Dot3P1 = Crown::Math::VectorInnerProduct(Line31, Line3P);
+	Dot3P2 = Crown::Math::VectorInnerProduct(Line23, Line3P);
 	if (Dot3P1 <= 0.0f && Dot3P2 >= 0.0f)
 	{
 		return triangle.point[2].point;
 	}
 
-	Dot3PH = VectorInnerProduct(Line12, Line3P);
+	Dot3PH = Crown::Math::VectorInnerProduct(Line12, Line3P);
 	OPB = Dot3PH * -Dot1P3 - Dot1P2 * -Dot3P1;	// ←ラグランジュ恒等式
 	if (OPB <= 0.0f && Dot1P3 <= 0.0f && Dot3P1 >= 0.0f)
 	{
@@ -576,15 +576,15 @@ DirectX::XMFLOAT3 ColliderAlgorithm::GetTrianglePointMinPosition(Point point, Tr
 
 bool ColliderAlgorithm::GetCalcRaySphere(LineSegment lineSegment, Sphere sphere, Point& point1, Point& point2)
 {
-	DirectX::XMFLOAT3 lineVector = VectorSub(lineSegment.start.point, lineSegment.end.point);
+	DirectX::XMFLOAT3 lineVector = Crown::Math::VectorSub(lineSegment.start.point, lineSegment.end.point);
 
 	sphere.point.point.x = sphere.point.point.x - lineSegment.start.point.x; 
 	sphere.point.point.y = sphere.point.point.y - lineSegment.start.point.y;
 	sphere.point.point.z = sphere.point.point.z - lineSegment.start.point.z;
 
-	float A = VectorInnerProduct(lineVector, lineVector);
-	float B = VectorInnerProduct(lineVector, sphere.point.point);
-	float C = VectorInnerProduct(sphere.point.point, sphere.point.point) - sphere.radius * sphere.radius;
+	float A = Crown::Math::VectorInnerProduct(lineVector, lineVector);
+	float B = Crown::Math::VectorInnerProduct(lineVector, sphere.point.point);
+	float C = Crown::Math::VectorInnerProduct(sphere.point.point, sphere.point.point) - sphere.radius * sphere.radius;
 
 	if (A == 0.0f)
 	{
