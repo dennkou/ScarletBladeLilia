@@ -52,7 +52,7 @@ void Enemy::EnemyAIStateCombat::OnWallHit()
 
 void Enemy::EnemyAIStateCombat::ActionBranch()
 {
-	float distance = VectorDistance(m_enemy->m_position, m_enemy->m_enemyCollider.GetPlayerPosition());
+	float distance = Crown::Math::VectorDistance(m_enemy->m_position, m_enemy->m_enemyCollider.GetPlayerPosition());
 	int actionNum = ((*m_enemy->m_random.get())()) % (ATTACK + MOVE);
 	if (actionNum < ATTACK)
 	{
@@ -67,7 +67,7 @@ void Enemy::EnemyAIStateCombat::ActionBranch()
 	}
 	else
 	{
-		if (APPROACH_DISTANCE < VectorDistance(m_enemy->m_position, m_enemy->m_enemyCollider.GetPlayerPosition()))
+		if (APPROACH_DISTANCE < Crown::Math::VectorDistance(m_enemy->m_position, m_enemy->m_enemyCollider.GetPlayerPosition()))
 		{
 			m_state.ChangeState(StateID::Approach);
 		}

@@ -19,6 +19,6 @@ Bullet::~Bullet()
 
 void Bullet::OnGameUpdate(Timer& time)
 {
-	m_position = VectorAdd(m_position, VectorScale(m_moveVector, SPEED * time.GetEnemyTime()));
+	m_position = Crown::Math::VectorAdd(m_position, Crown::Math::VectorScale(m_moveVector, SPEED * time.GetEnemyTime()));
 	m_model.SetPosition(m_position);
 }

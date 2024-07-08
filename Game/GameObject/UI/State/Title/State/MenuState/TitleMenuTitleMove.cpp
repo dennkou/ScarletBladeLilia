@@ -20,6 +20,7 @@ void GameUI::UITitle::UITitleMenu::TitleMenuTitleMove::Enter()
 void GameUI::UITitle::UITitleMenu::TitleMenuTitleMove::Update(Timer& timer)
 {
 	m_animTimer += timer.GetSystemTime() / MOVE_TIME;
+
 	float t = sin(m_animTimer * DirectX::XM_PI / 2);
 
 	m_owner->m_owner->m_titleLogo.SetPosition(DirectX::XMFLOAT2(END_POSITION_X * t, END_POSITION_Y * t));
@@ -27,7 +28,7 @@ void GameUI::UITitle::UITitleMenu::TitleMenuTitleMove::Update(Timer& timer)
 	float size = std::lerp(1.0f, END_SIZE, t);
 	m_owner->m_owner->m_titleLogo.SetSize(DirectX::XMFLOAT2(size, size));
 
-	if (t >= 0.999f)
+	if (m_animTimer * DirectX::XM_PI / 2 > 1)
 	{
 		m_owner->m_state.ChangeState(IState::MenuIn);
 	}

@@ -17,9 +17,9 @@ PointPatrol::~PointPatrol()
 void PointPatrol::SetPosition(DirectX::XMFLOAT3 position)
 {
 	DirectX::XMFLOAT3 distance = MovingPosition();
-	distance = VectorSub(distance, position);
+	distance = Crown::Math::VectorSub(distance, position);
 
-	if (VectorSquareSize(distance) <= RANGE * RANGE)
+	if (Crown::Math::VectorSquareSize(distance) <= RANGE * RANGE)
 	{
 		++m_index;
 		if (m_index >= m_pointList.size())

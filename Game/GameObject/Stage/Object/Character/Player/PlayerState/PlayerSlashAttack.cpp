@@ -1,10 +1,22 @@
 #include "PlayerSlashAttack.h"
-#include "../../../MathLibrary.h"
+#include "../../MathLibrary.h"
+#include <algorithm>
+#include "../PlayerModel.h"
 
 Player::PlayerSlashAttack::PlayerSlashAttack(Player* player)
 	:
 	m_player(player),
-	m_animTimer(0.0f)
+	m_animTimer(0.0f),
+	m_attackCollider(20,
+		{
+			{ DirectX::XMFLOAT3(-3.255874f, 11.33067f, -6.845737f),	DirectX::XMFLOAT3(-8.377335f, 14.94956f, 0.2361572f),	DirectX::XMFLOAT3(-7.279235f, 15.83291f, -12.38734f) },
+			{ DirectX::XMFLOAT3(-3.255874f, 11.33067f, -6.845737f),	DirectX::XMFLOAT3(-3.794989f, 13.03446f, -18.27532f),	DirectX::XMFLOAT3(-1.023521f, 7.688783f, -10.70738f) },
+			{ DirectX::XMFLOAT3(-3.794989f, 13.03446f, -18.27532f),	DirectX::XMFLOAT3(-3.255874f, 11.33067f, -6.845737f),	DirectX::XMFLOAT3(-7.279235f, 15.83291f, -12.38734f) },
+			{ DirectX::XMFLOAT3(-1.023521f, 7.688783f, -10.70738f),	DirectX::XMFLOAT3(-3.794989f, 13.03446f, -18.27532f),	DirectX::XMFLOAT3(1.1674f,	 4.716289f, -20.1535f) },
+			{ DirectX::XMFLOAT3(-0.09770263f,4.525569f,-10.63023f),	DirectX::XMFLOAT3(-1.023521f, 7.688783f, -10.70738f),	DirectX::XMFLOAT3(1.1674f,	 4.716289f, -20.1535f) },
+			{ DirectX::XMFLOAT3(-0.09770263f,4.525569f,-10.63023f),	DirectX::XMFLOAT3(4.289076f, 0.8479958f, -18.47116f),	DirectX::XMFLOAT3(0.566658f,  3.55046f,  -10.08374f) },
+			{ DirectX::XMFLOAT3(-0.09770263f,4.525569f,-10.63023f),	DirectX::XMFLOAT3(1.1674f, 1.1674f, -20.1535f),	DirectX::XMFLOAT3(4.289076f, 0.8479958f, -18.47116f) },
+		})
 {
 
 }
@@ -21,27 +33,50 @@ void Player::PlayerSlashAttack::Enter()
 
 void Player::PlayerSlashAttack::Exit()
 {
-
+	m_player->m_camera.SetPosition(m_player->m_position); 
 }
 
 void Player::PlayerSlashAttack::Update(float time)
 {
-	m_animTimer += time * 0.5f;
-	float animFlame = m_animTimer / ANIMATION_FPS;
-	m_player->m_slashAttackAnim.GetAnimation(animFlame, m_player->m_bone, m_player->m_model.GetBoneDate());
+	//	フレームを進める
+	m_animTimer += time * 2.0f / PlayerModel::ANIMATION_FPS;
+
+	//	カメラ位置の更新☆
+	DirectX::XMFLOAT3 cameraPosition = DirectX::XMFLOAT3(0,0,0);
+	cameraPosition.x -= sin(m_player->m_rotate.y) * MOVING_DISTANCE * m_animTimer / MOVE_END;
+	cameraPosition.z -= cos(m_player->m_rotate.y) * MOVING_DISTANCE * m_animTimer / MOVE_END;
+	m_player->m_camera.SetPosition(Crown::Math::VectorAdd(m_player->m_position, cameraPosition));
 
 	//	アニメーション終了時デフォルトに戻るよ☆
-	if (animFlame > m_player->m_slashAttackAnim.GetMaxFrame())
+	if (m_animTimer > END)
 	{
-		m_player->m_camera.SetPosition(m_player->m_position);
-		m_player->m_position.x -= sin(m_player->m_rotate.y) * MOVING_DISTANCE * 20;
-		m_player->m_position.z -= cos(m_player->m_rotate.y) * MOVING_DISTANCE * 20;
+		m_player->m_position = Crown::Math::VectorAdd(m_player->m_position, cameraPosition);
 		m_player->m_playerState.ChangeState(StateID::Stand);
 	}
 
-	DirectX::XMFLOAT3 cameraPosition = DirectX::XMFLOAT3(0,0,0);
-	cameraPosition.x -= sin(m_player->m_rotate.y) * MOVING_DISTANCE * animFlame / m_player->m_slashAttackAnim.GetMaxFrame();
-	cameraPosition.z -= cos(m_player->m_rotate.y) * MOVING_DISTANCE * animFlame / m_player->m_slashAttackAnim.GetMaxFrame();
+	//	攻撃判定の更新☆
+	if (ATTACK_START_FLAME <= m_animTimer && m_animTimer <= ATTACK_END_FLAME)
+	{
+		DirectX::XMMATRIX matrix = DirectX::XMMatrixRotationRollPitchYaw(m_player->m_rotate.x, m_player->m_rotate.y, m_player->m_rotate.z) * DirectX::XMMatrixTranslation(m_player->m_position.x, m_player->m_position.y, m_player->m_position.z);
+		m_attackCollider.SetPlayerWorld(matrix);
+		m_attackCollider.SetActive(true);
+	}
+	else
+	{
+		m_attackCollider.SetActive(false);
+	}
 
-	m_player->m_camera.SetPosition(VectorAdd(m_player->m_position, cameraPosition));
+	//	回転の処理☆
+	if (ROTATE_START_FLAME <= m_animTimer && m_animTimer <= ROTATE_END_FLAME)
+	{
+		float inputAngle = m_player->m_camera.GetRotate().y + atan2(-m_player->m_inputMove.x, -m_player->m_inputMove.y);
+		m_player->m_rotate.y = std::clamp(inputAngle, m_player->m_rotate.y - ROTATE_SPEED, m_player->m_rotate.y + ROTATE_SPEED);
+		m_player->m_rotate.y = inputAngle;
+	}
+
+	//	アニメーションを再生するよ☆
+	if (m_animTimer < m_player->m_model.GetSlashAttackAnim().GetMaxFrame())
+	{
+		m_player->m_model.GetSlashAttackAnim().GetAnimation(m_animTimer, m_player->m_model.GetBone(), m_player->m_model.GetBoneMap());
+	}
 }

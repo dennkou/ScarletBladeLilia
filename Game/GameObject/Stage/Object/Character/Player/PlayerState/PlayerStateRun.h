@@ -16,9 +16,19 @@ public:
 	virtual void OnInputAvoidanceDown() override;					//	‰ñ”ğƒ{ƒ^ƒ“‚ª‰Ÿ‚³‚ê‚½‚æ™
 	virtual void OnInputCamera(DirectX::XMFLOAT2 input) override;	//	ƒJƒƒ‰‚Ì“ü—Í‚ª‚ ‚Á‚½‚æ™
 private:
-	Player* m_player;
+	enum class State
+	{
+		Start,
+		Continuation,
+		End,
+		Turn,
+	};
 	static constexpr float ROLL_SPEED = 0.01f;
+	static constexpr float RUN_ANIM_SPEED = 6.0f;
+
+	Player* m_player;
 	DirectX::XMFLOAT2 m_inputVector;
 
 	float m_animTimer;
+	State m_state;
 };

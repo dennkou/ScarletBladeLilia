@@ -20,9 +20,7 @@ void Player::PlayerAvoidance::Enter()
 
 void Player::PlayerAvoidance::Update(float time)
 {
-	m_animTimer += time;
-
-	m_player->m_frontStepAnim.GetAnimation(m_animTimer, m_player->m_bone, m_player->m_model.GetBoneDate());
+	time;
 }
 
 void Player::PlayerAvoidance::Exit()

@@ -35,7 +35,7 @@ PSOutput main(Output input)
 	float3 refLight = normalize(reflect(light, input.vnormal.xyz));
 	float specularB = (saturate(dot(refLight, input.ray)) + 1) / 2;
 	
-	output.color = lerp(tex.Sample(smp, input.uv), float4(1.0f, 1.0f, 1.0f, 1.0f), step(0.6, specularB));
+	output.color = tex.Sample(smp, input.uv);
 	output.normal = input.normal;
 	output.normal.w = 1.0f;
 	

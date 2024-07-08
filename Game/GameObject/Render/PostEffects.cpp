@@ -96,6 +96,7 @@ void PostEffects::Initialize(ID3D12Device* device)
 
 void PostEffects::Draw(Crown::RenderObject::GraphicsCommandList& commandList, Crown::RenderObject::ModelManager* modelManager, unsigned int index)
 {
+	modelManager;
 	ID3D12GraphicsCommandList* graphicsCommandList = commandList.GetGraphicsCommandList(index);
 
 	//	•`‰æŠJn™

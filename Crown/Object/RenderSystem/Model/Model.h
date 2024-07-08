@@ -66,7 +66,6 @@ namespace Crown
 			virtual void Draw(MaterialTag drawTag, ID3D12GraphicsCommandList* commandList) override;
 
 		private:
-
 			void StackDataUploadQueue();
 
 			struct ModelData		//モデルのインスタンスデータ☆
@@ -80,13 +79,13 @@ namespace Crown
 			BoneData m_bone;
 			DirectX::XMMATRIX m_pause[255];
 
-			bool m_updateFlag;																					//	変数に更新があったかのフラグだよ☆
+			bool m_updateFlag;																		//	変数に更新があったかのフラグだよ☆
 
-			Vertices m_vertices;																				//	頂点データ☆
-			std::vector<MaterialMesh> m_materialMeshs;															//
-			unsigned int m_descriptorOffset;																	//	モデルのインスタンスデータのオフセット位置☆
-			Microsoft::WRL::ComPtr<ID3D12Resource> m_resource;													//	モデルのインスタンスデータのメモリ領域☆
-			std::vector<std::vector<Microsoft::WRL::ComPtr<ID3D12Resource>>>	m_bundleResource;				//	各描画種の描画で使用するリソースデータ☆
+			Vertices m_vertices;																	//	頂点データ☆
+			std::vector<MaterialMesh> m_materialMeshs;												//	
+			unsigned int m_descriptorOffset;														//	モデルのインスタンスデータのオフセット位置☆
+			Microsoft::WRL::ComPtr<ID3D12Resource> m_resource;										//	モデルのインスタンスデータのメモリ領域☆
+			std::vector<std::vector<Microsoft::WRL::ComPtr<ID3D12Resource>>>	m_bundleResource;	//	各描画種の描画で使用するリソースデータ☆
 		};
 	}
 }

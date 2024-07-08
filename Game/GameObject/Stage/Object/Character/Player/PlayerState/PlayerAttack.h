@@ -27,6 +27,7 @@ private:
 	static constexpr float ATTACK_START_FLAME = 13;
 	static constexpr float ATTACK_END_FLAME = 17;
 	static constexpr float NEXT_ATTACK_FLAME = 20;
+	static constexpr float END_FLAME = 60;
 
 	ColliderSystem::PlayerAttackCollider m_attackCollider;
 	bool m_attackFlag;									//	UŒ‚”»’è‚ğ”­¶‚³‚¹‚½‚©‚Ìƒtƒ‰ƒO‚¾‚æ™

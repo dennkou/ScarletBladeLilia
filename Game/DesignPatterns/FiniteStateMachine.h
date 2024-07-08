@@ -107,6 +107,7 @@ namespace Crown
 			{
 				return;
 			}
+			m_currentStateID = key;
 			if (m_exitFunction && m_currentState != nullptr)
 			{
 				(m_currentState->*m_exitFunction)();
@@ -151,6 +152,8 @@ namespace Crown
 			m_exitFunction = exitFunction;
 		}
 
+		inline StateID GetStateID() const noexcept { return m_currentStateID; }
+
 		/// <summary>
 		/// 状態を削除するよ☆
 		/// </summary>
@@ -164,5 +167,6 @@ namespace Crown
 		void(IState::*m_exitFunction)();									//	終了時に呼び出す関数だよ☆
 		std::unordered_map<StateID, std::unique_ptr<IState>> m_stateTable;	//	遷移可能なステートの一覧だよ☆
 		IState* m_currentState;												//	現在のステート☆
+		StateID m_currentStateID;											//	現在のステートID☆
 	};
 }

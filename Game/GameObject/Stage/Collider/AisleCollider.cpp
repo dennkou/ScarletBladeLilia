@@ -6,6 +6,10 @@
 #include <iostream>
 
 ColliderSystem::AisleCollider::AisleCollider()
+	:
+	m_aisleNum(0),
+	m_position(),
+	m_rotate()
 {
 	ColliderSystem::m_instanceCollection.SetAisleCollider(this);
 }
@@ -33,10 +37,10 @@ DirectX::XMFLOAT3 ColliderSystem::AisleCollider::CheckHitSphere(const DirectX::X
 	const DirectX::XMFLOAT3 pillarPosition = DirectX::XMFLOAT3(97.0f, 0.0f, aisleSize / 2);
 	float pillarSize = 14.0f;
 	//	プレイヤーとの通路線上の最短地点を算出☆
-	const DirectX::XMFLOAT3 closestPoint = ColliderAlgorithm::GetLinePointMinPosition(spherePosition, ColliderAlgorithm::LineSegment(m_position, VectorAdd(m_position, DirectX::XMFLOAT3(sin(m_rotate) * (m_aisleNum * aisleSize), 0, cos(m_rotate) * (m_aisleNum * aisleSize)))));
+	const DirectX::XMFLOAT3 closestPoint = ColliderAlgorithm::GetLinePointMinPosition(spherePosition, ColliderAlgorithm::LineSegment(m_position, Crown::Math::VectorAdd(m_position, DirectX::XMFLOAT3(sin(m_rotate) * (m_aisleNum * aisleSize), 0, cos(m_rotate) * (m_aisleNum * aisleSize)))));
 
 	//	プレイヤーが通路線上からどれだけ離れているか計算☆
-	float distance = VectorDistance(closestPoint, spherePosition);
+	float distance = Crown::Math::VectorDistance(closestPoint, spherePosition);
 
 	//	プレイヤーが近くにいないので当たり判定を実行しない
 	if (distance > aisleWidth)
@@ -47,28 +51,28 @@ DirectX::XMFLOAT3 ColliderSystem::AisleCollider::CheckHitSphere(const DirectX::X
 	//	フェンス部分との当たり判定だよ☆
 	if (distance > fence - radius)
 	{
-		return VectorAdd
+		return Crown::Math::VectorAdd
 			(
-				VectorScale(VectorNormalize(VectorSub(spherePosition, closestPoint)), (fence - radius)),
+				Crown::Math::VectorScale(Crown::Math::VectorNormalize(Crown::Math::VectorSub(spherePosition, closestPoint)), (fence - radius)),
 				closestPoint
 			);
 		
 	}
 
 
-	float t = VectorDistance(closestPoint, m_position);
+	float t = Crown::Math::VectorDistance(closestPoint, m_position);
 	int index = static_cast<int>((t + aisleSize / 2) / aisleSize);
-	DirectX::XMFLOAT3 aislePosition = VectorAdd(m_position, DirectX::XMFLOAT3(sin(m_rotate) * (index * aisleSize), 0, cos(m_rotate) * (index * aisleSize)));
+	DirectX::XMFLOAT3 aislePosition = Crown::Math::VectorAdd(m_position, DirectX::XMFLOAT3(sin(m_rotate) * (index * aisleSize), 0, cos(m_rotate) * (index * aisleSize)));
 	DirectX::XMFLOAT3 ret = {};
 	auto CheckHitPillar = [&](DirectX::XMFLOAT3 position)
 		{
 			DirectX::XMFLOAT3 localPillarPosition = DirectX::XMFLOAT3(position.x * cos(-m_rotate) - position.z * sin(-m_rotate), position.y, position.x * sin(-m_rotate) + position.z * cos(-m_rotate));
-			DirectX::XMFLOAT3 worldPillarPosition = VectorAdd(aislePosition, localPillarPosition);
-			float extrusion = (pillarSize + radius) - VectorDistance(worldPillarPosition, spherePosition);
+			DirectX::XMFLOAT3 worldPillarPosition = Crown::Math::VectorAdd(aislePosition, localPillarPosition);
+			float extrusion = (pillarSize + radius) - Crown::Math::VectorDistance(worldPillarPosition, spherePosition);
 			if (extrusion > 0.0f)
 			{
-				DirectX::XMFLOAT3 extrusionVector = VectorScale(VectorNormalize(VectorSub(spherePosition, worldPillarPosition)), extrusion);
-				ret = VectorAdd(spherePosition, extrusionVector);
+				DirectX::XMFLOAT3 extrusionVector = Crown::Math::VectorScale(Crown::Math::VectorNormalize(Crown::Math::VectorSub(spherePosition, worldPillarPosition)), extrusion);
+				ret = Crown::Math::VectorAdd(spherePosition, extrusionVector);
 				return true;
 			}
 			else
@@ -80,7 +84,7 @@ DirectX::XMFLOAT3 ColliderSystem::AisleCollider::CheckHitSphere(const DirectX::X
 	{
 		return ret;
 	}
-	if (CheckHitPillar(VectorScale(pillarPosition, -1)))
+	if (CheckHitPillar(Crown::Math::VectorScale(pillarPosition, -1)))
 	{
 		return ret;
 	}

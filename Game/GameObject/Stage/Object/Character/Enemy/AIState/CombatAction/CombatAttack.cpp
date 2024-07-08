@@ -36,9 +36,9 @@ void Enemy::EnemyAIStateCombat::Attack::Update(float time)
 	if (m_animTimer < TRACKING_END_FLAME || (ATTACK_TRACKING_START_FLAME <= m_animTimer && m_animTimer <= ATTACK_TRACKING_END_FLAME))
 	{
 		//	ƒvƒŒƒCƒ„[‚Ì•û‚ðŒü‚­
-		const DirectX::XMFLOAT3 toPlayerVector = VectorSub(enemy->m_position, enemy->m_enemyCollider.GetPlayerPosition());
+		const DirectX::XMFLOAT3 toPlayerVector = Crown::Math::VectorSub(enemy->m_position, enemy->m_enemyCollider.GetPlayerPosition());
 		float roll = atan2(-toPlayerVector.x, -toPlayerVector.z) - enemy->m_rotate.y;
-		roll = RollNormal(roll);
+		roll = Crown::Math::RollNormal(roll);
 		enemy->m_rotate.y += std::clamp(roll, -ATTACK_TRACKING_ROLL * time, ATTACK_TRACKING_ROLL * time);
 	}
 
